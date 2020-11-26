@@ -5,5 +5,5 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.sylvie.boardgameguide.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" /><action android:id="@+id/action_global_homeFragment" app:destination="@id/homeFragment"/>
 </navigation>

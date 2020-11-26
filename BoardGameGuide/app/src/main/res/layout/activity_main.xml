@@ -15,14 +15,31 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/lightBlue"
+            android:layout_height="96dp"
+            android:background="@android:color/white"
             android:elevation="4dp"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/text_toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/finger_paint"
+                android:letterSpacing="0.15"
+                android:text="@string/home_title"
+                android:textColor="@color/darkBrown"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="177dp"
+                tools:layout_editor_absoluteY="30dp"
+                tools:visibility="visible" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <fragment
             android:id="@+id/myNavHostFragment"

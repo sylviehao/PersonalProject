@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Board Game Guide</string>
+    <string name="home_title">HOME</string>
 </resources>
