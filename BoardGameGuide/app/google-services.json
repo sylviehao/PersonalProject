@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "63310298064",
+    "firebase_url": "https://board-game-guide.firebaseio.com",
+    "project_id": "board-game-guide",
+    "storage_bucket": "board-game-guide.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:63310298064:android:51b382d4c89b25218717d5",
+        "android_client_info": {
+          "package_name": "com.sylvie.boardgameguide"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "63310298064-6ufsa7705ktph1v5rt29nvh9q7jc7gqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmg8zUcPWdnQiDRsdb4lHpj9pa_XIdh24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "63310298064-6ufsa7705ktph1v5rt29nvh9q7jc7gqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

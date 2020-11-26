@@ -2,9 +2,24 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_nav_home_selector"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_pins"
+        android:icon="@drawable/ic_nav_pin_selector"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_event"
+        android:icon="@drawable/ic_nav_group_selector"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_tools"
+        android:icon="@drawable/ic_nav_dice_selector"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_nav_simpson_selector"
+        android:title="" />
 </menu>
