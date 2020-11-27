@@ -6,6 +6,7 @@ data class Event(
     var image: MutableList<String>? = null,
     var time: Long = 0,
     var location: String = "",
+    var game: String = "",
     var playerLimit: Int = 0,
     var playerList: MutableList<String>? = null,
     var description: String = "",

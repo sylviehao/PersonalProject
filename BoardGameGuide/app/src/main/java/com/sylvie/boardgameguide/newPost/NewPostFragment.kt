@@ -1,10 +1,16 @@
 package com.sylvie.boardgameguide.newPost
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.firestore.FirebaseFirestore
+import com.sylvie.boardgameguide.R
+import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,6 +23,32 @@ class NewPostFragment : Fragment() {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.buttonNewPostCreate.setOnClickListener {
+            findNavController().navigate(R.id.action_global_homeFragment)
+        }
+
+        val db = FirebaseFirestore.getInstance()
+        binding.buttonNewPostCreate.setOnClickListener {
+
+            val data = Event(
+                hostId = "sylviehao",
+                topic = "識破你的識破",
+                game = "風聲"
+            )
+
+            // Add a new document with a generated ID
+            db.collection("Event")
+                .add(data)
+                .addOnSuccessListener { documentReference ->
+                    documentReference.update("id", documentReference.id)
+                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
+                }
+                .addOnFailureListener {
+                    Log.d("TAG", "$it")
+                    Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
+                        .show()
+                }
+        }
 
 
 
