@@ -7,12 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.madapps.liquid.LiquidRefreshLayout
-import com.sylvie.boardgameguide.databinding.HomeFragmentBinding
-import kotlinx.android.synthetic.main.home_fragment.*
+import com.sylvie.boardgameguide.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = HomeFragmentBinding.inflate(inflater, container,false)
+        val binding = FragmentHomeBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.refreshLayout.setOnRefreshListener(object : LiquidRefreshLayout.OnRefreshListener {
@@ -30,6 +29,8 @@ class HomeFragment : Fragment() {
                 }.start()
             }
         })
+
+
 
 
 
