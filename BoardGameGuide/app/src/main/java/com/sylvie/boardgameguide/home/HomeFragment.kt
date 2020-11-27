@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.madapps.liquid.LiquidRefreshLayout
+import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -29,6 +31,10 @@ class HomeFragment : Fragment() {
                 }.start()
             }
         })
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_global_newPostFragment)
+        }
 
 
 
