@@ -35,4 +35,19 @@
             app:argType="com.sylvie.boardgameguide.data.Event" />
     </fragment>
     <action android:id="@+id/action_global_detailPostFragment" app:destination="@id/detailPostFragment" />
+    <fragment
+        android:id="@+id/detailEventFragment"
+        android:name="com.sylvie.boardgameguide.detailEvent.DetailEventFragment"
+        android:label="DetailEventFragment" />
+    <action android:id="@+id/action_global_detailEventFragment" app:destination="@id/detailEventFragment" />
+    <fragment
+        android:id="@+id/toolsFragment"
+        android:name="com.sylvie.boardgameguide.tools.ToolsFragment"
+        android:label="ToolsFragment" />
+    <action android:id="@+id/action_global_toolsFragment" app:destination="@id/toolsFragment" />
+    <dialog
+        android:id="@+id/uploadPhotoDialog"
+        android:name="com.sylvie.boardgameguide.uploadPhoto.UploadPhotoDialog"
+        android:label="UploadPhotoDialog" />
+    <action android:id="@+id/action_global_uploadPhotoDialog" app:destination="@id/uploadPhotoDialog"/>
 </navigation>

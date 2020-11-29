@@ -125,6 +125,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <TextView
+                    android:id="@+id/text_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/frame_edit_new_post"
+                    android:fontFamily="@font/noto_sans"
+                    android:gravity="center_horizontal"
+                    android:text="OPEN"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="@+id/text_total_like"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_like" />
+
                 <ImageView
                     android:id="@+id/icon_mr_krabs"
                     android:layout_width="48dp"
@@ -313,6 +327,21 @@
                     app:layout_constraintEnd_toEndOf="@+id/constraint_game_info"
                     app:layout_constraintStart_toStartOf="@+id/constraint_game_info"
                     app:layout_constraintTop_toBottomOf="@+id/constraint_game_info" />
+
+                <Button
+                    android:id="@+id/button_join"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/vintageOrange"
+                    android:fontFamily="@font/finger_paint"
+                    android:text="@string/join"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/button_add_photo" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

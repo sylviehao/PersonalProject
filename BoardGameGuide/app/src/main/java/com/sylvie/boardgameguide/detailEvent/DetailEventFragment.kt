@@ -1,23 +1,18 @@
-package com.sylvie.boardgameguide.detailPost
+package com.sylvie.boardgameguide.detailEvent
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
+import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
-class DetailPostFragment : Fragment() {
+class DetailEventFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentDetailPostBinding.inflate(inflater, container,false)
+        val binding = FragmentDetailEventBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.buttonAddPhoto.setOnClickListener {
-            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
-        }
 
         return binding.root
     }
