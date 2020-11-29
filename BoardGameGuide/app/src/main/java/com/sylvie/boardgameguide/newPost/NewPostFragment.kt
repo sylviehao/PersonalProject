@@ -33,7 +33,7 @@ class NewPostFragment : Fragment() {
             val data = Event(
                 hostId = "sylviehao",
                 topic = "識破你的識破",
-                game = "風聲"
+                image = mutableListOf("")
             )
 
             // Add a new document with a generated ID
@@ -60,7 +60,7 @@ class NewPostFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         let {
-            requireActivity().toolbar.visibility = View.GONE
+//            requireActivity().toolbar.visibility = View.GONE
             requireActivity().bottomNavView.visibility = View.GONE
         }
     }
@@ -68,7 +68,7 @@ class NewPostFragment : Fragment() {
     override fun onStop() {
         super.onStop()
         let {
-            requireActivity().toolbar.visibility = View.VISIBLE
+//            requireActivity().toolbar.visibility = View.VISIBLE
             requireActivity().bottomNavView.visibility = View.VISIBLE
         }
     }

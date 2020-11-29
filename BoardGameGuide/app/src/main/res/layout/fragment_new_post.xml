@@ -16,36 +16,38 @@
         android:background="@color/rosyOrange">
 
 
-        <TextView
-            android:id="@+id/background_newPost_title"
-            android:layout_width="0dp"
-            android:layout_height="64dp"
-            android:background="@color/darkBrown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <TextView-->
+<!--            android:id="@+id/background_newPost_title"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="64dp"-->
+<!--            android:background="@android:color/white"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
-            android:id="@+id/text_newPost_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/finger_paint"
-            android:text="@string/new_post"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="@+id/background_newPost_title"
-            app:layout_constraintEnd_toEndOf="@+id/background_newPost_title"
-            app:layout_constraintStart_toStartOf="@+id/background_newPost_title"
-            app:layout_constraintTop_toTopOf="@+id/background_newPost_title" />
+<!--        <TextView-->
+<!--            android:id="@+id/text_newPost_title"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/finger_paint"-->
+<!--            android:text="@string/new_post"-->
+<!--            android:textColor="@color/darkBrown"-->
+<!--            android:textSize="24sp"-->
+<!--            app:layout_constraintBottom_toBottomOf="@+id/background_newPost_title"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/background_newPost_title"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/background_newPost_title"-->
+<!--            app:layout_constraintTop_toTopOf="@+id/background_newPost_title" />-->
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_newPost_create"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/background_newPost_title">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -245,29 +247,27 @@
                     android:layout_height="150dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
+                    android:alpha="0.5"
                     android:background="@drawable/frame_edit_new_post"
                     android:src="@drawable/ic_nav_simpson"
-                    android:alpha="0.5"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/button_newPost_create"
                     app:layout_constraintStart_toStartOf="@+id/line_2"
                     app:layout_constraintTop_toBottomOf="@+id/line_2" />
 
+                <Button
+                    android:id="@+id/button_newPost_create"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:background="@color/vintageOrange"
+                    android:fontFamily="@font/finger_paint"
+                    android:text="@string/create"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
-
-        <Button
-            android:id="@+id/button_newPost_create"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:background="@color/vintageOrange"
-            android:fontFamily="@font/finger_paint"
-            android:text="@string/create"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

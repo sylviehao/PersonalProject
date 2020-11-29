@@ -9,14 +9,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.ItemHomePostBinding
 
-class HomeAdapter :
+class HomeAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<Event, HomeAdapter.HomeViewHolder>(HomeAdapter.DiffCallback) {
+
+    class OnClickListener(val clickListener: (event: Event) -> Unit) {
+        fun onClick(event: Event) = clickListener(event)
+    }
 
     class HomeViewHolder(private val binding: ItemHomePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(event: Event) {
+        fun bind(event: Event, onClickListener: OnClickListener) {
             binding.event = event
+            binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()
         }
     }
@@ -28,7 +33,7 @@ class HomeAdapter :
 
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val event = getItem(position)
-        holder.bind(event)
+        holder.bind(event, onClickListener)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Event>() {

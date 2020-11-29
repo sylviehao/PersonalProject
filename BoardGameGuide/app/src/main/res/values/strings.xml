@@ -14,4 +14,7 @@
     <string name="new_event">NEW EVENT</string>
     <string name="game_member_limit">人數上限</string>
     <string name="create">CREATE</string>
+    <string name="post_comment">COMMENT</string>
+    <string name="edit_comment">COMMENT HERE</string>
+    <string name="send">SEND</string>
 </resources>

@@ -1,31 +1,17 @@
-package com.sylvie.boardgameguide.newEvent
+package com.sylvie.boardgameguide.detailPost
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.databinding.FragmentNewEventBinding
-import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
+import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
-class NewEventFragment : Fragment() {
-
-    //    private val viewModel by viewModels<NewPostViewModel> {  }
-    private lateinit var binding : FragmentNewEventBinding
-
+class DetailPostFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentNewEventBinding.inflate(inflater, container, false)
+        val binding = FragmentDetailPostBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        binding.buttonNewEventCreate.setOnClickListener {
-            findNavController().navigate(R.id.action_global_homeFragment)
-        }
-
-
-
 
 
         return binding.root

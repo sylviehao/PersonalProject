@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.madapps.liquid.LiquidRefreshLayout
@@ -18,12 +19,24 @@ import com.sylvie.boardgameguide.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
 
     private var isMenuOpen = false
+    private val viewModel = HomeViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
-        val adapter = HomeAdapter()
+        binding.viewModel = viewModel
+
+        val adapter = HomeAdapter(HomeAdapter.OnClickListener {
+            viewModel.navigateToDetail(it)
+        })
         binding.recyclerHome.adapter = adapter
+
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                findNavController().navigate(HomeFragmentDirections.actionGlobalDetailPostFragment(it))
+                viewModel.onDetailNavigated()
+            }
+        })
 
         binding.refreshLayout.setOnRefreshListener(object : LiquidRefreshLayout.OnRefreshListener {
             override fun completeRefresh() {

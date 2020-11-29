@@ -26,4 +26,13 @@
     <action
         android:id="@+id/action_global_newEventFragment"
         app:destination="@id/newEventFragment"/>
+    <fragment
+        android:id="@+id/detailPostFragment"
+        android:name="com.sylvie.boardgameguide.detailPost.DetailPostFragment"
+        android:label="DetailPostFragment" >
+        <argument
+            android:name="event"
+            app:argType="com.sylvie.boardgameguide.data.Event" />
+    </fragment>
+    <action android:id="@+id/action_global_detailPostFragment" app:destination="@id/detailPostFragment" />
 </navigation>
