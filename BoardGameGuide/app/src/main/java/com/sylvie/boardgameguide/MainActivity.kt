@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
         }.apply {
             binding.drawerLayout.addDrawerListener(this)
             syncState()
-            toolbar.setNavigationIcon(R.drawable.ic_menu)
+//            toolbar.setNavigationIcon(R.drawable.ic_menu)
         }
         val bindingNavHeader = NavHeaderDrawerBinding.inflate(
             LayoutInflater.from(this), binding.drawerNavView, false)

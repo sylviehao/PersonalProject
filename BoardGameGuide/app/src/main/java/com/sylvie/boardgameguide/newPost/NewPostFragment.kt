@@ -50,7 +50,7 @@ class NewPostFragment : Fragment() {
                 description = "喜歡就來",
                 rules = "遲到的請客",
                 status = "ING",
-                like = mutableListOf("louis", "eric", "tron", "sylvie", "nicole", "emil", "johnny"),
+                like = mutableListOf("louis", "eric", "tron", "sylvie", "nicole", "emil", "johnny")
             )
 
             // Add a new document with a generated ID

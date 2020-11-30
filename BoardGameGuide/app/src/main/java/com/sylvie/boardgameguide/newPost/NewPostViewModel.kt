@@ -13,8 +13,6 @@ class NewPostViewModel : ViewModel() {
         get() = _leave
 
 
-
-
     fun leave() {
         _leave.value = true
     }

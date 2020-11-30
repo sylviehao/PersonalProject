@@ -5,22 +5,47 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
+import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailPostFragment : Fragment() {
+
+    private val viewModel: DetailPostViewModel by lazy {
+        ViewModelProvider(this).get(DetailPostViewModel::class.java)
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentDetailPostBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+        val db = FirebaseFirestore.getInstance()
+        val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
+        viewModel.getEventData.value = bundle
+
+
+//        viewModel.getGameData.observe(viewLifecycleOwner, Observer {
+            db.collection("Game")
+                .get()
+                .addOnSuccessListener {
+                    val listResult = mutableListOf<Game>()
+                    it.forEach { data ->
+                        val d = data.toObject(Game::class.java)
+                        listResult.add(d)
+                    }
+                    viewModel.getGameData.value = listResult.filter { list-> list.id == bundle.gameId }[0]
+                }
+//        })
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
-        val db = FirebaseFirestore.getInstance()
+
 
 //        //即時監聽資料庫是否變動
 //        db.collection("Event").addSnapshotListener { value, error ->

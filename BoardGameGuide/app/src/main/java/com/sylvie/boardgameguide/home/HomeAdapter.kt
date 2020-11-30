@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.ItemHomePostBinding
 
@@ -26,6 +27,7 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
             binding.textTotalPlayer.text = event.playerLimit.toString()
             binding.textTotalLike.text = event.like?.size.toString()
             binding.textGameName.text = event.gameId
+            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()
         }

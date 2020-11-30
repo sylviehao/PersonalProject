@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
     app:startDestination="@id/homeFragment">
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.sylvie.boardgameguide.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
     <action
         android:id="@+id/action_global_homeFragment"
         app:destination="@id/homeFragment"
-        app:popUpTo="@id/homeFragment"
+        app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/newPostFragment"
         android:name="com.sylvie.boardgameguide.newPost.NewPostFragment"
-        android:label="NewPostDialog" />
+        android:label="NewPostDialog"
+        tools:layout="@layout/fragment_new_post"/>
     <action
         android:id="@+id/action_global_newPostFragment"
         app:destination="@id/newPostFragment"
@@ -22,14 +26,16 @@
     <fragment
         android:id="@+id/newEventFragment"
         android:name="com.sylvie.boardgameguide.newEvent.NewEventFragment"
-        android:label="NewEventFragment" />
+        android:label="NewEventFragment"
+        tools:layout="@layout/fragment_new_event"/>
     <action
         android:id="@+id/action_global_newEventFragment"
         app:destination="@id/newEventFragment"/>
     <fragment
         android:id="@+id/detailPostFragment"
         android:name="com.sylvie.boardgameguide.detailPost.DetailPostFragment"
-        android:label="DetailPostFragment" >
+        android:label="DetailPostFragment"
+        tools:layout="@layout/fragment_detail_post">
         <argument
             android:name="event"
             app:argType="com.sylvie.boardgameguide.data.Event" />
@@ -38,51 +44,59 @@
     <fragment
         android:id="@+id/detailEventFragment"
         android:name="com.sylvie.boardgameguide.detailEvent.DetailEventFragment"
-        android:label="DetailEventFragment" />
+        android:label="DetailEventFragment"
+        tools:layout="@layout/fragment_detail_event"/>
     <action android:id="@+id/action_global_detailEventFragment" app:destination="@id/detailEventFragment" />
     <fragment
         android:id="@+id/toolsFragment"
         android:name="com.sylvie.boardgameguide.tools.ToolsFragment"
-        android:label="ToolsFragment" />
+        android:label="ToolsFragment"
+        tools:layout="@layout/fragment_tools"/>
     <action
         android:id="@+id/action_global_toolsFragment"
         app:destination="@id/toolsFragment"
-        app:popUpTo="@id/toolsFragment"
+        app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <dialog
         android:id="@+id/uploadPhotoDialog"
         android:name="com.sylvie.boardgameguide.uploadPhoto.UploadPhotoDialog"
-        android:label="UploadPhotoDialog" />
+        android:label="UploadPhotoDialog"
+        tools:layout="@layout/dialog_upload_photo"/>
     <action android:id="@+id/action_global_uploadPhotoDialog" app:destination="@id/uploadPhotoDialog"/>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.sylvie.boardgameguide.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
-        app:popUpTo="@id/profileFragment"
+        app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.sylvie.boardgameguide.event.EventFragment"
-        android:label="EventFragment" />
+        android:label="EventFragment"
+        tools:layout="@layout/fragment_event"/>
     <action
         android:id="@+id/action_global_eventFragment"
         app:destination="@id/eventFragment"
-        app:popUpTo="@id/eventFragment"
+        app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.sylvie.boardgameguide.favorite.FavoriteFragment"
-        android:label="FavoriteFragment" />
+        android:label="FavoriteFragment"
+        tools:layout="@layout/fragment_favorite"/>
     <action
         android:id="@+id/action_global_favoriteFragment"
         app:destination="@id/favoriteFragment"
-        app:popUpTo="@id/favoriteFragment"
+        app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/gameFragment"
         android:name="com.sylvie.boardgameguide.game.GameFragment"
-        android:label="GameFragment" /><action android:id="@+id/action_global_gameFragment" app:destination="@id/gameFragment"/>
+        android:label="GameFragment"
+        tools:layout="@layout/fragment_game"/>
+    <action android:id="@+id/action_global_gameFragment" app:destination="@id/gameFragment"/>
 </navigation>

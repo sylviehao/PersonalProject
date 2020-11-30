@@ -31,8 +31,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:navigationIcon="@drawable/ic_menu_square"
-                app:buttonGravity="center_vertical">
+                app:buttonGravity="center_vertical"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 
                 <TextView
@@ -68,7 +69,7 @@
                 android:id="@+id/bottomNavView"
                 android:layout_width="0dp"
                 android:layout_height="72dp"
-                android:background="@android:color/white"
+                android:background="@color/pinkishGrey"
                 android:elevation="4dp"
                 app:itemIconSize="36dp"
                 app:itemIconTint="#000000"
@@ -91,7 +92,7 @@
             app:itemIconSize="36dp"
             app:itemTextColor="@color/darkBrown"
             app:itemShapeFillColor="@color/lightGreen"
-            android:background="@color/rosyOrange"/>
+            android:background="@color/rosyOrange" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
