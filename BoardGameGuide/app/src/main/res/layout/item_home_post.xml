@@ -20,7 +20,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/noto_sans"
-            android:text="sylviehao"
             android:textColor="@color/darkBrown"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/finger_paint"
-            android:text="識破你的識破"
             android:textColor="@color/darkBrown"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/text_host_name"
@@ -45,10 +43,10 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:scaleType="centerCrop"
+            app:imageUrl="@{event.image[0]}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/text_game_topic"
-            app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
-            app:srcCompat="@drawable/pic_green_leaf" />
+            app:layout_constraintTop_toBottomOf="@+id/text_game_topic"/>
 
         <TextView
             android:id="@+id/line_1"
@@ -67,7 +65,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/noto_sans"
-            android:text="遊戲: 風聲"
             android:textColor="@color/darkBrown"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="@+id/image_game_picture"
@@ -89,7 +86,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/noto_sans"
-            android:text="10"
             android:textColor="@color/darkBrown"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
@@ -112,7 +108,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/noto_sans"
-            android:text="99"
             android:textColor="@color/darkBrown"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/text_game_topic"

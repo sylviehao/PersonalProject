@@ -83,7 +83,7 @@ class HomeFragment : Fragment() {
                     Log.i("REALTIMETAG", "${data.data}")
 
                 }
-//                listResult.sortByDescending { it.createdTime }
+                listResult.sortByDescending { it.createdTime }
                 adapter.submitList(listResult)
             }
         }

@@ -17,5 +17,6 @@ data class Event(
     var description: String = "",
     var rules: String = "",
     var status: String = "",
-    var like: MutableList<String>? = null
+    var like: MutableList<String>? = null,
+    var createdTime : com.google.firebase.Timestamp = com.google.firebase.Timestamp.now()
 ): Parcelable

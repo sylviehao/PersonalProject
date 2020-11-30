@@ -8,21 +8,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.os.bundleOf
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sylvie.boardgameguide.databinding.ActivityMainBinding
+import com.sylvie.boardgameguide.databinding.NavHeaderDrawerBinding
 import com.sylvie.boardgameguide.util.CurrentFragmentType
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     private val viewModel: MainViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
@@ -33,19 +43,20 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
                 return@OnNavigationItemSelectedListener true
             }
-//            R.id.navigation_pins -> {
-//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCatalogFragment())
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.navigation_event -> {
-//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCartFragment())
-//                return@OnNavigationItemSelectedListener true
-//            }
+            R.id.navigation_favorite -> {
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalFavoriteFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_event -> {
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEventFragment())
+                return@OnNavigationItemSelectedListener true
+            }
             R.id.navigation_tools -> {
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalToolsFragment())
                 return@OnNavigationItemSelectedListener true
             }
-//            R.id.navigation_profile -> {
+            R.id.navigation_profile -> {
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment())
 //                when (viewModel.isLoggedIn) {
 //                    true -> {
 //                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToProfileFragment(viewModel.user.value))
@@ -55,8 +66,8 @@ class MainActivity : AppCompatActivity() {
 //                        return@OnNavigationItemSelectedListener false
 //                    }
 //                }
-//                return@OnNavigationItemSelectedListener true
-//            }
+                return@OnNavigationItemSelectedListener true
+            }
         }
         false
     }
@@ -75,6 +86,7 @@ class MainActivity : AppCompatActivity() {
 
         setupNavController()
         setupBottomNav()
+        setupDrawer()
     }
 
     private fun setupBottomNav() {
@@ -89,8 +101,50 @@ class MainActivity : AppCompatActivity() {
                 R.id.newEventFragment -> CurrentFragmentType.NEW_EVENT
                 R.id.detailPostFragment -> CurrentFragmentType.DETAIL_POST
                 R.id.detailEventFragment -> CurrentFragmentType.DETAIL_EVENT
+                R.id.toolsFragment -> CurrentFragmentType.TOOLS
+                R.id.eventFragment -> CurrentFragmentType.EVENT
+                R.id.profileFragment -> CurrentFragmentType.PROFILE
+                R.id.favoriteFragment -> CurrentFragmentType.FAVORITE
                 else -> viewModel.currentFragmentType.value
             }
         }
+    }
+
+    private fun setupDrawer() {
+
+        // set up toolbar
+        val navController = this.findNavController(R.id.myNavHostFragment)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = null
+
+        appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
+        NavigationUI.setupWithNavController(binding.drawerNavView, navController)
+
+
+
+        binding.drawerNavView.setNavigationItemSelectedListener {
+            true
+        }
+
+        binding.drawerLayout.fitsSystemWindows = true
+        binding.drawerLayout.clipToPadding = false
+
+        actionBarDrawerToggle = object : ActionBarDrawerToggle(
+
+            this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            override fun onDrawerOpened(drawerView: View) {
+                super.onDrawerOpened(drawerView)
+            }
+        }.apply {
+            binding.drawerLayout.addDrawerListener(this)
+            syncState()
+            toolbar.setNavigationIcon(R.drawable.ic_menu_square)
+        }
+        val bindingNavHeader = NavHeaderDrawerBinding.inflate(
+            LayoutInflater.from(this), binding.drawerNavView, false)
+
+        bindingNavHeader.lifecycleOwner = this
+        bindingNavHeader.viewModel = viewModel
+        binding.drawerNavView.addHeaderView(bindingNavHeader.root)
     }
 }

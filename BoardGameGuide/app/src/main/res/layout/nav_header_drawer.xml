@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.sylvie.boardgameguide.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="182dp"
+        android:background="@color/darkGreen"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <com.jetradarmobile.snowfall.SnowfallView
+            android:id="@+id/snow_fall_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:snowflakesNum="250"
+            app:snowflakeAlphaMin="150"
+            app:snowflakeAlphaMax="255"
+            app:snowflakeAngleMax="5"
+            app:snowflakeSizeMin="8dp"
+            app:snowflakeSizeMax="32dp"
+            app:snowflakeSpeedMin="2"
+            app:snowflakeSpeedMax="8"
+            app:snowflakesFadingEnabled="true"
+            app:snowflakesAlreadyFalling="false"
+            app:snowflakeImage="@drawable/snowflake">
+        </com.jetradarmobile.snowfall.SnowfallView>
+
+        <ImageView
+            android:id="@+id/image_drawer_avatar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_baby_white"/>
+
+        <TextView
+            android:id="@+id/image_drawer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="sylviehao"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_drawer_avatar" />
+
+        <TextView
+            android:id="@+id/image_drawer_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/noto_sans"
+            android:textColor="@android:color/white"
+            android:textSize="13sp"
+            android:text="TOP PLAYER"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_drawer_name"
+            tools:text="AKA小安老師"/>
+
+<!--        <ProgressBar-->
+<!--            android:theme="@style/ProgressThemeDark"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:visibility="gone"-->
+<!--            app:setupApiStatus="@{viewModel.status}"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

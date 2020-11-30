@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item android:title="Welcome">
+        <menu>
+            <item
+                android:id="@+id/nav_awaiting_payment"
+                android:icon="@drawable/ic_bart"
+                android:title="遊戲列表" />
+<!--            <item-->
+<!--                android:id="@+id/nav_awaiting_shipment"-->
+<!--                android:icon="@drawable/ic_awaiting_shipment"-->
+<!--                android:title="待出貨" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_shipped"-->
+<!--                android:icon="@drawable/ic_shipped"-->
+<!--                android:title="待簽收" />-->
+<!--            <item-->
+<!--                android:id="@+id/nav_awaiting_review"-->
+<!--                android:icon="@drawable/awaiting_review"-->
+<!--                android:title="待評價" />-->
+        </menu>
+    </item>
+</menu>

@@ -44,10 +44,41 @@
         android:id="@+id/toolsFragment"
         android:name="com.sylvie.boardgameguide.tools.ToolsFragment"
         android:label="ToolsFragment" />
-    <action android:id="@+id/action_global_toolsFragment" app:destination="@id/toolsFragment" />
+    <action
+        android:id="@+id/action_global_toolsFragment"
+        app:destination="@id/toolsFragment"
+        app:popUpTo="@id/toolsFragment"
+        app:popUpToInclusive="true" />
     <dialog
         android:id="@+id/uploadPhotoDialog"
         android:name="com.sylvie.boardgameguide.uploadPhoto.UploadPhotoDialog"
         android:label="UploadPhotoDialog" />
     <action android:id="@+id/action_global_uploadPhotoDialog" app:destination="@id/uploadPhotoDialog"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.sylvie.boardgameguide.profile.ProfileFragment"
+        android:label="ProfileFragment" />
+    <action
+        android:id="@+id/action_global_profileFragment"
+        app:destination="@id/profileFragment"
+        app:popUpTo="@id/profileFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.sylvie.boardgameguide.event.EventFragment"
+        android:label="EventFragment" />
+    <action
+        android:id="@+id/action_global_eventFragment"
+        app:destination="@id/eventFragment"
+        app:popUpTo="@id/eventFragment"
+        app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.sylvie.boardgameguide.favorite.FavoriteFragment"
+        android:label="FavoriteFragment" />
+    <action
+        android:id="@+id/action_global_favoriteFragment"
+        app:destination="@id/favoriteFragment"
+        app:popUpTo="@id/favoriteFragment"
+        app:popUpToInclusive="true" />
 </navigation>

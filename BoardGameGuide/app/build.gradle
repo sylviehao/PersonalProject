@@ -89,4 +89,10 @@ dependencies {
     //Liquid Refresh Layout
     implementation 'com.github.mukeshsolanki:liquidrefreshlayout:1.0.2'
 
+    //Snowfall
+    implementation 'com.github.jetradarmobile:android-snowfall:1.2.0'
+
+    //Bloom
+    implementation 'me.samlss:bloom:1.0.0'
+
 }

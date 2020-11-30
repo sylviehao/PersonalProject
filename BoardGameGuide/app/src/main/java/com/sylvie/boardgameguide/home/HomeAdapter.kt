@@ -21,6 +21,11 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
 
         fun bind(event: Event, onClickListener: OnClickListener) {
             binding.event = event
+            binding.textHostName.text = event.hostId
+            binding.textGameTopic.text = event.topic
+            binding.textTotalPlayer.text = event.playerLimit.toString()
+            binding.textTotalLike.text = event.like?.size.toString()
+            binding.textGameName.text = event.gameId
             binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()
         }

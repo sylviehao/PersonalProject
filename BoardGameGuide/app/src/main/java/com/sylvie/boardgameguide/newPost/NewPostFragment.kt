@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,17 +24,29 @@ class NewPostFragment : Fragment() {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.buttonNewPostCreate.setOnClickListener {
-            findNavController().navigate(R.id.action_global_homeFragment)
-        }
 
         val db = FirebaseFirestore.getInstance()
         binding.buttonNewPostCreate.setOnClickListener {
 
             val data = Event(
                 hostId = "sylviehao",
-                topic = "識破你的識破",
-                image = mutableListOf("")
+                topic = "只收老司機",
+                image = mutableListOf("https://images.unsplash.com/photo-1546381107-b5c6e7c1a8af?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NzZ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=600&q=60"),
+                time = 20201231,
+                location = "我家",
+                gameId = "說書人",
+                playerLimit = 12,
+                playerList = mutableListOf("Sylvie", "Louis", "Taiyi", "Gary", "Eric", "Tron", "Nicole", "Emil", "Johnny"),
+                message = mutableListOf(Message(
+                    id = "3",
+                    eventId = "sylviehao",
+                    userId = "eric",
+                    message = "喝"
+                )),
+                description = "喜歡就來",
+                rules = "遲到的請客",
+                status = "ING",
+                like = mutableListOf("louis", "eric", "tron", "sylvie", "nicole", "emil", "johnny"),
             )
 
             // Add a new document with a generated ID
@@ -48,6 +61,7 @@ class NewPostFragment : Fragment() {
                     Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
                         .show()
                 }
+            findNavController().navigate(R.id.action_global_homeFragment)
         }
 
 
