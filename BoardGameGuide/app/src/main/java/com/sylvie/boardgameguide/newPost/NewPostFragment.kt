@@ -24,6 +24,10 @@ class NewPostFragment : Fragment() {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.buttonAddPhoto.setOnClickListener {
+            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+        }
+
 
         val db = FirebaseFirestore.getInstance()
         binding.buttonNewPostCreate.setOnClickListener {

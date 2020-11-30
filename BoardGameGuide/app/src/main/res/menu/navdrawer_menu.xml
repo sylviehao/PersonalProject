@@ -6,7 +6,7 @@
     <item android:title="Welcome">
         <menu>
             <item
-                android:id="@+id/nav_awaiting_payment"
+                android:id="@+id/nav_game_all"
                 android:icon="@drawable/ic_bart"
                 android:title="遊戲列表" />
 <!--            <item-->

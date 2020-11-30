@@ -7,7 +7,7 @@ data class Game(
     var name: String = "",
     var image: MutableList<String>? = null,
     var type: MutableList<String>? = null,
-    var player: MutableList<String>? = null,
+    var playerLimit: Int = 0,
     var time: Int = 0,
     var rules: String = "",
     var roles: MutableList<String>? = null

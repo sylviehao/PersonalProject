@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.eventFragment -> CurrentFragmentType.EVENT
                 R.id.profileFragment -> CurrentFragmentType.PROFILE
                 R.id.favoriteFragment -> CurrentFragmentType.FAVORITE
+                R.id.gameFragment -> CurrentFragmentType.GAME
                 else -> viewModel.currentFragmentType.value
             }
         }
@@ -123,7 +124,15 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.drawerNavView.setNavigationItemSelectedListener {
-            true
+            when (it.itemId) {
+                R.id.nav_game_all -> {
+                    viewModel.navigate.value = 1
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_gameFragment)
+                    true
+                }
+                else -> false
+            }
         }
 
         binding.drawerLayout.fitsSystemWindows = true
@@ -138,7 +147,7 @@ class MainActivity : AppCompatActivity() {
         }.apply {
             binding.drawerLayout.addDrawerListener(this)
             syncState()
-            toolbar.setNavigationIcon(R.drawable.ic_menu_square)
+            toolbar.setNavigationIcon(R.drawable.ic_menu)
         }
         val bindingNavHeader = NavHeaderDrawerBinding.inflate(
             LayoutInflater.from(this), binding.drawerNavView, false)
