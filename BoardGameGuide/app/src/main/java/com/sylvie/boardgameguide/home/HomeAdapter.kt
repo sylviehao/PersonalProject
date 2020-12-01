@@ -8,16 +8,17 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.databinding.ItemHomeEventBinding
 import com.sylvie.boardgameguide.databinding.ItemHomePostBinding
 
 class HomeAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<Event, HomeAdapter.HomeViewHolder>(HomeAdapter.DiffCallback) {
+    ListAdapter<Event, RecyclerView.ViewHolder>(DiffCallback) {
 
     class OnClickListener(val clickListener: (event: Event) -> Unit) {
         fun onClick(event: Event) = clickListener(event)
     }
 
-    class HomeViewHolder(private val binding: ItemHomePostBinding) :
+    class PostViewHolder(private val binding: ItemHomePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: Event, onClickListener: OnClickListener) {
@@ -32,25 +33,55 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
             binding.executePendingBindings()
         }
     }
-    
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
-        return HomeViewHolder(ItemHomePostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+    class EventViewHolder(private val binding: ItemHomeEventBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(event: Event, onClickListener: OnClickListener) {
+            binding.event = event
+            binding.textHostName.text = event.hostId
+            binding.textGameTopic.text = event.topic
+            binding.textGameName.text = event.gameId
+            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
+            binding.root.setOnClickListener { onClickListener.onClick(event) }
+            binding.executePendingBindings()
+        }
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
-        val event = getItem(position)
-        holder.bind(event, onClickListener)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return when (viewType) {
+            ITEM_VIEW_TYPE_POST -> PostViewHolder(ItemHomePostBinding.inflate(
+                LayoutInflater.from(parent.context), parent,false
+            ))
+            ITEM_VIEW_TYPE_EVENT -> EventViewHolder(ItemHomeEventBinding.inflate(
+                LayoutInflater.from(parent.context), parent,false
+            ))
+            else -> throw ClassCastException("Unknown viewType $viewType")
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is PostViewHolder -> {
+                holder.bind((getItem(position) as Event), onClickListener)
+            }
+            is EventViewHolder -> {
+                holder.bind((getItem(position) as Event), onClickListener)
+            }
+        }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
-            return oldItem == newItem
+            return oldItem === newItem
         }
 
         override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean {
-            return oldItem == newItem
+            return oldItem.hostId == newItem.hostId
         }
+
+        private const val ITEM_VIEW_TYPE_POST   = 0x00
+        private const val ITEM_VIEW_TYPE_EVENT  = 0x01
     }
 }

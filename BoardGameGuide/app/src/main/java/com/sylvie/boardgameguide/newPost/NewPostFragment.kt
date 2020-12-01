@@ -7,18 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
+import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.home.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class NewPostFragment : Fragment() {
 
 //    private val viewModel by viewModels<NewPostViewModel> {  }
     private lateinit var binding : FragmentNewPostBinding
+    val viewModel by viewModels<NewPostViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)

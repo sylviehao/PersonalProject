@@ -4,21 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
+import com.sylvie.boardgameguide.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailPostFragment : Fragment() {
 
-    private val viewModel: DetailPostViewModel by lazy {
-        ViewModelProvider(this).get(DetailPostViewModel::class.java)
-    }
+    val viewModel by viewModels<DetailPostViewModel> { getVmFactory() }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentDetailPostBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner

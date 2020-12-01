@@ -6,16 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentGameBinding
+import com.sylvie.boardgameguide.ext.getVmFactory
 
 class GameFragment : Fragment() {
 
-    private val viewModel = GameViewModel()
+    val viewModel by viewModels<GameViewModel> { getVmFactory() }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner

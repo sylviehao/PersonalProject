@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
@@ -24,6 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sylvie.boardgameguide.databinding.ActivityMainBinding
 import com.sylvie.boardgameguide.databinding.NavHeaderDrawerBinding
+import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.util.CurrentFragmentType
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,9 +35,7 @@ class MainActivity : AppCompatActivity() {
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val viewModel: MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
+    val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {

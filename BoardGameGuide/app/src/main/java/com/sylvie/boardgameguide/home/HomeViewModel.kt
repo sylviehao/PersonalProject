@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.source.GameRepository
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Event>()

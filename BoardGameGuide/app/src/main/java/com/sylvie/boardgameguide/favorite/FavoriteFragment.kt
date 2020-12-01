@@ -4,15 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentFavoriteBinding
+import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.GameAdapter
 
 class FavoriteFragment : Fragment() {
 
-    private val viewModel = FavoriteViewModel()
+    val viewModel by viewModels<FavoriteViewModel> { getVmFactory() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

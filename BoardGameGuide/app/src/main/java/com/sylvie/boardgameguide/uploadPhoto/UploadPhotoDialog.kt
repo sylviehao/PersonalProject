@@ -6,20 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.DialogUploadPhotoBinding
+import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.ext.setTouchDelegate
 
 class UploadPhotoDialog : BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogUploadPhotoBinding
-    private val viewModel: UploadPhotoViewModel by lazy {
-        ViewModelProvider(this).get(UploadPhotoViewModel::class.java)
-    }
+    val viewModel by viewModels<UploadPhotoViewModel> { getVmFactory() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

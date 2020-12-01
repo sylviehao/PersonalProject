@@ -2,12 +2,11 @@ package com.sylvie.boardgameguide.home
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,11 +14,12 @@ import com.madapps.liquid.LiquidRefreshLayout
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.FragmentHomeBinding
+import com.sylvie.boardgameguide.ext.getVmFactory
 
 class HomeFragment : Fragment() {
 
     private var isMenuOpen = false
-    private val viewModel = HomeViewModel()
+    val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container,false)
