@@ -25,43 +25,29 @@ class DetailPostFragment : Fragment() {
         val binding = FragmentDetailPostBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        val db = FirebaseFirestore.getInstance()
+
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
+
         viewModel.getEventData.value = bundle
+        viewModel.getGame(bundle.gameId)
 
-        db.collection("Game")
-            .get()
-            .addOnSuccessListener {
-                val listResult = mutableListOf<Game>()
-                it.forEach { data ->
-                    val d = data.toObject(Game::class.java)
-                    listResult.add(d)
-                }
-                viewModel.getGameData.value =
-                    listResult.filter { list -> list.id == bundle.gameId }[0]
-            }
+//        val db = FirebaseFirestore.getInstance()
 
+//        db.collection("Game")
+//            .get()
+//            .addOnSuccessListener {
+//                val listResult = mutableListOf<Game>()
+//                it.forEach { data ->
+//                    val d = data.toObject(Game::class.java)
+//                    listResult.add(d)
+//                }
+//                viewModel.getGameData.value =
+//                    listResult.filter { list -> list.id == bundle.gameId }[0]
+//            }
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
-
-
-
-//        //即時監聽資料庫是否變動
-//        db.collection("Event").addSnapshotListener { value, error ->
-//            value?.let {
-//                val listResult = mutableListOf<Event>()
-//                it.forEach { data ->
-//                    val d = data.toObject(Event::class.java)
-//                    listResult.add(d)
-//
-//                    Log.i("REALTIMETAG", "${data.data}")
-//
-//                }
-//                adapter.submitList(listResult)
-//            }
-//        }
 
         return binding.root
     }
