@@ -74,20 +74,24 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_global_newEventFragment)
         }
 
-        val db = FirebaseFirestore.getInstance()
+//        val db = FirebaseFirestore.getInstance()
+//
+//        //即時監聽資料庫是否變動
+//        db.collection("Event").addSnapshotListener { value, error ->
+//            value?.let {
+//                val listResult = mutableListOf<Event>()
+//                it.forEach { data ->
+//                    val d = data.toObject(Event::class.java)
+//                    listResult.add(d)
+//                }
+//                listResult.sortByDescending { it.createdTime }
+//                adapter.submitList(listResult)
+//            }
+//        }
 
-        //即時監聽資料庫是否變動
-        db.collection("Event").addSnapshotListener { value, error ->
-            value?.let {
-                val listResult = mutableListOf<Event>()
-                it.forEach { data ->
-                    val d = data.toObject(Event::class.java)
-                    listResult.add(d)
-                }
-                listResult.sortByDescending { it.createdTime }
-                adapter.submitList(listResult)
-            }
-        }
+        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
 
 
