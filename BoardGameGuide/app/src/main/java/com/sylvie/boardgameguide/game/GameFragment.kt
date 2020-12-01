@@ -32,7 +32,6 @@ class GameFragment : Fragment() {
                 it.forEach { data ->
                     val d = data.toObject(Game::class.java)
                     listResult.add(d)
-                    Log.i("REALTIMETAG", "${data.data}")
                 }
                 adapter.submitList(listResult)
             }
@@ -40,17 +39,16 @@ class GameFragment : Fragment() {
 
         binding.fab.setOnClickListener {
             val data = Game(
-                id = "004",
-                name = "機密代號",
-                image = mutableListOf("https://lh3.googleusercontent.com/proxy/kE2pddFEh5fTehtf2zpxObqJVA6QW2cXc-0JgWeFpZ3K-tL-6asVFG4xJmAPelv1HRp5UnIv6HP5Ogsoxv97Xm9TOSNU7avbnSVKvzHFmYTj-9Q6Es7UHCXlRgUu2KLJHpk47szrXmlN3dDbJfjiSfJM0RZg06W82scSeV_LZTKbTzVNADDoLEuI1c9pDsvJllFxT32PKGKaUjpxUW3cAIryTERGZJbyA8Y"),
-                type = mutableListOf("派對", "陣營", "猜謎"),
-                playerLimit = 8,
-                time = 15,
-                rules = "桌遊中玩家會分成兩隊，目標是要找出自己陣營的特務。每個特務會對應到一個代號，" +
-                        "隊長要想出和代號相關的線索給隊員，讓隊員能夠透過線索找出同隊的特務卡，" +
-                        "最先把同隊特務卡全部找出來的隊伍獲勝。桌遊的困難之處在隊長提供線索時，要避掉對方的特務卡和殺手卡，" +
-                        "還要盡可能的將線索連結到好幾個特務代號上。整場桌遊的關鍵在隊長如何想出神來一筆的共通線索，" +
-                        "快速找到特務卡。",
+                id = "005",
+                name = "卡坦島",
+                image = mutableListOf("https://i.pinimg.com/originals/84/a7/1f/84a71faae084bf5a6c532902e52d64b4.jpg"),
+                type = mutableListOf("策略"),
+                playerLimit = 4,
+                time = 120,
+                rules = "卡坦島(Catan)桌遊裡，玩家扮演卡坦島的新移民者，要拓荒開墾自己的領地。" +
+                        "玩家輪流擲骰子決定哪個板塊可以生產資源，因此加入了一點機率和運氣成份。" +
+                        "透過在不同的板塊取得的資源，玩家可以建造村莊和道路。當村莊數量越多，就可以從板塊收成越多的資源。" +
+                        "玩家也可以和其他玩家交易，或是買發展卡來獲取額外的資源和機會",
                 roles = mutableListOf("玩家本身")
             )
 

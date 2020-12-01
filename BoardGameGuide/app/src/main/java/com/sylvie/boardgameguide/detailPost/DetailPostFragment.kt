@@ -27,19 +27,18 @@ class DetailPostFragment : Fragment() {
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
         viewModel.getEventData.value = bundle
 
-
-//        viewModel.getGameData.observe(viewLifecycleOwner, Observer {
-            db.collection("Game")
-                .get()
-                .addOnSuccessListener {
-                    val listResult = mutableListOf<Game>()
-                    it.forEach { data ->
-                        val d = data.toObject(Game::class.java)
-                        listResult.add(d)
-                    }
-                    viewModel.getGameData.value = listResult.filter { list-> list.id == bundle.gameId }[0]
+        db.collection("Game")
+            .get()
+            .addOnSuccessListener {
+                val listResult = mutableListOf<Game>()
+                it.forEach { data ->
+                    val d = data.toObject(Game::class.java)
+                    listResult.add(d)
                 }
-//        })
+                viewModel.getGameData.value =
+                    listResult.filter { list -> list.id == bundle.gameId }[0]
+            }
+
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)

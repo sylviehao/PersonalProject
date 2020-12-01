@@ -83,9 +83,6 @@ class HomeFragment : Fragment() {
                 it.forEach { data ->
                     val d = data.toObject(Event::class.java)
                     listResult.add(d)
-
-                    Log.i("REALTIMETAG", "${data.data}")
-
                 }
                 listResult.sortByDescending { it.createdTime }
                 adapter.submitList(listResult)

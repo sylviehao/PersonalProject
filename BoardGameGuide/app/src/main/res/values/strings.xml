@@ -28,6 +28,13 @@
     <string name="tools">TOOLS</string>
     <string name="profile">PROFILE</string>
     <string name="join">JOIN</string>
+    <string name="game">GAME</string>
+    <string name="post">POST</string>
+    <string name="edit">EDIT</string>
+    <string name="profile_info">嗨嗨
+    \n歡迎光臨 My Profile
+    \n喜歡玩策略跟陣營遊戲
+    \n歡迎揪團! </string>
 
 
 </resources>

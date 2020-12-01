@@ -95,4 +95,7 @@ dependencies {
     //Bloom
     implementation 'me.samlss:bloom:1.0.0'
 
+    //Circle shape for profile image
+    implementation 'com.mikhaellopez:circularimageview:4.2.0'
+
 }

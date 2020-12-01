@@ -9,5 +9,141 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pic_graffiti_small" />
+
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/image_profile"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/pic_pumpkin"
+            app:civ_border_width="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pic_pumpkin" />
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/finger_paint"
+            android:text="sylviehao"
+            android:textColor="@color/darkBrown"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/text_post"
+            app:layout_constraintStart_toEndOf="@+id/image_profile"
+            app:layout_constraintTop_toTopOf="@+id/text_post"
+            tools:text="sylviehao" />
+
+        <TextView
+            android:id="@+id/text_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/finger_paint"
+            android:text="@string/post"
+            android:textColor="@color/darkGreen"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/text_game"
+            app:layout_constraintTop_toTopOf="@+id/text_game" />
+
+        <TextView
+            android:id="@+id/text_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:fontFamily="@font/finger_paint"
+            android:text="@string/game"
+            android:textColor="@color/darkGreen"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <TextView
+            android:id="@+id/text_post_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/finger_paint"
+            android:text="12"
+            android:textColor="@color/darkGreen"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/text_post"
+            app:layout_constraintStart_toStartOf="@+id/text_post"
+            app:layout_constraintTop_toBottomOf="@+id/text_post"
+            tools:text="12" />
+
+        <TextView
+            android:id="@+id/text_game_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/finger_paint"
+            android:text="5"
+            android:textColor="@color/darkGreen"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/text_game"
+            app:layout_constraintStart_toStartOf="@+id/text_game"
+            app:layout_constraintTop_toBottomOf="@+id/text_game"
+            tools:text="5" />
+
+        <TextView
+            android:id="@+id/button_edit_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/frame_edit_new_post"
+            android:backgroundTint="@color/darkBrown"
+            app:layout_constraintBottom_toBottomOf="@+id/text_post_number"
+            app:layout_constraintEnd_toEndOf="@+id/text_name"
+            app:layout_constraintStart_toStartOf="@+id/text_name"
+            app:layout_constraintTop_toTopOf="@+id/text_post_number" />
+
+        <TextView
+            android:id="@+id/text_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/finger_paint"
+            android:text="@string/edit"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_edit_info"
+            app:layout_constraintEnd_toEndOf="@+id/button_edit_info"
+            app:layout_constraintStart_toStartOf="@+id/button_edit_info"
+            app:layout_constraintTop_toTopOf="@+id/button_edit_info" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/oliveGreen"
+            android:fontFamily="@font/finger_paint"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="15dp"
+            android:text="@string/profile_info"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_edit_info"
+            tools:text="@string/profile_info" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

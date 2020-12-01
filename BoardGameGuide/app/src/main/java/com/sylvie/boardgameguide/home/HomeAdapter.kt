@@ -32,6 +32,7 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
             binding.executePendingBindings()
         }
     }
+    
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
         return HomeViewHolder(ItemHomePostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
