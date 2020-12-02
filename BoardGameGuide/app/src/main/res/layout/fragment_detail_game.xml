@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.sylvie.boardgameguide.game.detail.GameDetailViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <com.github.florent37.shapeofview.shapes.ArcView
+                android:id="@+id/arcView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:elevation="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shape_arc_height="40dp"
+                app:shape_arc_position="bottom">
+
+                <ImageView
+                    android:id="@+id/image_game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/pic_pumpkin"
+                    imageUrl="@{viewModel.getGameData.image[0]}" />
+            </com.github.florent37.shapeofview.shapes.ArcView>
+
+            <TextView
+                android:id="@+id/text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="36dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/game_name_chinese + viewModel.getGameData.name}"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/arcView"
+                tools:text="名稱: 矮人金礦" />
+
+            <TextView
+                android:id="@+id/text_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/game_type_chinese + String.valueOf(viewModel.getGameData.type)}"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_name"
+                tools:text="種類: 派對、陣營" />
+
+            <TextView
+                android:id="@+id/text_player_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/game_player_limit_chinese + String.valueOf(viewModel.getGameData.playerLimit) + @string/people}"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_type"
+                app:layout_constraintTop_toBottomOf="@+id/text_type"
+                tools:text="人數限制: 10" />
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/game_time_chinese + String.valueOf(viewModel.getGameData.time) + @string/minutes}"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_player_limit"
+                app:layout_constraintTop_toBottomOf="@+id/text_player_limit"
+                tools:text="遊戲時間: 30 分鐘" />
+
+            <TextView
+                android:id="@+id/text_rules"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/game_rules_chinese + viewModel.getGameData.rules}"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_time"
+                app:layout_constraintTop_toBottomOf="@+id/text_time"
+                tools:text="簡介: \n卡坦島(Catan)桌遊裡，玩家扮演卡坦島的新移民者，要拓荒開墾自己的領地。玩家輪流擲骰子決定哪個板塊可以生產資源，因此加入了一點機率和運氣成份。透過在不同的板塊取得的資源，玩家可以建造村莊和道路。當村莊數量越多，就可以從板塊收成越多的資源。玩家也可以和其他玩家交易，或是買發展卡來獲取額外的資源和機會" />
+
+            <TextView
+                android:id="@+id/text_roles"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/game_roles_chinese + String.valueOf(viewModel.getGameData.roles)}"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/text_rules"
+                app:layout_constraintStart_toStartOf="@+id/text_rules"
+                app:layout_constraintTop_toBottomOf="@+id/text_rules"
+                tools:text="角色: 玩家本身" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

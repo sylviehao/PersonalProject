@@ -11,114 +11,124 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginTop="8dp">
 
-        <TextView
-            android:id="@+id/text_host_name"
-            android:layout_width="wrap_content"
+        <com.github.florent37.shapeofview.shapes.RoundRectView
+            android:id="@+id/clipCorner"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/noto_sans"
-            android:textColor="@color/darkBrown"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="@+id/image_game_picture"
-            app:layout_constraintTop_toBottomOf="@+id/image_game_picture"
-            tools:text="sylviehao" />
-
-        <TextView
-            android:id="@+id/text_game_topic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/finger_paint"
-            android:textColor="@color/darkBrown"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_host_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_host_name"
-            tools:text="揪一波" />
-
-        <ImageView
-            android:id="@+id/image_game_picture"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{event.image[0]}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/line_1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/lightBlue"
+            android:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_game_name" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:shape_roundRect_topLeftRadius="30dp">
 
-        <TextView
-            android:id="@+id/text_game_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/noto_sans"
-            android:textColor="@color/darkBrown"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/text_game_topic"
-            app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
-            tools:text="風聲" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white">
 
-        <ImageView
-            android:id="@+id/ic_baby"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintEnd_toStartOf="@+id/text_total_player"
-            app:layout_constraintTop_toTopOf="@+id/text_host_name"
-            app:srcCompat="@drawable/ic_baby" />
+                <TextView
+                    android:id="@+id/text_host_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/image_game_picture"
+                    tools:text="sylviehao" />
 
-        <TextView
-            android:id="@+id/text_total_player"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:fontFamily="@font/noto_sans"
-            android:textColor="@color/darkBrown"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
-            app:layout_constraintEnd_toStartOf="@+id/ic_like"
-            app:layout_constraintTop_toTopOf="@+id/text_total_like"
-            tools:text="12" />
+                <TextView
+                    android:id="@+id/text_game_topic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/finger_paint"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/text_host_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_host_name"
+                    tools:text="揪一波" />
 
-        <ImageView
-            android:id="@+id/ic_like"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_baby"
-            app:layout_constraintEnd_toStartOf="@+id/text_total_like"
-            app:layout_constraintTop_toTopOf="@+id/ic_baby"
-            app:srcCompat="@drawable/ic_good_circle" />
+                <ImageView
+                    android:id="@+id/image_game_picture"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{event.image[0]}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
 
-        <TextView
-            android:id="@+id/text_total_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/noto_sans"
-            android:textColor="@color/darkBrown"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ic_like"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ic_like"
-            tools:text="12" />
+                <TextView
+                    android:id="@+id/text_game_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_game_topic"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
+                    tools:text="風聲" />
 
+                <ImageView
+                    android:id="@+id/ic_baby"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintEnd_toStartOf="@+id/text_total_player"
+                    app:layout_constraintTop_toTopOf="@+id/text_host_name"
+                    app:srcCompat="@drawable/ic_baby" />
+
+                <TextView
+                    android:id="@+id/text_total_player"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
+                    app:layout_constraintEnd_toStartOf="@+id/ic_like"
+                    app:layout_constraintTop_toTopOf="@+id/text_total_like"
+                    tools:text="12" />
+
+                <ImageView
+                    android:id="@+id/ic_like"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_baby"
+                    app:layout_constraintEnd_toStartOf="@+id/text_total_like"
+                    app:layout_constraintTop_toTopOf="@+id/ic_baby"
+                    app:srcCompat="@drawable/ic_good_circle" />
+
+                <TextView
+                    android:id="@+id/text_total_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_like"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/ic_like"
+                    tools:text="12" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.github.florent37.shapeofview.shapes.RoundRectView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

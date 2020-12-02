@@ -8,7 +8,7 @@ import com.sylvie.boardgameguide.data.Result
 
 interface GameRepository {
 
-    fun getEvents():MutableLiveData<List<Event>>
+    fun getEvents(): MutableLiveData<List<Event>>
 
     suspend fun getGame(id : String): Result<List<Game>>
 

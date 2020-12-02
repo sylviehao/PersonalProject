@@ -42,10 +42,8 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     private fun getEvents() {
-
             _getEventData = gameRepository.getEvents()
             Log.i("event","${_getEventData}")
-
     }
 
     fun navigateToDetail(event: Event) {

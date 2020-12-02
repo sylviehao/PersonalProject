@@ -9,6 +9,7 @@ import com.sylvie.boardgameguide.detailPost.DetailPostViewModel
 import com.sylvie.boardgameguide.event.EventViewModel
 import com.sylvie.boardgameguide.favorite.FavoriteViewModel
 import com.sylvie.boardgameguide.game.GameViewModel
+import com.sylvie.boardgameguide.game.detail.GameDetailViewModel
 import com.sylvie.boardgameguide.home.HomeViewModel
 import com.sylvie.boardgameguide.newPost.NewPostViewModel
 import com.sylvie.boardgameguide.uploadPhoto.UploadPhotoViewModel
@@ -44,6 +45,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(EventViewModel::class.java) ->
                     EventViewModel(gameRepository)
+
+                isAssignableFrom(GameDetailViewModel::class.java) ->
+                    GameDetailViewModel(gameRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

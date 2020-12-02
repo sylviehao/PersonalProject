@@ -1,7 +1,10 @@
 package com.sylvie.boardgameguide.data
 
+import android.os.Parcelable
 import com.facebook.internal.Mutable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Game(
     var id: String = "",
     var name: String = "",
@@ -11,4 +14,6 @@ data class Game(
     var time: Int = 0,
     var rules: String = "",
     var roles: MutableList<String>? = null
-)
+): Parcelable {
+
+}

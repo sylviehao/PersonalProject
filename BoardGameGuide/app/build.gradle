@@ -98,4 +98,7 @@ dependencies {
     //Circle shape for profile image
     implementation 'com.mikhaellopez:circularimageview:4.2.0'
 
+    //Shape of view
+    implementation 'com.github.florent37:shapeofview:1.4.7'
+
 }

@@ -5,10 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.data.Event
@@ -16,6 +19,12 @@ import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.home.HomeAdapter
+import com.sylvie.boardgameguide.home.HomeFragmentDirections
+import me.samlss.bloom.Bloom
+import me.samlss.bloom.effector.BloomEffector
+import me.samlss.bloom.shape.distributor.ParticleShapeDistributor
+import me.samlss.bloom.shape.distributor.StarShapeDistributor
 
 class GameFragment : Fragment() {
 
@@ -24,9 +33,18 @@ class GameFragment : Fragment() {
         val binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        val adapter = GameAdapter()
+        val adapter = GameAdapter(GameAdapter.OnClickListener {
+            viewModel.navigateToDetail(it)
+        })
+
         binding.recyclerGame.adapter = adapter
 
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                    findNavController().navigate(GameFragmentDirections.actionGlobalGameDetailFragment(it))
+                viewModel.onDetailNavigated()
+            }
+        })
 
         val db = FirebaseFirestore.getInstance()
         //即時監聽資料庫是否變動
@@ -72,5 +90,27 @@ class GameFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private var mBloom: Bloom? = null
+
+    fun boom(view: View) {
+        val shapeDistributor: ParticleShapeDistributor = StarShapeDistributor()
+
+        mBloom?.cancel()
+        mBloom = Bloom.with(requireActivity())
+            .setParticleRadius(15F)
+            .setShapeDistributor(shapeDistributor)
+            .setEffector(
+                BloomEffector.Builder()
+                    .setDuration(2000)
+                    .setScaleRange(0.5f, 1.5f)
+                    .setRotationSpeedRange(0.01f, 0.05f)
+                    .setSpeedRange(0.1f, 0.5f)
+                    .setAcceleration(0.00025f, 90)
+                    .setAnchor((view.getWidth() / 2).toFloat(), view.getHeight().toFloat())
+                    .setFadeOut(500, AccelerateInterpolator())
+                    .build())
+        mBloom?.boom(view)
     }
 }

@@ -9,7 +9,7 @@ import kotlin.properties.Delegates
 
 class GameApplication : Application() {
 
-    // Depends on the flavor,
+    // Depends on the flavor
     val gameRepository: GameRepository
         get() = ServiceLocator.provideTasksRepository(this)
 

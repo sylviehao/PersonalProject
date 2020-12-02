@@ -14,8 +14,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.pic_white_wall)
-                    .error(R.drawable.pic_white_wall))
+                    .placeholder(R.drawable.pic_graffiti_small)
+                    .error(R.drawable.pic_graffiti_small))
             .into(imgView)
     }
 }

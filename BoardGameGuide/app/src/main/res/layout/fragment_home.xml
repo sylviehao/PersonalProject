@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/lightBlue">
 
         <com.madapps.liquid.LiquidRefreshLayout
             android:id="@+id/refresh_layout"
@@ -20,13 +21,15 @@
             app:AniBackColor="@color/lightGreen"
             app:AniForeColor="@color/darkGreen"
             app:CircleSmaller="6"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_home_post" />
 
