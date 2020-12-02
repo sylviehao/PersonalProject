@@ -89,10 +89,13 @@ class HomeFragment : Fragment() {
 //            }
 //        }
 
-        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+//        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+//            adapter.submitList(it)
+//        })
+
+        viewModel.getHome.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
-
 
 
 

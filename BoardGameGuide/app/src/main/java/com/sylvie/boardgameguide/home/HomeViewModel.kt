@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.HomeItem
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.source.GameRepository
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +27,11 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val getEventData: LiveData<List<Event>>
         get() = _getEventData
 
+    private var _getHome = MutableLiveData<List<HomeItem>>()
+
+    val getHome: LiveData<List<HomeItem>>
+        get() = _getHome
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -35,6 +41,7 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     init {
         getEvents()
+        getHome()
     }
     override fun onCleared() {
         super.onCleared()
@@ -44,6 +51,19 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     private fun getEvents() {
             _getEventData = gameRepository.getEvents()
             Log.i("event","${_getEventData}")
+    }
+    fun getHome() {
+        coroutineScope.launch {
+
+            val result = gameRepository.getHome()
+            _getHome.value = when (result) {
+                is Result.Success -> {
+                   result.data
+                } else -> {
+                    null
+                }
+            }
+        }
     }
 
     fun navigateToDetail(event: Event) {

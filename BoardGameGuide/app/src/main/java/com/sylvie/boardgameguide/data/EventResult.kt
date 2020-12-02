@@ -7,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
 data class EventResult(
     val eventList: List<Event>? = null
 ) : Parcelable {
-
     fun toHomeItems(): List<HomeItem> {
         val items = mutableListOf<HomeItem>()
 
