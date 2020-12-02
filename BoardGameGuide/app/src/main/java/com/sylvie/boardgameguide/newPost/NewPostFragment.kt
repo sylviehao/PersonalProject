@@ -47,7 +47,7 @@ class NewPostFragment : Fragment() {
                 playerList = mutableListOf("Sylvie", "Louis", "Taiyi", "Gary", "Eric", "Tron", "Nicole", "Emil", "Johnny"),
                 message = mutableListOf(Message(
                     id = "3",
-                    eventId = "sylviehao",
+                    hostId = "sylviehao",
                     userId = "eric",
                     message = "喝"
                 )),

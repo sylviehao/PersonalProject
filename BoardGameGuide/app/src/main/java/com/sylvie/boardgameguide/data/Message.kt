@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Message(
     var id: String = "",
-    var eventId: String = "",
+    var hostId: String = "",
     var userId: String = "",
     var message: String = "",
     var createdTime : com.google.firebase.Timestamp = com.google.firebase.Timestamp.now()

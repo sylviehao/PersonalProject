@@ -109,4 +109,10 @@
             app:argType="com.sylvie.boardgameguide.data.Game" />
     </fragment>
     <action android:id="@+id/action_global_gameDetailFragment" app:destination="@id/gameDetailFragment"/>
+    <fragment
+        android:id="@+id/diceFragment"
+        android:name="com.sylvie.boardgameguide.tools.dice.DiceFragment"
+        android:label="DiceFragment"
+        tools:layout="@layout/tools_dice"/>
+    <action android:id="@+id/action_global_diceFragment" app:destination="@id/diceFragment"/>
 </navigation>
