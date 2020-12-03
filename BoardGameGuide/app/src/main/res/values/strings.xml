@@ -44,6 +44,8 @@
     <string name="minutes">&#160;分鐘</string>
     <string name="people">&#160;人</string>
     <string name="browse_recently">最近瀏覽:</string>
+    <string name="time_chinese">時間:&#160;</string>
+    <string name="location_chinese">地點:&#160;</string>
 
 
 </resources>

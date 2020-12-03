@@ -28,14 +28,12 @@ class NewEventFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
         binding.buttonNewEventCreate.setOnClickListener {
             val data = Event(
-                hostId = "louis",
-                topic = "好玩就好",
-                time = 20201211,
-                location = "馬路上",
-                gameId = "風聲",
+                hostId = "eric",
+                topic = binding.editNewEventTopic.text.toString(),
+                time = binding.editNewEventGameTime.text.toString().toLong(),
+                location = binding.editNewEventGameLocation.text.toString(),
+                gameId = "a002",
                 playerLimit = 7,
-                description = "讚讚",
-                rules = "不可以太強",
                 status = "OPEN",
             )
 

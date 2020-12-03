@@ -8,92 +8,104 @@
             name="event"
             type="com.sylvie.boardgameguide.data.Event" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:layout_marginTop="8dp">
 
-        <TextView
-            android:id="@+id/text_host_name"
-            android:layout_width="wrap_content"
+    <com.github.florent37.shapeofview.shapes.RoundRectView
+        android:id="@+id/clipCorner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shape_roundRect_topRightRadius="30dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/noto_sans"
-            android:text="sylviehao"
-            android:textColor="@color/darkBrown"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@android:color/white">
 
-        <TextView
-            android:id="@+id/text_game_topic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/finger_paint"
-            android:text="識破你的識破"
-            android:textColor="@color/darkBrown"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/image_game_picture"
-            app:layout_constraintStart_toStartOf="@+id/text_host_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_host_name" />
+            <ImageView
+                android:id="@+id/image_game_picture"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{event.image[0]}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars" />
 
-        <ImageView
-            android:id="@+id/image_game_picture"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="16dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{event.image[0]}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/text_game_topic"
-            app:layout_constraintTop_toBottomOf="@+id/text_game_location"
-            tools:src="@tools:sample/avatars"/>
+            <TextView
+                android:id="@+id/text_game_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/finger_paint"
+                android:text="識破你的識破"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_host_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_host_name" />
 
-        <TextView
-            android:id="@+id/line_1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/lightBlue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/image_game_picture"
-            app:layout_constraintStart_toStartOf="@+id/image_game_picture"
-            app:layout_constraintTop_toBottomOf="@+id/image_game_picture" />
+            <TextView
+                android:id="@+id/text_host_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="sylviehao"
+                android:textColor="@color/darkBrown"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_game_picture" />
 
-        <TextView
-            android:id="@+id/text_game_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/noto_sans"
-            android:text="遊戲: 矮人金礦"
-            android:textColor="@color/darkBrown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/text_game_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/game_name_chinese + event.gameId}"
+                android:textColor="@color/darkBrown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_host_name"
+                tools:text="遊戲名稱: 風聲" />
 
-        <TextView
-            android:id="@+id/text_game_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="時間: 11/28"
-            android:textColor="@color/darkBrown"
-            app:layout_constraintEnd_toEndOf="@+id/text_game_name"
-            app:layout_constraintTop_toBottomOf="@+id/text_game_name" />
+            <TextView
+                android:id="@+id/text_game_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{@string/time_chinese + String.valueOf(event.time)}"
+                android:textColor="@color/darkBrown"
+                app:layout_constraintEnd_toEndOf="@+id/text_game_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_name"
+                tools:text="時間: 20201231" />
 
-        <TextView
-            android:id="@+id/text_game_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/noto_sans"
-            android:text="地點: AppWoks School"
-            android:textColor="@color/darkBrown"
-            app:layout_constraintEnd_toEndOf="@+id/text_game_time"
-            app:layout_constraintTop_toBottomOf="@+id/text_game_time" />
+            <TextView
+                android:id="@+id/text_game_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@{@string/location_chinese + event.location}"
+                android:textColor="@color/darkBrown"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/text_game_time"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_time"
+                tools:text="地點: 台北市" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.github.florent37.shapeofview.shapes.RoundRectView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

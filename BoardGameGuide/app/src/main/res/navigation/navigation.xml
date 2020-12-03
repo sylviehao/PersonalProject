@@ -45,7 +45,11 @@
         android:id="@+id/detailEventFragment"
         android:name="com.sylvie.boardgameguide.detailEvent.DetailEventFragment"
         android:label="DetailEventFragment"
-        tools:layout="@layout/fragment_detail_event"/>
+        tools:layout="@layout/fragment_detail_event">
+        <argument
+            android:name="event"
+            app:argType="com.sylvie.boardgameguide.data.Event" />
+    </fragment>
     <action android:id="@+id/action_global_detailEventFragment" app:destination="@id/detailEventFragment" />
     <fragment
         android:id="@+id/toolsFragment"

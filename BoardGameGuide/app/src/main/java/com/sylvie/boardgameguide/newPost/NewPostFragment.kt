@@ -38,23 +38,17 @@ class NewPostFragment : Fragment() {
 
             val data = Event(
                 hostId = "sylviehao",
-                topic = "只收老司機",
-                image = mutableListOf("https://images.unsplash.com/photo-1546381107-b5c6e7c1a8af?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NzZ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=600&q=60"),
-                time = 20201231,
-                location = "我家",
-                gameId = "說書人",
-                playerLimit = 12,
-                playerList = mutableListOf("Sylvie", "Louis", "Taiyi", "Gary", "Eric", "Tron", "Nicole", "Emil", "Johnny"),
-                message = mutableListOf(Message(
-                    id = "3",
-                    hostId = "sylviehao",
-                    userId = "eric",
-                    message = "喝"
-                )),
-                description = "喜歡就來",
-                rules = "遲到的請客",
-                status = "ING",
-                like = mutableListOf("louis", "eric", "tron", "sylvie", "nicole", "emil", "johnny")
+                topic = binding.editNewPostTopic.text.toString(),
+                description = "跨年夜聚會!",
+                image = mutableListOf("https://images.unsplash.com/photo-1563811771046-ba984ff30900?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                "https://images.unsplash.com/photo-1599641499370-f4338ba82a04?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDF8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                "https://images.unsplash.com/photo-1533049883418-f0e0a8a39576?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NTZ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                time = binding.editNewPostGameTime.text.toString().toLong(),
+                location = binding.editNewPostGameLocation.text.toString(),
+                gameId = "a005",
+                rules = binding.editNewPostGameRule.text.toString(),
+                playerList = mutableListOf("sylviehao", "Louis", "Taiyi", "Gary"),
+                status = "CLOSE"
             )
 
             // Add a new document with a generated ID

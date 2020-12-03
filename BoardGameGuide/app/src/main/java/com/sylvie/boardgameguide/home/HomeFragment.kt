@@ -36,7 +36,7 @@ class HomeFragment : Fragment() {
                 if(it.status == "CLOSE"){
                     findNavController().navigate(HomeFragmentDirections.actionGlobalDetailPostFragment(it))
                 } else {
-                    findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment())
+                    findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment(it))
                 }
                 viewModel.onDetailNavigated()
             }

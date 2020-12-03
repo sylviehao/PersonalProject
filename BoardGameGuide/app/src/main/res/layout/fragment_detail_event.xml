@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.sylvie.boardgameguide.detailEvent.DetailEventViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,11 +40,12 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/noto_sans"
-                    android:text="sylviehao"
+                    android:text="@{viewModel.getEventData.hostId}"
                     android:textColor="@color/darkBrown"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="sylviehao" />
 
                 <TextView
                     android:id="@+id/text_game_topic"
@@ -50,22 +53,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/finger_paint"
-                    android:text="識破你的識破"
+                    android:text="@{viewModel.getEventData.topic}"
                     android:textColor="@color/darkBrown"
                     android:textSize="22sp"
                     app:layout_constraintStart_toStartOf="@+id/text_host_name"
-                    app:layout_constraintTop_toBottomOf="@+id/text_host_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_host_name"
+                    tools:text="主題: 好玩" />
 
                 <TextView
                     android:id="@+id/text_game_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="時間: 11/28"
+                    android:text="@{String.valueOf(viewModel.getEventData.time)}"
                     android:textColor="@color/darkBrown"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/text_game_topic"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_topic" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
+                    tools:text="20201231" />
 
                 <TextView
                     android:id="@+id/text_game_location"
@@ -73,71 +78,73 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/noto_sans"
-                    android:text="地點: AppWoks School"
+                    android:text="@{viewModel.getEventData.location}"
                     android:textColor="@color/darkBrown"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/text_game_time"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_time" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_time"
+                    tools:text="台北市" />
 
-                <ImageView
-                    android:id="@+id/ic_baby"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_total_player"
-                    app:layout_constraintEnd_toStartOf="@+id/text_total_player"
-                    app:layout_constraintTop_toTopOf="@+id/text_total_player"
-                    app:srcCompat="@drawable/ic_baby" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/ic_baby"-->
+                <!--                    android:layout_width="32dp"-->
+                <!--                    android:layout_height="32dp"-->
+                <!--                    android:layout_marginEnd="4dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/text_total_player"-->
+                <!--                    app:layout_constraintEnd_toStartOf="@+id/text_total_player"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/text_total_player"-->
+                <!--                    app:srcCompat="@drawable/ic_baby" />-->
 
-                <ImageView
-                    android:id="@+id/ic_like"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
-                    app:layout_constraintEnd_toStartOf="@+id/text_total_like"
-                    app:layout_constraintTop_toTopOf="@+id/text_total_like"
-                    app:srcCompat="@drawable/ic_good_circle" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/ic_like"-->
+                <!--                    android:layout_width="32dp"-->
+                <!--                    android:layout_height="32dp"-->
+                <!--                    android:layout_marginEnd="4dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"-->
+                <!--                    app:layout_constraintEnd_toStartOf="@+id/text_total_like"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/text_total_like"-->
+                <!--                    app:srcCompat="@drawable/ic_good_circle" />-->
 
-                <TextView
-                    android:id="@+id/text_total_player"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="10"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
-                    app:layout_constraintEnd_toStartOf="@+id/ic_like"
-                    app:layout_constraintTop_toTopOf="@+id/text_total_like" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_total_player"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginEnd="16dp"-->
+                <!--                    android:fontFamily="@font/noto_sans"-->
+                <!--                    android:text="10"-->
+                <!--                    android:textColor="@color/darkBrown"-->
+                <!--                    android:textSize="20sp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"-->
+                <!--                    app:layout_constraintEnd_toStartOf="@+id/ic_like"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/text_total_like" />-->
 
-                <TextView
-                    android:id="@+id/text_total_like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="99"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_total_like"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="20dp"-->
+                <!--                    android:layout_marginEnd="16dp"-->
+                <!--                    android:fontFamily="@font/noto_sans"-->
+                <!--                    android:text="99"-->
+                <!--                    android:textColor="@color/darkBrown"-->
+                <!--                    android:textSize="20sp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
                 <TextView
                     android:id="@+id/text_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="24dp"
                     android:background="@drawable/frame_edit_new_post"
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center_horizontal"
                     android:text="OPEN"
                     android:textColor="@color/darkBrown"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="@+id/text_total_like"
-                    app:layout_constraintTop_toBottomOf="@+id/ic_like" />
+                    app:layout_constraintBottom_toTopOf="@+id/icon_patrick_star"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageView
                     android:id="@+id/icon_mr_krabs"
@@ -149,6 +156,7 @@
                     app:srcCompat="@drawable/ic_mr_krabs" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"
@@ -217,30 +225,33 @@
                         android:id="@+id/text_game_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="名稱: 風聲"
+                        android:text="@{viewModel.getGameData.name}"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="名稱: 風聲"/>
 
                     <TextView
                         android:id="@+id/text_game_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="種類: 陣營"
+                        android:text="@{String.valueOf(viewModel.getGameData.type)}"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/text_game_name"
-                        app:layout_constraintTop_toBottomOf="@+id/text_game_name" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_name"
+                        tools:text="種類: 陣營"/>
 
                     <TextView
                         android:id="@+id/text_game_rule"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="規則:"
+                        android:text="@{viewModel.getGameData.rules}"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/text_game_type"
-                        app:layout_constraintTop_toBottomOf="@+id/text_game_type" />
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_type"
+                        tools:text="規則:" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
@@ -250,7 +261,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView2"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_player"
                     app:srcCompat="@drawable/ic_jake" />
 
                 <TextView
@@ -318,13 +329,13 @@
                     app:srcCompat="@drawable/ic_add" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView2"
+                    android:id="@+id/recycler_player"
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/constraint_game_info"
+                    app:layout_constraintEnd_toEndOf="@+id/line_1"
                     app:layout_constraintStart_toStartOf="@+id/constraint_game_info"
                     app:layout_constraintTop_toBottomOf="@+id/constraint_game_info" />
 

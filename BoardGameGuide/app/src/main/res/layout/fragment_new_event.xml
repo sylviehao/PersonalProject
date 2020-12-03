@@ -48,7 +48,7 @@
             android:ems="10"
             android:hint="@string/game_topic"
             android:inputType="textPersonName"
-            android:textColorHint="@color/darkBrown"
+            android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +62,7 @@
             android:ems="10"
             android:hint="@string/game_time"
             android:inputType="textPersonName"
-            android:textColorHint="@color/darkBrown"
+            android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_topic"
             app:layout_constraintStart_toStartOf="@+id/edit_newEvent_topic"
             app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_topic" />
@@ -76,7 +76,7 @@
             android:ems="10"
             android:hint="@string/game_location"
             android:inputType="textPersonName"
-            android:textColorHint="@color/darkBrown"
+            android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_time"
             app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_time"
             app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_time" />
@@ -131,7 +131,7 @@
             android:ems="10"
             android:hint="@string/game_name"
             android:inputType="textPersonName"
-            android:textColorHint="@color/darkBrown"
+            android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/line_1"
             app:layout_constraintStart_toStartOf="@+id/line_1"
             app:layout_constraintTop_toBottomOf="@+id/line_1" />
@@ -145,7 +145,7 @@
             android:ems="10"
             android:hint="@string/game_type"
             android:inputType="textPersonName"
-            android:textColorHint="@color/darkBrown"
+            android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_name"
             app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_name"
             app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_name" />
@@ -160,7 +160,7 @@
             android:gravity="top"
             android:hint="@string/game_rule"
             android:inputType="textMultiLine"
-            android:textColorHint="@color/darkBrown"
+            android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_type"
             app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_type"
             app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_type" />
@@ -175,7 +175,7 @@
             android:gravity="top"
             android:hint="@string/game_member_limit"
             android:inputType="textMultiLine"
-            android:textColorHint="@color/darkBrown"
+            android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_rule"
             app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_rule"
             app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_rule" />

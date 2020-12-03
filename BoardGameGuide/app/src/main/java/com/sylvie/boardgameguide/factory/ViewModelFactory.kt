@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.detailEvent.DetailEventViewModel
 import com.sylvie.boardgameguide.detailPost.DetailPostViewModel
 import com.sylvie.boardgameguide.event.EventViewModel
 import com.sylvie.boardgameguide.favorite.FavoriteViewModel
@@ -52,6 +53,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(ProfileViewModel::class.java) ->
                     ProfileViewModel(gameRepository)
+
+                isAssignableFrom(DetailEventViewModel::class.java) ->
+                    DetailEventViewModel(gameRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
