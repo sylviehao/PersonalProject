@@ -101,4 +101,7 @@ dependencies {
     //Shape of view
     implementation 'com.github.florent37:shapeofview:1.4.7'
 
+    //Progress bar
+    implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
+
 }

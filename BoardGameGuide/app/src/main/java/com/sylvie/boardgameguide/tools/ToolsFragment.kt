@@ -17,6 +17,10 @@ class ToolsFragment : Fragment() {
             findNavController().navigate(R.id.action_global_diceFragment)
         }
 
+        binding.iconTimer.setOnClickListener {
+            findNavController().navigate(R.id.action_global_timerFragment)
+        }
+
 
         return binding.root
     }

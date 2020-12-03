@@ -89,6 +89,8 @@ class MainActivity : AppCompatActivity() {
         setupDrawer()
     }
 
+
+
     private fun setupBottomNav() {
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
     }

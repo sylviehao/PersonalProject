@@ -127,5 +127,10 @@
     <dialog
         android:id="@+id/deleteDialog"
         android:name="com.sylvie.boardgameguide.dialog.DeleteDialog"
-        android:label="DeleteDialog" /><action android:id="@+id/action_global_deleteDialog" app:destination="@id/deleteDialog"/>
+        android:label="DeleteDialog" />
+    <action android:id="@+id/action_global_deleteDialog" app:destination="@id/deleteDialog" />
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.sylvie.boardgameguide.tools.timer.TimerFragment"
+        android:label="TimerFragment" /><action android:id="@+id/action_global_timerFragment" app:destination="@id/timerFragment"/>
 </navigation>
