@@ -12,6 +12,7 @@ import com.sylvie.boardgameguide.game.GameViewModel
 import com.sylvie.boardgameguide.game.detail.GameDetailViewModel
 import com.sylvie.boardgameguide.home.HomeViewModel
 import com.sylvie.boardgameguide.newPost.NewPostViewModel
+import com.sylvie.boardgameguide.profile.ProfileViewModel
 import com.sylvie.boardgameguide.uploadPhoto.UploadPhotoViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -48,6 +49,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(GameDetailViewModel::class.java) ->
                     GameDetailViewModel(gameRepository)
+
+                isAssignableFrom(ProfileViewModel::class.java) ->
+                    ProfileViewModel(gameRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

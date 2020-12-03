@@ -94,9 +94,9 @@ class DetailPostFragment : Fragment() {
 //                    listResult.filter { list -> list.id == bundle.gameId }[0]
 //            }
 
-        binding.buttonAddPhoto.setOnClickListener {
-            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
-        }
+//        binding.buttonAddPhoto.setOnClickListener {
+//            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+//        }
 
         return binding.root
     }

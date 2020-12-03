@@ -13,8 +13,8 @@ data class EventResult(
         eventList?.let {
                 for (event in it) {
                     when (event.status) {
-                        "OPEN" -> items.add(HomeItem.PostItem(event))
-                        "CLOSE" -> items.add(HomeItem.EventItem(event))
+                        "OPEN" -> items.add(HomeItem.EventItem(event))
+                        "CLOSE" -> items.add(HomeItem.PostItem(event))
                     }
                 }
         }

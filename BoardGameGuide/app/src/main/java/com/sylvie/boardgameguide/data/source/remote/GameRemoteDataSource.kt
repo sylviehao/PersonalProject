@@ -22,7 +22,6 @@ object GameRemoteDataSource : GameDataSource {
                     if (task.isSuccessful) {
                         val list = mutableListOf<Event>()
 
-
                         val event1 = task.result?.toObjects(EventResult::class.java)
                         for (document in task.result!!) {
                             val event = document.toObject(Event::class.java)

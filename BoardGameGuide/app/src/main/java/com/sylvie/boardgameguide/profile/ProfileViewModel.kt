@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.favorite
+package com.sylvie.boardgameguide.profile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.source.GameRepository
 
-class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel() {
+class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel() {
+
     // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Game>()
 

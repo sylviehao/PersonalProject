@@ -304,34 +304,34 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_photo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="200dp"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/frame_edit_new_post"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/icon_jake"
                     app:layout_constraintTop_toBottomOf="@+id/line_2" />
 
-                <TextView
-                    android:id="@+id/button_add_photo"
-                    android:layout_width="200dp"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    app:layout_constraintBottom_toBottomOf="@+id/recycler_photo"
-                    app:layout_constraintStart_toEndOf="@+id/recycler_photo"
-                    app:layout_constraintTop_toTopOf="@+id/recycler_photo" />
+<!--                <TextView-->
+<!--                    android:id="@+id/button_add_photo"-->
+<!--                    android:layout_width="200dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:background="@drawable/frame_edit_new_post"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/recycler_photo"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/recycler_photo" />-->
 
-                <ImageView
-                    android:id="@+id/icon_add_photo"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
-                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
-                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"
-                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"
-                    app:srcCompat="@drawable/ic_add" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/icon_add_photo"-->
+<!--                    android:layout_width="36dp"-->
+<!--                    android:layout_height="36dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"-->
+<!--                    app:srcCompat="@drawable/ic_add" />-->
 
                 <ImageView
                     android:id="@+id/icon_bart"

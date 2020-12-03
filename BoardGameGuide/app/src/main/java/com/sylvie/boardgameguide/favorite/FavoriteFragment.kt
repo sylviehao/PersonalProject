@@ -7,12 +7,15 @@ import android.view.ViewGroup
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentFavoriteBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.GameAdapter
+import com.sylvie.boardgameguide.game.GameFragmentDirections
 
 class FavoriteFragment : Fragment() {
 
@@ -25,7 +28,17 @@ class FavoriteFragment : Fragment() {
         val binding = FragmentFavoriteBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        val adapter = FavoriteAdapter()
+
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                findNavController().navigate(GameFragmentDirections.actionGlobalGameDetailFragment(it))
+                viewModel.onDetailNavigated()
+            }
+        })
+
+        val adapter = FavoriteAdapter(FavoriteAdapter.OnClickListener {
+            viewModel.navigateToDetail(it)
+        })
         binding.recyclerFavorite.adapter = adapter
 
         val db = FirebaseFirestore.getInstance()
