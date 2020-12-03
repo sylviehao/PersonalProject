@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.ItemHomeEventBinding
 
@@ -21,6 +22,7 @@ class EventAdapter :
             binding.textGameTopic.text = event.topic
             binding.textGameTime.text = event.time.toString()
             binding.textGameLocation.text = event.location
+            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.executePendingBindings()
         }
     }

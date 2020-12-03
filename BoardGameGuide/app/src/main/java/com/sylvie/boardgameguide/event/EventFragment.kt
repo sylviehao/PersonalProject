@@ -29,17 +29,23 @@ class EventFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
 
         //即時監聽資料庫是否變動
-        db.collection("Event").addSnapshotListener { value, error ->
-            value?.let {
-                val listResult = mutableListOf<Event>()
-                it.forEach { data ->
-                    val d = data.toObject(Event::class.java)
-                    listResult.add(d)
+        db.collection("Event").whereEqualTo("status","OPEN")
+            .addSnapshotListener { value, error ->
+                value?.let {
+                    val listResult = mutableListOf<Event>()
+                    val listResultOpen = mutableListOf<Event>()
+                    it.forEach { data ->
+                        val d = data.toObject(Event::class.java)
+                        listResult.add(d)
+                    }
+                    listResult.sortByDescending { it.createdTime }
+                    listResultOpen.addAll( listResult.filter {list ->
+                        list.playerList!!.any { name -> name == "sylviehao" }
+                    })
+
+                    adapter.submitList(listResultOpen)
                 }
-                listResult.sortByDescending { it.createdTime }
-                adapter.submitList(listResult)
             }
-        }
 
         return binding.root
     }
