@@ -119,4 +119,13 @@
         android:label="DiceFragment"
         tools:layout="@layout/tools_dice"/>
     <action android:id="@+id/action_global_diceFragment" app:destination="@id/diceFragment"/>
+    <dialog
+        android:id="@+id/joinDialog"
+        android:name="com.sylvie.boardgameguide.dialog.JoinDialog"
+        android:label="JoinDialog" />
+    <action android:id="@+id/action_global_joinDialog" app:destination="@id/joinDialog" />
+    <dialog
+        android:id="@+id/deleteDialog"
+        android:name="com.sylvie.boardgameguide.dialog.DeleteDialog"
+        android:label="DeleteDialog" /><action android:id="@+id/action_global_deleteDialog" app:destination="@id/deleteDialog"/>
 </navigation>

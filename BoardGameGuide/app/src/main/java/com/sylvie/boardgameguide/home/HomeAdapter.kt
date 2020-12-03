@@ -11,6 +11,8 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.HomeItem
 import com.sylvie.boardgameguide.databinding.ItemHomeEventBinding
 import com.sylvie.boardgameguide.databinding.ItemHomePostBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
@@ -30,6 +32,7 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
             binding.textTotalLike.text = event.like?.size.toString()
             binding.textGameName.text = event.gameId
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
+            binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()
         }
@@ -44,6 +47,7 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
             binding.textGameTopic.text = event.topic
             binding.textGameName.text = event.gameId
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
+            binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()
         }
@@ -91,5 +95,15 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
             is HomeItem.PostItem -> ITEM_VIEW_TYPE_POST
             is HomeItem.EventItem -> ITEM_VIEW_TYPE_EVENT
         }
+    }
+}
+
+fun getTimeDate(timestamp: Date): String {
+    try {
+        val netDate = (timestamp)
+        val sfd = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.TAIWAN)
+        return sfd.format(netDate)
+    } catch (e: Exception) {
+        return "date"
     }
 }

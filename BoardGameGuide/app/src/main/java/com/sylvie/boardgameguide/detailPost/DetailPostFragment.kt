@@ -66,8 +66,8 @@ class DetailPostFragment : Fragment() {
                 message = binding.editComment.text.toString()
             )
 
-            // Add a new document with a generated ID
-            db.collection("Message")
+
+            db.collection("Event")
                 .add(data)
                 .addOnSuccessListener { documentReference ->
                     documentReference.update("id", documentReference.id)
@@ -94,9 +94,9 @@ class DetailPostFragment : Fragment() {
 //                    listResult.filter { list -> list.id == bundle.gameId }[0]
 //            }
 
-//        binding.buttonAddPhoto.setOnClickListener {
-//            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
-//        }
+        binding.buttonAddPhoto.setOnClickListener {
+            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+        }
 
         return binding.root
     }

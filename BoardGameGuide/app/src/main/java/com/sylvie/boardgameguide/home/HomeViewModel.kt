@@ -54,7 +54,6 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
     fun getHome() {
         coroutineScope.launch {
-
             val result = gameRepository.getHome()
             _getHome.value = when (result) {
                 is Result.Success -> {

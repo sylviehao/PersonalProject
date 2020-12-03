@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.detailPost.DetailPostFragmentArgs
+import com.sylvie.boardgameguide.detailPost.DetailPostPhotoAdapter
 import com.sylvie.boardgameguide.detailPost.DetailPostPlayerAdapter
 import com.sylvie.boardgameguide.detailPost.DetailPostViewModel
 import com.sylvie.boardgameguide.ext.getVmFactory
@@ -29,11 +30,19 @@ class DetailEventFragment : Fragment() {
         viewModel.getGame(bundle.gameId)
 
         val adapter = DetailEventPlayerAdapter()
+        val adapter2 = DetailEventPhotoAdapter()
         binding.recyclerPlayer.adapter = adapter
+        binding.recyclerPhoto.adapter = adapter2
         adapter.submitList(bundle.playerList)
+        adapter2.submitList(bundle.image)
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+        }
+
+        binding.buttonJoin.setOnClickListener {
+            //判斷是否加入過
+            findNavController().navigate(R.id.action_global_joinDialog)
         }
 
 

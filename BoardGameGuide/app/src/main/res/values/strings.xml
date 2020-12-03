@@ -46,6 +46,8 @@
     <string name="browse_recently">最近瀏覽:</string>
     <string name="time_chinese">時間:&#160;</string>
     <string name="location_chinese">地點:&#160;</string>
+    <string name="join_success">成功加入</string>
+    <string name="delete_success">成功退出</string>
 
 
 </resources>

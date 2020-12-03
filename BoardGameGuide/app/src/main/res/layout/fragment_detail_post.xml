@@ -45,7 +45,7 @@
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="sylviehao"/>
+                    tools:text="sylviehao" />
 
 
                 <TextView
@@ -59,7 +59,7 @@
                     android:textSize="22sp"
                     app:layout_constraintStart_toStartOf="@+id/text_host_name"
                     app:layout_constraintTop_toBottomOf="@+id/text_host_name"
-                    tools:text="不服來戰"/>
+                    tools:text="不服來戰" />
 
 
                 <TextView
@@ -72,7 +72,7 @@
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/text_game_topic"
                     app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
-                    tools:text="20201231"/>
+                    tools:text="20201231" />
 
 
                 <TextView
@@ -86,7 +86,7 @@
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="@+id/text_game_time"
                     app:layout_constraintTop_toBottomOf="@+id/text_game_time"
-                    tools:text="AppWorks School"/>
+                    tools:text="AppWorks School" />
 
 
                 <ImageView
@@ -97,7 +97,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/text_total_player"
                     app:layout_constraintEnd_toStartOf="@+id/text_total_player"
                     app:layout_constraintTop_toTopOf="@+id/text_total_player"
-                    app:srcCompat="@drawable/ic_baby" />
+                    app:srcCompat="@drawable/ic_player" />
 
                 <ImageView
                     android:id="@+id/ic_like"
@@ -113,22 +113,22 @@
                     android:id="@+id/text_total_player"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginEnd="12dp"
                     android:fontFamily="@font/noto_sans"
-                    android:text="@{String.valueOf(viewModel.getEventData.playerLimit)}"
+                    android:text="@{String.valueOf(viewModel.getEventData.playerList.size())}"
                     android:textColor="@color/darkBrown"
                     android:textSize="20sp"
                     app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
                     app:layout_constraintEnd_toStartOf="@+id/ic_like"
                     app:layout_constraintTop_toTopOf="@+id/text_total_like"
-                    tools:text="12"/>
+                    tools:text="12" />
 
 
                 <TextView
                     android:id="@+id/text_total_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="18dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/noto_sans"
                     android:text="@{String.valueOf(viewModel.getEventData.like.size())}"
@@ -136,7 +136,7 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="23"/>
+                    tools:text="23" />
 
 
                 <ImageView
@@ -221,7 +221,7 @@
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="狼人殺"/>
+                        tools:text="狼人殺" />
 
 
                     <TextView
@@ -233,7 +233,7 @@
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/text_game_name"
                         app:layout_constraintTop_toBottomOf="@+id/text_game_name"
-                        tools:text="陣營"/>
+                        tools:text="陣營" />
 
                     <TextView
                         android:id="@+id/text_game_rule"
@@ -244,7 +244,7 @@
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/text_game_type"
                         app:layout_constraintTop_toBottomOf="@+id/text_game_type"
-                        tools:text="規則"/>
+                        tools:text="規則" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -309,29 +309,29 @@
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/line_2"
                     app:layout_constraintStart_toStartOf="@+id/icon_jake"
                     app:layout_constraintTop_toBottomOf="@+id/line_2" />
 
-<!--                <TextView-->
-<!--                    android:id="@+id/button_add_photo"-->
-<!--                    android:layout_width="200dp"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:layout_marginEnd="16dp"-->
-<!--                    android:background="@drawable/frame_edit_new_post"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/recycler_photo"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/recycler_photo" />-->
+                <TextView
+                    android:id="@+id/button_add_photo"
+                    android:layout_width="0dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/frame_edit_new_post"
+                    app:layout_constraintEnd_toEndOf="@+id/line_2"
+                    app:layout_constraintStart_toStartOf="@+id/line_2"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
 
-<!--                <ImageView-->
-<!--                    android:id="@+id/icon_add_photo"-->
-<!--                    android:layout_width="36dp"-->
-<!--                    android:layout_height="36dp"-->
-<!--                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"-->
-<!--                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"-->
-<!--                    app:srcCompat="@drawable/ic_add" />-->
+                <ImageView
+                    android:id="@+id/icon_add_photo"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
+                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
+                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"
+                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"
+                    app:srcCompat="@drawable/ic_add" />
 
                 <ImageView
                     android:id="@+id/icon_bart"
@@ -339,7 +339,7 @@
                     android:layout_height="48dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="@+id/recycler_photo"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo"
+                    app:layout_constraintTop_toBottomOf="@+id/button_add_photo"
                     app:srcCompat="@drawable/ic_bart" />
 
                 <TextView
@@ -395,7 +395,7 @@
                     android:gravity="center"
                     android:hint="@string/edit_comment"
                     android:inputType="textMultiLine"
-                    android:textColorHint="@color/darkBrown"
+                    android:textColorHint="@color/gray_888888"
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="@+id/recycler_comment"
                     app:layout_constraintStart_toStartOf="@+id/recycler_comment"

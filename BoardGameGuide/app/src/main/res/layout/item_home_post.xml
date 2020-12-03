@@ -33,6 +33,17 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/white">
 
+                <ImageView
+                    android:id="@+id/image_game_picture"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{event.image[0]}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@tools:sample/avatars" />
+
                 <TextView
                     android:id="@+id/text_host_name"
                     android:layout_width="wrap_content"
@@ -47,6 +58,15 @@
                     tools:text="sylviehao" />
 
                 <TextView
+                    android:id="@+id/text_created_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/text_host_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_host_name"
+                    tools:text="20201231" />
+
+                <TextView
                     android:id="@+id/text_game_topic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -55,19 +75,8 @@
                     android:textColor="@color/darkBrown"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="@+id/text_host_name"
-                    app:layout_constraintTop_toBottomOf="@+id/text_host_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_created_time"
                     tools:text="揪一波" />
-
-                <ImageView
-                    android:id="@+id/image_game_picture"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    app:imageUrl="@{event.image[0]}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@tools:sample/avatars" />
 
                 <TextView
                     android:id="@+id/text_game_name"
@@ -88,18 +97,20 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_total_player"
                     app:layout_constraintEnd_toStartOf="@+id/text_total_player"
-                    app:layout_constraintTop_toTopOf="@+id/text_host_name"
-                    app:srcCompat="@drawable/ic_baby" />
+                    app:layout_constraintTop_toTopOf="@+id/text_total_player"
+                    app:srcCompat="@drawable/ic_player" />
 
                 <TextView
                     android:id="@+id/text_total_player"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="12dp"
                     android:fontFamily="@font/noto_sans"
                     android:textColor="@color/darkBrown"
                     android:textSize="16sp"
+                    android:text="@{String.valueOf(event.playerList.size())}"
                     app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
                     app:layout_constraintEnd_toStartOf="@+id/ic_like"
                     app:layout_constraintTop_toTopOf="@+id/text_total_like"
@@ -110,22 +121,22 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_marginEnd="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ic_baby"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
                     app:layout_constraintEnd_toStartOf="@+id/text_total_like"
-                    app:layout_constraintTop_toTopOf="@+id/ic_baby"
+                    app:layout_constraintTop_toTopOf="@+id/text_total_like"
                     app:srcCompat="@drawable/ic_good_circle" />
 
                 <TextView
                     android:id="@+id/text_total_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/noto_sans"
                     android:textColor="@color/darkBrown"
                     android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ic_like"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/ic_like"
+                    app:layout_constraintTop_toBottomOf="@+id/image_game_picture"
                     tools:text="12" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
