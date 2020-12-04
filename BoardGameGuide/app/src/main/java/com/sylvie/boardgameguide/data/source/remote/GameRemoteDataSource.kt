@@ -2,7 +2,6 @@ package com.sylvie.boardgameguide.data.source.remote
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import bolts.Task
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.sylvie.boardgameguide.data.*
@@ -100,6 +99,27 @@ object GameRemoteDataSource : GameDataSource {
 //                        }
                         val user = task.result?.toObject(User::class.java)
                         continuation.resume(Result.Success(user!!))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
+    override suspend fun setGame(user: User, game: Game): Result<Boolean> =
+        suspendCoroutine { continuation ->
+
+            val b = user
+            user.favorite?.add(game)
+
+            FirebaseFirestore.getInstance()
+                .collection("User").document(user.id)
+                .set(b)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
                     } else {
                         task.exception?.let {
                             continuation.resume(Result.Error(it))

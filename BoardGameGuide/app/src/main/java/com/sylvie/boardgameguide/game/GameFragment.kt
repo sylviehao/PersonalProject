@@ -43,14 +43,10 @@ class GameFragment : Fragment() {
 
         val adapter = GameAdapter(GameAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-            db.collection("User").document("001")
-                .set(it)
-                .addOnSuccessListener { documentReference ->
-                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
-                }
         }, viewModel)
 
         binding.recyclerGame.adapter = adapter
+        binding.recyclerGame.adapter?.notifyDataSetChanged()
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -61,6 +57,10 @@ class GameFragment : Fragment() {
 
         viewModel.boomStatus.observe(viewLifecycleOwner, Observer {
             boom(it)
+        })
+
+        viewModel.hopeStatus.observe(viewLifecycleOwner, Observer {
+            binding.recyclerGame.adapter?.notifyDataSetChanged()
         })
 
 

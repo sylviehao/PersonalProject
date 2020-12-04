@@ -14,5 +14,7 @@ interface GameRepository {
 
     suspend fun getUser(id : String): Result<User>
 
+    suspend fun setGame(user: User, game: Game): Result<Boolean>
+
 
 }

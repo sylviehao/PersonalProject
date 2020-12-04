@@ -10,6 +10,7 @@ import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -32,6 +33,11 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         get() = _getUserData
 
 
+    private val _hopeStatus = MutableLiveData<Boolean>()
+    val hopeStatus: LiveData<Boolean>
+        get() = _hopeStatus
+
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -39,21 +45,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
 
-//    fun addRemoveHopeList() {
-//        coroutineScope.launch {
-//            try {
-//                var data = HopeListStatus(
-//                        data = HopeStatus (
-//                            product_id = id,
-//                            status = status
-//                        )
-//                    )
-//            } catch (e: Exception) {
-//                Log.i("Star", "${e.message}")
-//            }
-//
-//        }
-//    }
     init {
         getUser("001")
     }
@@ -61,15 +52,33 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     fun getUser(id: String) {
 
         coroutineScope.launch {
+            try {
+//                UserManager.userToken?.let {
+                    val result = gameRepository.getUser(id)
+                    _getUserData.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
+                    }
+                    _hopeStatus.value = true
+//                }
+            } catch (e: Exception) {
 
-            val result = gameRepository.getUser(id)
-            _getUserData.value = when (result) {
-                is Result.Success -> {
-                   result.data
-                } else -> {
-                    null
-                }
             }
+        }
+    }
+
+    fun addRemoveHopeList(game: Game) {
+        coroutineScope.launch {
+            try {
+                _getUserData.value?.let { gameRepository.setGame(it,game) }
+            } catch (e: Exception) {
+                Log.i("Star", "${e.message}")
+            }
+
         }
     }
 

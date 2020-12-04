@@ -33,14 +33,15 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
             binding.textGameType.text = game.type.toString()
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
             binding.iconPin.setOnClickListener {
-                onClickListener.clickListener
                 if(it.tag == "empty"){
                     it.tag = "select"
                     viewModel.boomImage(binding.imageGame)
                     it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+                    viewModel.addRemoveHopeList(game)
                 }else{
                     it.tag = "empty"
                     it.setBackgroundResource(R.drawable.ic_nav_pin)
+                    viewModel.addRemoveHopeList(game)
                 }
             }
             binding.executePendingBindings()
