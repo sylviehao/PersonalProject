@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.data.Game
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentFavoriteBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.GameAdapter
@@ -25,13 +26,17 @@ class FavoriteFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentFavoriteBinding.inflate(inflater, container,false)
+        val binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
-                findNavController().navigate(GameFragmentDirections.actionGlobalGameDetailFragment(it))
+                findNavController().navigate(
+                    GameFragmentDirections.actionGlobalGameDetailFragment(
+                        it
+                    )
+                )
                 viewModel.onDetailNavigated()
             }
         })
@@ -41,18 +46,24 @@ class FavoriteFragment : Fragment() {
         })
         binding.recyclerFavorite.adapter = adapter
 
-        val db = FirebaseFirestore.getInstance()
-        //即時監聽資料庫是否變動
-        db.collection("Game").addSnapshotListener { value, error ->
-            value?.let {
-                val listResult = mutableListOf<Game>()
-                it.forEach { data ->
-                    val d = data.toObject(Game::class.java)
-                    listResult.add(d)
-                }
-                adapter.submitList(listResult)
+        viewModel.getUserData.observe(viewLifecycleOwner, Observer {
+            it.let {user->
+                adapter.submitList(user.favorite)
             }
-        }
+        })
+
+//        val db = FirebaseFirestore.getInstance()
+        //即時監聽資料庫是否變動
+//        db.collection("Game").addSnapshotListener { value, error ->
+//            value?.let {
+//                val listResult = mutableListOf<Game>()
+//                it.forEach { data ->
+//                    val d = data.toObject(Game::class.java)
+//                    listResult.add(d)
+//                }
+//                adapter.submitList(listResult)
+//            }
+//        }
 
         return binding.root
     }

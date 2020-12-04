@@ -64,20 +64,6 @@ class GameFragment : Fragment() {
         })
 
 
-
-//        //即時監聽資料庫是否變動
-//        db.collection("User").addSnapshotListener { value, error ->
-//            value?.let {
-//                val listResult = User()
-//                it.forEach { data ->
-//                    val d = data.toObject(User::class.java)
-//                    listResult.add(d)
-//                }
-//                adapter.submitList(listResult)
-//            }
-//        }
-
-
         //即時監聽資料庫是否變動
         db.collection("Game").addSnapshotListener { value, error ->
             value?.let {

@@ -20,11 +20,11 @@ class FavoriteAdapter(private val onClickListener: FavoriteAdapter.OnClickListen
     class FavoriteViewHolder(private val binding: ItemFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(favorite: Game, onClickListener: FavoriteAdapter.OnClickListener) {
-            binding.favorite = favorite
-            binding.textGameName.text = favorite.name
-            binding.textGameType.text = favorite.type.toString()
-            binding.imageGame.setOnClickListener { onClickListener.onClick(favorite) }
+        fun bind(game: Game, onClickListener: FavoriteAdapter.OnClickListener) {
+            binding.game = game
+            binding.textGameName.text = game.name
+            binding.textGameType.text = game.type.toString()
+            binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
             binding.executePendingBindings()
         }
     }
