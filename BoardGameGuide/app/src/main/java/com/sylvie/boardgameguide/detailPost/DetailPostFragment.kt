@@ -45,12 +45,14 @@ class DetailPostFragment : Fragment() {
         db.collection("Event")
             .addSnapshotListener { value, error ->
             value?.let {
-                val listResult = mutableListOf<Message>()
+                val listResult = mutableListOf<Event>()
+
                 it.forEach { data ->
-                    val d = data.toObject(Message::class.java)
+                    val d = data.toObject(Event::class.java)
                     listResult.add(d)
                 }
-                adapter.submitList(listResult)
+                var b = listResult.filter {result-> result.id ==bundle.id }[0]
+                adapter.submitList(b.message)
             }
         }
 

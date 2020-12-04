@@ -18,11 +18,19 @@ import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.home.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
+//data class GameInfo(
+//    val name: String,
+//    val rules: String
+//)
+
 class NewPostFragment : Fragment() {
 
-//    private val viewModel by viewModels<NewPostViewModel> {  }
+
     private lateinit var binding : FragmentNewPostBinding
     val viewModel by viewModels<NewPostViewModel> { getVmFactory() }
+
+//    var arg: GameInfo? = null
+//        GameInfo("i wanna play a game", "gogo")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
@@ -31,7 +39,10 @@ class NewPostFragment : Fragment() {
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
-
+//        arg?.let {
+//            binding.editNewPostGameName.setText(it.name)
+//            binding.editNewPostGameRule.setText(it.rules)
+//        }
 
         val db = FirebaseFirestore.getInstance()
         binding.buttonNewPostCreate.setOnClickListener {
@@ -69,9 +80,6 @@ class NewPostFragment : Fragment() {
                 }
             findNavController().navigate(R.id.action_global_homeFragment)
         }
-
-
-
 
 
         return binding.root
