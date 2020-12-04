@@ -2,10 +2,7 @@ package com.sylvie.boardgameguide.data.source.local
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import com.sylvie.boardgameguide.data.Event
-import com.sylvie.boardgameguide.data.Game
-import com.sylvie.boardgameguide.data.HomeItem
-import com.sylvie.boardgameguide.data.Result
+import com.sylvie.boardgameguide.data.*
 import com.sylvie.boardgameguide.data.source.GameDataSource
 
 class GameLocalDataSource(val context: Context) : GameDataSource {
@@ -21,5 +18,7 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
         TODO("Not yet implemented")
     }
 
-
+    override suspend fun getUser(id: String): Result<User> {
+        TODO("Not yet implemented")
+    }
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
+import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
 import kotlinx.coroutines.CoroutineScope
@@ -23,6 +24,12 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     val navigateToDetail: LiveData<Game>
         get() = _navigateToDetail
+
+    // Save change from Game
+    var _getUserData = MutableLiveData<User>()
+
+    val getUserData: LiveData<User>
+        get() = _getUserData
 
 
     // Create a Coroutine scope using a job to be able to cancel when needed
@@ -47,6 +54,24 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 //
 //        }
 //    }
+    init {
+        getUser("001")
+    }
+
+    fun getUser(id: String) {
+
+        coroutineScope.launch {
+
+            val result = gameRepository.getUser(id)
+            _getUserData.value = when (result) {
+                is Result.Success -> {
+                   result.data
+                } else -> {
+                    null
+                }
+            }
+        }
+    }
 
     fun navigateToDetail(game: Game) {
         _navigateToDetail.value = game

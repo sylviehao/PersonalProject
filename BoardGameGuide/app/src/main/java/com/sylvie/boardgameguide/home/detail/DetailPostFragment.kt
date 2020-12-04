@@ -66,12 +66,12 @@ class DetailPostFragment : Fragment() {
                 userId = "sylviehao",
                 message = binding.editComment.text.toString()
             )
-            val a = bundle
-            a.message?.add(data)
-            Log.i("message",a.toString())
+            val event = bundle
+            event.message?.add(data)
+            Log.i("message", event.toString())
 
             db.collection("Event").document(bundle.id)
-                .set(a)
+                .set(event)
                 .addOnSuccessListener { documentReference ->
 //                    documentReference.update("id", bundle.id)
                     Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")

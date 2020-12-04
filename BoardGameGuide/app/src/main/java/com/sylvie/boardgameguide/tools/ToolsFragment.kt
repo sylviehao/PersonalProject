@@ -21,6 +21,10 @@ class ToolsFragment : Fragment() {
             findNavController().navigate(R.id.action_global_timerFragment)
         }
 
+        binding.iconPick.setOnClickListener {
+            findNavController().navigate(R.id.action_global_bottleFragment)
+        }
+
 
         return binding.root
     }

@@ -18,14 +18,18 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Message
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.home.HomeAdapter
 import com.sylvie.boardgameguide.home.HomeFragmentDirections
 import me.samlss.bloom.Bloom
 import me.samlss.bloom.effector.BloomEffector
+import me.samlss.bloom.shape.distributor.CircleShapeDistributor
 import me.samlss.bloom.shape.distributor.ParticleShapeDistributor
+import me.samlss.bloom.shape.distributor.RectShapeDistributor
 import me.samlss.bloom.shape.distributor.StarShapeDistributor
+import java.lang.reflect.Array.set
 
 class GameFragment : Fragment() {
 
@@ -34,9 +38,17 @@ class GameFragment : Fragment() {
         val binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        val db = FirebaseFirestore.getInstance()
+
         val adapter = GameAdapter(GameAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        })
+            db.collection("User").document("001")
+                .set(it)
+                .addOnSuccessListener { documentReference ->
+                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
+                }
+        }, viewModel)
 
         binding.recyclerGame.adapter = adapter
 
@@ -47,7 +59,25 @@ class GameFragment : Fragment() {
             }
         })
 
-        val db = FirebaseFirestore.getInstance()
+        viewModel.boomStatus.observe(viewLifecycleOwner, Observer {
+            boom(it)
+        })
+
+
+
+//        //即時監聽資料庫是否變動
+//        db.collection("User").addSnapshotListener { value, error ->
+//            value?.let {
+//                val listResult = User()
+//                it.forEach { data ->
+//                    val d = data.toObject(User::class.java)
+//                    listResult.add(d)
+//                }
+//                adapter.submitList(listResult)
+//            }
+//        }
+
+
         //即時監聽資料庫是否變動
         db.collection("Game").addSnapshotListener { value, error ->
             value?.let {
@@ -71,8 +101,8 @@ class GameFragment : Fragment() {
 
     private var mBloom: Bloom? = null
 
-    fun boom(view: View) {
-        val shapeDistributor: ParticleShapeDistributor = StarShapeDistributor()
+    private fun boom(view: View) {
+        val shapeDistributor: ParticleShapeDistributor = CircleShapeDistributor()
 
         mBloom?.cancel()
         mBloom = Bloom.with(requireActivity())

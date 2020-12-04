@@ -85,4 +85,27 @@ object GameRemoteDataSource : GameDataSource {
                     }
             }
 
+
+    override suspend fun getUser(id: String): Result<User> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection("User").document(id)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+//                        val list = mutableListOf<Game>()
+//                        for (document in task.result!!) {
+//                            val game = document.toObject(Game::class.java)
+//                            list.add(game)
+//                        }
+                        val user = task.result?.toObject(User::class.java)
+                        continuation.resume(Result.Success(user!!))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
 }

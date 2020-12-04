@@ -59,31 +59,32 @@ class ProfileFragment : Fragment() {
             }
         }
 
-//        val db = FirebaseFirestore.getInstance()
-//        binding.buttonEditInfo.setOnClickListener {
-//            val data = User(
-//                name = "sylviehao",
-//                introduction = "嗨嗨",
-//                favorite = mutableListOf(
-//                    Game(
-//                    )
-//                ),
-//                browseRecently = mutableListOf()
-//            )
-//
-//            // Add a new document with a generated ID
-//            db.collection("User")
-//                .add(data)
-//                .addOnSuccessListener { documentReference ->
+
+        binding.buttonEditInfo.setOnClickListener {
+            val data = User(
+                id = "001",
+                name = "sylviehao",
+                introduction = "嗨嗨",
+                favorite = mutableListOf(
+                    Game(
+                    )
+                ),
+                browseRecently = mutableListOf()
+            )
+
+            // Add a new document with a generated ID
+            db.collection("User").document("001")
+                .set(data)
+                .addOnSuccessListener { documentReference ->
 //                    documentReference.update("id", documentReference.id)
-//                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
-//                }
-//                .addOnFailureListener {
-//                    Log.d("TAG", "$it")
-//                    Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//        }
+                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
+                }
+                .addOnFailureListener {
+                    Log.d("TAG", "$it")
+                    Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
+                        .show()
+                }
+        }
 
 
         return binding.root
