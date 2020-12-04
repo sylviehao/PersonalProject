@@ -7,7 +7,7 @@
     <string name="home">HOME</string>
     <string name="new_post">NEW POST</string>
     <string name="game_topic">貼文主題</string>
-    <string name="game_time">遊戲日期</string>
+    <string name="game_time">遊戲時間</string>
     <string name="game_location">遊戲地點</string>
     <string name="game_info">GAME INFO</string>
     <string name="game_name">遊戲名稱</string>
@@ -17,6 +17,7 @@
     <string name="event_area">EVENT AREA</string>
     <string name="new_event">NEW EVENT</string>
     <string name="game_member_limit">人數上限</string>
+    <string name="game_role">遊戲角色</string>
     <string name="create">CREATE</string>
     <string name="post_comment">COMMENT</string>
     <string name="edit_comment">COMMENT HERE</string>

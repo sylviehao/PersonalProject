@@ -133,4 +133,8 @@
         android:id="@+id/timerFragment"
         android:name="com.sylvie.boardgameguide.tools.timer.TimerFragment"
         android:label="TimerFragment" /><action android:id="@+id/action_global_timerFragment" app:destination="@id/timerFragment"/>
+    <fragment
+        android:id="@+id/newGameFragment"
+        android:name="com.sylvie.boardgameguide.newGame.NewGameFragment"
+        android:label="NewGameFragment" /><action android:id="@+id/action_global_newGameFragment" app:destination="@id/newGameFragment"/>
 </navigation>
