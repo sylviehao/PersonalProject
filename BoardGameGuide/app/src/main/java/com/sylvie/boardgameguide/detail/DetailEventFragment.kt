@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.detailEvent
+package com.sylvie.boardgameguide.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,10 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
-import com.sylvie.boardgameguide.detailPost.DetailPostFragmentArgs
-import com.sylvie.boardgameguide.detailPost.DetailPostPhotoAdapter
-import com.sylvie.boardgameguide.detailPost.DetailPostPlayerAdapter
-import com.sylvie.boardgameguide.detailPost.DetailPostViewModel
+import com.sylvie.boardgameguide.detail.DetailEventFragmentArgs
 import com.sylvie.boardgameguide.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
 

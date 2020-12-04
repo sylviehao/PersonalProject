@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.sylvie.boardgameguide.databinding.FragmentDetailGameBinding
-import com.sylvie.boardgameguide.detailPost.DetailPostFragmentArgs
+import com.sylvie.boardgameguide.detail.DetailPostFragmentArgs
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.GameViewModel
 

@@ -16,7 +16,7 @@
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/newPostFragment"
-        android:name="com.sylvie.boardgameguide.newPost.NewPostFragment"
+        android:name="com.sylvie.boardgameguide.create.NewPostFragment"
         android:label="NewPostDialog"
         tools:layout="@layout/fragment_new_post"/>
     <action
@@ -25,7 +25,7 @@
         app:popUpToInclusive="false" />
     <fragment
         android:id="@+id/newEventFragment"
-        android:name="com.sylvie.boardgameguide.newEvent.NewEventFragment"
+        android:name="com.sylvie.boardgameguide.create.NewEventFragment"
         android:label="NewEventFragment"
         tools:layout="@layout/fragment_new_event"/>
     <action
@@ -33,7 +33,7 @@
         app:destination="@id/newEventFragment"/>
     <fragment
         android:id="@+id/detailPostFragment"
-        android:name="com.sylvie.boardgameguide.detailPost.DetailPostFragment"
+        android:name="com.sylvie.boardgameguide.detail.DetailPostFragment"
         android:label="DetailPostFragment"
         tools:layout="@layout/fragment_detail_post">
         <argument
@@ -43,7 +43,7 @@
     <action android:id="@+id/action_global_detailPostFragment" app:destination="@id/detailPostFragment" />
     <fragment
         android:id="@+id/detailEventFragment"
-        android:name="com.sylvie.boardgameguide.detailEvent.DetailEventFragment"
+        android:name="com.sylvie.boardgameguide.detail.DetailEventFragment"
         android:label="DetailEventFragment"
         tools:layout="@layout/fragment_detail_event">
         <argument
@@ -63,7 +63,7 @@
         app:popUpToInclusive="true" />
     <dialog
         android:id="@+id/uploadPhotoDialog"
-        android:name="com.sylvie.boardgameguide.uploadPhoto.UploadPhotoDialog"
+        android:name="com.sylvie.boardgameguide.upload.UploadPhotoDialog"
         android:label="UploadPhotoDialog"
         tools:layout="@layout/dialog_upload_photo"/>
     <action android:id="@+id/action_global_uploadPhotoDialog" app:destination="@id/uploadPhotoDialog"/>
@@ -135,6 +135,6 @@
         android:label="TimerFragment" /><action android:id="@+id/action_global_timerFragment" app:destination="@id/timerFragment"/>
     <fragment
         android:id="@+id/newGameFragment"
-        android:name="com.sylvie.boardgameguide.newGame.NewGameFragment"
+        android:name="com.sylvie.boardgameguide.create.NewGameFragment"
         android:label="NewGameFragment" /><action android:id="@+id/action_global_newGameFragment" app:destination="@id/newGameFragment"/>
 </navigation>

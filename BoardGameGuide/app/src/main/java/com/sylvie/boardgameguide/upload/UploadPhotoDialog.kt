@@ -1,18 +1,12 @@
-package com.sylvie.boardgameguide.uploadPhoto
+package com.sylvie.boardgameguide.upload
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import androidx.activity.viewModels
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.DialogUploadPhotoBinding
 import com.sylvie.boardgameguide.ext.getVmFactory

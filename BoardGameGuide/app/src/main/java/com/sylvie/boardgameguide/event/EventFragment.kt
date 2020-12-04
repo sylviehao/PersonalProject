@@ -11,9 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.FragmentEventBinding
-import com.sylvie.boardgameguide.detailPost.DetailPostViewModel
 import com.sylvie.boardgameguide.ext.getVmFactory
-import com.sylvie.boardgameguide.home.HomeAdapter
 import com.sylvie.boardgameguide.home.HomeFragmentDirections
 
 class EventFragment : Fragment() {

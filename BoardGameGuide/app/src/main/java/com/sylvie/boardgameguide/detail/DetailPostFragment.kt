@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.detailPost
+package com.sylvie.boardgameguide.detail
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
-import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
+import com.sylvie.boardgameguide.detail.DetailPostFragmentArgs
 import com.sylvie.boardgameguide.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
 

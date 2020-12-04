@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.newPost
+package com.sylvie.boardgameguide.create
 
 import android.os.Bundle
 import android.util.Log
@@ -15,7 +15,6 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
-import com.sylvie.boardgameguide.home.HomeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 //data class GameInfo(

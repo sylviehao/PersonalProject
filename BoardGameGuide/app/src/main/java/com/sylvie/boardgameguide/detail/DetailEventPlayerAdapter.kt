@@ -1,17 +1,17 @@
-package com.sylvie.boardgameguide.detailPost
+package com.sylvie.boardgameguide.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sylvie.boardgameguide.databinding.ItemDetailPostPhotoBinding
+import com.sylvie.boardgameguide.databinding.ItemDetailEventPlayerBinding
 import com.sylvie.boardgameguide.databinding.ItemDetailPostPlayerBinding
 
-class DetailPostPlayerAdapter:
-    ListAdapter<String, DetailPostPlayerAdapter.PlayerViewHolder>(DiffCallback) {
+class DetailEventPlayerAdapter:
+    ListAdapter<String, DetailEventPlayerAdapter.PlayerViewHolder>(DiffCallback) {
 
-    class PlayerViewHolder(private val binding: ItemDetailPostPlayerBinding) :
+    class PlayerViewHolder(private val binding: ItemDetailEventPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: String) {
@@ -23,7 +23,7 @@ class DetailPostPlayerAdapter:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         return PlayerViewHolder(
-            ItemDetailPostPlayerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDetailEventPlayerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

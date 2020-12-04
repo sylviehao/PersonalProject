@@ -1,16 +1,13 @@
-package com.sylvie.boardgameguide.newGame
+package com.sylvie.boardgameguide.create
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentNewGameBinding
 import kotlinx.android.synthetic.main.activity_main.*
 

@@ -3,18 +3,17 @@ package com.sylvie.boardgameguide.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.sylvie.boardgameguide.MainViewModel
-import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.source.GameRepository
-import com.sylvie.boardgameguide.detailEvent.DetailEventViewModel
-import com.sylvie.boardgameguide.detailPost.DetailPostViewModel
+import com.sylvie.boardgameguide.detail.DetailEventViewModel
+import com.sylvie.boardgameguide.detail.DetailPostViewModel
 import com.sylvie.boardgameguide.event.EventViewModel
 import com.sylvie.boardgameguide.favorite.FavoriteViewModel
 import com.sylvie.boardgameguide.game.GameViewModel
 import com.sylvie.boardgameguide.game.detail.GameDetailViewModel
 import com.sylvie.boardgameguide.home.HomeViewModel
-import com.sylvie.boardgameguide.newPost.NewPostViewModel
+import com.sylvie.boardgameguide.create.NewPostViewModel
 import com.sylvie.boardgameguide.profile.ProfileViewModel
-import com.sylvie.boardgameguide.uploadPhoto.UploadPhotoViewModel
+import com.sylvie.boardgameguide.upload.UploadPhotoViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
