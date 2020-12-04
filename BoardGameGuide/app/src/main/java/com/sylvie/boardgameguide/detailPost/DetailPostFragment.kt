@@ -42,7 +42,7 @@ class DetailPostFragment : Fragment() {
 
         val db = FirebaseFirestore.getInstance()
 
-        db.collection("Message").whereEqualTo("hostId", bundle.hostId)
+        db.collection("Event")
             .addSnapshotListener { value, error ->
             value?.let {
                 val listResult = mutableListOf<Message>()
@@ -65,12 +65,14 @@ class DetailPostFragment : Fragment() {
                 userId = "sylviehao",
                 message = binding.editComment.text.toString()
             )
+            val a = bundle
+            a.message?.add(data)
+            Log.i("message",a.toString())
 
-
-            db.collection("Event")
-                .add(data)
+            db.collection("Event").document(bundle.id)
+                .set(a)
                 .addOnSuccessListener { documentReference ->
-                    documentReference.update("id", documentReference.id)
+//                    documentReference.update("id", bundle.id)
                     Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
                 }
                 .addOnFailureListener {

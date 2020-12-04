@@ -81,7 +81,7 @@
                     android:background="@drawable/frame_edit_new_post"
                     android:ems="10"
                     android:hint="@string/game_time"
-                    android:inputType="number"
+                    android:inputType="number|textPersonName|text"
                     android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_topic"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_topic"

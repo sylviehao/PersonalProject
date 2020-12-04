@@ -37,15 +37,19 @@ class NewPostFragment : Fragment() {
         binding.buttonNewPostCreate.setOnClickListener {
 
             val data = Event(
-                hostId = "sylviehao",
+                hostId = "taiyilin",
                 topic = binding.editNewPostTopic.text.toString(),
-                description = "跨年夜聚會!",
-                image = mutableListOf("https://images.unsplash.com/photo-1563811771046-ba984ff30900?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjB8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
-                "https://images.unsplash.com/photo-1599641499370-f4338ba82a04?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDF8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
-                "https://images.unsplash.com/photo-1533049883418-f0e0a8a39576?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NTZ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"),
+                description = "",
+                image = mutableListOf("https://images.unsplash.com/photo-1506654020181-7c2ef87cc5a9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzZ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                "https://images.unsplash.com/photo-1431207446535-a9296cf995b1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzJ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
+                "https://images.unsplash.com/photo-1529488127598-5b1512330f89?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzd8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=600&q=60"),
                 time = binding.editNewPostGameTime.text.toString().toLong(),
                 location = binding.editNewPostGameLocation.text.toString(),
-                gameId = "a005",
+                gameId = "a003",
+                message = mutableListOf(Message(
+                   userId = "",
+                    message = ""
+                )),
                 rules = binding.editNewPostGameRule.text.toString(),
                 playerList = mutableListOf("sylviehao", "Louis", "Taiyi", "Gary"),
                 status = "CLOSE"
