@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sylvie.boardgameguide.detail.DetailPostViewModel" />
+            type="com.sylvie.boardgameguide.home.detail.DetailPostViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

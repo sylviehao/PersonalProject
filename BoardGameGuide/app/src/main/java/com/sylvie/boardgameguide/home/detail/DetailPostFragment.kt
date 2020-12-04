@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.detail
+package com.sylvie.boardgameguide.home.detail
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,6 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
-import com.sylvie.boardgameguide.detail.DetailPostFragmentArgs
 import com.sylvie.boardgameguide.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
 

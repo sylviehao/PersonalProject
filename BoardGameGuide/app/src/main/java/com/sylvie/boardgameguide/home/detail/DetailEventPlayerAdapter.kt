@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.detail
+package com.sylvie.boardgameguide.home.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

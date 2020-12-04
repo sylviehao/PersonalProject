@@ -33,7 +33,7 @@
         app:destination="@id/newEventFragment"/>
     <fragment
         android:id="@+id/detailPostFragment"
-        android:name="com.sylvie.boardgameguide.detail.DetailPostFragment"
+        android:name="com.sylvie.boardgameguide.home.detail.DetailPostFragment"
         android:label="DetailPostFragment"
         tools:layout="@layout/fragment_detail_post">
         <argument
@@ -43,7 +43,7 @@
     <action android:id="@+id/action_global_detailPostFragment" app:destination="@id/detailPostFragment" />
     <fragment
         android:id="@+id/detailEventFragment"
-        android:name="com.sylvie.boardgameguide.detail.DetailEventFragment"
+        android:name="com.sylvie.boardgameguide.home.detail.DetailEventFragment"
         android:label="DetailEventFragment"
         tools:layout="@layout/fragment_detail_event">
         <argument

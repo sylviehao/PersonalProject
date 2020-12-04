@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.detail
+package com.sylvie.boardgameguide.home.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
