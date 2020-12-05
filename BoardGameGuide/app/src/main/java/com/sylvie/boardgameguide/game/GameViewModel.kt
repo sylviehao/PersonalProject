@@ -5,10 +5,7 @@ import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sylvie.boardgameguide.data.Event
-import com.sylvie.boardgameguide.data.Game
-import com.sylvie.boardgameguide.data.Result
-import com.sylvie.boardgameguide.data.User
+import com.sylvie.boardgameguide.data.*
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
@@ -32,6 +29,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val getUserData: LiveData<User>
         get() = _getUserData
 
+    var hopeList = mutableListOf<User>()
+
 
     private val _hopeStatus = MutableLiveData<Boolean>()
     val hopeStatus: LiveData<Boolean>
@@ -50,7 +49,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     fun getUser(id: String) {
-
         coroutineScope.launch {
             try {
 //                UserManager.userToken?.let {
@@ -63,7 +61,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                             null
                         }
                     }
-                    _hopeStatus.value = true
+//                    _hopeStatus.value = true
 //                }
             } catch (e: Exception) {
 
@@ -71,7 +69,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
     }
 
-    fun addRemoveHopeList(game: Game) {
+    fun add2Favorite(game: Game) {
         coroutineScope.launch {
             try {
                 _getUserData.value?.let { gameRepository.setGame(it,game) }

@@ -25,6 +25,9 @@ import com.sylvie.boardgameguide.home.HomeAdapter
 import com.sylvie.boardgameguide.home.HomeFragmentDirections
 import me.samlss.bloom.Bloom
 import me.samlss.bloom.effector.BloomEffector
+import me.samlss.bloom.particle.BloomParticle
+import me.samlss.bloom.shape.ParticleShape
+import me.samlss.bloom.shape.ParticleStarShape
 import me.samlss.bloom.shape.distributor.CircleShapeDistributor
 import me.samlss.bloom.shape.distributor.ParticleShapeDistributor
 import me.samlss.bloom.shape.distributor.RectShapeDistributor
@@ -38,7 +41,6 @@ class GameFragment : Fragment() {
         val binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
         val db = FirebaseFirestore.getInstance()
 
         val adapter = GameAdapter(GameAdapter.OnClickListener {
@@ -59,22 +61,25 @@ class GameFragment : Fragment() {
             boom(it)
         })
 
-        viewModel.hopeStatus.observe(viewLifecycleOwner, Observer {
-            binding.recyclerGame.adapter?.notifyDataSetChanged()
-        })
+//        viewModel.hopeStatus.observe(viewLifecycleOwner, Observer {
+//            binding.recyclerGame.adapter?.notifyDataSetChanged()
+//        })
 
 
-        //即時監聽資料庫是否變動
-        db.collection("Game").addSnapshotListener { value, error ->
-            value?.let {
-                val listResult = mutableListOf<Game>()
-                it.forEach { data ->
-                    val d = data.toObject(Game::class.java)
-                    listResult.add(d)
+
+
+        viewModel.getUserData.observe(viewLifecycleOwner, Observer {
+            db.collection("Game").addSnapshotListener { value, error ->
+                value?.let {
+                    val listResult = mutableListOf<Game>()
+                    it.forEach { data ->
+                        val d = data.toObject(Game::class.java)
+                        listResult.add(d)
+                    }
+                    adapter.submitList(listResult)
                 }
-                adapter.submitList(listResult)
             }
-        }
+        })
 
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_global_newGameFragment)
@@ -84,6 +89,7 @@ class GameFragment : Fragment() {
 
         return binding.root
     }
+
 
     private var mBloom: Bloom? = null
 

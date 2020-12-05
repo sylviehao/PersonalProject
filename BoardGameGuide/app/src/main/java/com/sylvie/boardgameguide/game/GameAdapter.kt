@@ -1,21 +1,13 @@
 package com.sylvie.boardgameguide.game
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
-import com.sylvie.boardgameguide.data.Message
-import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.ItemGameBinding
-import com.sylvie.boardgameguide.home.HomeAdapter
 
 class GameAdapter(private val onClickListener: OnClickListener, var viewModel: GameViewModel) :
     ListAdapter<Game, GameAdapter.GameViewHolder>(GameAdapter.DiffCallback) {
@@ -32,16 +24,26 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
             binding.textGameName.text = game.name
             binding.textGameType.text = game.type.toString()
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
+
+            viewModel.getUserData.let {
+                if(it.value?.favorite!!.any { favorite -> favorite.id == game.id }){
+                    binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+                    binding.iconPin.tag = "select"
+                }else{
+                    binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
+                    binding.iconPin.tag = "empty"
+                }
+            }
+
             binding.iconPin.setOnClickListener {
                 if(it.tag == "empty"){
                     it.tag = "select"
+                    viewModel.add2Favorite(game)
                     viewModel.boomImage(binding.imageGame)
                     it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-                    viewModel.addRemoveHopeList(game)
                 }else{
                     it.tag = "empty"
                     it.setBackgroundResource(R.drawable.ic_nav_pin)
-                    viewModel.addRemoveHopeList(game)
                 }
             }
             binding.executePendingBindings()

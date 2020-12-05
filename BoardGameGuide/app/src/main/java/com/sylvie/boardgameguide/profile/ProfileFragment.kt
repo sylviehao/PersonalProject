@@ -64,6 +64,7 @@ class ProfileFragment : Fragment() {
             val data = User(
                 id = "001",
                 name = "sylviehao",
+                image = "https://images.unsplash.com/photo-1526800544336-d04f0cbfd700?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                 introduction = "嗨嗨",
                 favorite = mutableListOf(
                     Game(

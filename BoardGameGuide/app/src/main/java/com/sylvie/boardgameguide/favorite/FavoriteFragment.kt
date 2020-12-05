@@ -32,18 +32,14 @@ class FavoriteFragment : Fragment() {
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
-                findNavController().navigate(
-                    GameFragmentDirections.actionGlobalGameDetailFragment(
-                        it
-                    )
-                )
+                findNavController().navigate(GameFragmentDirections.actionGlobalGameDetailFragment(it))
                 viewModel.onDetailNavigated()
             }
         })
 
         val adapter = FavoriteAdapter(FavoriteAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        })
+        }, viewModel)
         binding.recyclerFavorite.adapter = adapter
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {

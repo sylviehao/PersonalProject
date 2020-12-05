@@ -16,5 +16,6 @@ interface GameRepository {
 
     suspend fun setGame(user: User, game: Game): Result<Boolean>
 
+    suspend fun removeGame(user: User, game: Game): Result<Boolean>
 
 }

@@ -110,13 +110,11 @@ object GameRemoteDataSource : GameDataSource {
 
     override suspend fun setGame(user: User, game: Game): Result<Boolean> =
         suspendCoroutine { continuation ->
-
-            val b = user
             user.favorite?.add(game)
 
             FirebaseFirestore.getInstance()
                 .collection("User").document(user.id)
-                .set(b)
+                .set(user)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         continuation.resume(Result.Success(true))
@@ -128,4 +126,21 @@ object GameRemoteDataSource : GameDataSource {
                     }
                 }
         }
+
+    override suspend fun removeGame(user: User, game: Game): Result<Boolean> =
+        suspendCoroutine { continuation ->
+
+            val userTest = user
+            userTest.favorite = user.favorite?.filter { it.id != game.id } as MutableList<Game>?
+
+            FirebaseFirestore.getInstance()
+                .collection("User").document(user.id)
+                .set(userTest)
+                .addOnCompleteListener { task ->
+                    continuation.resume(Result.Success(true))
+                }.addOnFailureListener {
+                    continuation.resume(Result.Error(it))
+                }
+        }
+
 }
