@@ -23,9 +23,7 @@ class ProfileBrowseAdapter(private val onClickListener: ProfileBrowseAdapter.OnC
             binding.textGameName.text = game.name
             binding.textGameType.text = game.type.toString()
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
-            binding.iconPin.setOnClickListener {
 
-            }
             binding.executePendingBindings()
         }
     }

@@ -141,4 +141,13 @@
         android:id="@+id/bottleFragment"
         android:name="com.sylvie.boardgameguide.tools.bottle.BottleFragment"
         android:label="BottleFragment" /><action android:id="@+id/action_global_bottleFragment" app:destination="@id/bottleFragment"/>
+    <fragment
+        android:id="@+id/profilePostFragment"
+        android:name="com.sylvie.boardgameguide.profile.post.ProfilePostFragment"
+        android:label="ProfilePostFragment" />
+    <action android:id="@+id/action_global_profilePostFragment" app:destination="@id/profilePostFragment" />
+    <fragment
+        android:id="@+id/profileEventFragment"
+        android:name="com.sylvie.boardgameguide.profile.event.ProfileEventFragment"
+        android:label="ProfileEventFragment" /><action android:id="@+id/action_global_profileEventFragment" app:destination="@id/profileEventFragment"/>
 </navigation>

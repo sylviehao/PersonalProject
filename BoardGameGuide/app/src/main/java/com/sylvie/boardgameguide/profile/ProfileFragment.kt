@@ -87,6 +87,14 @@ class ProfileFragment : Fragment() {
                 }
         }
 
+        binding.constraintPost.setOnClickListener {
+            findNavController().navigate(R.id.action_global_profilePostFragment)
+        }
+
+        binding.constraintEvent.setOnClickListener {
+            findNavController().navigate(R.id.action_global_profileEventFragment)
+        }
+
 
         return binding.root
     }

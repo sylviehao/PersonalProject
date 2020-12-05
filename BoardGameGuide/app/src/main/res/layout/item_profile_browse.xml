@@ -59,17 +59,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_game_name"
                 tools:text="策略遊戲" />
 
-            <ImageView
-                android:id="@+id/icon_pin"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:alpha="0.7"
-                android:tag="empty"
-                app:layout_constraintEnd_toEndOf="@+id/image_game"
-                app:layout_constraintTop_toBottomOf="@+id/image_game"
-                app:srcCompat="@drawable/ic_nav_pin" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
