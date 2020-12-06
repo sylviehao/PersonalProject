@@ -24,17 +24,27 @@ class FavoriteAdapter(private val onClickListener: OnClickListener, var viewMode
             binding.textGameName.text = game.name
             binding.textGameType.text = game.type.toString()
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
+
+            viewModel.getUserData.let {
+                if(it.value?.favorite!!.any { favorite -> favorite.id == game.id }){
+                    binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+                    binding.iconPin.tag = "select"
+                }else{
+                    binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
+                    binding.iconPin.tag = "empty"
+                }
+            }
+
             binding.iconPin.setOnClickListener {
-                viewModel.removeFavorite(game)
-//                if(it.tag == "select"){
-//                    it.tag = "empty"
-//                    it.setBackgroundResource(R.drawable.ic_nav_pin)
-//                    viewModel.removeFavorite(game)
-//
-//                }else{
-//                    it.tag = "select"
-//                    it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-//                }
+                if(it.tag == "select"){
+                    it.tag = "empty"
+                    it.setBackgroundResource(R.drawable.ic_nav_pin)
+                    viewModel.removeFavorite(game)
+                }else{
+                    it.tag = "select"
+                    it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+                    viewModel.add2Favorite(game)
+                }
             }
             binding.executePendingBindings()
         }

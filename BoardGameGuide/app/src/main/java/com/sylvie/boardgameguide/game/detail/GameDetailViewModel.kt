@@ -68,6 +68,17 @@ class GameDetailViewModel(private val gameRepository: GameRepository) : ViewMode
         }
     }
 
+    fun removeFavorite(game: Game) {
+        coroutineScope.launch {
+            try {
+                _getUserData.value?.let { gameRepository.removeGame(it, game) }
+            } catch (e: Exception) {
+                Log.i("Star", "${e.message}")
+            }
+
+        }
+    }
+
     var boomStatus = MutableLiveData<ImageView>()
     fun boomImage(view: ImageView){
         boomStatus.value = view

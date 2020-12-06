@@ -56,16 +56,16 @@ class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel(
         }
     }
 
-//    fun add2Favorite(game: Game) {
-//        coroutineScope.launch {
-//            try {
-//                _getUserData.value?.let { gameRepository.setGame(it, game) }
-//            } catch (e: Exception) {
-//                Log.i("Star", "${e.message}")
-//            }
-//
-//        }
-//    }
+    fun add2Favorite(game: Game) {
+        coroutineScope.launch {
+            try {
+                _getUserData.value?.let { gameRepository.setGame(it, game) }
+            } catch (e: Exception) {
+                Log.i("Star", "${e.message}")
+            }
+
+        }
+    }
 
     fun removeFavorite(game: Game) {
         coroutineScope.launch {

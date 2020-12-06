@@ -73,6 +73,17 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
     }
 
+    fun removeFavorite(game: Game) {
+        coroutineScope.launch {
+            try {
+                _getUserData.value?.let { gameRepository.removeGame(it, game) }
+            } catch (e: Exception) {
+                Log.i("Star", "${e.message}")
+            }
+
+        }
+    }
+
     fun navigateToDetail(game: Game) {
         _navigateToDetail.value = game
     }

@@ -44,6 +44,7 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
                 }else{
                     it.tag = "empty"
                     it.setBackgroundResource(R.drawable.ic_nav_pin)
+                    viewModel.removeFavorite(game)
                 }
             }
             binding.executePendingBindings()

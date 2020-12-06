@@ -58,6 +58,7 @@ class GameDetailFragment : Fragment() {
                 viewModel.boomImage(binding.imageGame)
             }else{
                 it.tag = "empty"
+                viewModel.removeFavorite(bundle)
                 it.setBackgroundResource(R.drawable.ic_nav_pin)
             }
         }
