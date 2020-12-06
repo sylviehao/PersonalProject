@@ -12,15 +12,11 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
-
-//data class GameInfo(
-//    val name: String,
-//    val rules: String
-//)
 
 class NewPostFragment : Fragment() {
 
@@ -28,20 +24,26 @@ class NewPostFragment : Fragment() {
     private lateinit var binding : FragmentNewPostBinding
     val viewModel by viewModels<NewPostViewModel> { getVmFactory() }
 
-//    var arg: GameInfo? = null
-//        GameInfo("i wanna play a game", "gogo")
+    // Separate the situation from HomeFragment and from GameFragment
+    var arg: Game? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        arg = NewPostFragmentArgs.fromBundle(requireArguments()).game
+
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
-//        arg?.let {
-//            binding.editNewPostGameName.setText(it.name)
-//            binding.editNewPostGameRule.setText(it.rules)
-//        }
+
+
+        arg?.let {
+            binding.editNewPostGameName.setText(it.name)
+            binding.editNewPostGameType.setText(it.type.toString())
+            binding.editNewPostGameRule.setText(it.rules)
+            binding.editNewPostGameMember.setText(it.playerLimit.toString())
+        }
 
         val db = FirebaseFirestore.getInstance()
         binding.buttonNewPostCreate.setOnClickListener {

@@ -67,11 +67,11 @@ class HomeFragment : Fragment() {
         }
 
         binding.fabPost.setOnClickListener {
-            findNavController().navigate(R.id.action_global_newPostFragment)
+            findNavController().navigate(HomeFragmentDirections.actionGlobalNewPostFragment(null))
         }
 
         binding.fabEvent.setOnClickListener {
-            findNavController().navigate(R.id.action_global_newEventFragment)
+            findNavController().navigate(HomeFragmentDirections.actionGlobalNewEventFragment(null))
         }
 
 //        val db = FirebaseFirestore.getInstance()

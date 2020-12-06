@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentNewEventBinding
+import com.sylvie.boardgameguide.game.detail.GameDetailFragmentArgs
 import kotlinx.android.synthetic.main.activity_main.*
 
 class NewEventFragment : Fragment() {
@@ -18,9 +20,21 @@ class NewEventFragment : Fragment() {
     //    private val viewModel by viewModels<NewPostViewModel> {  }
     private lateinit var binding : FragmentNewEventBinding
 
+    var arg: Game? = null
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewEventBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        arg = NewEventFragmentArgs.fromBundle(requireArguments()).game
+
+        arg?.let {
+            binding.editNewEventGameName.setText(it.name)
+            binding.editNewEventGameType.setText(it.type.toString())
+            binding.editNewEventGameRule.setText(it.rules)
+            binding.editNewEventGameMember.setText(it.playerLimit.toString())
+        }
 
         val db = FirebaseFirestore.getInstance()
         binding.buttonNewEventCreate.setOnClickListener {

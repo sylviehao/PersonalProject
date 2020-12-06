@@ -18,7 +18,12 @@
         android:id="@+id/newPostFragment"
         android:name="com.sylvie.boardgameguide.create.NewPostFragment"
         android:label="NewPostDialog"
-        tools:layout="@layout/fragment_new_post"/>
+        tools:layout="@layout/fragment_new_post">
+        <argument
+            android:name="game"
+            app:argType="com.sylvie.boardgameguide.data.Game"
+            app:nullable="true" />
+    </fragment>
     <action
         android:id="@+id/action_global_newPostFragment"
         app:destination="@id/newPostFragment"
@@ -27,7 +32,12 @@
         android:id="@+id/newEventFragment"
         android:name="com.sylvie.boardgameguide.create.NewEventFragment"
         android:label="NewEventFragment"
-        tools:layout="@layout/fragment_new_event"/>
+        tools:layout="@layout/fragment_new_event">
+        <argument
+            android:name="game"
+            app:argType="com.sylvie.boardgameguide.data.Game"
+            app:nullable="true" />
+    </fragment>
     <action
         android:id="@+id/action_global_newEventFragment"
         app:destination="@id/newEventFragment"/>
