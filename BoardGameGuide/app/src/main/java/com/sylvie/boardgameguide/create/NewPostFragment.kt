@@ -37,7 +37,6 @@ class NewPostFragment : Fragment() {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
-
         arg?.let {
             binding.editNewPostGameName.setText(it.name)
             binding.editNewPostGameType.setText(it.type.toString())

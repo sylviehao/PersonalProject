@@ -14,22 +14,39 @@
         android:layout_height="match_parent"
         android:background="@color/lightBlue">
 
+        <EditText
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/darkGreen"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="15dp"
+            android:ems="10"
+            android:hint="@string/search"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textColorHint="@color/gray_999999"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </EditText>
+
         <com.madapps.liquid.LiquidRefreshLayout
             android:id="@+id/refresh_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:AniBackColor="@color/lightGreen"
             app:AniForeColor="@color/darkGreen"
             app:CircleSmaller="6"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_view"
             tools:layout_editor_absoluteX="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_home_post" />
 

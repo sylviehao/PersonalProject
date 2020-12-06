@@ -1,15 +1,19 @@
 package com.sylvie.boardgameguide
 
+import android.app.SearchManager
+import android.content.Context
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -158,4 +162,18 @@ class MainActivity : AppCompatActivity() {
         bindingNavHeader.viewModel = viewModel
         binding.drawerNavView.addHeaderView(bindingNavHeader.root)
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu):Boolean {
+//        val inflater = menuInflater
+//        inflater.inflate(R.menu.search_menu, menu)
+//        val menuSearchItem = menu.findItem(R.id.search)
+//        // Get the SearchView and set the searchable configuration
+//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+//        val searchView = menuSearchItem.actionView as SearchView
+//        // Assumes current activity is the searchable activity
+//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+//        // 這邊讓icon可以還原到搜尋的icon
+//        searchView.setIconifiedByDefault(true)
+//        return true
+//    }
 }

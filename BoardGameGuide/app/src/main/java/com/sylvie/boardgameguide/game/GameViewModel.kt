@@ -23,18 +23,12 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val navigateToDetail: LiveData<Game>
         get() = _navigateToDetail
 
-    // Save change from Game
+    // Save change from User
     var _getUserData = MutableLiveData<User>()
 
     val getUserData: LiveData<User>
         get() = _getUserData
 
-    var hopeList = mutableListOf<User>()
-
-
-    private val _hopeStatus = MutableLiveData<Boolean>()
-    val hopeStatus: LiveData<Boolean>
-        get() = _hopeStatus
 
 
     // Create a Coroutine scope using a job to be able to cancel when needed
@@ -61,7 +55,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                             null
                         }
                     }
-//                    _hopeStatus.value = true
 //                }
             } catch (e: Exception) {
 
