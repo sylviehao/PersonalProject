@@ -12,6 +12,8 @@ interface GameRepository {
 
     suspend fun getGame(id : String): Result<List<Game>>
 
+    suspend fun getAllGames(): Result<List<Game>>
+
     suspend fun getUser(id : String): Result<User>
 
     suspend fun setUser(user: User, introduction: String): Result<User>

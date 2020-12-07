@@ -29,6 +29,13 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val getUserData: LiveData<User>
         get() = _getUserData
 
+    // Save change from Game
+    private var _getGameData = MutableLiveData<List<Game>>()
+
+    val getGameData: LiveData<List<Game>>
+        get() = _getGameData
+
+
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -39,6 +46,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     init {
         getUser("001")
+        getAllGames()
+
     }
 
     fun getUser(id: String) {
@@ -46,11 +55,9 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             try {
 //                UserManager.userToken?.let {
                     val result = gameRepository.getUser(id)
-
                     _getUserData.value = when (result) {
                         is Result.Success -> {
                             result.data
-
                         }
                         else -> {
                             null
@@ -84,6 +91,34 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
         }
     }
+
+    fun getAllGames() {
+
+        coroutineScope.launch {
+            val result = gameRepository.getAllGames()
+            _getGameData.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                }
+                else -> null
+            }
+        }
+    }
+
+    fun filter(list: List<Game>, query: String): List<Game> {
+
+        val lowerCaseQueryString = query.toLowerCase()
+        val filteredList = mutableListOf<Game>()
+
+        for (game in list) {
+            val name = game.name
+            if (name.contains(lowerCaseQueryString)) {
+                    filteredList.add(game)
+                }
+            }
+        return filteredList
+    }
+
 
     fun navigateToDetail(game: Game) {
         _navigateToDetail.value = game

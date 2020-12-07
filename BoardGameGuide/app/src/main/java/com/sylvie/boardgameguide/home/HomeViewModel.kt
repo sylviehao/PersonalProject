@@ -72,14 +72,15 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
         for (event in list) {
             val host = event.hostId
-            if (host.contains(lowerCaseQueryString)) {
-                val a = when (event.status) {
+            val topic = event.topic
+            if (host.contains(lowerCaseQueryString) || topic.contains(lowerCaseQueryString)) {
+                val homeItem = when (event.status) {
                     "OPEN" ->HomeItem.EventItem(event)
                     "CLOSE" ->HomeItem.PostItem(event)
                     else -> null
                 }
-                if (a != null) {
-                    filteredList.add(a)
+                if (homeItem != null) {
+                    filteredList.add(homeItem)
                 }
             }
         }

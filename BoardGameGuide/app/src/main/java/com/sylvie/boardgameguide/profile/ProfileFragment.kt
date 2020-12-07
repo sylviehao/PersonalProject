@@ -69,6 +69,7 @@ class ProfileFragment : Fragment() {
 //            binding.textEdit.text = "SEND"
             if (binding.textEdit.text == "SEND") {
             viewModel.getUserData.value?.let { user -> viewModel.setUser(user, binding.textDescription.text.toString() ) }
+                binding.textDescription.isEnabled = false
                 binding.textEdit.text = getString(R.string.edit)
             } else {
                 binding.textEdit.text = "SEND"

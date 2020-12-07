@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -43,6 +44,7 @@ class GameFragment : Fragment() {
         binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
         val db = FirebaseFirestore.getInstance()
 
         val adapter = GameAdapter(GameAdapter.OnClickListener {
@@ -80,8 +82,16 @@ class GameFragment : Fragment() {
 
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_global_newGameFragment)
-
         }
+
+
+        binding.searchView.addTextChangedListener {
+            viewModel.getGameData.value?.let {gameList->
+                val filterList = viewModel.filter(gameList, binding.searchView.text.toString())
+                adapter.submitList(filterList)
+            }
+        }
+
 
         return binding.root
     }
