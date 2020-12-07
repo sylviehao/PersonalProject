@@ -24,11 +24,10 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         get() = _navigateToDetail
 
     // Save change from User
-    var _getUserData = MutableLiveData<User>()
+    private var _getUserData = MutableLiveData<User>()
 
     val getUserData: LiveData<User>
         get() = _getUserData
-
 
 
     // Create a Coroutine scope using a job to be able to cancel when needed
@@ -47,9 +46,11 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             try {
 //                UserManager.userToken?.let {
                     val result = gameRepository.getUser(id)
+
                     _getUserData.value = when (result) {
                         is Result.Success -> {
                             result.data
+
                         }
                         else -> {
                             null

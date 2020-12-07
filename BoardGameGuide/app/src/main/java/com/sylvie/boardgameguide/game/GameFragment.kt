@@ -37,8 +37,10 @@ import java.lang.reflect.Array.set
 class GameFragment : Fragment() {
 
     val viewModel by viewModels<GameViewModel> { getVmFactory() }
+    lateinit var binding: FragmentGameBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentGameBinding.inflate(inflater, container, false)
+        binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         val db = FirebaseFirestore.getInstance()
@@ -48,7 +50,7 @@ class GameFragment : Fragment() {
         }, viewModel)
 
         binding.recyclerGame.adapter = adapter
-        binding.recyclerGame.adapter?.notifyDataSetChanged()
+
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -61,14 +63,9 @@ class GameFragment : Fragment() {
             boom(it)
         })
 
-//        viewModel.hopeStatus.observe(viewLifecycleOwner, Observer {
-//            binding.recyclerGame.adapter?.notifyDataSetChanged()
-//        })
-
-
-
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
+            Log.i("userfavorite",it.favorite?.size.toString())
             db.collection("Game").addSnapshotListener { value, error ->
                 value?.let {
                     val listResult = mutableListOf<Game>()
@@ -86,9 +83,14 @@ class GameFragment : Fragment() {
 
         }
 
-
         return binding.root
     }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.getUser("001")
+    }
+
 
 
     private var mBloom: Bloom? = null

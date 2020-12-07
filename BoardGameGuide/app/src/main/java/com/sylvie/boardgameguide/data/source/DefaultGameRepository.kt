@@ -26,6 +26,10 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getUser(id)
     }
 
+    override suspend fun setUser(user: User, introduction: String): Result<User> {
+        return gameRemoteDataSource.setUser(user, introduction)
+    }
+
     override suspend fun setGame(user: User, game: Game): Result<Boolean> {
         return gameRemoteDataSource.setGame(user, game)
     }
