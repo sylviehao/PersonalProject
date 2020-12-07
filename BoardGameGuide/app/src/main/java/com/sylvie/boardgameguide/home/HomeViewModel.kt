@@ -65,6 +65,27 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
     }
 
+    fun filter(list: List<Event>, query: String): List<HomeItem> {
+
+        val lowerCaseQueryString = query.toLowerCase()
+        val filteredList = mutableListOf<HomeItem>()
+
+        for (event in list) {
+            val host = event.hostId
+            if (host.contains(lowerCaseQueryString)) {
+                val a = when (event.status) {
+                    "OPEN" ->HomeItem.EventItem(event)
+                    "CLOSE" ->HomeItem.PostItem(event)
+                    else -> null
+                }
+                if (a != null) {
+                    filteredList.add(a)
+                }
+            }
+        }
+        return filteredList
+    }
+
     fun navigateToDetail(event: Event) {
         _navigateToDetail.value = event
     }

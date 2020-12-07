@@ -2,6 +2,9 @@ package com.sylvie.boardgameguide.home
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +76,28 @@ class HomeFragment : Fragment() {
         binding.fabEvent.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionGlobalNewEventFragment(null))
         }
+
+        binding.searchView.addTextChangedListener(object : TextWatcher {
+
+
+            override fun afterTextChanged(s: Editable?) {
+                Log.d("textChange", "$s")
+                viewModel.getEventData.value?.let {eventList->
+                    val filterList = viewModel.filter(eventList, binding.searchView.text.toString())
+                    adapter.submitList(filterList)
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+            }
+        })
+
+
 
 //        val db = FirebaseFirestore.getInstance()
 //

@@ -186,6 +186,18 @@
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_type"
                     app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_type" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/frame_edit_new_post"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="4"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_rule"
+                    app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_rule" />
+
                 <EditText
                     android:id="@+id/edit_newPost_game_member"
                     android:layout_width="0dp"
@@ -198,8 +210,9 @@
                     android:inputType="textMultiLine"
                     android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_rule"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_rule" />
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
                 <ImageView
                     android:id="@+id/icon_jake"
