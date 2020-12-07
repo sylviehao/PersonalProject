@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentDetailGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 

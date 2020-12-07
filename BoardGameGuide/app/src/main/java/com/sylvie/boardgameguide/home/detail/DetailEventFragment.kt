@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailEventFragment : Fragment() {
@@ -40,6 +41,7 @@ class DetailEventFragment : Fragment() {
             //判斷是否加入過
             findNavController().navigate(R.id.action_global_joinDialog)
         }
+
 
 
         return binding.root

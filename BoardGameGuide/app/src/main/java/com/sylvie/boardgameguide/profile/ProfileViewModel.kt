@@ -1,8 +1,10 @@
 package com.sylvie.boardgameguide.profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
@@ -20,6 +22,12 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     val navigateToDetail: LiveData<Game>
         get() = _navigateToDetail
+
+    // Save change from Event
+    private var _getEventData = MutableLiveData<List<Event>>()
+
+    val getEventData: LiveData<List<Event>>
+        get() = _getEventData
 
     // Save change from User
     private var _getUserData = MutableLiveData<User>()
@@ -40,8 +48,15 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
+        getEvents()
         getUser("001")
     }
+
+    private fun getEvents() {
+        _getEventData = gameRepository.getEvents()
+    }
+
+
 
     fun getUser(id: String) {
         coroutineScope.launch {

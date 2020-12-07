@@ -33,6 +33,7 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        val db = FirebaseFirestore.getInstance()
 
         val adapter = ProfileBrowseAdapter(ProfileBrowseAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
@@ -48,7 +49,42 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        val db = FirebaseFirestore.getInstance()
+        //即時監聽資料庫是否變動
+        db.collection("Event").whereEqualTo("status","OPEN")
+            .addSnapshotListener { value, error ->
+                value?.let {
+                    val listResult = mutableListOf<Event>()
+                    val listResultOpen = mutableListOf<Event>()
+                    it.forEach { data ->
+                        val d = data.toObject(Event::class.java)
+                        listResult.add(d)
+                    }
+                    listResult.sortByDescending { it.createdTime }
+                    listResultOpen.addAll( listResult.filter {list ->
+                        list.playerList!!.any { name -> name == "sylviehao" }
+                    })
+                    binding.textGameNumber.setText(listResultOpen.size.toString())
+                }
+            }
+
+        //即時監聽資料庫是否變動
+        db.collection("Event").whereEqualTo("status","CLOSE")
+            .addSnapshotListener { value, error ->
+                value?.let {
+                    val listResult = mutableListOf<Event>()
+                    val listResultOpen = mutableListOf<Event>()
+                    it.forEach { data ->
+                        val d = data.toObject(Event::class.java)
+                        listResult.add(d)
+                    }
+                    listResult.sortByDescending { it.createdTime }
+                    listResultOpen.addAll( listResult.filter {list ->
+                        list.playerList!!.any { name -> name == "sylviehao" }
+                    })
+                    binding.textPostNumber.setText(listResultOpen.size.toString())
+                }
+            }
+
 
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {

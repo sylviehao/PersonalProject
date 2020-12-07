@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.FragmentEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
 import com.sylvie.boardgameguide.home.HomeFragmentDirections
 
 class EventFragment : Fragment() {
@@ -32,6 +33,7 @@ class EventFragment : Fragment() {
         })
 
         binding.recyclerEvent.adapter = adapter
+
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {

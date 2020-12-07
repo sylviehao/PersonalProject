@@ -43,6 +43,7 @@ class NewEventFragment : Fragment() {
                 topic = binding.editNewEventTopic.text.toString(),
                 time = binding.editNewEventGameTime.text.toString().toLong(),
                 location = binding.editNewEventGameLocation.text.toString(),
+                image = mutableListOf("https://images.unsplash.com/photo-1573141335932-9b22c45aa2df?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzF8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                 gameId = "a002",
                 playerLimit = 7,
                 status = "OPEN",

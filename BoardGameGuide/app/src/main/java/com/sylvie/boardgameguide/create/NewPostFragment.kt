@@ -51,18 +51,18 @@ class NewPostFragment : Fragment() {
                 hostId = "taiyilin",
                 topic = binding.editNewPostTopic.text.toString(),
                 description = "",
-                image = mutableListOf("https://images.unsplash.com/photo-1506654020181-7c2ef87cc5a9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzZ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
-                "https://images.unsplash.com/photo-1431207446535-a9296cf995b1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzJ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60",
-                "https://images.unsplash.com/photo-1529488127598-5b1512330f89?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mzd8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&auto=format&fit=crop&w=600&q=60"),
+                image = mutableListOf("https://images.unsplash.com/photo-1585504198199-20277593b94f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTV8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1594652634010-275456c808d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTh8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                "https://images.unsplash.com/photo-1556374002-a892c2598e99?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjN8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
                 time = binding.editNewPostGameTime.text.toString().toLong(),
                 location = binding.editNewPostGameLocation.text.toString(),
-                gameId = "a003",
+                gameId = "a001",
                 message = mutableListOf(Message(
                    userId = "",
                     message = ""
                 )),
                 rules = binding.editNewPostGameRule.text.toString(),
-                playerList = mutableListOf("sylviehao", "Louis", "Taiyi", "Gary"),
+                playerList = mutableListOf("sylviehao", "Louis", "Taiyi", "Gary", "Eric", "Tron"),
                 status = "CLOSE"
             )
 

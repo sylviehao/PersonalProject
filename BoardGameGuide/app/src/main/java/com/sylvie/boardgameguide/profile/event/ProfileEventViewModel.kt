@@ -41,7 +41,6 @@ class ProfileEventViewModel(private val gameRepository: GameRepository) : ViewMo
 
     init {
         getEvents()
-//        getHome()
     }
     override fun onCleared() {
         super.onCleared()
@@ -52,18 +51,7 @@ class ProfileEventViewModel(private val gameRepository: GameRepository) : ViewMo
         _getEventData = gameRepository.getEvents()
         Log.i("event","${_getEventData}")
     }
-//    fun getHome() {
-//        coroutineScope.launch {
-//            val result = gameRepository.getHome()
-//            _getHome.value = when (result) {
-//                is Result.Success -> {
-//                    result.data
-//                } else -> {
-//                    null
-//                }
-//            }
-//        }
-//    }
+
 
     fun navigateToDetail(event: Event) {
         _navigateToDetail.value = event

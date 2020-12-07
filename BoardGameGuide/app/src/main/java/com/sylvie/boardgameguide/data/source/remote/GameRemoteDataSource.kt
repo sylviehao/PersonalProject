@@ -16,6 +16,7 @@ object GameRemoteDataSource : GameDataSource {
         suspendCoroutine { continuation ->
             FirebaseFirestore.getInstance()
                 .collection("Event")
+                .orderBy("createdTime", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
