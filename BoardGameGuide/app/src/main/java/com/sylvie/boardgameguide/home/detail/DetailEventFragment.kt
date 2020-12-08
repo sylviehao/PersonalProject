@@ -42,6 +42,10 @@ class DetailEventFragment : Fragment() {
             findNavController().navigate(R.id.action_global_joinDialog)
         }
 
+        binding.textStatus.setOnClickListener {
+            findNavController().navigate(DetailEventFragmentDirections.actionGlobalNewPostFragment(viewModel.getGameData.value, bundle))
+        }
+
 
 
         return binding.root

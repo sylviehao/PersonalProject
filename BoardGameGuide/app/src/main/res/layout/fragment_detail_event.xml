@@ -141,7 +141,6 @@
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center_horizontal"
                     android:text="OPEN"
-                    android:enabled="false"
                     android:textColor="@color/darkBrown"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toTopOf="@+id/icon_patrick_star"

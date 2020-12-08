@@ -71,7 +71,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.fabPost.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionGlobalNewPostFragment(null))
+            findNavController().navigate(HomeFragmentDirections.actionGlobalNewPostFragment(null, null))
         }
 
         binding.fabEvent.setOnClickListener {

@@ -35,7 +35,7 @@ class GameDetailFragment : Fragment() {
         }
 
         binding.buttonCreatePost.setOnClickListener {
-            findNavController().navigate(GameDetailFragmentDirections.actionGlobalNewPostFragment(bundle))
+            findNavController().navigate(GameDetailFragmentDirections.actionGlobalNewPostFragment(bundle, null))
         }
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {

@@ -3,6 +3,8 @@ package com.sylvie.boardgameguide.create
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.source.GameRepository
 
 class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel() {
@@ -13,6 +15,9 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     val leave: LiveData<Boolean>
         get() = _leave
 
+    val game = MutableLiveData<Game>()
+
+    val event = MutableLiveData<Event>()
 
     fun leave() {
         _leave.value = true

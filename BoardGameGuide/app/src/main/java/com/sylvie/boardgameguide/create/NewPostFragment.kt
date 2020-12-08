@@ -26,23 +26,35 @@ class NewPostFragment : Fragment() {
 
     // Separate the situation from HomeFragment and from GameFragment
     var arg: Game? = null
+    var event: Event? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
 
         arg = NewPostFragmentArgs.fromBundle(requireArguments()).game
+        event = NewPostFragmentArgs.fromBundle(requireArguments()).event
+
+        viewModel.game.value = arg
+        viewModel.event.value = event
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
-        arg?.let {
-            binding.editNewPostGameName.setText(it.name)
-            binding.editNewPostGameType.setText(it.type.toString())
-            binding.editNewPostGameRule.setText(it.rules)
-            binding.editNewPostGameMember.setText(it.playerLimit.toString())
-        }
+//        arg?.let {
+//            binding.editNewPostGameName.setText(it.name)
+//            binding.editNewPostGameType.setText(it.type.toString())
+//            binding.editNewPostGameRule.setText(it.rules)
+//            binding.editNewPostGameMember.setText(it.playerLimit.toString())
+//        }
+//
+//        event?.let {
+//            binding.editNewPostTopic.setText(it.topic)
+//            binding.editNewPostGameTime.setText(it.time.toString())
+//            binding.editNewPostGameLocation.setText(it.location)
+//        }
 
         val db = FirebaseFirestore.getInstance()
         binding.buttonNewPostCreate.setOnClickListener {

@@ -23,6 +23,10 @@
             android:name="game"
             app:argType="com.sylvie.boardgameguide.data.Game"
             app:nullable="true" />
+        <argument
+            android:name="event"
+            app:argType="com.sylvie.boardgameguide.data.Event"
+            app:nullable="true" />
     </fragment>
     <action
         android:id="@+id/action_global_newPostFragment"
