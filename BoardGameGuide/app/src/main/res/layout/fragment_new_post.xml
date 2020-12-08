@@ -74,7 +74,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
+                <TextView
                     android:id="@+id/edit_newPost_game_time"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
@@ -82,8 +82,8 @@
                     android:background="@drawable/frame_edit_new_post"
                     android:ems="10"
                     android:hint="@string/game_time"
-                    android:text="@{String.valueOf(viewModel.event.time)}"
-                    android:inputType="number|textPersonName|text"
+                    android:textSize="18sp"
+                    android:gravity="center_vertical"
                     android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_topic"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_topic"
@@ -193,7 +193,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_type" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/recycler_player"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -213,13 +213,12 @@
                     android:ems="10"
                     android:gravity="top"
                     android:hint="@string/game_member"
-                    android:text="@{String.valueOf(viewModel.event.playerList)}"
                     android:inputType="textMultiLine"
                     android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_rule"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_player" />
 
                 <ImageView
                     android:id="@+id/icon_jake"

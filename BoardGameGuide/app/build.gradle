@@ -104,4 +104,6 @@ dependencies {
     //Progress bar
     implementation 'com.mikhaellopez:circularprogressbar:3.0.3'
 
+    implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
+
 }

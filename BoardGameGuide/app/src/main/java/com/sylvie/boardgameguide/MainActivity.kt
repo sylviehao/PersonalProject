@@ -32,6 +32,7 @@ import com.sylvie.boardgameguide.databinding.NavHeaderDrawerBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.util.CurrentFragmentType
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -91,6 +92,8 @@ class MainActivity : AppCompatActivity() {
         setupNavController()
         setupBottomNav()
         setupDrawer()
+
+
     }
 
 

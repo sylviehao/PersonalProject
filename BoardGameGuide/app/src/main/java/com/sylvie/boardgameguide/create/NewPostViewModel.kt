@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.source.GameRepository
+import java.util.*
 
 class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
@@ -18,6 +19,8 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     val game = MutableLiveData<Game>()
 
     val event = MutableLiveData<Event>()
+
+    val date = MutableLiveData<Long>()
 
     fun leave() {
         _leave.value = true

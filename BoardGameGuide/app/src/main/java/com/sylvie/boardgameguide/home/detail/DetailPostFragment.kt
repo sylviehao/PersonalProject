@@ -16,14 +16,20 @@ import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailPostFragment : Fragment() {
 
     val viewModel by viewModels<DetailPostViewModel> { getVmFactory() }
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentDetailPostBinding.inflate(inflater, container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentDetailPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         val adapter = DetailPostCommentAdapter()
@@ -50,10 +56,20 @@ class DetailPostFragment : Fragment() {
                     val d = data.toObject(Event::class.java)
                     listResult.add(d)
                 }
-                var b = listResult.filter {result-> result.id ==bundle.id }[0]
+                var b = listResult.filter { result-> result.id ==bundle.id }[0]
                 adapter.submitList(b.message)
             }
         }
+
+        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
+        binding.textGameTime.text = dateString
+
+        binding.icLike.setOnClickListener {
+
+        }
+
+
+
 
         adapter2.submitList(bundle.image)
         adapter3.submitList(bundle.playerList)
@@ -61,7 +77,7 @@ class DetailPostFragment : Fragment() {
 
         binding.buttonSend.setOnClickListener {
 
-            val data = Message (
+            val data = Message(
                 hostId = bundle.hostId,
                 userId = "sylviehao",
                 message = binding.editComment.text.toString()
