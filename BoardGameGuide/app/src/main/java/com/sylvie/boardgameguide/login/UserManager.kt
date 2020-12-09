@@ -1,7 +1,6 @@
 package com.sylvie.boardgameguide.login
 
 import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sylvie.boardgameguide.GameApplication
