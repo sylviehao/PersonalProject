@@ -9,6 +9,8 @@ interface GameDataSource {
 
     fun getEvents(): MutableLiveData<List<Event>>
 
+    suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean>
+
     suspend fun getGame(id : String): Result<List<Game>>
 
     suspend fun getAllGames(): Result<List<Game>>

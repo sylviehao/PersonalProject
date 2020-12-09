@@ -18,6 +18,10 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getEvents()
     }
 
+    override suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean> {
+        return gameRemoteDataSource.setEvent(userId, event, status)
+    }
+
     override suspend fun getGame(id: String): Result<List<Game>> {
         return gameRemoteDataSource.getGame(id)
     }

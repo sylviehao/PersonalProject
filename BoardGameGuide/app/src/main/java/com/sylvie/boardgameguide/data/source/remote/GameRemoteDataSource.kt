@@ -2,6 +2,7 @@ package com.sylvie.boardgameguide.data.source.remote
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.sylvie.boardgameguide.data.*
@@ -61,6 +62,27 @@ object GameRemoteDataSource : GameDataSource {
             }
         return liveData
     }
+
+    override suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("Event")
+            val document = db.document(event.id)
+            if (status) {
+                document.update("like", FieldValue.arrayUnion(userId))
+            } else {
+                document.update("like", FieldValue.arrayRemove(userId))
+            }
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
 
 
         override suspend fun getGame(id: String): Result<List<Game>> =

@@ -14,6 +14,10 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getGame(id: String): Result<List<Game>> {
         TODO("Not yet implemented")
     }

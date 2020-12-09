@@ -22,6 +22,11 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val getGameData: LiveData<Game>
         get() = _getGameData
 
+    var _like = MutableLiveData<Boolean>()
+
+    val like: LiveData<Boolean>
+        get() = _like
+
 
     // Save change from Event
     var getEventData = MutableLiveData<Event>()
@@ -56,6 +61,19 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
                     } else {
                         null
                     }
+                } else -> {
+                    null
+                }
+            }
+        }
+    }
+
+    fun setEvent(userId: String, event: Event, status: Boolean) {
+        coroutineScope.launch {
+            val result = gameRepository.setEvent(userId, event, status)
+            _like.value = when (result) {
+                is Result.Success -> {
+                   result.data
                 } else -> {
                     null
                 }

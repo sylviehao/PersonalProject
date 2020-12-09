@@ -49,23 +49,33 @@ class DetailPostFragment : Fragment() {
 
         db.collection("Event")
             .addSnapshotListener { value, error ->
-            value?.let {
-                val listResult = mutableListOf<Event>()
+                value?.let {
+                    val listResult = mutableListOf<Event>()
 
-                it.forEach { data ->
-                    val d = data.toObject(Event::class.java)
-                    listResult.add(d)
+                    it.forEach { data ->
+                        val d = data.toObject(Event::class.java)
+                        listResult.add(d)
+                    }
+                    var b = listResult.filter { result-> result.id == bundle.id }[0]
+                    adapter.submitList(b.message)
                 }
-                var b = listResult.filter { result-> result.id ==bundle.id }[0]
-                adapter.submitList(b.message)
             }
-        }
+
 
         val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
         binding.textGameTime.text = dateString
 
         binding.icLike.setOnClickListener {
-
+            viewModel.setEvent("sylviehao", bundle, true)
+            if(bundle.like!!.any { it == "sylviehao" }) {
+                bundle.like?.remove("sylviehao")
+                viewModel.setEvent("sylviehao", bundle, false)
+                binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
+            }else{
+                bundle.like?.add("sylviehao")
+                binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
+            }
+            viewModel.getEventData.value = bundle
         }
 
 
