@@ -12,6 +12,8 @@ import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DetailEventFragment : Fragment() {
 
@@ -46,6 +48,8 @@ class DetailEventFragment : Fragment() {
             findNavController().navigate(DetailEventFragmentDirections.actionGlobalNewPostFragment(viewModel.getGameData.value, bundle))
         }
 
+        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
+        binding.textGameTime.text = dateString
 
 
         return binding.root

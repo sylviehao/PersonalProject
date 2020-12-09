@@ -19,6 +19,7 @@ import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.home.detail.DetailPostPhotoAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -42,7 +43,9 @@ class NewPostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         val adapter = NewPostPlayerAdapter()
+        val adapter2 = NewPostPhotoAdapter()
         binding.recyclerPlayer.adapter = adapter
+        binding.recyclerNewPostPhoto.adapter = adapter2
 
 
         arg = NewPostFragmentArgs.fromBundle(requireArguments()).game
@@ -53,14 +56,13 @@ class NewPostFragment : Fragment() {
 
         //??
         adapter.submitList(event?.playerList)
+        adapter2.submitList(event?.image)
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
         binding.editNewPostGameTime.setOnClickListener {
-
-
             SingleDateAndTimePickerDialog.Builder(context)
                 .bottomSheet()
                 .curved()

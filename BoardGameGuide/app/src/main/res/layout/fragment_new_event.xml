@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.sylvie.boardgameguide.create.NewEventViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,29 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/rosyOrange">
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/background_newEvent_title"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="64dp"-->
-<!--            android:background="@color/darkBrown"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_newEvent_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="@font/finger_paint"-->
-<!--            android:text="@string/new_event"-->
-<!--            android:textColor="@android:color/white"-->
-<!--            android:textSize="24sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/background_newEvent_title"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/background_newEvent_title"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/background_newEvent_title"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/background_newEvent_title" />-->
 
 
         <EditText
@@ -53,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/edit_newEvent_game_time"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -61,7 +40,8 @@
             android:background="@drawable/frame_edit_new_post"
             android:ems="10"
             android:hint="@string/game_time"
-            android:inputType="textPersonName"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
             android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_topic"
             app:layout_constraintStart_toStartOf="@+id/edit_newEvent_topic"
@@ -130,6 +110,7 @@
             android:background="@drawable/frame_edit_new_post"
             android:ems="10"
             android:hint="@string/game_name"
+            android:text="@{viewModel.game.name}"
             android:inputType="textPersonName"
             android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/line_1"
@@ -144,6 +125,7 @@
             android:background="@drawable/frame_edit_new_post"
             android:ems="10"
             android:hint="@string/game_type"
+            android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.type)}"
             android:inputType="textPersonName"
             android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_name"
@@ -159,6 +141,7 @@
             android:ems="10"
             android:gravity="top"
             android:hint="@string/game_rule"
+            android:text="@{viewModel.game.rules}"
             android:inputType="textMultiLine"
             android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_type"
@@ -174,6 +157,7 @@
             android:ems="10"
             android:gravity="top"
             android:hint="@string/game_member_limit"
+            android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.playerLimit)}"
             android:inputType="textMultiLine"
             android:textColorHint="@color/gray_888888"
             app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_rule"

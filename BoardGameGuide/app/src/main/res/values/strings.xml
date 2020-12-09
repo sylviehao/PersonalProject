@@ -52,6 +52,7 @@
     <string name="event_status">揪團</string>
     <string name="post_status">發文</string>
     <string name="search">SEARCH</string>
+    <string name="empty" />
 
 
 </resources>

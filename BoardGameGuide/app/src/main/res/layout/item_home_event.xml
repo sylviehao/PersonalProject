@@ -120,7 +120,6 @@
                     android:id="@+id/text_game_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{@string/time_chinese + String.valueOf(event.time)}"
                     android:textColor="@color/darkBrown"
                     app:layout_constraintBottom_toTopOf="@+id/text_game_location"
                     app:layout_constraintEnd_toEndOf="@+id/text_game_name"

@@ -17,6 +17,8 @@ import java.util.*
 class HomeAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
 
+
+
     class OnClickListener(val clickListener: (event: Event) -> Unit) {
         fun onClick(event: Event) = clickListener(event)
     }
@@ -42,6 +44,8 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: Event, onClickListener: OnClickListener) {
+            val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
+            binding.textGameTime.text = "時間: " + dateString
             binding.event = event
             binding.textHostName.text = event.hostId
             binding.textGameTopic.text = event.topic
