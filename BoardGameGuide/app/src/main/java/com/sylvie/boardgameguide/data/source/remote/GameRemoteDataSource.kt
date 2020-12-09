@@ -31,7 +31,7 @@ object GameRemoteDataSource : GameDataSource {
                         var a = EventResult(
                             list
                         )
-                        Log.i("getHome","${a}")
+                        Log.i("getHome", "${a}")
                         continuation.resume(Result.Success(a.toHomeItems()))
                     } else {
                         task.exception?.let {
@@ -84,28 +84,48 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
-
-        override suspend fun getGame(id: String): Result<List<Game>> =
-            suspendCoroutine { continuation ->
-                FirebaseFirestore.getInstance()
-                    .collection("Game")
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val list = mutableListOf<Game>()
-                            for (document in task.result!!) {
-                                val game = document.toObject(Game::class.java)
-                                list.add(game)
-                            }
-                            continuation.resume(Result.Success(list))
-                        } else {
-                            task.exception?.let {
-                                continuation.resume(Result.Error(it))
-                                return@addOnCompleteListener
-                            }
+    override suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("Event")
+            val document = db.document(event.id)
+            if (status) {
+                document.update("playerList", FieldValue.arrayUnion(userId))
+            } else {
+                document.update("playerList", FieldValue.arrayRemove(userId))
+            }
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
                         }
                     }
-            }
+                }
+        }
+
+    override suspend fun getGame(id: String): Result<List<Game>> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection("Game")
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Game>()
+                        for (document in task.result!!) {
+                            val game = document.toObject(Game::class.java)
+                            list.add(game)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
 
     override suspend fun getAllGames(): Result<List<Game>> =
         suspendCoroutine { continuation ->

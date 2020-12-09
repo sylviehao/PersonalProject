@@ -35,6 +35,9 @@ class NewEventFragment : Fragment() {
         arg = NewEventFragmentArgs.fromBundle(requireArguments()).game
         viewModel.game.value = arg
 
+        binding.buttonAddPhoto.setOnClickListener {
+            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+        }
 
         binding.editNewEventGameTime.setOnClickListener {
             SingleDateAndTimePickerDialog.Builder(context)

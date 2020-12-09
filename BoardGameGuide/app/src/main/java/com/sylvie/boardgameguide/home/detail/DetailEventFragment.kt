@@ -32,7 +32,6 @@ class DetailEventFragment : Fragment() {
         val adapter2 = DetailEventPhotoAdapter()
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
-        adapter.submitList(bundle.playerList)
         adapter2.submitList(bundle.image)
 
         binding.buttonAddPhoto.setOnClickListener {
@@ -41,8 +40,23 @@ class DetailEventFragment : Fragment() {
 
         binding.buttonJoin.setOnClickListener {
             //判斷是否加入過
-            findNavController().navigate(R.id.action_global_joinDialog)
+            viewModel.setPlayer("sylviehao", bundle, true)
+            if(bundle.playerList!!.any { it == "sylviehao" }) {
+                bundle.playerList?.remove("sylviehao")
+                viewModel.setPlayer("sylviehao", bundle, false)
+                binding.buttonJoin.setText(R.string.join)
+                findNavController().navigate(R.id.action_global_deleteDialog)
+            }else{
+                bundle.playerList?.add("sylviehao")
+                binding.buttonJoin.setText(R.string.leave)
+                findNavController().navigate(R.id.action_global_joinDialog)
+            }
+            viewModel.getEventData.value = bundle
+            adapter.submitList(bundle.playerList)
+            adapter.notifyDataSetChanged()
+
         }
+
 
         binding.textStatus.setOnClickListener {
             findNavController().navigate(DetailEventFragmentDirections.actionGlobalNewPostFragment(viewModel.getGameData.value, bundle))

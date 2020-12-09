@@ -16,28 +16,6 @@
         android:background="@color/rosyOrange">
 
 
-<!--        <TextView-->
-<!--            android:id="@+id/background_newPost_title"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="64dp"-->
-<!--            android:background="@android:color/white"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_newPost_title"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:fontFamily="@font/finger_paint"-->
-<!--            android:text="@string/new_post"-->
-<!--            android:textColor="@color/darkBrown"-->
-<!--            android:textSize="24sp"-->
-<!--            app:layout_constraintBottom_toBottomOf="@+id/background_newPost_title"-->
-<!--            app:layout_constraintEnd_toEndOf="@+id/background_newPost_title"-->
-<!--            app:layout_constraintStart_toStartOf="@+id/background_newPost_title"-->
-<!--            app:layout_constraintTop_toTopOf="@+id/background_newPost_title" />-->
-
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"

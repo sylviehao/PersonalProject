@@ -22,6 +22,11 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     val getGameData: LiveData<Game>
         get() = _getGameData
 
+    var _addPlayer = MutableLiveData<Boolean>()
+
+    val addPlayer: LiveData<Boolean>
+        get() = _addPlayer
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -52,4 +57,18 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
             }
         }
     }
+
+    fun setPlayer(userId: String, event: Event, status: Boolean) {
+        coroutineScope.launch {
+            val result = gameRepository.setPlayer(userId, event, status)
+            _addPlayer.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
+    }
+
 }
