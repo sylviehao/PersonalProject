@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
 
         val adapter = HomeAdapter(HomeAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        })
+        },viewModel)
         binding.recyclerHome.adapter = adapter
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {

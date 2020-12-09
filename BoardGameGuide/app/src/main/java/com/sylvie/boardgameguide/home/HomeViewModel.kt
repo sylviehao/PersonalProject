@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.HomeItem
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.source.GameRepository
@@ -32,6 +33,11 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val getHome: LiveData<List<HomeItem>>
         get() = _getHome
 
+    private var _getAllGame = MutableLiveData<List<Game>>()
+
+    val getAllGame: LiveData<List<Game>>
+        get() = _getAllGame
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -42,6 +48,7 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     init {
         getEvents()
         getHome()
+        getAllGames()
     }
     override fun onCleared() {
         super.onCleared()
@@ -63,6 +70,24 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 }
             }
         }
+    }
+
+    fun getAllGames(){
+        coroutineScope.launch {
+            val result = gameRepository.getAllGames()
+            _getAllGame.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
+    }
+
+    fun getGame(id: String) : String {
+        val a = _getAllGame.value?.filter { it.id == id }?.get(0)
+        return a!!.name
     }
 
     fun filter(list: List<Event>, query: String): List<HomeItem> {

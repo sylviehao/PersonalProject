@@ -14,7 +14,7 @@ import com.sylvie.boardgameguide.databinding.ItemHomePostBinding
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeAdapter(private val onClickListener: OnClickListener) :
+class HomeAdapter(private val onClickListener: OnClickListener, private val viewModel: HomeViewModel) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
 
 
@@ -26,13 +26,14 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
     class PostViewHolder(private val binding: ItemHomePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(event: Event, onClickListener: OnClickListener) {
+        fun bind(event: Event, onClickListener: OnClickListener,viewModel: HomeViewModel) {
             binding.event = event
             binding.textHostName.text = event.hostId
             binding.textGameTopic.text = event.topic
             binding.textTotalPlayer.text = event.playerLimit.toString()
             binding.textTotalLike.text = event.like?.size.toString()
-            binding.textGameName.text = event.gameId
+//            binding.textGameName.text = event.gameId
+            binding.textGameName.text = viewModel.getGame(event.gameId)
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
@@ -43,13 +44,15 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
     class EventViewHolder(private val binding: ItemHomeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(event: Event, onClickListener: OnClickListener) {
+        fun bind(event: Event, onClickListener: OnClickListener,viewModel: HomeViewModel) {
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
             binding.textGameTime.text = "時間: " + dateString
             binding.event = event
             binding.textHostName.text = event.hostId
             binding.textGameTopic.text = event.topic
-            binding.textGameName.text = event.gameId
+//            binding.textGameName.text = event.gameId
+            binding.textGameName.text = viewModel.getGame(event.gameId)
+
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
@@ -73,10 +76,10 @@ class HomeAdapter(private val onClickListener: OnClickListener) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is PostViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.PostItem).event, onClickListener)
+                holder.bind((getItem(position) as HomeItem.PostItem).event, onClickListener,viewModel)
             }
             is EventViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.EventItem).event, onClickListener)
+                holder.bind((getItem(position) as HomeItem.EventItem).event, onClickListener,viewModel)
             }
         }
     }
