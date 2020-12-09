@@ -21,6 +21,7 @@ import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.GameAdapter
 import com.sylvie.boardgameguide.game.GameFragmentDirections
 import com.sylvie.boardgameguide.game.GameViewModel
+import com.sylvie.boardgameguide.login.UserManager
 
 class ProfileFragment : Fragment() {
 
@@ -41,6 +42,10 @@ class ProfileFragment : Fragment() {
 
         binding.recyclerBrowse.adapter = adapter
 
+        binding.imageProfile.setOnClickListener {
+            UserManager.clear()
+            Toast.makeText(context, "Sign Out", Toast.LENGTH_SHORT).show()
+        }
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {

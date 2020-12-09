@@ -15,10 +15,14 @@ class GameApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        appContext = applicationContext
+//        appContext = applicationContext
+        GameApplication.appContext = this
     }
+
     companion object {
-        var appContext: Context? = null
-            private set
+        //        var appContext: Context? = null
+//            private set
+        var appContext: GameApplication by Delegates.notNull()
     }
 }
+
