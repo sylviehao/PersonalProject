@@ -55,7 +55,7 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
         viewModelJob.cancel()
     }
 
-    private fun getEvents() {
+    fun getEvents() {
             _getEventData = gameRepository.getEvents()
             Log.i("event","${_getEventData}")
     }

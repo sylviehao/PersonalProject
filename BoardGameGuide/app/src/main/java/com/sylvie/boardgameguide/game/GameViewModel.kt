@@ -45,16 +45,16 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
 
     init {
-        getUser("001")
+        getUser()
         getAllGames()
 
     }
 
-    fun getUser(id: String) {
+    fun getUser() {
         coroutineScope.launch {
             try {
-//                UserManager.userToken?.let {
-                    val result = gameRepository.getUser(id)
+                UserManager.userToken?.let {
+                    val result = gameRepository.getUser(it)
                     _getUserData.value = when (result) {
                         is Result.Success -> {
                             result.data
@@ -63,7 +63,7 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                             null
                         }
                     }
-//                }
+                }
             } catch (e: Exception) {
 
             }

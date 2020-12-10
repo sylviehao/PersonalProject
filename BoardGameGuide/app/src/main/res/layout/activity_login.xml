@@ -4,13 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.sylvie.boardgameguide.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".LoginActivity">
+        tools:context=".login.LoginActivity">
 
 
 
@@ -29,8 +31,7 @@
         <TextView
             android:id="@+id/button_login"
             android:layout_width="220dp"
-            android:layout_height="100dp"
-            android:background="@android:color/transparent"
+            android:layout_height="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

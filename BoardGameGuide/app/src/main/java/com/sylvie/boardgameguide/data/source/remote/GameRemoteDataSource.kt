@@ -12,6 +12,61 @@ import kotlin.coroutines.resume
 
 object GameRemoteDataSource : GameDataSource {
 
+    override suspend fun createUser(user: User): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("User")
+            val document = db.document(user.id)
+            document
+                .set(user)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(""))
+                    }
+                }
+        }
+
+    override suspend fun getUser(id: String): Result<User> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection("User").document(id)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val user = task.result?.toObject(User::class.java)
+                        continuation.resume(Result.Success(user!!))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
+    override suspend fun setUser(user: User, introduction: String): Result<User> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection("User").document(user.id)
+                .update("introduction", introduction)
+//                .set(introduction)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(user))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
     override suspend fun getHome(): Result<List<HomeItem>> =
 
         suspendCoroutine { continuation ->
@@ -63,7 +118,7 @@ object GameRemoteDataSource : GameDataSource {
         return liveData
     }
 
-    override suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean> =
+    override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> =
         suspendCoroutine { continuation ->
             val db = FirebaseFirestore.getInstance().collection("Event")
             val document = db.document(event.id)
@@ -150,41 +205,7 @@ object GameRemoteDataSource : GameDataSource {
         }
 
 
-    override suspend fun getUser(id: String): Result<User> =
-        suspendCoroutine { continuation ->
-            FirebaseFirestore.getInstance()
-                .collection("User").document(id)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val user = task.result?.toObject(User::class.java)
-                        continuation.resume(Result.Success(user!!))
-                    } else {
-                        task.exception?.let {
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
 
-    override suspend fun setUser(user: User, introduction: String): Result<User> =
-        suspendCoroutine { continuation ->
-            FirebaseFirestore.getInstance()
-                .collection("User").document(user.id)
-                .update("introduction", introduction)
-//                .set(introduction)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        continuation.resume(Result.Success(user))
-                    } else {
-                        task.exception?.let {
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                    }
-                }
-        }
 
     override suspend fun setGame(user: User, game: Game): Result<Boolean> =
         suspendCoroutine { continuation ->
@@ -220,5 +241,7 @@ object GameRemoteDataSource : GameDataSource {
                     continuation.resume(Result.Error(it))
                 }
         }
+
+
 
 }

@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:fontFamily="@font/finger_paint"
-                    android:text="sylviehao"
+                    android:text="@{viewModel.getUserData.name}"
                     android:textColor="@color/darkBrown"
                     android:textSize="18sp"
                     app:layout_constraintEnd_toStartOf="@+id/constraint_post"

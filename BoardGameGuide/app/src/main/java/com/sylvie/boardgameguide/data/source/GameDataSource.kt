@@ -5,11 +5,13 @@ import com.sylvie.boardgameguide.data.*
 
 interface GameDataSource {
 
+    suspend fun createUser(user: User): Result<Boolean>
+
     suspend fun getHome(): Result<List<HomeItem>>
 
     fun getEvents(): MutableLiveData<List<Event>>
 
-    suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean>
+    suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean>
 
     suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean>
 

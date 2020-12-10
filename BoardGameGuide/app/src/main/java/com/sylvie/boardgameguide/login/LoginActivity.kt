@@ -1,10 +1,9 @@
-package com.sylvie.boardgameguide
+package com.sylvie.boardgameguide.login
 
 import android.widget.TextView
 import com.sylvie.boardgameguide.data.Spark
 import com.sylvie.boardgameguide.databinding.ActivityLoginBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
-import com.sylvie.boardgameguide.login.UserManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +21,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.sylvie.boardgameguide.MainActivity
+import com.sylvie.boardgameguide.MainViewModel
+import com.sylvie.boardgameguide.R
 
 
 private const val RC_SIGN_IN = 20
@@ -32,10 +34,11 @@ class LoginActivity : AppCompatActivity() {
 
     // FirebaseAuth
     private lateinit var auth: FirebaseAuth
-    val viewModel by viewModels<MainViewModel> { getVmFactory() }
+    val viewModel by viewModels<LoginViewModel> { getVmFactory() }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        binding.viewModel = viewModel
 
         spark = Spark(binding.root, Spark.ANIM_YELLOW_BLUE, 4000)
         spark.startAnimation()
@@ -82,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
                 // displayName, email, and profile photo Url
                 // Check if user's email is verified: isEmailVerified
                 UserManager.userToken = firebaseUser.uid
+                viewModel.createUser(firebaseUser.uid, firebaseUser.displayName!!, firebaseUser.photoUrl.toString())
             }
             Log.d(
                 "firebaseUser",

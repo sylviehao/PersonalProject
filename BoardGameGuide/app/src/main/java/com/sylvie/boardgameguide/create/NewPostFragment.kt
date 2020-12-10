@@ -2,6 +2,7 @@ package com.sylvie.boardgameguide.create
 
 import android.graphics.Color
 import android.os.Bundle
+import com.sylvie.boardgameguide.login.UserManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -87,7 +88,7 @@ class NewPostFragment : Fragment() {
 
             val data = viewModel.date.value?.let { date ->
                 Event(
-                    hostId = "taiyilin",
+                    hostId = viewModel.getUserData.value!!.name,
                     topic = binding.editNewPostTopic.text.toString(),
                     description = "",
                     image = mutableListOf(
@@ -105,7 +106,7 @@ class NewPostFragment : Fragment() {
                         )
                     ),
                     rules = binding.editNewPostGameRule.text.toString(),
-                    playerList = mutableListOf("sylviehao", "Louis", "Taiyi", "Gary", "Eric", "Tron"),
+                    playerList = mutableListOf(viewModel.getUserData.value!!.name, "Louis", "Taiyi", "Gary", "Eric", "Tron"),
                     status = "CLOSE",
                     like = mutableListOf("")
                 )

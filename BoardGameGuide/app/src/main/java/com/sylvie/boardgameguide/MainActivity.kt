@@ -3,7 +3,6 @@ package com.sylvie.boardgameguide
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -20,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sylvie.boardgameguide.databinding.ActivityMainBinding
 import com.sylvie.boardgameguide.databinding.NavHeaderDrawerBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.login.LoginActivity
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.CurrentFragmentType
 

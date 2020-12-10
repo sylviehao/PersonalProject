@@ -9,6 +9,7 @@ import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -49,7 +50,7 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     init {
         getEvents()
-        getUser("001")
+        getUser()
     }
 
     private fun getEvents() {
@@ -58,11 +59,11 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
 
 
 
-    fun getUser(id: String) {
+    fun getUser() {
         coroutineScope.launch {
             try {
-//                UserManager.userToken?.let {
-                val result = gameRepository.getUser(id)
+                UserManager.userToken?.let {
+                val result = gameRepository.getUser(it)
                 _getUserData.value = when (result) {
                     is Result.Success -> {
                         result.data
@@ -71,7 +72,7 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
                         null
                     }
                 }
-//                }
+                }
             } catch (e: Exception) {
             }
         }

@@ -6,6 +6,11 @@ import com.sylvie.boardgameguide.data.*
 import com.sylvie.boardgameguide.data.source.GameDataSource
 
 class GameLocalDataSource(val context: Context) : GameDataSource {
+
+    override suspend fun createUser(user: User): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getHome(): Result<List<HomeItem>> {
         TODO("Not yet implemented")
     }
@@ -14,7 +19,7 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean> {
+    override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> {
         TODO("Not yet implemented")
     }
 

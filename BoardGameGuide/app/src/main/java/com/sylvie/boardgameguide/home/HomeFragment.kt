@@ -32,13 +32,17 @@ class HomeFragment : Fragment() {
 
         val adapter = HomeAdapter(HomeAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        },viewModel)
+        }, viewModel)
         binding.recyclerHome.adapter = adapter
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
+                viewModel.getEvents()
+
                 if(it.status == "CLOSE"){
+
                     findNavController().navigate(HomeFragmentDirections.actionGlobalDetailPostFragment(it))
+
                 } else {
                     findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment(it))
                 }

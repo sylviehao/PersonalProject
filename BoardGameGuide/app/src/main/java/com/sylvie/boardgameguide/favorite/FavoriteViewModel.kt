@@ -8,6 +8,7 @@ import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -34,14 +35,15 @@ class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel(
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        getUser("001")
+        getUser()
     }
 
-    private fun getUser(id: String) {
+    private fun getUser() {
 
         coroutineScope.launch {
             try {
-                val result = gameRepository.getUser(id)
+                UserManager.userToken?.let {
+                val result = gameRepository.getUser(it)
                 _getUserData.value = when (result) {
                     is Result.Success -> {
                         result.data
@@ -49,6 +51,7 @@ class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel(
                     else -> {
                         null
                     }
+                }
                 }
             } catch (e: Exception) {
 

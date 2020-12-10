@@ -98,7 +98,7 @@ class GameFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getUser("001")
+        viewModel.getUser()
     }
 
 

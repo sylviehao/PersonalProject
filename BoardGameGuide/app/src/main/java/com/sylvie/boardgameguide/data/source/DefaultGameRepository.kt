@@ -10,6 +10,11 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
                                       private val gameLocalDataSource: GameDataSource,
                                       private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : GameRepository {
+
+    override suspend fun createUser(user: User): Result<Boolean> {
+        return gameRemoteDataSource.createUser(user)
+    }
+
     override suspend fun getHome(): Result<List<HomeItem>> {
         return gameRemoteDataSource.getHome()
     }
@@ -18,8 +23,8 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getEvents()
     }
 
-    override suspend fun setEvent(userId: String, event: Event, status: Boolean): Result<Boolean> {
-        return gameRemoteDataSource.setEvent(userId, event, status)
+    override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> {
+        return gameRemoteDataSource.setLike(userId, event, status)
     }
 
     override suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean> {

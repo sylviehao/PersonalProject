@@ -13,6 +13,7 @@ import com.sylvie.boardgameguide.game.GameViewModel
 import com.sylvie.boardgameguide.game.detail.GameDetailViewModel
 import com.sylvie.boardgameguide.home.HomeViewModel
 import com.sylvie.boardgameguide.create.NewPostViewModel
+import com.sylvie.boardgameguide.login.LoginViewModel
 import com.sylvie.boardgameguide.profile.ProfileViewModel
 import com.sylvie.boardgameguide.profile.event.ProfileEventViewModel
 import com.sylvie.boardgameguide.profile.post.ProfilePostViewModel
@@ -28,6 +29,9 @@ class ViewModelFactory constructor(
             when {
                 isAssignableFrom(MainViewModel::class.java) ->
                     MainViewModel(gameRepository)
+
+                isAssignableFrom(LoginViewModel::class.java) ->
+                    LoginViewModel(gameRepository)
 
                 isAssignableFrom(HomeViewModel::class.java) ->
                     HomeViewModel(gameRepository)

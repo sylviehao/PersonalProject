@@ -70,7 +70,7 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     fun setEvent(userId: String, event: Event, status: Boolean) {
         coroutineScope.launch {
-            val result = gameRepository.setEvent(userId, event, status)
+            val result = gameRepository.setLike(userId, event, status)
             _like.value = when (result) {
                 is Result.Success -> {
                    result.data
