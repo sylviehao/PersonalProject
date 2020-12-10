@@ -81,7 +81,7 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
     fun setUser(user: User, introduction: String) {
         coroutineScope.launch {
             try {
-//                UserManager.userToken?.let {
+                UserManager.userToken?.let {
                 val result = gameRepository.setUser(user, introduction)
                 _setUserData.value = when (result) {
                     is Result.Success -> {
@@ -91,7 +91,7 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
                         null
                     }
                 }
-//                }
+                }
             } catch (e: Exception) {
             }
         }

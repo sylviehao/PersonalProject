@@ -11,6 +11,9 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -39,9 +42,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         spark = Spark(binding.root, Spark.ANIM_YELLOW_BLUE, 4000)
         spark.startAnimation()
+
 
         // Initialize Firebase Auth
         auth = Firebase.auth
@@ -55,6 +60,18 @@ class LoginActivity : AppCompatActivity() {
         binding.buttonLogin.setOnClickListener {
             signIn(mGoogleSignInClient)
         }
+
+        viewModel.status.observe(this, Observer {
+            val intent = Intent(this, MainActivity::class.java)
+            val bundle = Bundle()
+            bundle.putBoolean("loginStatus",true)
+            intent.putExtra("bundle",bundle)
+            startActivity(intent)
+        })
+
+        viewModel.getUserData.observe(this, Observer {
+            viewModel.createUser()
+        })
     }
 
     private fun signIn(mGoogleSignInClient: GoogleSignInClient) {
@@ -85,18 +102,16 @@ class LoginActivity : AppCompatActivity() {
                 // displayName, email, and profile photo Url
                 // Check if user's email is verified: isEmailVerified
                 UserManager.userToken = firebaseUser.uid
-                viewModel.createUser(firebaseUser.uid, firebaseUser.displayName!!, firebaseUser.photoUrl.toString())
+                viewModel.firebaseUser.value = firebaseUser
+                viewModel.getUser(firebaseUser.uid)
+//                viewModel.createUser(firebaseUser.uid, firebaseUser.displayName!!, firebaseUser.photoUrl.toString())
             }
+
             Log.d(
                 "firebaseUser",
                 "name = ${firebaseUser?.displayName}, email = ${firebaseUser?.email}, uid = ${firebaseUser?.uid}"
             )
 
-            val intent = Intent(this, MainActivity::class.java)
-            val bundle = Bundle()
-            bundle.putBoolean("loginStatus",true)
-            intent.putExtra("bundle",bundle)
-            startActivity(intent)
 
         } catch (e: ApiException) {
             // The ApiException status code indicates the detailed failure reason.

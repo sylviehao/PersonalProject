@@ -242,6 +242,23 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
-
+//    override suspend fun addEvent(event: Event): Result<Boolean> =
+//        suspendCoroutine { continuation ->
+//            val db = FirebaseFirestore.getInstance().collection("Event")
+//            val document = db.document()
+//            event.id = document.id
+//            document.set(event)
+//                .addOnCompleteListener { task ->
+//                    if (task.isSuccessful) {
+//                        continuation.resume(Result.Success(true))
+//                    } else {
+//                        task.exception?.let {
+//                            continuation.resume(Result.Error(it))
+//                            return@addOnCompleteListener
+//                        }
+//                        continuation.resume(Result.Fail(""))
+//                    }
+//                }
+//        }
 
 }
