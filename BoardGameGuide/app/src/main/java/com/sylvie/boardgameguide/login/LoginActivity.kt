@@ -61,6 +61,10 @@ class LoginActivity : AppCompatActivity() {
             signIn(mGoogleSignInClient)
         }
 
+        viewModel.getUserData.observe(this, Observer {
+            viewModel.createUser()
+        })
+
         viewModel.status.observe(this, Observer {
             val intent = Intent(this, MainActivity::class.java)
             val bundle = Bundle()
@@ -69,9 +73,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         })
 
-        viewModel.getUserData.observe(this, Observer {
-            viewModel.createUser()
-        })
+
     }
 
     private fun signIn(mGoogleSignInClient: GoogleSignInClient) {

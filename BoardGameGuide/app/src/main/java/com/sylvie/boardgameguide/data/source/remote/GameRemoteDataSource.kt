@@ -31,15 +31,17 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
-    override suspend fun getUser(id: String): Result<User> =
+    override suspend fun getUser(id: String): Result<User?> =
         suspendCoroutine { continuation ->
             FirebaseFirestore.getInstance()
                 .collection("User").document(id)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val user = task.result?.toObject(User::class.java)
-                        continuation.resume(Result.Success(user!!))
+
+                        val user  = task.result?.toObject(User::class.java)
+
+                        continuation.resume(Result.Success(user))
                     } else {
                         task.exception?.let {
                             continuation.resume(Result.Error(it))
@@ -242,23 +244,23 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
-//    override suspend fun addEvent(event: Event): Result<Boolean> =
-//        suspendCoroutine { continuation ->
-//            val db = FirebaseFirestore.getInstance().collection("Event")
-//            val document = db.document()
-//            event.id = document.id
-//            document.set(event)
-//                .addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        continuation.resume(Result.Success(true))
-//                    } else {
-//                        task.exception?.let {
-//                            continuation.resume(Result.Error(it))
-//                            return@addOnCompleteListener
-//                        }
-//                        continuation.resume(Result.Fail(""))
-//                    }
-//                }
-//        }
+    override suspend fun addEvent(event: Event): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("Event")
+            val document = db.document()
+            event.id = document.id
+            document.set(event)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(""))
+                    }
+                }
+        }
 
 }

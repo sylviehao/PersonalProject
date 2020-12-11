@@ -19,12 +19,14 @@ interface GameDataSource {
 
     suspend fun getAllGames(): Result<List<Game>>
 
-    suspend fun getUser(id : String): Result<User>
+    suspend fun getUser(id : String): Result<User?>
 
     suspend fun setUser(user: User, introduction: String): Result<User>
 
     suspend fun setGame(user: User, game: Game): Result<Boolean>
 
     suspend fun removeGame(user: User, game: Game): Result<Boolean>
+
+    suspend fun addEvent(event: Event): Result<Boolean>
 
 }

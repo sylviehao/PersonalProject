@@ -39,7 +39,7 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getAllGames()
     }
 
-    override suspend fun getUser(id: String): Result<User> {
+    override suspend fun getUser(id: String): Result<User?> {
         return gameRemoteDataSource.getUser(id)
     }
 
@@ -53,5 +53,9 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
 
     override suspend fun removeGame(user: User, game: Game): Result<Boolean> {
         return gameRemoteDataSource.removeGame(user, game)
+    }
+
+    override suspend fun addEvent(event: Event): Result<Boolean> {
+        return gameRemoteDataSource.addEvent(event)
     }
 }

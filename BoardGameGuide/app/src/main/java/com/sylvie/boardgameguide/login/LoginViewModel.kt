@@ -44,17 +44,10 @@ class LoginViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
         coroutineScope.launch {
             firebaseUser.value?.let {
-                val newUser = User(
-                    id = it.uid,
-                    name = it.displayName.toString(),
-                    image = it.photoUrl.toString(),
-                    favorite = mutableListOf(Game()),
-                    browseRecently = mutableListOf(BrowseRecently())
-                )
 
                 val user = when (getUserData.value?.id == it.uid) {
                     true -> getUserData.value
-                    else -> newUser
+                    else -> user(it)
                 }
                 user?.let {data->
                     val result = gameRepository.createUser(data)
@@ -69,6 +62,16 @@ class LoginViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 }
             }
         }
+    }
+
+    private fun user(it: FirebaseUser): User {
+        return User(
+            id = it.uid,
+            name = it.displayName.toString(),
+            image = it.photoUrl.toString(),
+            favorite = mutableListOf(),
+            browseRecently = mutableListOf()
+        )
     }
 
     fun getUser(uid: String) {
