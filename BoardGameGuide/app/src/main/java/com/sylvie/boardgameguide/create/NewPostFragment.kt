@@ -71,8 +71,6 @@ class NewPostFragment : Fragment() {
                 .mainColor(Color.WHITE)
                 .titleTextColor(Color.WHITE)
                 //.stepSizeMinutes(15)
-                //.displayHours(false)
-                //.displayMinutes(false)
                 //.todayText("aujourd'hui")
                 .displayListener {}
                 .title("Simple")
@@ -83,49 +81,11 @@ class NewPostFragment : Fragment() {
                 .display()
         }
 
-        val db = FirebaseFirestore.getInstance()
         binding.buttonNewPostCreate.setOnClickListener {
 
-            val data = viewModel.date.value?.let { date ->
-                Event(
-                    hostId = viewModel.getUserData.value!!.name,
-                    topic = binding.editNewPostTopic.text.toString(),
-                    description = "",
-                    image = mutableListOf(
-                        "https://images.unsplash.com/photo-1585504198199-20277593b94f?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTV8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                        "https://images.unsplash.com/photo-1594652634010-275456c808d0?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTh8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                        "https://images.unsplash.com/photo-1556374002-a892c2598e99?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjN8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                    ),
-                    time = date,
-                    location = binding.editNewPostGameLocation.text.toString(),
-                    gameId = "a001",
-                    message = mutableListOf(
-                        Message(
-                            userId = "",
-                            message = ""
-                        )
-                    ),
-                    rules = binding.editNewPostGameRule.text.toString(),
-                    playerList = mutableListOf(viewModel.getUserData.value!!.name, "Louis", "Taiyi", "Gary", "Eric", "Tron"),
-                    status = "CLOSE",
-                    like = mutableListOf("")
-                )
-            }
+            viewModel.addPost(binding.editNewPostTopic.text.toString(), binding.editNewPostGameLocation.text.toString(),
+                binding.editNewPostGameRule.text.toString(), binding.editNewPostGameMember.text.toString())
 
-            // Add a new document with a generated ID
-            if (data != null) {
-                db.collection("Event")
-                    .add(data)
-                    .addOnSuccessListener { documentReference ->
-                        documentReference.update("id", documentReference.id)
-                        Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
-                    }
-                    .addOnFailureListener {
-                        Log.d("TAG", "$it")
-                        Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-            }
             findNavController().navigate(R.id.action_global_homeFragment)
         }
 
