@@ -216,7 +216,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/text_total_like"
+                    app:layout_constraintEnd_toEndOf="@+id/line_1"
                     app:layout_constraintStart_toStartOf="@+id/icon_mr_krabs"
                     app:layout_constraintTop_toBottomOf="@+id/line_1">
 
@@ -224,30 +224,31 @@
                         android:id="@+id/text_game_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.getGameData.name}"
+                        android:text="@{viewModel.getEventData.game.name}"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="名稱: 風聲"/>
+                        tools:text="名稱: 風聲" />
 
                     <TextView
                         android:id="@+id/text_game_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{String.valueOf(viewModel.getGameData.type)}"
+                        android:text="@{String.valueOf(viewModel.getEventData.game.type)}"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/text_game_name"
                         app:layout_constraintTop_toBottomOf="@+id/text_game_name"
-                        tools:text="種類: 陣營"/>
+                        tools:text="種類: 陣營" />
 
                     <TextView
                         android:id="@+id/text_game_rule"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text="@{viewModel.getGameData.rules}"
+                        android:text="@{viewModel.getEventData.game.rules}"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/text_game_type"
                         app:layout_constraintTop_toBottomOf="@+id/text_game_type"
                         tools:text="規則:" />

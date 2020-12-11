@@ -61,31 +61,25 @@ class NewEventFragment : Fragment() {
                 .display()
         }
 
-        val db = FirebaseFirestore.getInstance()
         binding.buttonNewEventCreate.setOnClickListener {
-            val data = viewModel.date.value?.let { date ->
-                Event(
-                    user = UserManager.user.value,
-                    topic = binding.editNewEventTopic.text.toString(),
-                    time = date,
-                    location = binding.editNewEventGameLocation.text.toString(),
-                    image = mutableListOf("https://images.unsplash.com/photo-1573141335932-9b22c45aa2df?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzF8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
-//                    gameId = "a002",
-                    playerLimit = 7,
-                    status = "OPEN",
-                )
-            }
+            val typeList= mutableListOf<String>()
+            typeList.add(binding.editNewEventGameType.text.toString())
 
-                // Add a new document with a generated ID
-            if (data != null) {
-                db.collection("Event")
-                    .add(data)
-                    .addOnSuccessListener { documentReference ->
-                        documentReference.update("id", documentReference.id)
-                        Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
-                    }
-            }
-                findNavController().navigate(R.id.action_global_homeFragment)
+//            val memberList = mutableListOf<String>()
+//            memberList.add(binding.editNewEventGameMember.text.toString())
+
+            viewModel.addPost(
+                topic = binding.editNewEventTopic.text.toString(),
+                location = binding.editNewEventGameLocation.text.toString(),
+                rules = binding.editNewEventGameRule.text.toString(),
+//                member = memberList,
+                type = typeList,
+                name = binding.editNewEventGameName.text.toString(),
+                limit = binding.editNewEventGameMember.text.toString().toInt()
+            )
+
+            findNavController().navigate(R.id.action_global_homeFragment)
+
             }
 
 

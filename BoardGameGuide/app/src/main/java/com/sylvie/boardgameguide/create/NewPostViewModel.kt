@@ -42,27 +42,27 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     }
 
     init {
-        getUser()
+//        getUser()
     }
 
-    fun getUser() {
-        coroutineScope.launch {
-            try {
-                UserManager.userToken?.let {
-                    val result = gameRepository.getUser(it)
-                    _getUserData.value = when (result) {
-                        is Result.Success -> {
-                            result.data
-                        }
-                        else -> {
-                            null
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-            }
-        }
-    }
+//    fun getUser() {
+//        coroutineScope.launch {
+//            try {
+//                UserManager.userToken?.let {
+//                    val result = gameRepository.getUser(it)
+//                    _getUserData.value = when (result) {
+//                        is Result.Success -> {
+//                            result.data
+//                        }
+//                        else -> {
+//                            null
+//                        }
+//                    }
+//                }
+//            } catch (e: Exception) {
+//            }
+//        }
+//    }
 
     fun addPost(
         topic: String,
@@ -83,7 +83,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
                         topic = topic,
                         description = "",
                         image = mutableListOf(
-                            "https://images.unsplash.com/photo-1563811771046-ba984ff30900?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
+                            "https://images.unsplash.com/photo-1572979836320-ae5be0d63ab8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzB8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
                         ),
                         time = date.value!!,
                         location = location,
