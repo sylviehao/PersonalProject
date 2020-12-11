@@ -83,8 +83,20 @@ class NewPostFragment : Fragment() {
 
         binding.buttonNewPostCreate.setOnClickListener {
 
-            viewModel.addPost(binding.editNewPostTopic.text.toString(), binding.editNewPostGameLocation.text.toString(),
-                binding.editNewPostGameRule.text.toString(), binding.editNewPostGameMember.text.toString())
+            val typeList= mutableListOf<String>()
+            typeList.add(binding.editNewPostGameType.text.toString())
+
+            val memberList = mutableListOf<String>()
+            memberList.add(binding.editNewPostGameMember.text.toString())
+
+            viewModel.addPost(
+                topic = binding.editNewPostTopic.text.toString(),
+                location = binding.editNewPostGameLocation.text.toString(),
+                rules = binding.editNewPostGameRule.text.toString(),
+                member = memberList,
+                type = typeList,
+                name = binding.editNewPostGameName.text.toString()
+            )
 
             findNavController().navigate(R.id.action_global_homeFragment)
         }

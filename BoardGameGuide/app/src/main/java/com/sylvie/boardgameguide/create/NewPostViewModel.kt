@@ -64,33 +64,50 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
         }
     }
 
-    fun addPost(topic: String, location: String, rules: String, member: String) {
+    fun addPost(
+        topic: String,
+        location: String,
+        rules: String,
+        member: MutableList<String>,
+        name: String,
+        type: MutableList<String>
+    ) {
         coroutineScope.launch {
             try {
-                val event = Event(
-                    hostId = getUserData.value!!.name,
-                    topic = topic,
-                    description = "",
-                    image = mutableListOf(
-                        "https://images.unsplash.com/photo-1556374002-a892c2598e99?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjN8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                    ),
-                    time = date.value!!,
-                    location = location,
-                    gameId = "a004",
-                    message = mutableListOf(),
-                    rules = rules,
-                    playerList = mutableListOf(getUserData.value!!.name, member),
-                    status = "CLOSE",
-                    like = mutableListOf()
-                )
 
-                val result = gameRepository.addEvent(event)
-                _eventStatus.value = when (result) {
-                    is Result.Success -> {
-                        result.data
-                    }
-                    else -> {
-                        null
+                UserManager.user.value?.let {
+
+                    member.add(it.name)
+                    val event = Event(
+                        user = it,
+                        topic = topic,
+                        description = "",
+                        image = mutableListOf(
+                            "https://images.unsplash.com/photo-1563811771046-ba984ff30900?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
+                        ),
+                        time = date.value!!,
+                        location = location,
+                        game = Game(
+                            name = name,
+                            image = mutableListOf(),
+                            type = type,
+                            rules = rules,
+                            roles = mutableListOf()
+                        ),
+                        message = mutableListOf(),
+                        playerList = member,
+                        status = "CLOSE",
+                        like = mutableListOf()
+                    )
+
+                    val result = gameRepository.addEvent(event)
+                    _eventStatus.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
                     }
                 }
             } catch (e: Exception) {

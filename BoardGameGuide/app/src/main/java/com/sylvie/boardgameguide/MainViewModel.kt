@@ -3,6 +3,8 @@ package com.sylvie.boardgameguide
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sylvie.boardgameguide.data.Result
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.network.LoadApiStatus
@@ -10,6 +12,8 @@ import com.sylvie.boardgameguide.util.CurrentFragmentType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
@@ -40,6 +44,32 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    private var _getUserData = MutableLiveData<User>()
+
+    val getUserData: LiveData<User>
+        get() = _getUserData
+
+    init {
+        UserManager.userToken?.let { getUser(it) }
+    }
+
+
+    fun getUser(uid: String) {
+        coroutineScope.launch {
+            try {
+                val result = gameRepository.getUser(uid)
+                UserManager.user.value = when (result) {
+                    is Result.Success -> {
+                        result.data
+                    }
+                    else -> {
+                        null
+                    }
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
 //    fun loginAndSetUser(userToken: String, userName: String) {
 //        coroutineScope.launch {
 //            _status.value = LoadApiStatus.LOADING

@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/noto_sans"
-                    android:text="@{@string/game_name_chinese + event.gameId}"
+                    android:text="@{@string/game_name_chinese + event.game.name}"
                     android:textColor="@color/darkBrown"
                     app:layout_constraintBottom_toTopOf="@+id/text_game_time"
                     app:layout_constraintEnd_toEndOf="@+id/text_event"

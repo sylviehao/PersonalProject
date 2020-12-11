@@ -6,12 +6,12 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Event(
     var id: String = "",
-    var hostId: String = "",
+    var user: User? = null,
     var topic: String = "",
     var image: MutableList<String>? = null,
     var time: Long = 0,
     var location: String = "",
-    var gameId: String = "",
+    var game: Game? = null,
     var playerLimit: Int = 0,
     var playerList: MutableList<String>? = null,
     var message: MutableList<Message>? = null,

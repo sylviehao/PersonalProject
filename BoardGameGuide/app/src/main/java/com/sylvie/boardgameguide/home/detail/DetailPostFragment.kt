@@ -15,6 +15,7 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -43,7 +44,7 @@ class DetailPostFragment : Fragment() {
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
 
         viewModel.getEventData.value = bundle
-        viewModel.getGame(bundle.gameId)
+//        bundle.game?.name?.let { viewModel.getGame(it) }
 
         val db = FirebaseFirestore.getInstance()
 
@@ -66,16 +67,18 @@ class DetailPostFragment : Fragment() {
         binding.textGameTime.text = dateString
 
         binding.icLike.setOnClickListener {
-            viewModel.setEvent("sylviehao", bundle, true)
-            if(bundle.like!!.any { it == "sylviehao" }) {
-                bundle.like?.remove("sylviehao")
-                viewModel.setEvent("sylviehao", bundle, false)
-                binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
-            }else{
-                bundle.like?.add("sylviehao")
-                binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
+            UserManager.user.value?.let {userId->
+                viewModel.setEvent(userId.id, bundle, true)
+                if(bundle.like!!.any { it == userId.id }) {
+                    bundle.like?.remove(userId.id)
+                    viewModel.setEvent(userId.id, bundle, false)
+                    binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
+                }else{
+                    bundle.like?.add(userId.id)
+                    binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
+                }
+                viewModel.getEventData.value = bundle
             }
-            viewModel.getEventData.value = bundle
         }
 
 
@@ -88,8 +91,8 @@ class DetailPostFragment : Fragment() {
         binding.buttonSend.setOnClickListener {
 
             val data = Message(
-                hostId = bundle.hostId,
-                userId = "sylviehao",
+                hostId = bundle.user!!.id,
+                user = UserManager.user.value,
                 message = binding.editComment.text.toString()
             )
             val event = bundle

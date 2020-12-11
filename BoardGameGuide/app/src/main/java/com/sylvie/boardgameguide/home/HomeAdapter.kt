@@ -28,12 +28,12 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
 
         fun bind(event: Event, onClickListener: OnClickListener,viewModel: HomeViewModel) {
             binding.event = event
-            binding.textHostName.text = event.hostId
+            binding.textHostName.text = event.user?.name
             binding.textGameTopic.text = event.topic
             binding.textTotalPlayer.text = event.playerLimit.toString()
             binding.textTotalLike.text = event.like?.size.toString()
 //            binding.textGameName.text = event.gameId
-            binding.textGameName.text = viewModel.getGame(event.gameId)
+            binding.textGameName.text = event.game?.name
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
@@ -48,10 +48,10 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
             binding.textGameTime.text = "時間: " + dateString
             binding.event = event
-            binding.textHostName.text = event.hostId
+            binding.textHostName.text = event.user?.name
             binding.textGameTopic.text = event.topic
 //            binding.textGameName.text = event.gameId
-            binding.textGameName.text = viewModel.getGame(event.gameId)
+            binding.textGameName.text = event.game?.name
 
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())

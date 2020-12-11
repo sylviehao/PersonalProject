@@ -49,24 +49,24 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     init {
 
     }
-    fun getGame(id: String) {
-
-        coroutineScope.launch {
-
-            val result = gameRepository.getGame(id)
-            _getGameData.value = when (result) {
-                is Result.Success -> {
-                    if (result.data.any { it.id == id }) {
-                        result.data.filter { it.id == id }[0]
-                    } else {
-                        null
-                    }
-                } else -> {
-                    null
-                }
-            }
-        }
-    }
+//    fun getGame(id: String) {
+//
+//        coroutineScope.launch {
+//
+//            val result = gameRepository.getGame(id)
+//            _getGameData.value = when (result) {
+//                is Result.Success -> {
+//                    if (result.data.any { it.id == id }) {
+//                        result.data.filter { it.id == id }[0]
+//                    } else {
+//                        null
+//                    }
+//                } else -> {
+//                    null
+//                }
+//            }
+//        }
+//    }
 
     fun setEvent(userId: String, event: Event, status: Boolean) {
         coroutineScope.launch {

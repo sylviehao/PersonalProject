@@ -85,10 +85,6 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
     }
 
-    fun getGame(id: String) : String {
-        val a = _getAllGame.value?.filter { it.id == id }?.get(0)
-        return a!!.name
-    }
 
     fun filter(list: List<Event>, query: String): List<HomeItem> {
 
@@ -96,9 +92,9 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
         val filteredList = mutableListOf<HomeItem>()
 
         for (event in list) {
-            val host = event.hostId
+            val user = event.user!!.id
             val topic = event.topic
-            if (host.contains(lowerCaseQueryString) || topic.contains(lowerCaseQueryString)) {
+            if (user.contains(lowerCaseQueryString) || topic.contains(lowerCaseQueryString)) {
                 val homeItem = when (event.status) {
                     "OPEN" ->HomeItem.EventItem(event)
                     "CLOSE" ->HomeItem.PostItem(event)

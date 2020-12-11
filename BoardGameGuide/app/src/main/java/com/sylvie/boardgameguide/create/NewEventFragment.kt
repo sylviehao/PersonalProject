@@ -2,6 +2,7 @@ package com.sylvie.boardgameguide.create
 
 import android.graphics.Color
 import android.os.Bundle
+import com.sylvie.boardgameguide.login.UserManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentNewEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentArgs
@@ -63,12 +65,12 @@ class NewEventFragment : Fragment() {
         binding.buttonNewEventCreate.setOnClickListener {
             val data = viewModel.date.value?.let { date ->
                 Event(
-                    hostId = "eric",
+                    user = UserManager.user.value,
                     topic = binding.editNewEventTopic.text.toString(),
                     time = date,
                     location = binding.editNewEventGameLocation.text.toString(),
                     image = mutableListOf("https://images.unsplash.com/photo-1573141335932-9b22c45aa2df?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzF8fGdhbWV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"),
-                    gameId = "a002",
+//                    gameId = "a002",
                     playerLimit = 7,
                     status = "OPEN",
                 )

@@ -26,7 +26,7 @@ class DetailEventFragment : Fragment() {
 
         val bundle = DetailEventFragmentArgs.fromBundle(requireArguments()).event
         viewModel.getEventData.value = bundle
-        viewModel.getGame(bundle.gameId)
+        bundle.game?.name?.let { viewModel.getGame(it) }
 
         val adapter = DetailEventPlayerAdapter()
         val adapter2 = DetailEventPhotoAdapter()

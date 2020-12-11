@@ -22,8 +22,8 @@ class ProfileEventAdapter(private val onClickListener: OnClickListener) :
 
         fun bind(event: Event, onClickListener: OnClickListener) {
             binding.event = event
-            binding.textHostName.text = event.hostId
-            binding.textGameName.text = event.gameId
+            binding.textHostName.text = event.user?.name
+            binding.textGameName.text = event.game?.name
             binding.textGameTopic.text = event.topic
             binding.textGameTime.text = event.time.toString()
             binding.textGameLocation.text = event.location

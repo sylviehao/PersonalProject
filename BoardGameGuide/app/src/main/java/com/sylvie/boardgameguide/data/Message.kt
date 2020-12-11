@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class Message(
     var id: String = "",
     var hostId: String = "",
-    var userId: String = "",
+    var user: User? = null,
     var message: String = "",
     var createdTime : com.google.firebase.Timestamp = com.google.firebase.Timestamp.now()
 ): Parcelable

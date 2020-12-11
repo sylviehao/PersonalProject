@@ -40,7 +40,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/noto_sans"
-                    android:text="@{viewModel.getEventData.hostId}"
+                    android:text="@{viewModel.getEventData.user.name}"
                     android:textColor="@color/darkBrown"
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"

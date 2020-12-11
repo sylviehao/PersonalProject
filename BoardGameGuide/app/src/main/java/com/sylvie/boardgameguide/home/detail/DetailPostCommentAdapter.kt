@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.ItemDetailPostCommentBinding
 import com.sylvie.boardgameguide.databinding.ItemGameBinding
+import com.sylvie.boardgameguide.login.UserManager
 
 class DetailPostCommentAdapter:
     ListAdapter<Message, DetailPostCommentAdapter.CommentViewHolder>(DiffCallback) {
@@ -17,7 +18,7 @@ class DetailPostCommentAdapter:
 
         fun bind(message: Message) {
             binding.message = message
-            binding.textUser.text = message.userId
+            binding.textUser.text = message.user?.name
             binding.textMessage.text = message.message
             binding.executePendingBindings()
         }
