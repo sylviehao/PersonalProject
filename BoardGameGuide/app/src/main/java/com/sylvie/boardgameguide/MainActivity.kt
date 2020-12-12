@@ -69,22 +69,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val a = intent.getBundleExtra("bundle")?.getBoolean("loginStatus")
-        if (UserManager.userToken == null && a == null
+
+        if (UserManager.userToken == null
         ) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-//        if (UserManager.userToken == null
-//        ) {
-//            val intent = Intent(this, LoginActivity::class.java)
-//            startActivity(intent)
-//        } else {
-////            val userName = UserManager.userToken  ?:  "No Name"
-////            viewModel.loginAndSetUser(UserManager.userToken!!, userName)
+//        else{
+//        val userName = UserManager.userToken  ?:  "No Name"
+//        viewModel.loginAndSetUser(UserManager.userToken!!, userName)
 //        }
-
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this

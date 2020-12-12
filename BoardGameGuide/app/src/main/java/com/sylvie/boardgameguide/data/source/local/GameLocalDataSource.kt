@@ -31,11 +31,19 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun addGame(game: Game): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun getAllGames(): Result<List<Game>> {
         TODO("Not yet implemented")
     }
 
     override suspend fun getUser(id: String): Result<User?> {
+        TODO("Not yet implemented")
+    }
+
+    override fun getAllUsers(): MutableLiveData<List<User>> {
         TODO("Not yet implemented")
     }
 

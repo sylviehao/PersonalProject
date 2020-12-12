@@ -66,7 +66,7 @@ class ProfileFragment : Fragment() {
                     }
                     listResult.sortByDescending { it.createdTime }
                     listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { name -> name == "sylviehao" }
+                        list.playerList!!.any { name -> name == UserManager.user.value?.name }
                     })
                     binding.textGameNumber.setText(listResultOpen.size.toString())
                 }

@@ -35,12 +35,20 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getGame(id)
     }
 
+    override suspend fun addGame(game: Game): Result<Boolean> {
+        return gameRemoteDataSource.addGame(game)
+    }
+
     override suspend fun getAllGames(): Result<List<Game>> {
         return gameRemoteDataSource.getAllGames()
     }
 
     override suspend fun getUser(id: String): Result<User?> {
         return gameRemoteDataSource.getUser(id)
+    }
+
+    override fun getAllUsers(): MutableLiveData<List<User>> {
+        return gameRemoteDataSource.getAllUsers()
     }
 
     override suspend fun setUser(user: User, introduction: String): Result<User> {

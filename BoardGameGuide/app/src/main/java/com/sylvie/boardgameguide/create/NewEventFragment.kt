@@ -65,14 +65,14 @@ class NewEventFragment : Fragment() {
             val typeList= mutableListOf<String>()
             typeList.add(binding.editNewEventGameType.text.toString())
 
-//            val memberList = mutableListOf<String>()
-//            memberList.add(binding.editNewEventGameMember.text.toString())
+            val memberList = mutableListOf<String>()
+            memberList.add(binding.editNewEventGameMember.text.toString())
 
             viewModel.addPost(
                 topic = binding.editNewEventTopic.text.toString(),
                 location = binding.editNewEventGameLocation.text.toString(),
                 rules = binding.editNewEventGameRule.text.toString(),
-//                member = memberList,
+                member = memberList,
                 type = typeList,
                 name = binding.editNewEventGameName.text.toString(),
                 limit = binding.editNewEventGameMember.text.toString().toInt()

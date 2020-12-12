@@ -11,6 +11,7 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,33 +29,41 @@ class DetailEventFragment : Fragment() {
         viewModel.getEventData.value = bundle
         bundle.game?.name?.let { viewModel.getGame(it) }
 
-        val adapter = DetailEventPlayerAdapter()
+        val adapter = DetailEventPlayerAdapter(viewModel)
         val adapter2 = DetailEventPhotoAdapter()
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
+
         adapter2.submitList(bundle.image)
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
+        viewModel.getUserData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.getAllUsers()
+            adapter.submitList(bundle.playerList)
+        })
+
+
         binding.buttonJoin.setOnClickListener {
             //判斷是否加入過
-            viewModel.setPlayer("sylviehao", bundle, true)
-            if(bundle.playerList!!.any { it == "sylviehao" }) {
-                bundle.playerList?.remove("sylviehao")
-                viewModel.setPlayer("sylviehao", bundle, false)
-                binding.buttonJoin.setText(R.string.join)
-                findNavController().navigate(R.id.action_global_deleteDialog)
-            }else{
-                bundle.playerList?.add("sylviehao")
-                binding.buttonJoin.setText(R.string.leave)
-                findNavController().navigate(R.id.action_global_joinDialog)
+            UserManager.user.value?.let { userId ->
+                viewModel.setPlayer(userId.id, bundle, true)
+                if (bundle.playerList!!.any { it == userId.id }) {
+                    bundle.playerList?.remove(userId.id)
+                    viewModel.setPlayer(userId.id, bundle, false)
+                    binding.buttonJoin.setText(R.string.join)
+                    findNavController().navigate(R.id.action_global_deleteDialog)
+                } else {
+                    bundle.playerList?.add(userId.id)
+                    binding.buttonJoin.setText(R.string.leave)
+                    findNavController().navigate(R.id.action_global_joinDialog)
+                }
+                viewModel.getEventData.value = bundle
+//                adapter.submitList(bundle.playerList)
+                adapter.notifyDataSetChanged()
             }
-            viewModel.getEventData.value = bundle
-            adapter.submitList(bundle.playerList)
-            adapter.notifyDataSetChanged()
-
         }
 
 

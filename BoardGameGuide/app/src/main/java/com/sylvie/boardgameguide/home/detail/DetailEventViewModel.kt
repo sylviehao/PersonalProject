@@ -1,16 +1,19 @@
 package com.sylvie.boardgameguide.home.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class DetailEventViewModel(private val gameRepository: GameRepository) : ViewModel() {
     // Save change from Event
@@ -21,6 +24,16 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     val getGameData: LiveData<Game>
         get() = _getGameData
+
+    private var _getAllUsers = MutableLiveData<List<User>>()
+
+    val getAllUsers: LiveData<List<User>>
+        get() = _getAllUsers
+
+    private var _getUserData = MutableLiveData<User>()
+
+    val getUserData: LiveData<User>
+        get() = _getUserData
 
     var _addPlayer = MutableLiveData<Boolean>()
 
@@ -37,6 +50,32 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
+    }
+
+    init {
+
+    }
+
+    fun getAllUsers() {
+        _getAllUsers = gameRepository.getAllUsers()
+        Log.i("event","${_getAllUsers}")
+    }
+
+    fun getUser(uid: String) {
+        coroutineScope.launch {
+            try {
+                val result = gameRepository.getUser(uid)
+                _getUserData.value = when (result) {
+                    is Result.Success -> {
+                        result.data
+                    }
+                    else -> {
+                        null
+                    }
+                }
+            } catch (e: Exception) {
+            }
+        }
     }
 
     fun getGame(id: String) {

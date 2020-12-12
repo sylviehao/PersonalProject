@@ -38,7 +38,7 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
         topic: String,
         location: String,
         rules: String,
-//        member: MutableList<String>,
+        member: MutableList<String>,
         name: String,
         type: MutableList<String>,
         limit: Int
@@ -48,7 +48,7 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
 
                 UserManager.user.value?.let {
 
-//                    member.add(it.name)
+                    member.add(it.name)
                     val event = Event(
                         user = it,
                         topic = topic,
@@ -66,7 +66,7 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
                             roles = mutableListOf()
                         ),
                         message = mutableListOf(),
-//                        playerList = member,
+                        playerList = member,
                         playerLimit = limit,
                         status = "OPEN",
                         like = mutableListOf()

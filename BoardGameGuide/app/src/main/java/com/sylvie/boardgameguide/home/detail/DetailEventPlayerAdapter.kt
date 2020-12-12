@@ -7,16 +7,19 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.databinding.ItemDetailEventPlayerBinding
 import com.sylvie.boardgameguide.databinding.ItemDetailPostPlayerBinding
+import com.sylvie.boardgameguide.game.GameViewModel
+import com.sylvie.boardgameguide.login.UserManager
 
-class DetailEventPlayerAdapter:
+class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel):
     ListAdapter<String, DetailEventPlayerAdapter.PlayerViewHolder>(DiffCallback) {
 
     class PlayerViewHolder(private val binding: ItemDetailEventPlayerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: String) {
+        fun bind(data: String, viewModel: DetailEventViewModel) {
+            viewModel.getAllUsers()
             binding.data = data
-            binding.textPlayer.text = data
+            binding.textPlayer.text = viewModel.getAllUsers.value?.forEach { it.name }.toString()
             binding.executePendingBindings()
         }
     }
@@ -29,7 +32,7 @@ class DetailEventPlayerAdapter:
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val event = getItem(position)
-        holder.bind(event)
+        holder.bind(event, viewModel)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<String>() {

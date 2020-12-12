@@ -31,6 +31,23 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
+    override fun getAllUsers(): MutableLiveData<List<User>> {
+            val liveData = MutableLiveData<List<User>>()
+            FirebaseFirestore.getInstance()
+                .collection("User")
+                .addSnapshotListener { value, error ->
+                    value?.let {
+                        val listResult = mutableListOf<User>()
+                        it.forEach { data ->
+                            val user = data.toObject(User::class.java)
+                            listResult.add(user)
+                        }
+                        liveData.value = listResult
+                    }
+                }
+            return liveData
+        }
+
     override suspend fun getUser(id: String): Result<User?> =
         suspendCoroutine { continuation ->
             FirebaseFirestore.getInstance()
@@ -250,6 +267,25 @@ object GameRemoteDataSource : GameDataSource {
             val document = db.document()
             event.id = document.id
             document.set(event)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(""))
+                    }
+                }
+        }
+
+    override suspend fun addGame(game: Game): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("Game")
+            val document = db.document()
+            game.id = document.id
+            document.set(game)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         continuation.resume(Result.Success(true))

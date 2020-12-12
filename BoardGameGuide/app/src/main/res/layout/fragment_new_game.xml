@@ -97,7 +97,7 @@
                     android:background="@drawable/frame_edit_new_post"
                     android:ems="10"
                     android:hint="@string/game_type"
-                    android:inputType="number"
+                    android:inputType="textPersonName"
                     android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_game_name"

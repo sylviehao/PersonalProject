@@ -11,7 +11,7 @@ data class Game(
     var image: MutableList<String>? = null,
     var type: MutableList<String>? = null,
     var playerLimit: Int = 0,
-    var time: Int = 0,
+    var time: Long = 0,
     var rules: String = "",
     var roles: MutableList<String>? = null
 ): Parcelable {

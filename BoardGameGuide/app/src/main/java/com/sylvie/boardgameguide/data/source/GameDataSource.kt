@@ -17,9 +17,13 @@ interface GameDataSource {
 
     suspend fun getGame(id : String): Result<List<Game>>
 
+    suspend fun addGame(game: Game): Result<Boolean>
+
     suspend fun getAllGames(): Result<List<Game>>
 
     suspend fun getUser(id : String): Result<User?>
+
+    fun getAllUsers(): MutableLiveData<List<User>>
 
     suspend fun setUser(user: User, introduction: String): Result<User>
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.create.NewEventViewModel
+import com.sylvie.boardgameguide.create.NewGameViewModel
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.home.detail.DetailEventViewModel
 import com.sylvie.boardgameguide.home.detail.DetailPostViewModel
@@ -41,6 +42,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(NewEventViewModel::class.java) ->
                     NewEventViewModel(gameRepository)
+
+                isAssignableFrom(NewGameViewModel::class.java) ->
+                    NewGameViewModel(gameRepository)
 
                 isAssignableFrom(UploadPhotoViewModel::class.java) ->
                     UploadPhotoViewModel(gameRepository)
