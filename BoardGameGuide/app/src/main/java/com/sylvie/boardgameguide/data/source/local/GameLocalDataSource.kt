@@ -15,7 +15,7 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
         TODO("Not yet implemented")
     }
 
-    override fun getEvents(): MutableLiveData<List<Event>> {
+    override fun getEvents(status: String): MutableLiveData<List<Event>> {
         TODO("Not yet implemented")
     }
 

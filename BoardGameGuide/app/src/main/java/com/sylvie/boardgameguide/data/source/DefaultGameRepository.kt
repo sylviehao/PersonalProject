@@ -19,8 +19,8 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getHome()
     }
 
-    override  fun getEvents(): MutableLiveData<List<Event>> {
-        return gameRemoteDataSource.getEvents()
+    override  fun getEvents(status: String): MutableLiveData<List<Event>> {
+        return gameRemoteDataSource.getEvents(status)
     }
 
     override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> {

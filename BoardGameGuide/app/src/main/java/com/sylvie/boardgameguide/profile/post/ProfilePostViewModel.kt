@@ -1,17 +1,17 @@
 package com.sylvie.boardgameguide.profile.post
 
 import android.util.Log
+
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.HomeItem
-import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 class ProfilePostViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
@@ -27,31 +27,37 @@ class ProfilePostViewModel(private val gameRepository: GameRepository) : ViewMod
     val getEventData: LiveData<List<Event>>
         get() = _getEventData
 
+    private var _myPostData = MutableLiveData<List<Event>>()
+
+    val myPostData: LiveData<List<Event>>
+        get() = _myPostData
+
+
     private var _getHome = MutableLiveData<List<HomeItem>>()
 
     val getHome: LiveData<List<HomeItem>>
         get() = _getHome
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
-    private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
+    private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-
     init {
-        getEvents()
+        getAllPost()
     }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
 
-    private fun getEvents() {
-        _getEventData = gameRepository.getEvents()
-        Log.i("event","${_getEventData}")
+    private fun getAllPost() {
+        _getEventData = gameRepository.getEvents("CLOSE")
     }
 
+    fun filterMyPost(list: List<Event>){
+        _myPostData.value = list.filter { it.user?.id == UserManager.userToken }
+    }
 
     fun navigateToDetail(event: Event) {
         _navigateToDetail.value = event

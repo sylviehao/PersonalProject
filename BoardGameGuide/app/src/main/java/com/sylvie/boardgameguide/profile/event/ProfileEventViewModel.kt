@@ -8,6 +8,7 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.HomeItem
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -27,6 +28,11 @@ class ProfileEventViewModel(private val gameRepository: GameRepository) : ViewMo
     val getEventData: LiveData<List<Event>>
         get() = _getEventData
 
+    private var _myEventData = MutableLiveData<List<Event>>()
+
+    val myEventData: LiveData<List<Event>>
+        get() = _myEventData
+
     private var _getHome = MutableLiveData<List<HomeItem>>()
 
     val getHome: LiveData<List<HomeItem>>
@@ -38,20 +44,22 @@ class ProfileEventViewModel(private val gameRepository: GameRepository) : ViewMo
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-
     init {
-        getEvents()
+        getAllEvents()
     }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
     }
 
-    private fun getEvents() {
-        _getEventData = gameRepository.getEvents()
-        Log.i("event","${_getEventData}")
+    private fun getAllEvents() {
+        _getEventData = gameRepository.getEvents("OPEN")
     }
 
+    fun filterMyEvent(list: List<Event>){
+        _myEventData.value = list.filter { it.user?.id == UserManager.userToken }
+    }
 
     fun navigateToDetail(event: Event) {
         _navigateToDetail.value = event

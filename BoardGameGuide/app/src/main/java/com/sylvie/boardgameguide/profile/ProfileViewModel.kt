@@ -54,7 +54,7 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
     }
 
     private fun getEvents() {
-        _getEventData = gameRepository.getEvents()
+        _getEventData = gameRepository.getEvents("")
     }
 
 

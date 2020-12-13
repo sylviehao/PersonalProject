@@ -22,6 +22,7 @@ class ProfilePostFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentProfilePostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -29,6 +30,7 @@ class ProfilePostFragment : Fragment() {
         val adapter = ProfilePostAdapter(ProfilePostAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
+
         binding.recyclerPost.adapter = adapter
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
@@ -38,32 +40,13 @@ class ProfilePostFragment : Fragment() {
             }
         })
 
-//        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
-//            adapter.submitList(it)
-//        })
+        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+            viewModel.filterMyPost(it)
+        })
 
-        val db = FirebaseFirestore.getInstance()
-
-        //即時監聽資料庫是否變動
-        db.collection("Event").whereEqualTo("status","CLOSE")
-            .addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Event>()
-                    val listResultOpen = mutableListOf<Event>()
-                    it.forEach { data ->
-                        val d = data.toObject(Event::class.java)
-                        listResult.add(d)
-                    }
-                    listResult.sortByDescending { it.createdTime }
-                    listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { name -> name == "sylviehao" }
-                    })
-
-                    adapter.submitList(listResultOpen)
-                }
-            }
-
-
+        viewModel.myPostData.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
         return binding.root
     }

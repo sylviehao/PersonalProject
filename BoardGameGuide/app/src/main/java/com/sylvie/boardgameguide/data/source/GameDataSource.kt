@@ -9,7 +9,7 @@ interface GameDataSource {
 
     suspend fun getHome(): Result<List<HomeItem>>
 
-    fun getEvents(): MutableLiveData<List<Event>>
+    fun getEvents(status: String): MutableLiveData<List<Event>>
 
     suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean>
 

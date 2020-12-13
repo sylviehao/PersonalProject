@@ -39,31 +39,13 @@ class ProfileEventFragment : Fragment() {
             }
         })
 
-//        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
-//            adapter.submitList(it)
-//        })
+        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+            viewModel.filterMyEvent(it)
+        })
 
-        val db = FirebaseFirestore.getInstance()
-
-        //即時監聽資料庫是否變動
-        db.collection("Event").whereEqualTo("status","OPEN")
-            .addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Event>()
-                    val listResultOpen = mutableListOf<Event>()
-                    it.forEach { data ->
-                        val d = data.toObject(Event::class.java)
-                        listResult.add(d)
-                    }
-                    listResult.sortByDescending { it.createdTime }
-
-                    listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { name -> name == "sylviehao" }
-                    })
-                    adapter.submitList(listResult)
-                }
-            }
-
+        viewModel.myEventData.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
         return binding.root
     }

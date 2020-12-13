@@ -87,7 +87,6 @@ object GameRemoteDataSource : GameDataSource {
         }
 
     override suspend fun getHome(): Result<List<HomeItem>> =
-
         suspendCoroutine { continuation ->
             FirebaseFirestore.getInstance()
                 .collection("Event")
@@ -116,13 +115,17 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
-
-    override fun getEvents(): MutableLiveData<List<Event>> {
+    override fun getEvents(status: String): MutableLiveData<List<Event>> {
 
         val liveData = MutableLiveData<List<Event>>()
 
-        FirebaseFirestore.getInstance()
+        val db = FirebaseFirestore.getInstance()
             .collection("Event")
+                when(status){
+                    "OPEN"->db.whereEqualTo("status",status)
+                    "CLOSE"->db.whereEqualTo("status",status)
+                    else -> db
+                }
             .orderBy("createdTime", Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
                 value?.let {
@@ -222,9 +225,6 @@ object GameRemoteDataSource : GameDataSource {
                     }
                 }
         }
-
-
-
 
     override suspend fun setGame(user: User, game: Game): Result<Boolean> =
         suspendCoroutine { continuation ->

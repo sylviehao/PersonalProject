@@ -56,7 +56,7 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     fun getEvents() {
-            _getEventData = gameRepository.getEvents()
+            _getEventData = gameRepository.getEvents("")
             Log.i("event","${_getEventData}")
     }
     fun getHome() {
