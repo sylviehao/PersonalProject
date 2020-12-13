@@ -66,9 +66,9 @@ class ProfileFragment : Fragment() {
                     }
                     listResult.sortByDescending { it.createdTime }
                     listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { name -> name == UserManager.user.value?.name }
+                        list.playerList!!.any { id -> id == UserManager.user.value?.id }
                     })
-                    binding.textGameNumber.setText(listResultOpen.size.toString())
+                    binding.textGameNumber.text = listResultOpen.size.toString()
                 }
             }
 
@@ -77,16 +77,16 @@ class ProfileFragment : Fragment() {
             .addSnapshotListener { value, error ->
                 value?.let {
                     val listResult = mutableListOf<Event>()
-                    val listResultOpen = mutableListOf<Event>()
+                    val listResultClose = mutableListOf<Event>()
                     it.forEach { data ->
                         val d = data.toObject(Event::class.java)
                         listResult.add(d)
                     }
                     listResult.sortByDescending { it.createdTime }
-                    listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { name -> name == "sylviehao" }
+                    listResultClose.addAll( listResult.filter {list ->
+                        list.user!!.id == UserManager.user.value?.id
                     })
-                    binding.textPostNumber.setText(listResultOpen.size.toString())
+                    binding.textPostNumber.text = listResultClose.size.toString()
                 }
             }
 

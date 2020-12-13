@@ -67,7 +67,6 @@ class GameFragment : Fragment() {
 
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
-            Log.i("userfavorite",it.favorite?.size.toString())
             db.collection("Game").addSnapshotListener { value, error ->
                 value?.let {
                     val listResult = mutableListOf<Game>()

@@ -153,7 +153,7 @@
                 <EditText
                     android:id="@+id/edit_newEvent_game_rule"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/frame_edit_new_post"
                     android:ems="10"

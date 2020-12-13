@@ -9,6 +9,8 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.ItemHomeEventBinding
 import com.sylvie.boardgameguide.home.getTimeDate
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileEventAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<Event, ProfileEventAdapter.ProfileEventViewHolder>(DiffCallback) {
@@ -21,11 +23,12 @@ class ProfileEventAdapter(private val onClickListener: OnClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: Event, onClickListener: OnClickListener) {
+            val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
+            binding.textGameTime.text = "時間: " + dateString
             binding.event = event
             binding.textHostName.text = event.user?.name
             binding.textGameName.text = event.game?.name
             binding.textGameTopic.text = event.topic
-            binding.textGameTime.text = event.time.toString()
             binding.textGameLocation.text = event.location
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())

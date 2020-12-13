@@ -14,6 +14,7 @@ import com.sylvie.boardgameguide.databinding.FragmentEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
 import com.sylvie.boardgameguide.home.HomeFragmentDirections
+import com.sylvie.boardgameguide.login.UserManager
 
 class EventFragment : Fragment() {
 
@@ -42,6 +43,8 @@ class EventFragment : Fragment() {
             }
         })
 
+
+
         val db = FirebaseFirestore.getInstance()
 
         //即時監聽資料庫是否變動
@@ -56,7 +59,7 @@ class EventFragment : Fragment() {
                     }
                     listResult.sortByDescending { it.createdTime }
                     listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { name -> name == "sylviehao" }
+                        list.playerList!!.any { id -> id == UserManager.user.value?.id }
                     })
 
                     adapter.submitList(listResultOpen)

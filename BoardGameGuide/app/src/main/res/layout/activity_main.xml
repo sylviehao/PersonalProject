@@ -3,11 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <data>
 
         <variable
             name="viewModel"
             type="com.sylvie.boardgameguide.MainViewModel" />
+        <import type="android.view.View"/>
+        <import type="com.sylvie.boardgameguide.util.CurrentFragmentType"/>
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -35,6 +38,7 @@
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+<!--                android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.TOOLS ? View.GONE : View.VISIBLE }"-->
 
                 <TextView
                     android:id="@+id/text_toolbar_title"

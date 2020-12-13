@@ -1,13 +1,17 @@
 package com.sylvie.boardgameguide
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -81,6 +85,8 @@ class MainActivity : AppCompatActivity() {
 //        viewModel.loginAndSetUser(UserManager.userToken!!, userName)
 //        }
 
+
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -96,6 +102,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        when (requestCode) {
+//            MY_PERMISSIONS_REQUEST_READ_CONTACTS -> {
+//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    //get image
+//                } else {
+//                    Toast.makeText(this@MainActivity, "Permission denied", Toast.LENGTH_SHORT).show()
+//                }
+//                return
+//            }
+//        }
+//    }
 
 
     private fun setupBottomNav() {
@@ -166,17 +189,18 @@ class MainActivity : AppCompatActivity() {
         binding.drawerNavView.addHeaderView(bindingNavHeader.root)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu):Boolean {
-//        val inflater = menuInflater
-//        inflater.inflate(R.menu.search_menu, menu)
-//        val menuSearchItem = menu.findItem(R.id.search)
-//        // Get the SearchView and set the searchable configuration
-//        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-//        val searchView = menuSearchItem.actionView as SearchView
-//        // Assumes current activity is the searchable activity
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-//        // 這邊讓icon可以還原到搜尋的icon
-//        searchView.setIconifiedByDefault(true)
-//        return true
+//    private fun checkPermission() {
+//        val permission = ActivityCompat.checkSelfPermission(this@MainActivity,
+//            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//        if (permission != PackageManager.PERMISSION_GRANTED) {
+//            //未取得權限，向使用者要求允許權限
+//            ActivityCompat.requestPermissions(this, arrayOf(
+//                Manifest.permission.CAMERA,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE),
+//                MY_PERMISSIONS_REQUEST_READ_CONTACTS)
+//        } else {
+////            getLocalImg()
+//        }
 //    }
+
 }
