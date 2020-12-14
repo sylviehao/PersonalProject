@@ -32,6 +32,12 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     val eventStatus: LiveData<Boolean>
         get() = _eventStatus
 
+    var imagesUri = MutableLiveData<List<String>>()
+
+    var userList = MutableLiveData<MutableList<String>>().apply {
+        value = mutableListOf()
+    }
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -76,7 +82,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
             try {
 
                 UserManager.user.value?.let {
-
+                    member.clear()
                     member.add(it.name)
                     val event = Event(
                         user = it,

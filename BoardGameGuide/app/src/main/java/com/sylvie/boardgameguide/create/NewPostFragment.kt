@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import com.sylvie.boardgameguide.login.UserManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -19,25 +18,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageMetadata
-import com.google.firebase.storage.StorageReference
+
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
-import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
-import com.sylvie.boardgameguide.home.detail.DetailPostPhotoAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_new_post.*
 import java.io.File
-import java.util.*
+import kotlin.math.log
 
 
 class NewPostFragment : Fragment() {
@@ -90,18 +84,32 @@ class NewPostFragment : Fragment() {
 
         binding.iconFinn.setOnClickListener {
 
-            val file = Uri.fromFile(File("path/to/images/events.jpg"))
-//            val metadata = StorageMetadata.Builder()
-//                .setContentDisposition("game")
-//                .setContentType("image/jpg")
-//                .build()
+            val file = Uri.fromFile(File(filePath))
+
+            val metadata = StorageMetadata.Builder()
+                .setContentDisposition("game")
+                .setContentType("image/jpg")
+                .build()
+
             eventsRef = storageRef.child(file.lastPathSegment ?: "")
-            val uploadTask = eventsRef.putFile(file)
-            uploadTask.addOnFailureListener { exception ->
-                textView.text = exception.message
-            }.addOnSuccessListener {
-                textView.text = "Success"
+            for (data in imagesList){
+                val uploadTask = eventsRef.putFile(Uri.fromFile(File(data)))
+                uploadTask
+                .addOnSuccessListener {
+                    textView.text = "Success"
+                }
+                .addOnFailureListener { exception ->
+                    textView.text = exception.message
+                }
             }
+////            val uploadTask = eventsRef.putFile(file)
+//            uploadTask
+//                .addOnSuccessListener {
+//                    textView.text = "Success"
+//                }
+//                .addOnFailureListener { exception ->
+//                    textView.text = exception.message
+//                }
 //                ?.addOnProgressListener { taskSnapshot ->
 //                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
 //                upload_progress.progress = progress
@@ -110,6 +118,18 @@ class NewPostFragment : Fragment() {
 //                }
 //            }
         }
+        var a = mutableListOf<String>()
+        binding.buttonAddPlayer.setOnClickListener {
+            a = viewModel.userList.value!!
+            a.add(binding.editNewPostGameMember.text.toString())
+            viewModel.userList.value = a
+        }
+
+        viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.i("userList",it.toString())
+            adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+        })
 
         binding.editNewPostGameTime.setOnClickListener {
             SingleDateAndTimePickerDialog.Builder(context)
@@ -129,9 +149,11 @@ class NewPostFragment : Fragment() {
                 .display()
         }
 
+
+
         binding.buttonNewPostCreate.setOnClickListener {
 
-            val typeList= mutableListOf<String>()
+            val typeList = mutableListOf<String>()
             typeList.add(binding.editNewPostGameType.text.toString())
 
             val memberList = mutableListOf<String>()
@@ -149,9 +171,16 @@ class NewPostFragment : Fragment() {
             findNavController().navigate(R.id.action_global_homeFragment)
         }
 
+        viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.i("imagesUri",it.toString())
+            adapter2.submitList(it)
+            adapter2.notifyDataSetChanged()
+        })
+
 
         return binding.root
     }
+
     val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
 
     override fun onRequestPermissionsResult(
@@ -171,24 +200,67 @@ class NewPostFragment : Fragment() {
             }
         }
     }
-
+    var filePath: String = ""
+    val imagesList = mutableListOf<String>()
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         when (resultCode) {
             Activity.RESULT_OK -> {
-                val filePath: String = ImagePicker.getFilePath(data) ?: ""
+                filePath = ImagePicker.getFilePath(data) ?: ""
                 if (filePath.isNotEmpty()) {
-                    val imgPath = filePath
-                    Toast.makeText(this.requireContext(), imgPath, Toast.LENGTH_SHORT).show()
+
+                    imagesList.add(filePath)
+                    viewModel.imagesUri.value = imagesList
+                    Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                     Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
                 } else {
-                    Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
-            ImagePicker.RESULT_ERROR -> Toast.makeText(this.requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-            else -> Toast.makeText(this.requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+            ImagePicker.RESULT_ERROR -> Toast.makeText(
+                this.requireContext(),
+                ImagePicker.getError(data),
+                Toast.LENGTH_SHORT
+            ).show()
+            else -> Toast.makeText(this.requireContext(), "Task Cancelled", Toast.LENGTH_SHORT)
+                .show()
         }
     }
+
+    private fun checkPermission() {
+        val permission = ActivityCompat.checkSelfPermission(
+            this.requireContext(),
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            //未取得權限，向使用者要求允許權限
+            ActivityCompat.requestPermissions(
+                this.requireActivity(), arrayOf(
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ),
+                MY_PERMISSIONS_REQUEST_READ_CONTACTS
+            )
+            getLocalImg()
+        }else{
+            getLocalImg()
+        }
+
+    }
+
+    private fun getLocalImg() {
+        ImagePicker.with(this)
+            .crop()                    //Crop image(Optional), Check Customization for more option
+            .compress(1024)            //Final image size will be less than 1 MB(Optional)
+            .maxResultSize(
+                1080,
+                1080
+            )    //Final image resolution will be less than 1080 x 1080(Optional)
+            .start()
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -204,27 +276,5 @@ class NewPostFragment : Fragment() {
 //            requireActivity().toolbar.visibility = View.VISIBLE
             requireActivity().bottomNavView.visibility = View.VISIBLE
         }
-    }
-
-    private fun checkPermission() {
-        val permission = ActivityCompat.checkSelfPermission(this.requireContext(),
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            //未取得權限，向使用者要求允許權限
-            ActivityCompat.requestPermissions(this.requireActivity(), arrayOf(
-                Manifest.permission.CAMERA,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                MY_PERMISSIONS_REQUEST_READ_CONTACTS)
-        } else {
-            getLocalImg()
-        }
-    }
-
-    private fun getLocalImg() {
-        ImagePicker.with(this)
-            .crop()                    //Crop image(Optional), Check Customization for more option
-            .compress(1024)            //Final image size will be less than 1 MB(Optional)
-            .maxResultSize(1080, 1080)    //Final image resolution will be less than 1080 x 1080(Optional)
-            .start()
     }
 }

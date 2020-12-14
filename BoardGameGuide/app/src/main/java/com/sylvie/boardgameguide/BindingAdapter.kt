@@ -19,3 +19,16 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .into(imgView)
     }
 }
+
+@BindingAdapter("imageLocal")
+fun bindLocalImage(imgView: ImageView, imgUrl: String?) {
+    imgUrl?.let {
+        Glide.with(imgView.context)
+            .load(imgUrl)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.pic_graffiti_small)
+                    .error(R.drawable.pic_graffiti_small))
+            .into(imgView)
+    }
+}

@@ -173,14 +173,14 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_player"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="4"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                    android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_rule"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_rule" />
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_rule"
+                    tools:listitem="@layout/item_chips"/>
 
                 <EditText
                     android:id="@+id/edit_newPost_game_member"
@@ -197,6 +197,19 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
                     app:layout_constraintTop_toBottomOf="@+id/recycler_player" />
+
+                <TextView
+                    android:id="@+id/button_add_player"
+                    android:layout_width="60dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/round_corner_message"
+                    android:text="新增"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_newPost_game_member"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_member"
+                    app:layout_constraintTop_toTopOf="@+id/edit_newPost_game_member" />
 
                 <ImageView
                     android:id="@+id/icon_jake"

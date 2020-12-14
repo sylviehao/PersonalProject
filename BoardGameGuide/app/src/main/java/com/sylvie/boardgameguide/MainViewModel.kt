@@ -3,6 +3,7 @@ package com.sylvie.boardgameguide
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.facebook.internal.Mutable
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
@@ -48,6 +49,8 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     val getUserData: LiveData<User>
         get() = _getUserData
+
+    var imagesPath = MutableLiveData<List<String>>()
 
     init {
         UserManager.userToken?.let { getUser(it) }

@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sylvie.boardgameguide.databinding.ItemChipsBinding
 import com.sylvie.boardgameguide.databinding.ItemDetailEventPlayerBinding
 
 class NewPostPlayerAdapter:
     ListAdapter<String, NewPostPlayerAdapter.PlayerViewHolder>(DiffCallback) {
 
-    class PlayerViewHolder(private val binding: ItemDetailEventPlayerBinding) :
+    class PlayerViewHolder(private val binding: ItemChipsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: String) {
@@ -22,7 +23,7 @@ class NewPostPlayerAdapter:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerViewHolder {
         return PlayerViewHolder(
-            ItemDetailEventPlayerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemChipsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

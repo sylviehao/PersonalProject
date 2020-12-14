@@ -1,6 +1,7 @@
 package com.sylvie.boardgameguide
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.bumptech.glide.Glide
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sylvie.boardgameguide.databinding.ActivityMainBinding
 import com.sylvie.boardgameguide.databinding.NavHeaderDrawerBinding
@@ -26,6 +29,7 @@ import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.login.LoginActivity
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.CurrentFragmentType
+import kotlinx.android.synthetic.main.fragment_new_post.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -188,6 +192,31 @@ class MainActivity : AppCompatActivity() {
         bindingNavHeader.viewModel = viewModel
         binding.drawerNavView.addHeaderView(bindingNavHeader.root)
     }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        when (resultCode) {
+//            Activity.RESULT_OK -> {
+//                val filePath = ImagePicker.getFilePath(data) ?: ""
+//                if (filePath.isNotEmpty()) {
+//                    val imgPath = filePath
+//                    Toast.makeText(this, imgPath, Toast.LENGTH_SHORT).show()
+//                    Glide.with(this).load(filePath).into(button_add_photo)
+//                } else {
+//                    Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT)
+//                        .show()
+//                }
+//            }
+//            ImagePicker.RESULT_ERROR -> Toast.makeText(
+//                this,
+//                ImagePicker.getError(data),
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            else -> Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT)
+//                .show()
+//        }
+//    }
 
 //    private fun checkPermission() {
 //        val permission = ActivityCompat.checkSelfPermission(this@MainActivity,

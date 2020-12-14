@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
@@ -59,6 +60,7 @@ class DetailPostFragment : Fragment() {
                     }
                     var b = listResult.filter { result-> result.id == bundle.id }[0]
                     adapter.submitList(b.message)
+                    adapter.notifyDataSetChanged()
                 }
             }
 
@@ -92,15 +94,13 @@ class DetailPostFragment : Fragment() {
 
             val data = Message(
                 hostId = bundle.user!!.id,
-                user = UserManager.user.value,
+                userName = UserManager.user.value?.name,
                 message = binding.editComment.text.toString()
             )
-            val event = bundle
-            event.message?.add(data)
-            Log.i("message", event.toString())
 
             db.collection("Event").document(bundle.id)
-                .set(event)
+                //No covering
+                .update("message", FieldValue.arrayUnion(data))
                 .addOnSuccessListener { documentReference ->
 //                    documentReference.update("id", bundle.id)
                     Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")

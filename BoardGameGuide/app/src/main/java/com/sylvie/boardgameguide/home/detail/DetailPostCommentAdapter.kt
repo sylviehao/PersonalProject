@@ -18,7 +18,7 @@ class DetailPostCommentAdapter:
 
         fun bind(message: Message) {
             binding.message = message
-            binding.textUser.text = message.user?.name
+            binding.textUser.text = message.userName
             binding.textMessage.text = message.message
             binding.executePendingBindings()
         }

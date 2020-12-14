@@ -13,6 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 
 class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
@@ -88,12 +89,14 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     fun filter(list: List<Event>, query: String): List<HomeItem> {
 
-        val lowerCaseQueryString = query.toLowerCase()
+        val lowerCaseQueryString = query.toLowerCase(Locale.ROOT)
         val filteredList = mutableListOf<HomeItem>()
 
         for (event in list) {
-            val user = event.user!!.id
-            val topic = event.topic
+
+            val user = event.user!!.name.toLowerCase(Locale.ROOT)
+            val topic = event.topic.toLowerCase(Locale.ROOT)
+
             if (user.contains(lowerCaseQueryString) || topic.contains(lowerCaseQueryString)) {
                 val homeItem = when (event.status) {
                     "OPEN" ->HomeItem.EventItem(event)
