@@ -21,8 +21,7 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
 
         fun bind(game: Game, onClickListener: GameAdapter.OnClickListener, viewModel: GameViewModel) {
             binding.game = game
-            binding.textGameName.text = game.name
-            binding.textGameType.text = game.type.toString()
+
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
 
             viewModel.getUserData.let {

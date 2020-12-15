@@ -1,6 +1,7 @@
 package com.sylvie.boardgameguide
 
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
@@ -30,5 +31,16 @@ fun bindLocalImage(imgView: ImageView, imgUrl: String?) {
                     .placeholder(R.drawable.pic_graffiti_small)
                     .error(R.drawable.pic_graffiti_small))
             .into(imgView)
+    }
+}
+
+@BindingAdapter("takeOffBracket")
+fun bindTakeOffBracket(textView: TextView, typeList: MutableList<String>){
+    typeList.let {
+        var typeString = ""
+        for(type in it){
+            typeString += "$type | "
+        }
+        textView.text = typeString.substring(0, typeString.length-2)
     }
 }

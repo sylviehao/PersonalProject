@@ -6,18 +6,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.databinding.ItemChipsBinding
-import com.sylvie.boardgameguide.databinding.ItemDetailPostPlayerBinding
 
-class DetailPostPlayerAdapter:
+class DetailPostPlayerAdapter(val viewModel: DetailPostViewModel):
     ListAdapter<String, DetailPostPlayerAdapter.PlayerViewHolder>(DiffCallback) {
 
     class PlayerViewHolder(private val binding: ItemChipsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: String) {
+        fun bind(data: String, viewModel: DetailPostViewModel) {
             binding.data = data
             binding.textPlayer.closable = false
-            binding.textPlayer.text = data
+
+            if(viewModel.getAllUsers.value!!.any { it.id == data }){
+                binding.textPlayer.text = viewModel.getAllUsers.value!!.filter { it.id == data }[0].name
+            }else{
+                binding.textPlayer.text = ""
+            }
+
+
             binding.executePendingBindings()
         }
     }
@@ -30,7 +36,7 @@ class DetailPostPlayerAdapter:
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val event = getItem(position)
-        holder.bind(event)
+        holder.bind(event, viewModel)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<String>() {

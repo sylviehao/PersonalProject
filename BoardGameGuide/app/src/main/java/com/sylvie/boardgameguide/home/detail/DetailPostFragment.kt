@@ -36,7 +36,7 @@ class DetailPostFragment : Fragment() {
         binding.viewModel = viewModel
         val adapter = DetailPostCommentAdapter()
         val adapter2 = DetailPostPhotoAdapter()
-        val adapter3 = DetailPostPlayerAdapter()
+        val adapter3 = DetailPostPlayerAdapter(viewModel)
         binding.recyclerComment.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
         binding.recyclerPlayer.adapter = adapter3
@@ -103,7 +103,11 @@ class DetailPostFragment : Fragment() {
 
 
         adapter2.submitList(bundle.image)
-        adapter3.submitList(bundle.playerList)
+
+        viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            adapter3.submitList(bundle.playerList)
+        })
 
 
         binding.buttonSend.setOnClickListener {
