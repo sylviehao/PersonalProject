@@ -74,7 +74,7 @@ class NewGameFragment : Fragment() {
         }
 
 
-        viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
             val typeList= mutableListOf<String>()
             typeList.add(binding.editGameType.text.toString())
 

@@ -173,14 +173,14 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_player"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_rule"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
                     app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_rule"
-                    tools:listitem="@layout/item_chips"/>
+                    tools:listitem="@layout/item_chips" />
 
                 <EditText
                     android:id="@+id/edit_newPost_game_member"
@@ -297,14 +297,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
-                    app:layout_constraintTop_toTopOf="@+id/button_add_photo" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

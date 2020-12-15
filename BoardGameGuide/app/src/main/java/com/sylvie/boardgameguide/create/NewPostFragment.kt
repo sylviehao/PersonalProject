@@ -15,12 +15,14 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageMetadata
+import com.google.firebase.storage.StorageReference
 
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
@@ -82,26 +84,6 @@ class NewPostFragment : Fragment() {
 //            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
-        binding.iconFinn.setOnClickListener {
-
-            val file = Uri.fromFile(File(filePath))
-
-            val metadata = StorageMetadata.Builder()
-                .setContentDisposition("game")
-                .setContentType("image/jpg")
-                .build()
-
-            eventsRef = storageRef.child(file.lastPathSegment ?: "")
-            for (data in imagesList){
-                val uploadTask = eventsRef.putFile(Uri.fromFile(File(data)))
-                uploadTask
-                .addOnSuccessListener {
-                    textView.text = "Success"
-                }
-                .addOnFailureListener { exception ->
-                    textView.text = exception.message
-                }
-            }
 ////            val uploadTask = eventsRef.putFile(file)
 //            uploadTask
 //                .addOnSuccessListener {
@@ -117,7 +99,7 @@ class NewPostFragment : Fragment() {
 //                    upload_progress.visibility = View.GONE
 //                }
 //            }
-        }
+
         var a = mutableListOf<String>()
         binding.buttonAddPlayer.setOnClickListener {
             a = viewModel.userList.value!!
@@ -153,6 +135,7 @@ class NewPostFragment : Fragment() {
 
         binding.buttonNewPostCreate.setOnClickListener {
 
+            if (filePath == ""){
             val typeList = mutableListOf<String>()
             typeList.add(binding.editNewPostGameType.text.toString())
 
@@ -165,16 +148,41 @@ class NewPostFragment : Fragment() {
                 rules = binding.editNewPostGameRule.text.toString(),
                 member = memberList,
                 type = typeList,
-                name = binding.editNewPostGameName.text.toString()
+                name = binding.editNewPostGameName.text.toString(),
+                imagesUri = imagesList
             )
+            } else {
+                uploadPhoto(storageRef)
+            }
 
-            findNavController().navigate(R.id.action_global_homeFragment)
         }
 
-        viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.i("imagesUri",it.toString())
+        viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
+            val typeList = mutableListOf<String>()
+            typeList.add(binding.editNewPostGameType.text.toString())
+
+            val memberList = mutableListOf<String>()
+            memberList.add(binding.editNewPostGameMember.text.toString())
+
+            viewModel.addPost(
+                topic = binding.editNewPostTopic.text.toString(),
+                location = binding.editNewPostGameLocation.text.toString(),
+                rules = binding.editNewPostGameRule.text.toString(),
+                member = memberList,
+                type = typeList,
+                name = binding.editNewPostGameName.text.toString(),
+                imagesUri = viewModel.imagesUri.value!!
+            )
+
             adapter2.submitList(it)
             adapter2.notifyDataSetChanged()
+
+        })
+
+
+
+        viewModel.eventStatus.observe(viewLifecycleOwner, Observer {
+            findNavController().navigate(R.id.action_global_homeFragment)
         })
 
 
@@ -210,8 +218,8 @@ class NewPostFragment : Fragment() {
                 filePath = ImagePicker.getFilePath(data) ?: ""
                 if (filePath.isNotEmpty()) {
 
-                    imagesList.add(filePath)
-                    viewModel.imagesUri.value = imagesList
+//                    imagesList.add(filePath)
+//                    viewModel.imagesUri.value = imagesList
                     Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                     Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
                 } else {
@@ -227,6 +235,46 @@ class NewPostFragment : Fragment() {
             else -> Toast.makeText(this.requireContext(), "Task Cancelled", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun downloadImg(ref: StorageReference?) {
+        if (ref == null) {
+            Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
+            return
+        }
+        ref.downloadUrl.addOnSuccessListener {
+
+            val imageList = mutableListOf<String>()
+            imageList.add(it.toString())
+            viewModel.imagesUri.value = imageList
+
+
+//            Toast.makeText(this.requireContext(), "Success", Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+                exception ->
+            Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun uploadPhoto(storageRef: StorageReference) {
+        val file = Uri.fromFile(File(filePath))
+        val eventsRef = storageRef.child(file.lastPathSegment ?: "")
+
+        val metadata = StorageMetadata.Builder()
+            .setContentDisposition("game")
+            .setContentType("image/jpg")
+            .build()
+
+        val uploadTask = eventsRef.putFile(file)
+        uploadTask
+            .addOnSuccessListener {
+                downloadImg(eventsRef)
+                Log.i("Upload", "Success")
+            }
+            .addOnFailureListener { exception ->
+                Log.i("Upload", exception.toString())
+            }
+
     }
 
     private fun checkPermission() {

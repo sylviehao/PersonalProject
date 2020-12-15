@@ -32,7 +32,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     val eventStatus: LiveData<Boolean>
         get() = _eventStatus
 
-    var imagesUri = MutableLiveData<List<String>>()
+    var imagesUri = MutableLiveData<MutableList<String>>()
 
     var userList = MutableLiveData<MutableList<String>>().apply {
         value = mutableListOf()
@@ -76,7 +76,8 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
         rules: String,
         member: MutableList<String>,
         name: String,
-        type: MutableList<String>
+        type: MutableList<String>,
+        imagesUri: MutableList<String>
     ) {
         coroutineScope.launch {
             try {
@@ -88,9 +89,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
                         user = it,
                         topic = topic,
                         description = "",
-                        image = mutableListOf(
-                            "https://images.unsplash.com/photo-1572979836320-ae5be0d63ab8?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MzB8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-                        ),
+                        image = imagesUri,
                         time = date.value!!,
                         location = location,
                         game = Game(
