@@ -83,8 +83,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
             try {
 
                 UserManager.user.value?.let {
-                    member.clear()
-                    member.add(it.name)
+
                     val event = Event(
                         user = it,
                         topic = topic,

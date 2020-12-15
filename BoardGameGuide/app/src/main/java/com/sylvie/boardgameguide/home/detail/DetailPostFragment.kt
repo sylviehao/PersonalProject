@@ -43,9 +43,25 @@ class DetailPostFragment : Fragment() {
 
 
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
+        viewModel.getAllUsers()
 
         viewModel.getEventData.value = bundle
 //        bundle.game?.name?.let { viewModel.getGame(it) }
+
+        // upload photo permission
+        bundle.playerList?.let { viewModel.checkUserPermission(it) }
+        viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            it?.let {
+                if(it){
+                    binding.buttonAddPhoto.visibility = View.VISIBLE
+                    binding.iconAddPhoto.visibility = View.VISIBLE
+                }else{
+                    binding.buttonAddPhoto.visibility = View.GONE
+                    binding.iconAddPhoto.visibility = View.GONE
+                }
+            }
+        })
 
         val db = FirebaseFirestore.getInstance()
 

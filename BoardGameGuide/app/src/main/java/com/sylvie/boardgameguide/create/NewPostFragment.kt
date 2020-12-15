@@ -100,11 +100,12 @@ class NewPostFragment : Fragment() {
 //                }
 //            }
 
-        var a = mutableListOf<String>()
         binding.buttonAddPlayer.setOnClickListener {
-            a = viewModel.userList.value!!
-            a.add(binding.editNewPostGameMember.text.toString())
-            viewModel.userList.value = a
+
+            val oldPlayerList = viewModel.userList.value
+            oldPlayerList?.add(binding.editNewPostGameMember.text.toString())
+            viewModel.userList.value = oldPlayerList
+            binding.editNewPostGameMember.text  = null
         }
 
         viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -139,14 +140,14 @@ class NewPostFragment : Fragment() {
             val typeList = mutableListOf<String>()
             typeList.add(binding.editNewPostGameType.text.toString())
 
-            val memberList = mutableListOf<String>()
-            memberList.add(binding.editNewPostGameMember.text.toString())
+//            val memberList = mutableListOf<String>()
+//            memberList.add(binding.editNewPostGameMember.text.toString())
 
             viewModel.addPost(
                 topic = binding.editNewPostTopic.text.toString(),
                 location = binding.editNewPostGameLocation.text.toString(),
                 rules = binding.editNewPostGameRule.text.toString(),
-                member = memberList,
+                member = viewModel.userList.value!!,
                 type = typeList,
                 name = binding.editNewPostGameName.text.toString(),
                 imagesUri = imagesList

@@ -17,9 +17,14 @@ class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel):
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: String, viewModel: DetailEventViewModel) {
-            viewModel.getAllUsers()
             binding.data = data
-            binding.textPlayer.text = viewModel.getAllUsers.value?.forEach { it.name }.toString()
+
+            if(viewModel.getAllUsers.value!!.any { it.id == data }){
+                binding.textPlayer.text = viewModel.getAllUsers.value!!.filter { it.id == data }[0].name
+            }else{
+                binding.textPlayer.text = ""
+            }
+
             binding.executePendingBindings()
         }
     }

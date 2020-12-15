@@ -29,10 +29,22 @@ class DetailEventFragment : Fragment() {
         viewModel.getEventData.value = bundle
         bundle.game?.name?.let { viewModel.getGame(it) }
 
+        bundle.playerList?.let {
+
+            if(it.any { userId-> userId == UserManager.userToken }){
+                binding.buttonJoin.setText(R.string.leave)
+            }else{
+                binding.buttonJoin.setText(R.string.join)
+            }
+        }
+
         val adapter = DetailEventPlayerAdapter(viewModel)
         val adapter2 = DetailEventPhotoAdapter()
+
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
+
+        viewModel.getAllUsers()
 
         adapter2.submitList(bundle.image)
 
@@ -40,8 +52,9 @@ class DetailEventFragment : Fragment() {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
-        viewModel.getUserData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            viewModel.getAllUsers()
+
+
+        viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(bundle.playerList)
         })
 
