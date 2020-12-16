@@ -20,6 +20,10 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
 
     val date = MutableLiveData<Long>()
 
+    var imagesUri = MutableLiveData<MutableList<String>>()
+
+    var localImageList = MutableLiveData<MutableList<String>>()
+
     private var _eventStatus = MutableLiveData<Boolean>()
 
     val eventStatus: LiveData<Boolean>
@@ -36,26 +40,33 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
 
     fun addPost(
         topic: String,
+        description: String,
         location: String,
         rules: String,
         member: MutableList<String>,
         name: String,
         type: MutableList<String>,
-        limit: Int
+        limit: String,
+        imagesUri: MutableList<String>
     ) {
         coroutineScope.launch {
             try {
 
                 UserManager.user.value?.let {
+                    var playerLimit = "0"
+
+                    playerLimit = if (limit == "") {
+                        "0"
+                    }else{
+                        limit
+                    }
 
                     member.add(it.name)
                     val event = Event(
                         user = it,
                         topic = topic,
-                        description = "",
-                        image = mutableListOf(
-                            "https://images.unsplash.com/photo-1506654020181-7c2ef87cc5a9?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjZ8fGJvYXJkJTIwZ2FtZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
-                        ),
+                        description = description,
+                        image = imagesUri,
                         time = date.value!!,
                         location = location,
                         game = Game(
@@ -67,7 +78,7 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
                         ),
                         message = mutableListOf(),
                         playerList = member,
-                        playerLimit = limit,
+                        playerLimit = playerLimit.toInt(),
                         status = "OPEN",
                         like = mutableListOf()
                     )

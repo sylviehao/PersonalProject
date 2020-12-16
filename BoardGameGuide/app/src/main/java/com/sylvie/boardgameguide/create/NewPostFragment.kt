@@ -38,13 +38,19 @@ import kotlin.math.log
 
 class NewPostFragment : Fragment() {
 
-
-    private lateinit var binding: FragmentNewPostBinding
     val viewModel by viewModels<NewPostViewModel> { getVmFactory() }
+    private lateinit var binding: FragmentNewPostBinding
+
+    private val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
+    private val imagesList = mutableListOf<String>()
+    var localImageList = mutableListOf<String>()
+    var filePath: String = ""
+
 
     // Separate the situation from HomeFragment and from GameFragment
     var arg: Game? = null
     var event: Event? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +65,11 @@ class NewPostFragment : Fragment() {
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerNewPostPhoto.adapter = adapter2
 
+        if (viewModel.event.value?.playerList.isNullOrEmpty()) {
+            binding.recyclerPlayer.visibility = View.GONE
+        } else {
+            binding.recyclerPlayer.visibility = View.VISIBLE
+        }
 
         arg = NewPostFragmentArgs.fromBundle(requireArguments()).game
         event = NewPostFragmentArgs.fromBundle(requireArguments()).event
@@ -66,22 +77,19 @@ class NewPostFragment : Fragment() {
         viewModel.game.value = arg
         viewModel.event.value = event
 
-        //??
+        //initialize
         adapter.submitList(event?.playerList)
         adapter2.submitList(event?.image)
 
 //        val storageFirebase = FirebaseStorage.getInstance().reference
         var storage = Firebase.storage
         var storageRef = storage.reference
-        var eventsRef = storageRef.child("events.jpg")
-        var eventsImagesRef = storageRef.child("events/game.jpg")
-//        eventsRef.name == eventsImagesRef.name
-//        imagesRef = spaceRef.parent
-//        val path = imagesRef?.path
+//        var eventsRef = storageRef.child("events.jpg")
+//        var eventsImagesRef = storageRef.child("events/game.jpg")
+
 
         binding.buttonAddPhoto.setOnClickListener {
             checkPermission()
-//            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
 
 ////            val uploadTask = eventsRef.putFile(file)
@@ -101,15 +109,19 @@ class NewPostFragment : Fragment() {
 //            }
 
         binding.buttonAddPlayer.setOnClickListener {
-
             val oldPlayerList = viewModel.userList.value
             oldPlayerList?.add(binding.editNewPostGameMember.text.toString())
             viewModel.userList.value = oldPlayerList
-            binding.editNewPostGameMember.text  = null
+            binding.editNewPostGameMember.text = null
         }
 
         viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.i("userList",it.toString())
+            Log.i("userList", it.toString())
+            if (it.isNullOrEmpty()) {
+                binding.recyclerPlayer.visibility = View.GONE
+            } else {
+                binding.recyclerPlayer.visibility = View.VISIBLE
+            }
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         })
@@ -133,25 +145,25 @@ class NewPostFragment : Fragment() {
         }
 
 
-
         binding.buttonNewPostCreate.setOnClickListener {
 
-            if (filePath == ""){
-            val typeList = mutableListOf<String>()
-            typeList.add(binding.editNewPostGameType.text.toString())
+            if (filePath == "") {
+                val typeList = mutableListOf<String>()
+                typeList.add(binding.editNewPostGameType.text.toString())
 
 //            val memberList = mutableListOf<String>()
 //            memberList.add(binding.editNewPostGameMember.text.toString())
 
-            viewModel.addPost(
-                topic = binding.editNewPostTopic.text.toString(),
-                location = binding.editNewPostGameLocation.text.toString(),
-                rules = binding.editNewPostGameRule.text.toString(),
-                member = viewModel.userList.value!!,
-                type = typeList,
-                name = binding.editNewPostGameName.text.toString(),
-                imagesUri = imagesList
-            )
+                viewModel.addPost(
+                    topic = binding.editNewPostTopic.text.toString(),
+                    description = binding.editNewPostDescription.text.toString(),
+                    location = binding.editNewPostGameLocation.text.toString(),
+                    rules = binding.editNewPostGameRule.text.toString(),
+                    member = viewModel.userList.value!!,
+                    type = typeList,
+                    name = binding.editNewPostGameName.text.toString(),
+                    imagesUri = imagesList
+                )
             } else {
                 uploadPhoto(storageRef)
             }
@@ -167,6 +179,7 @@ class NewPostFragment : Fragment() {
 
             viewModel.addPost(
                 topic = binding.editNewPostTopic.text.toString(),
+                description = binding.editNewPostDescription.text.toString(),
                 location = binding.editNewPostGameLocation.text.toString(),
                 rules = binding.editNewPostGameRule.text.toString(),
                 member = memberList,
@@ -175,11 +188,13 @@ class NewPostFragment : Fragment() {
                 imagesUri = viewModel.imagesUri.value!!
             )
 
-            adapter2.submitList(it)
-            adapter2.notifyDataSetChanged()
 
         })
 
+        viewModel.localImageList.observe(viewLifecycleOwner, Observer {
+            adapter2.submitList(it)
+            adapter2.notifyDataSetChanged()
+        })
 
 
         viewModel.eventStatus.observe(viewLifecycleOwner, Observer {
@@ -190,7 +205,6 @@ class NewPostFragment : Fragment() {
         return binding.root
     }
 
-    val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -209,8 +223,7 @@ class NewPostFragment : Fragment() {
             }
         }
     }
-    var filePath: String = ""
-    val imagesList = mutableListOf<String>()
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -218,11 +231,10 @@ class NewPostFragment : Fragment() {
             Activity.RESULT_OK -> {
                 filePath = ImagePicker.getFilePath(data) ?: ""
                 if (filePath.isNotEmpty()) {
-
-//                    imagesList.add(filePath)
-//                    viewModel.imagesUri.value = imagesList
-                    Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
-                    Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
+                    localImageList.add(filePath)
+                    viewModel.localImageList.value = localImageList
+//                    Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
+//                    Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
                 } else {
                     Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT)
                         .show()
@@ -249,10 +261,7 @@ class NewPostFragment : Fragment() {
             imageList.add(it.toString())
             viewModel.imagesUri.value = imageList
 
-
-//            Toast.makeText(this.requireContext(), "Success", Toast.LENGTH_SHORT).show()
-        }.addOnFailureListener {
-                exception ->
+        }.addOnFailureListener { exception ->
             Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -261,10 +270,10 @@ class NewPostFragment : Fragment() {
         val file = Uri.fromFile(File(filePath))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
 
-        val metadata = StorageMetadata.Builder()
-            .setContentDisposition("game")
-            .setContentType("image/jpg")
-            .build()
+//        val metadata = StorageMetadata.Builder()
+//            .setContentDisposition("game")
+//            .setContentType("image/jpg")
+//            .build()
 
         val uploadTask = eventsRef.putFile(file)
         uploadTask
@@ -284,7 +293,7 @@ class NewPostFragment : Fragment() {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            //未取得權限，向使用者要求允許權限
+            //if not having permission, ask for it
             ActivityCompat.requestPermissions(
                 this.requireActivity(), arrayOf(
                     Manifest.permission.CAMERA,
@@ -293,7 +302,7 @@ class NewPostFragment : Fragment() {
                 MY_PERMISSIONS_REQUEST_READ_CONTACTS
             )
             getLocalImg()
-        }else{
+        } else {
             getLocalImg()
         }
 
@@ -301,12 +310,15 @@ class NewPostFragment : Fragment() {
 
     private fun getLocalImg() {
         ImagePicker.with(this)
-            .crop()                    //Crop image(Optional), Check Customization for more option
-            .compress(1024)            //Final image size will be less than 1 MB(Optional)
+            //Crop image(Optional), Check Customization for more option
+            .crop()
+            //Final image size will be less than 1 MB(Optional)
+            .compress(1024)
+            //Final image resolution will be less than 1080 x 1080(Optional)
             .maxResultSize(
                 1080,
                 1080
-            )    //Final image resolution will be less than 1080 x 1080(Optional)
+            )
             .start()
     }
 

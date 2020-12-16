@@ -34,6 +34,8 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     var imagesUri = MutableLiveData<MutableList<String>>()
 
+    var localImageList = MutableLiveData<MutableList<String>>()
+
     var userList = MutableLiveData<MutableList<String>>().apply {
         value = mutableListOf()
     }
@@ -72,6 +74,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     fun addPost(
         topic: String,
+        description: String,
         location: String,
         rules: String,
         member: MutableList<String>,
@@ -87,7 +90,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
                     val event = Event(
                         user = it,
                         topic = topic,
-                        description = "",
+                        description = description,
                         image = imagesUri,
                         time = date.value!!,
                         location = location,

@@ -50,6 +50,7 @@ class DetailPostFragment : Fragment() {
 
         // upload photo permission
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
+
         viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
             it?.let {

@@ -13,23 +13,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_new_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/rosyOrange">
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_new_post"
                 app:layout_constraintStart_toStartOf="@+id/constraint_new_post"
                 app:layout_constraintTop_toTopOf="@+id/constraint_new_post">
@@ -37,47 +35,51 @@
                 <EditText
                     android:id="@+id/edit_newEvent_topic"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_topic"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    style="@style/edit_new_field" />
+
+                <EditText
+                    android:id="@+id/edit_newEvent_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:hint="@string/game_description"
+                    android:inputType="textMultiLine"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_topic"
+                    app:layout_constraintStart_toStartOf="@+id/edit_newEvent_topic"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_topic"
+                    style="@style/edit_new_field"/>
 
                 <TextView
                     android:id="@+id/edit_newEvent_game_time"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
-                    android:gravity="center_vertical"
                     android:hint="@string/game_time"
-                    android:textColorHint="@color/gray_888888"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_topic"
-                    app:layout_constraintStart_toStartOf="@+id/edit_newEvent_topic"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_topic" />
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_description"
+                    app:layout_constraintStart_toStartOf="@+id/edit_newEvent_description"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_description"
+                    style="@style/edit_new_field"/>
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_location"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_location"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_time"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_time"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_time" />
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_time"
+                    style="@style/edit_new_field"/>
 
                 <ImageView
                     android:id="@+id/icon_mr_krabs"
@@ -123,91 +125,121 @@
                 <EditText
                     android:id="@+id/edit_newEvent_game_name"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_name"
                     android:inputType="textPersonName"
                     android:text="@{viewModel.game.name}"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/line_1"
                     app:layout_constraintStart_toStartOf="@+id/line_1"
-                    app:layout_constraintTop_toBottomOf="@+id/line_1" />
+                    app:layout_constraintTop_toBottomOf="@+id/line_1"
+                    style="@style/edit_new_field"/>
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_type"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_type"
                     android:inputType="textPersonName"
                     android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.type)}"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_name"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_name"
+                    style="@style/edit_new_field"/>
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_rule"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
-                    android:gravity="top"
                     android:hint="@string/game_rule"
                     android:inputType="textMultiLine"
                     android:text="@{viewModel.game.rules}"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_type"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_type"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_type" />
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_type"
+                    style="@style/edit_new_field"/>
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_member"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
-                    android:gravity="top"
                     android:hint="@string/game_member_limit"
                     android:inputType="textMultiLine"
                     android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.playerLimit)}"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_rule"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_rule"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_rule" />
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_rule"
+                    style="@style/edit_new_field"/>
+
+                <ImageView
+                    android:id="@+id/icon_jake"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_member"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_member"
+                    app:srcCompat="@drawable/ic_jake" />
+
+                <TextView
+                    android:id="@+id/text_newEvent_event_area"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/finger_paint"
+                    android:text="@string/photo"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"
+                    app:layout_constraintEnd_toStartOf="@+id/icon_finn"
+                    app:layout_constraintStart_toEndOf="@+id/icon_jake"
+                    app:layout_constraintTop_toTopOf="@+id/icon_jake" />
+
+                <ImageView
+                    android:id="@+id/icon_finn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_member"
+                    app:layout_constraintTop_toTopOf="@+id/icon_jake"
+                    app:srcCompat="@drawable/ic_finn" />
+
+                <TextView
+                    android:id="@+id/line_2"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="@color/darkBrown"
+                    app:layout_constraintEnd_toEndOf="@+id/icon_finn"
+                    app:layout_constraintStart_toStartOf="@+id/icon_jake"
+                    app:layout_constraintTop_toBottomOf="@+id/icon_jake" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_newPost_photo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@+id/button_add_photo"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_member"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_member"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_member" />
+                    app:layout_constraintTop_toBottomOf="@+id/line_2" />
 
                 <TextView
                     android:id="@+id/button_add_photo"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/frame_edit_new_post"
                     app:layout_constraintBottom_toTopOf="@+id/button_newEvent_create"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_member"
-                    app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_member"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_newPost_photo" />
+                    app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_member" />
 
                 <ImageView
                     android:id="@+id/icon_add_photo"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
                     app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
                     app:layout_constraintStart_toStartOf="@+id/button_add_photo"

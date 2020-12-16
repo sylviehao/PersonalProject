@@ -6,10 +6,12 @@
 
     <string name="home">HOME</string>
     <string name="new_post">NEW POST</string>
-    <string name="game_topic">貼文主題</string>
+    <string name="game_topic">貼文標題</string>
+    <string name="game_description">貼文內容</string>
     <string name="game_time">遊戲時間</string>
     <string name="game_location">遊戲地點</string>
     <string name="game_info">GAME INFO</string>
+    <string name="photo">PHOTO</string>
     <string name="game_name">遊戲名稱</string>
     <string name="game_type">遊戲種類</string>
     <string name="game_rule">遊戲規則</string>
@@ -54,6 +56,7 @@
     <string name="post_status">發文</string>
     <string name="search">SEARCH</string>
     <string name="empty" />
+    <string name="add_player">Add</string>
 
 
 </resources>
