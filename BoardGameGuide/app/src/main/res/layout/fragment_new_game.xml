@@ -19,7 +19,7 @@
             android:id="@+id/scrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_game_create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -79,42 +79,36 @@
 
                 <EditText
                     android:id="@+id/edit_game_name"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_name"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/line_1"
                     app:layout_constraintStart_toStartOf="@+id/line_1"
                     app:layout_constraintTop_toBottomOf="@+id/line_1" />
 
                 <EditText
                     android:id="@+id/edit_game_type"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_type"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_game_name"
                     app:layout_constraintTop_toBottomOf="@+id/edit_game_name" />
 
                 <EditText
                     android:id="@+id/edit_player_limit"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_member_limit"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_type"
                     app:layout_constraintStart_toStartOf="@+id/edit_game_type"
                     app:layout_constraintTop_toBottomOf="@+id/edit_game_type" />
@@ -122,110 +116,104 @@
 
                 <EditText
                     android:id="@+id/edit_game_time"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
                     android:hint="@string/game_time"
                     android:inputType="textPersonName"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_player_limit"
                     app:layout_constraintStart_toStartOf="@+id/edit_player_limit"
                     app:layout_constraintTop_toBottomOf="@+id/edit_player_limit" />
 
                 <EditText
                     android:id="@+id/edit_game_rules"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
-                    android:gravity="top"
                     android:hint="@string/game_rule"
                     android:inputType="textMultiLine"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_time"
                     app:layout_constraintStart_toStartOf="@+id/edit_game_time"
                     app:layout_constraintTop_toBottomOf="@+id/edit_game_time" />
 
                 <EditText
                     android:id="@+id/edit_game_roles"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
-                    android:layout_height="120dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:ems="10"
-                    android:gravity="top"
                     android:hint="@string/game_role"
                     android:inputType="textMultiLine"
-                    android:textColorHint="@color/gray_888888"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_rules"
                     app:layout_constraintStart_toStartOf="@+id/edit_game_rules"
                     app:layout_constraintTop_toBottomOf="@+id/edit_game_rules" />
 
 
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/recycler_newPost_photo"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="8dp"-->
-<!--                    android:background="@drawable/frame_edit_new_post"-->
-<!--                    app:layout_constraintEnd_toEndOf="@+id/edit_game_roles"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/edit_game_roles"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/edit_game_roles" />-->
+                <com.github.florent37.shapeofview.shapes.RoundRectView
+                    android:id="@+id/clipCorner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_game_roles"
+                    app:layout_constraintStart_toStartOf="@+id/edit_game_roles"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_game_roles"
+                    app:shape_roundRect_bottomLeftRadius="10dp"
+                    app:shape_roundRect_bottomRightRadius="10dp"
+                    app:shape_roundRect_topLeftRadius="10dp"
+                    app:shape_roundRect_topRightRadius="10dp"
+                    android:visibility="gone">
+
+
+                    <ImageView
+                        android:id="@+id/image_photo"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:scaleType="centerCrop" />
+
+                </com.github.florent37.shapeofview.shapes.RoundRectView>
 
                 <ImageView
                     android:id="@+id/button_add_photo"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="55dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/frame_edit_new_post"
-                    app:layout_constraintBottom_toTopOf="@+id/button_game_create"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_roles"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_game_roles"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_game_roles" />
+                    app:layout_constraintTop_toBottomOf="@+id/clipCorner" />
 
                 <ImageView
                     android:id="@+id/icon_add_photo"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
                     app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
                     app:layout_constraintStart_toStartOf="@+id/button_add_photo"
                     app:layout_constraintTop_toTopOf="@+id/button_add_photo"
                     app:srcCompat="@drawable/ic_add" />
 
-                <Button
-                    android:id="@+id/button_game_create"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:background="@color/vintageOrange"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@string/create"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/button_sure"
-                    android:layout_width="50dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:background="@drawable/round_corner_message"
-                    android:gravity="center"
-                    android:text="SURE"
-                    android:textColor="@color/white"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
-                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
-                    app:layout_constraintTop_toTopOf="@+id/button_add_photo" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </ScrollView>
+
+        <Button
+            android:id="@+id/button_game_create"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@color/vintageOrange"
+            android:fontFamily="@font/finger_paint"
+            android:text="@string/create"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

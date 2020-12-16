@@ -43,6 +43,8 @@ class NewGameFragment : Fragment() {
         val storageRef = storage.reference
 //        val db = FirebaseFirestore.getInstance()
 
+
+
         binding.buttonAddPhoto.setOnClickListener {
             checkPermission()
 //            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
@@ -153,9 +155,9 @@ class NewGameFragment : Fragment() {
             Activity.RESULT_OK -> {
                 filePath = ImagePicker.getFilePath(data) ?: ""
                 if (filePath.isNotEmpty()) {
-
+                    binding.clipCorner.visibility = View.VISIBLE
                     Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
-                    Glide.with(this.requireContext()).load(filePath).into(binding.buttonAddPhoto)
+                    Glide.with(this.requireContext()).load(filePath).into(binding.imagePhoto)
                 } else {
                     Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT)
                         .show()

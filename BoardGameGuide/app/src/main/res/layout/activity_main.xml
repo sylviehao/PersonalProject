@@ -73,7 +73,7 @@
                 android:id="@+id/bottomNavView"
                 android:layout_width="0dp"
                 android:layout_height="72dp"
-                android:background="@color/pinkishGrey"
+                android:background="@color/gray_cccccc"
                 android:elevation="4dp"
                 app:itemIconSize="36dp"
                 app:itemIconTint="#000000"

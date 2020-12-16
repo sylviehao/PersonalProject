@@ -5,21 +5,21 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_nav_home_selector"
-        android:title="" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_tools"
         android:icon="@drawable/ic_nav_dice_selector"
-        android:title="" />
+        android:title="@string/tools" />
     <item
         android:id="@+id/navigation_event"
         android:icon="@drawable/ic_nav_group_selector"
-        android:title="" />
+        android:title="@string/event" />
     <item
         android:id="@+id/navigation_favorite"
         android:icon="@drawable/ic_nav_pin_selector"
-        android:title="" />
+        android:title="@string/favorite" />
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_nav_simpson_selector"
-        android:title="" />
+        android:title="@string/profile" />
 </menu>

@@ -40,6 +40,9 @@
     \n喜歡玩策略跟陣營遊戲
     \n歡迎揪團! </string>
     <string name="game_name_chinese">遊戲名稱:&#160;</string>
+    <string name="game_name_english">Game:&#160;</string>
+    <string name="game_topic_english">Topic:&#160;</string>
+    <string name="game_location_english">Location:&#160;</string>
     <string name="game_type_chinese">遊戲種類:&#160;</string>
     <string name="game_player_limit_chinese">人數限制:&#160;</string>
     <string name="game_time_chinese">遊戲時間:&#160;</string>
