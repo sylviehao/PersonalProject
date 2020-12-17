@@ -9,6 +9,7 @@ import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -39,6 +40,8 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     val addPlayer: LiveData<Boolean>
         get() = _addPlayer
+
+    var photoPermission = MutableLiveData<Boolean>()
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -107,6 +110,13 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
                     null
                 }
             }
+        }
+    }
+
+    fun checkUserPermission(memberList: MutableList<String>){
+
+        memberList.let {
+            photoPermission.value = it.any { id-> id == UserManager.userToken  }
         }
     }
 

@@ -13,7 +13,7 @@ class JoinDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.UploadPhotoDialog)
+        setStyle(DialogFragment.STYLE_NO_FRAME, R.style.custom_dialog)
     }
 
     override fun onCreateView(

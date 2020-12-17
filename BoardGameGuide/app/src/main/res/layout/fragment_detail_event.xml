@@ -13,7 +13,7 @@
         android:id="@+id/constraint_detail_post"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/rosyOrange">
+        android:background="@color/white">
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -33,6 +33,31 @@
                 app:layout_constraintStart_toStartOf="@+id/constraint_detail_post"
                 app:layout_constraintTop_toTopOf="@+id/constraint_detail_post">
 
+
+                <com.github.florent37.shapeofview.shapes.RoundRectView
+                    android:id="@+id/clipCorner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shape_roundRect_bottomLeftRadius="100dp"
+                    app:shape_roundRect_bottomRightRadius="15dp"
+                    app:shape_roundRect_topLeftRadius="15dp"
+                    app:shape_roundRect_topRightRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/image_host"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:imageUrl="@{viewModel.getEventData.user.image}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                </com.github.florent37.shapeofview.shapes.RoundRectView>
+
                 <TextView
                     android:id="@+id/text_host_name"
                     android:layout_width="wrap_content"
@@ -47,42 +72,37 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="sylviehao" />
 
-                <TextView
-                    android:id="@+id/text_game_topic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/ic_clock"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@{viewModel.getEventData.topic}"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="22sp"
                     app:layout_constraintStart_toStartOf="@+id/text_host_name"
                     app:layout_constraintTop_toBottomOf="@+id/text_host_name"
-                    tools:text="主題: 好玩" />
+                    app:srcCompat="@drawable/ic_clock" />
 
-                <TextView
-                    android:id="@+id/text_game_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/ic_map_pin"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginTop="8dp"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_topic"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
-                    tools:text="20201231" />
+                    app:layout_constraintStart_toStartOf="@+id/ic_clock"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_clock"
+                    app:srcCompat="@drawable/ic_map_pin" />
 
-                <TextView
-                    android:id="@+id/text_game_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="@{viewModel.getEventData.location}"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_time"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_time"
-                    tools:text="台北市" />
+<!--                <TextView-->
+<!--                    android:id="@+id/text_created_time"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="8dp"-->
+<!--                    android:layout_marginBottom="3dp"-->
+<!--                    android:alpha="0.8"-->
+<!--                    android:textColor="@color/darkBrown"-->
+<!--                    android:textSize="16sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/ic_clock"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/ic_clock"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/ic_clock"-->
+<!--                    tools:text="20201231 14:00" />-->
 
                 <!--                <ImageView-->
                 <!--                    android:id="@+id/ic_baby"-->
@@ -130,95 +150,168 @@
                 <!--                    app:layout_constraintEnd_toEndOf="parent"-->
                 <!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
+
                 <TextView
-                    android:id="@+id/text_status"
+                    android:id="@+id/text_game_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:fontFamily="@font/noto_sans"
-                    android:gravity="center_horizontal"
-                    android:text="OPEN"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:alpha="0.8"
                     android:textColor="@color/darkBrown"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@+id/icon_patrick_star"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <ImageView
-                    android:id="@+id/icon_mr_krabs"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="24dp"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_location"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_location"
-                    app:srcCompat="@drawable/ic_mr_krabs" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"
-                    app:layout_constraintEnd_toStartOf="@+id/icon_patrick_star"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/icon_mr_krabs"
-                    app:layout_constraintTop_toTopOf="@+id/icon_mr_krabs"
-                    app:layout_constraintVertical_bias="1.0">
-
-                    <TextView
-                        android:id="@+id/text_game_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/finger_paint"
-                        android:text="@string/game_info"
-                        android:textColor="@color/darkBrown"
-                        android:textSize="24sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.436"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/button_down"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginStart="12dp"
-                        android:background="@drawable/ic_down_button"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_game_info"
-                        app:layout_constraintStart_toEndOf="@+id/text_game_info"
-                        app:layout_constraintTop_toTopOf="@+id/text_game_info" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/icon_patrick_star"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/icon_mr_krabs"
-                    app:srcCompat="@drawable/ic_patrick_star" />
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_clock"
+                    app:layout_constraintStart_toEndOf="@+id/ic_clock"
+                    app:layout_constraintTop_toTopOf="@+id/ic_clock"
+                    tools:text="20201231" />
 
                 <TextView
-                    android:id="@+id/line_1"
+                    android:id="@+id/text_game_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@{viewModel.getEventData.location}"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_map_pin"
+                    app:layout_constraintStart_toEndOf="@+id/ic_map_pin"
+                    app:layout_constraintTop_toTopOf="@+id/ic_map_pin"
+                    tools:text="AppWorks School" />
+
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_mr_krabs"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:srcCompat="@drawable/ic_mr_krabs"-->
+                <!--                    tools:layout_editor_absoluteX="16dp"-->
+                <!--                    tools:layout_editor_absoluteY="193dp" />-->
+
+                <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--                    android:id="@+id/constraintLayout"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="0dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"-->
+                <!--                    app:layout_constraintEnd_toStartOf="@+id/icon_patrick_star"-->
+                <!--                    app:layout_constraintHorizontal_bias="0.0"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/icon_mr_krabs"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/icon_mr_krabs"-->
+                <!--                    app:layout_constraintVertical_bias="1.0">-->
+
+                <!--                    <Button-->
+                <!--                        android:id="@+id/button_down"-->
+                <!--                        android:layout_width="32dp"-->
+                <!--                        android:layout_height="32dp"-->
+                <!--                        android:background="@drawable/ic_down_button"-->
+                <!--                        tools:layout_editor_absoluteX="203dp"-->
+                <!--                        tools:layout_editor_absoluteY="8dp" />-->
+
+                <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_patrick_star"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    android:layout_marginEnd="16dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/icon_mr_krabs"-->
+                <!--                    app:srcCompat="@drawable/ic_patrick_star" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/line_1"-->
+                <!--                    android:layout_width="361dp"-->
+                <!--                    android:layout_height="2dp"-->
+                <!--                    android:background="@color/darkBrown"-->
+                <!--                    tools:layout_editor_absoluteX="16dp"-->
+                <!--                    tools:layout_editor_absoluteY="244dp" />-->
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_jake"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:srcCompat="@drawable/ic_jake"-->
+                <!--                    tools:layout_editor_absoluteX="16dp"-->
+                <!--                    tools:layout_editor_absoluteY="415dp" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_event_area"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:fontFamily="@font/finger_paint"-->
+                <!--                    android:text="@string/event_area"-->
+                <!--                    android:textColor="@color/darkBrown"-->
+                <!--                    android:textSize="24sp"-->
+                <!--                    tools:layout_editor_absoluteX="119dp"-->
+                <!--                    tools:layout_editor_absoluteY="419dp" />-->
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_finn"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:srcCompat="@drawable/ic_finn"-->
+                <!--                    tools:layout_editor_absoluteX="329dp"-->
+                <!--                    tools:layout_editor_absoluteY="415dp" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/line_2"-->
+                <!--                    android:layout_width="361dp"-->
+                <!--                    android:layout_height="2dp"-->
+                <!--                    android:background="@color/darkBrown"-->
+                <!--                    tools:layout_editor_absoluteX="16dp"-->
+                <!--                    tools:layout_editor_absoluteY="463dp" />-->
+
+                <TextView
+                    android:id="@+id/text_game_info"
                     android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/darkBrown"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_patrick_star"
-                    app:layout_constraintStart_toStartOf="@+id/icon_mr_krabs"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_mr_krabs" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/round_grey_corner"
+                    android:fontFamily="@font/finger_paint"
+                    android:gravity="center"
+                    android:text="@string/game_info"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_photo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                    tools:listitem="@layout/item_detail_post_photo" />
+
+                <TextView
+                    android:id="@+id/button_add_photo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="65dp"
+                    android:background="@drawable/ic_add"
+                    app:layout_constraintBottom_toBottomOf="@+id/recycler_photo"
+                    app:layout_constraintEnd_toEndOf="@+id/recycler_photo"
+                    app:layout_constraintTop_toTopOf="@+id/recycler_photo" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_game_info"
-                    android:layout_width="0dp"
+                    android:layout_width="361dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/line_1"
-                    app:layout_constraintStart_toStartOf="@+id/icon_mr_krabs"
-                    app:layout_constraintTop_toBottomOf="@+id/line_1">
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/button_join"
+                    app:layout_constraintEnd_toEndOf="@+id/text_game_info"
+                    app:layout_constraintStart_toStartOf="@+id/text_game_info"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_info">
 
                     <TextView
                         android:id="@+id/text_game_name"
@@ -254,98 +347,20 @@
                         tools:text="規則:" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/icon_jake"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_player"
-                    app:srcCompat="@drawable/ic_jake" />
-
-                <TextView
-                    android:id="@+id/text_event_area"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@string/event_area"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"
-                    app:layout_constraintEnd_toStartOf="@+id/icon_finn"
-                    app:layout_constraintStart_toEndOf="@+id/icon_jake"
-                    app:layout_constraintTop_toTopOf="@+id/icon_jake" />
-
-                <ImageView
-                    android:id="@+id/icon_finn"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/icon_jake"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/ic_finn" />
-
-                <TextView
-                    android:id="@+id/line_2"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:background="@color/darkBrown"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_finn"
-                    app:layout_constraintStart_toStartOf="@+id/icon_jake"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_jake" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_photo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/line_2"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/icon_jake"
-                    app:layout_constraintTop_toBottomOf="@+id/line_2" />
-
-                <TextView
-                    android:id="@+id/button_add_photo"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    app:layout_constraintEnd_toEndOf="@+id/line_2"
-                    app:layout_constraintStart_toStartOf="@+id/line_2"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
-
-                <ImageView
-                    android:id="@+id/icon_add_photo"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
-                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
-                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"
-                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"
-                    app:srcCompat="@drawable/ic_add" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_player"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/line_1"
-                    app:layout_constraintStart_toStartOf="@+id/constraint_game_info"
-                    app:layout_constraintTop_toBottomOf="@+id/constraint_game_info"
-                    app:spanCount="2" />
+                <!--                <ImageView-->
+<!--                    android:id="@+id/icon_add_photo"-->
+<!--                    android:layout_width="36dp"-->
+<!--                    android:layout_height="36dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"-->
+<!--                    app:srcCompat="@drawable/ic_add" />-->
 
                 <Button
                     android:id="@+id/button_join"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
-                    android:layout_marginTop="16dp"
                     android:background="@color/vintageOrange"
                     android:fontFamily="@font/finger_paint"
                     android:text="@string/join"
@@ -353,8 +368,95 @@
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_add_photo" />
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/round_light_blue_corner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/ic_map_pin"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_map_pin">
+
+                    <TextView
+                        android:id="@+id/text_game_topic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/finger_paint"
+                        android:text="@{viewModel.getEventData.topic}"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="22sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="好玩" />
+
+                    <TextView
+                        android:id="@+id/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:alpha="0.8"
+                        android:text="@{viewModel.getEventData.description}"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_game_topic"
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
+                        tools:text="今天玩了狼人殺 好讚" />
+
+                    <ImageView
+                        android:id="@+id/ic_baby"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="@+id/text_description"
+                        app:layout_constraintTop_toBottomOf="@+id/text_description"
+                        app:srcCompat="@drawable/ic_player" />
+
+                    <TextView
+                        android:id="@+id/text_total_player"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/noto_sans"
+                        android:text="@{String.valueOf(viewModel.getEventData.playerList.size()) + @string/fraction + String.valueOf(viewModel.getEventData.playerLimit)}"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic_baby"
+                        app:layout_constraintStart_toEndOf="@+id/ic_baby"
+                        app:layout_constraintTop_toTopOf="@+id/ic_baby"
+                        tools:text="11 / 12" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_player"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/ic_baby"
+                        app:layout_constraintTop_toBottomOf="@+id/ic_baby" />
+
+                    <TextView
+                        android:id="@+id/text_status"
+                        android:layout_width="65dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@drawable/round_red_corner"
+                        android:fontFamily="@font/noto_sans"
+                        android:gravity="center_horizontal"
+                        android:text="@string/post"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

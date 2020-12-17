@@ -30,6 +30,10 @@ class DetailPostPhotoAdapter:
         holder.bind(event)
     }
 
+    override fun getItemCount(): Int {
+        return super.getItemCount()
+    }
+
     companion object DiffCallback : DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem

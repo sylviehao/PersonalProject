@@ -11,6 +11,7 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
+import com.sylvie.boardgameguide.home.getTimeDate
 import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -38,6 +39,8 @@ class DetailEventFragment : Fragment() {
             }
         }
 
+//        binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
+
         val adapter = DetailEventPlayerAdapter(viewModel)
         val adapter2 = DetailEventPhotoAdapter()
 
@@ -47,6 +50,22 @@ class DetailEventFragment : Fragment() {
         viewModel.getAllUsers()
 
         adapter2.submitList(bundle.image)
+
+        // upload photo permission
+        bundle.playerList?.let { viewModel.checkUserPermission(it) }
+
+        viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            it?.let {
+                if(it){
+                    binding.buttonAddPhoto.visibility = View.VISIBLE
+//                    binding.iconAddPhoto.visibility = View.VISIBLE
+                }else{
+                    binding.buttonAddPhoto.visibility = View.GONE
+//                    binding.iconAddPhoto.visibility = View.GONE
+                }
+            }
+        })
 
         binding.buttonAddPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_global_uploadPhotoDialog)

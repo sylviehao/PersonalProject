@@ -92,6 +92,34 @@
                     app:srcCompat="@drawable/ic_map_pin" />
 
 
+                <TextView
+                    android:id="@+id/text_created_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:alpha="0.8"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_clock"
+                    app:layout_constraintStart_toEndOf="@+id/ic_clock"
+                    app:layout_constraintTop_toTopOf="@+id/ic_clock"
+                    tools:text="20201231 14:00" />
+
+                <TextView
+                    android:id="@+id/text_game_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@{viewModel.getEventData.location}"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_map_pin"
+                    app:layout_constraintStart_toEndOf="@+id/ic_map_pin"
+                    app:layout_constraintTop_toTopOf="@+id/ic_map_pin"
+                    tools:text="AppWorks School" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout4"
                     android:layout_width="0dp"
@@ -187,34 +215,6 @@
                         app:layout_constraintTop_toTopOf="@+id/ic_like"
                         tools:text="23" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <TextView
-                    android:id="@+id/text_created_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="3dp"
-                    android:alpha="0.8"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ic_clock"
-                    app:layout_constraintStart_toEndOf="@+id/ic_clock"
-                    app:layout_constraintTop_toTopOf="@+id/ic_clock"
-                    tools:text="20201231 14:00" />
-
-                <TextView
-                    android:id="@+id/text_game_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="@{viewModel.getEventData.location}"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ic_map_pin"
-                    app:layout_constraintStart_toEndOf="@+id/ic_map_pin"
-                    app:layout_constraintTop_toTopOf="@+id/ic_map_pin"
-                    tools:text="AppWorks School" />
 
                 <!--                <TextView-->
                 <!--                    android:id="@+id/text_game_time"-->
@@ -324,53 +324,6 @@
                 <!--                    -->
                 <!--                    app:shape_arc_height="30dp"-->
                 <!--                    app:shape_arc_position="left">-->
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_game_info"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_info"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_info">
-
-                    <TextView
-                        android:id="@+id/text_game_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.getEventData.game.name}"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="狼人殺" />
-
-
-                    <TextView
-                        android:id="@+id/text_game_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@{String.valueOf(viewModel.getEventData.game.type)}"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/text_game_name"
-                        app:layout_constraintTop_toBottomOf="@+id/text_game_name"
-                        tools:text="陣營" />
-
-                    <TextView
-                        android:id="@+id/text_game_rule"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@{viewModel.getEventData.game.rules}"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/text_game_type"
-                        app:layout_constraintTop_toBottomOf="@+id/text_game_type"
-                        tools:text="規則" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_photo"
@@ -518,6 +471,53 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/image_profile"
                     app:layout_constraintTop_toBottomOf="@+id/edit_comment" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_game_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_game_info"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_info">
+
+                    <TextView
+                        android:id="@+id/text_game_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.getEventData.game.name}"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="狼人殺" />
+
+
+                    <TextView
+                        android:id="@+id/text_game_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{String.valueOf(viewModel.getEventData.game.type)}"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_game_name"
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_name"
+                        tools:text="陣營" />
+
+                    <TextView
+                        android:id="@+id/text_game_rule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewModel.getEventData.game.rules}"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_game_type"
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_type"
+                        tools:text="規則" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

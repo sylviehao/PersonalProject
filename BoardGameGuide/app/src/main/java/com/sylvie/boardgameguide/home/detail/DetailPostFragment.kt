@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
@@ -72,6 +73,7 @@ class DetailPostFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
 
         db.collection("Event")
+            .orderBy("createdTime", Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
                 value?.let {
                     val listResult = mutableListOf<Event>()
@@ -79,6 +81,7 @@ class DetailPostFragment : Fragment() {
                     it.forEach { data ->
                         val d = data.toObject(Event::class.java)
                         listResult.add(d)
+
                     }
                     var b = listResult.filter { result-> result.id == bundle.id }[0]
                     adapter.submitList(b.message)
@@ -136,6 +139,8 @@ class DetailPostFragment : Fragment() {
                     Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
                         .show()
                 }
+
+            binding.editComment.text = null
         }
 
 //        val db = FirebaseFirestore.getInstance()
