@@ -17,6 +17,7 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.home.HomeAdapter
 import com.sylvie.boardgameguide.home.getTimeDate
 import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +38,11 @@ class DetailPostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         val adapter = DetailPostCommentAdapter()
-        val adapter2 = DetailPostPhotoAdapter()
+
+        val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener{
+            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+        }, viewModel)
+
         val adapter3 = DetailPostPlayerAdapter(viewModel)
         binding.recyclerComment.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
@@ -58,16 +63,17 @@ class DetailPostFragment : Fragment() {
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
         viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
-            it?.let {
-                if(it){
-                    binding.buttonAddPhoto.visibility = View.VISIBLE
-//                    binding.iconAddPhoto.visibility = View.VISIBLE
-                }else{
-                    binding.buttonAddPhoto.visibility = View.GONE
-//                    binding.iconAddPhoto.visibility = View.GONE
-                }
-            }
+//            adapter2.submitList(viewModel.toPhotoItems(it))
+            viewModel.add(bundle.image!!)
+//            it?.let {
+//                if(it){
+//                    binding.buttonAddPhoto.visibility = View.VISIBLE
+////                    binding.iconAddPhoto.visibility = View.VISIBLE
+//                }else{
+//                    binding.buttonAddPhoto.visibility = View.GONE
+////                    binding.iconAddPhoto.visibility = View.GONE
+//                }
+//            }
         })
 
         val db = FirebaseFirestore.getInstance()
@@ -109,9 +115,16 @@ class DetailPostFragment : Fragment() {
         }
 
 
+//        bundle.image?.let { viewModel.add(it) }
 
 
-        adapter2.submitList(bundle.image)
+
+
+
+
+        viewModel.newArray.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            adapter2.submitList(viewModel.toPhotoItems(it))
+        })
 
         viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
@@ -157,9 +170,6 @@ class DetailPostFragment : Fragment() {
 //                    listResult.filter { list -> list.id == bundle.gameId }[0]
 //            }
 
-        binding.buttonAddPhoto.setOnClickListener {
-            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
-        }
 
         return binding.root
     }

@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sylvie.boardgameguide.data.Event
-import com.sylvie.boardgameguide.data.Game
-import com.sylvie.boardgameguide.data.Result
-import com.sylvie.boardgameguide.data.User
+import com.sylvie.boardgameguide.data.*
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
@@ -30,6 +27,11 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     val like: LiveData<Boolean>
         get() = _like
+
+    private var _getPhoto = MutableLiveData<List<PhotoItem>>()
+
+    val getPhoto: LiveData<List<PhotoItem>>
+        get() = _getPhoto
 
     private var _getAllUsers = MutableLiveData<List<User>>()
 
@@ -121,6 +123,30 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     fun getAllUsers() {
         _getAllUsers = gameRepository.getAllUsers()
+    }
+
+
+    var newArray = MutableLiveData<MutableList<String>>()
+
+    fun add(imageList: MutableList<String>){
+        var list = mutableListOf<String>()
+        list = imageList
+        list.add("")
+        newArray.value = list
+    }
+
+    fun toPhotoItems(list: List<String>): List<PhotoItem> {
+        val items = mutableListOf<PhotoItem>()
+
+        list.let {
+            for (event in it) {
+                when (event == "") {
+                    true -> items.add(PhotoItem.EmptyItem(event))
+                    false -> items.add(PhotoItem.FullItem(event))
+                }
+            }
+        }
+        return items
     }
 
 }

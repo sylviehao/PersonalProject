@@ -216,114 +216,6 @@
                         tools:text="23" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <!--                <TextView-->
-                <!--                    android:id="@+id/text_game_time"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_marginStart="8dp"-->
-                <!--                    android:textColor="@color/darkBrown"-->
-                <!--                    android:textSize="14sp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/text_game_location"-->
-                <!--                    app:layout_constraintStart_toEndOf="@+id/text_game_location"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/text_game_location"-->
-                <!--                    tools:text="20201231" />-->
-
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_mr_krabs"-->
-                <!--                    android:layout_width="48dp"-->
-                <!--                    android:layout_height="48dp"-->
-                <!--                    app:srcCompat="@drawable/ic_mr_krabs"-->
-                <!--                    tools:layout_editor_absoluteX="16dp"-->
-                <!--                    tools:layout_editor_absoluteY="831dp" />-->
-
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:id="@+id/constraintLayout2"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="16dp"-->
-<!--                    android:layout_marginTop="16dp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/edit_comment">-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/button_down"-->
-<!--                        android:layout_width="32dp"-->
-<!--                        android:layout_height="32dp"-->
-<!--                        android:layout_marginStart="12dp"-->
-<!--                        android:background="@drawable/ic_down_button"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@+id/text_game_info"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/text_game_info"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/text_game_info" />-->
-
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_patrick_star"-->
-                <!--                    android:layout_width="48dp"-->
-                <!--                    android:layout_height="48dp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"-->
-                <!--                    app:srcCompat="@drawable/ic_patrick_star"-->
-                <!--                    tools:layout_editor_absoluteX="363dp" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/line_1"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="2dp"-->
-<!--                    android:layout_marginEnd="16dp"-->
-<!--                    android:background="@color/darkBrown"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/constraintLayout2"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />-->
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_jake"-->
-                <!--                    android:layout_width="48dp"-->
-                <!--                    android:layout_height="48dp"-->
-                <!--                    app:srcCompat="@drawable/ic_jake"-->
-                <!--                    tools:layout_editor_absoluteX="16dp"-->
-                <!--                    tools:layout_editor_absoluteY="253dp" />-->
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/text_event_area"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:fontFamily="@font/finger_paint"-->
-                <!--                    android:text="@string/photo"-->
-                <!--                    android:textColor="@color/darkBrown"-->
-                <!--                    android:textSize="24sp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"-->
-                <!--                    app:layout_constraintEnd_toStartOf="@+id/icon_finn"-->
-                <!--                    app:layout_constraintStart_toEndOf="@+id/icon_jake"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/icon_jake" />-->
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_finn"-->
-                <!--                    android:layout_width="48dp"-->
-                <!--                    android:layout_height="48dp"-->
-                <!--                    android:layout_marginEnd="16dp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/icon_jake"-->
-                <!--                    app:layout_constraintVertical_bias="0.0"-->
-                <!--                    app:srcCompat="@drawable/ic_finn" />-->
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/line_2"-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="2dp"-->
-                <!--                    android:background="@color/darkBrown"-->
-                <!--                    app:layout_constraintEnd_toEndOf="@+id/icon_finn"-->
-                <!--                    app:layout_constraintStart_toStartOf="@+id/icon_jake"-->
-                <!--                    app:layout_constraintTop_toBottomOf="@+id/icon_jake" />-->
-
-                <!--                <com.github.florent37.shapeofview.shapes.ArcView-->
-                <!--                    android:id="@+id/arcView"-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    -->
-                <!--                    app:shape_arc_height="30dp"-->
-                <!--                    app:shape_arc_position="left">-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_photo"
@@ -336,35 +228,7 @@
                     app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
                     tools:listitem="@layout/item_detail_post_photo" />
-                <!--                </com.github.florent37.shapeofview.shapes.ArcView>-->
 
-                <TextView
-                    android:id="@+id/button_add_photo"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="65dp"
-                    android:background="@drawable/ic_add"
-                    app:layout_constraintBottom_toBottomOf="@+id/recycler_photo"
-                    app:layout_constraintEnd_toEndOf="@+id/recycler_photo"
-                    app:layout_constraintTop_toTopOf="@+id/recycler_photo" />
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_add_photo"-->
-                <!--                    android:layout_width="30dp"-->
-                <!--                    android:layout_height="30dp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"-->
-                <!--                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"-->
-                <!--                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"-->
-                <!--                    app:srcCompat="@drawable/ic_add" />-->
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_bart"-->
-                <!--                    android:layout_width="48dp"-->
-                <!--                    android:layout_height="48dp"-->
-                <!--                    app:srcCompat="@drawable/ic_bart"-->
-                <!--                    tools:layout_editor_absoluteX="16dp"-->
-                <!--                    tools:layout_editor_absoluteY="513dp" />-->
 
                 <TextView
                     android:id="@+id/text_comment"
@@ -382,24 +246,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
-
-                <!--                <ImageView-->
-                <!--                    android:id="@+id/icon_lisa"-->
-                <!--                    android:layout_width="48dp"-->
-                <!--                    android:layout_height="48dp"-->
-                <!--                    app:srcCompat="@drawable/ic_lisa"-->
-                <!--                    tools:layout_editor_absoluteX="363dp"-->
-                <!--                    tools:layout_editor_absoluteY="513dp" />-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/line_3"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="2dp"-->
-<!--                    android:layout_marginEnd="16dp"-->
-<!--                    android:background="@color/darkBrown"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="@+id/text_comment"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/text_comment" />-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_comment"
