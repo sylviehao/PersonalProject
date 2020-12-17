@@ -50,7 +50,7 @@
                     android:layout_width="90dp"
                     android:layout_height="90dp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="90dp"
                     app:civ_border_width="0dp"
                     app:imageUrl="@{event.user.image}"
                     app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
                     android:id="@+id/text_host_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="16dp"
                     android:fontFamily="@font/noto_sans"
                     android:text="@{event.user.name}"
                     android:textColor="@color/darkBrown"
@@ -70,20 +70,43 @@
                     app:layout_constraintTop_toBottomOf="@+id/image_profile"
                     tools:text="sylviehao" />
 
+                <ImageView
+                    android:id="@+id/ic_baby"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_created_time"
+                    app:layout_constraintStart_toStartOf="@+id/text_host_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_host_name"
+                    app:srcCompat="@drawable/ic_player" />
+
+                <TextView
+                    android:id="@+id/text_total_player"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@{String.valueOf(event.playerList.size()) + @string/fraction + String.valueOf(event.playerLimit)}"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_baby"
+                    app:layout_constraintStart_toEndOf="@+id/ic_baby"
+                    app:layout_constraintTop_toTopOf="@+id/ic_baby"
+                    tools:text="11 / 12" />
 
                 <TextView
                     android:id="@+id/text_game_topic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="@font/noto_sans"
                     android:text="@{@string/game_topic_english + event.topic}"
                     android:textColor="@color/darkBrown"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toTopOf="@+id/text_created_time"
-                    app:layout_constraintStart_toStartOf="@+id/text_host_name"
-                    app:layout_constraintTop_toBottomOf="@+id/text_host_name"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/text_game_time"
+                    app:layout_constraintEnd_toEndOf="@+id/text_game_name"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_name"
                     tools:text="Topic: 好好玩" />
 
                 <TextView
@@ -94,24 +117,10 @@
                     android:fontFamily="@font/noto_sans"
                     android:text="@{@string/location_chinese + event.location}"
                     android:textColor="@color/darkBrown"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_game_topic"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_baby"
                     app:layout_constraintEnd_toEndOf="@+id/text_game_time"
                     app:layout_constraintTop_toBottomOf="@+id/text_game_time"
                     tools:text="地點: 台北市" />
-
-                <TextView
-                    android:id="@+id/text_game_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="@{@string/game_name_chinese + event.game.name}"
-                    android:textColor="@color/darkBrown"
-                    app:layout_constraintBottom_toTopOf="@+id/text_game_time"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_event"
-                    tools:text="遊戲名稱: 風聲" />
 
                 <TextView
                     android:id="@+id/text_game_time"
@@ -120,15 +129,28 @@
                     android:layout_marginTop="4dp"
                     android:textColor="@color/darkBrown"
                     app:layout_constraintBottom_toTopOf="@+id/text_game_location"
-                    app:layout_constraintEnd_toEndOf="@+id/text_game_name"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_name"
+                    app:layout_constraintEnd_toEndOf="@+id/text_game_topic"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
                     tools:text="時間: 20201231" />
+
+                <TextView
+                    android:id="@+id/text_game_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@{@string/game_name_chinese + event.game.name}"
+                    android:textColor="@color/darkBrown"
+                    app:layout_constraintBottom_toTopOf="@+id/text_game_topic"
+                    app:layout_constraintEnd_toEndOf="@+id/text_event"
+                    app:layout_constraintTop_toBottomOf="@+id/text_event"
+                    tools:text="遊戲名稱: 風聲" />
 
                 <TextView
                     android:id="@+id/text_event"
                     android:layout_width="72dp"
                     android:layout_height="30dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/round_red_corner"
                     android:gravity="center"

@@ -52,13 +52,14 @@ class HomeFragment : Fragment() {
 
         binding.refreshLayout.setOnRefreshListener(object : LiquidRefreshLayout.OnRefreshListener {
             override fun completeRefresh() {
+                
             }
             override fun refreshing() {
-//                adapter.notifyDataSetChanged()
-                object : CountDownTimer(2000, 1000) {
+                object : CountDownTimer(1800, 1000) {
 
                     override fun onFinish() {
                         binding.refreshLayout.finishRefreshing()
+                        adapter.notifyDataSetChanged()
                     }
                     override fun onTick(millisUntilFinished: Long) {
                     }

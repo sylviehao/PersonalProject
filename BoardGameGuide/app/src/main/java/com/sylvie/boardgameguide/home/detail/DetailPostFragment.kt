@@ -16,6 +16,7 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.home.getTimeDate
 import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
@@ -42,7 +43,11 @@ class DetailPostFragment : Fragment() {
         binding.recyclerPlayer.adapter = adapter3
 
 
+
+
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
+
+        binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
         viewModel.getAllUsers()
 
         viewModel.getEventData.value = bundle
@@ -56,10 +61,10 @@ class DetailPostFragment : Fragment() {
             it?.let {
                 if(it){
                     binding.buttonAddPhoto.visibility = View.VISIBLE
-                    binding.iconAddPhoto.visibility = View.VISIBLE
+//                    binding.iconAddPhoto.visibility = View.VISIBLE
                 }else{
                     binding.buttonAddPhoto.visibility = View.GONE
-                    binding.iconAddPhoto.visibility = View.GONE
+//                    binding.iconAddPhoto.visibility = View.GONE
                 }
             }
         })
@@ -82,8 +87,8 @@ class DetailPostFragment : Fragment() {
             }
 
 
-        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
-        binding.textGameTime.text = dateString
+//        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
+//        binding.textGameTime.text = dateString
 
         binding.icLike.setOnClickListener {
             UserManager.user.value?.let {userId->
@@ -152,6 +157,16 @@ class DetailPostFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    fun getTimeDate(timestamp: Date): String {
+        try {
+            val netDate = (timestamp)
+            val sfd = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.TAIWAN)
+            return sfd.format(netDate)
+        } catch (e: Exception) {
+            return "date"
+        }
     }
 
     override fun onStart() {

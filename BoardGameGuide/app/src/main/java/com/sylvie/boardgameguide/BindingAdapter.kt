@@ -50,7 +50,7 @@ fun bindTakeOffBracket(textView: TextView, typeList: MutableList<String>){
 }
 
 @SuppressLint("SetTextI18n")
-@BindingAdapter("takeOffBracket")
+@BindingAdapter("takeOffBracket2")
 fun bindTakeOffBracket2(textView: TextView, typeList: MutableList<String>){
     typeList.let {
         var typeString = ""

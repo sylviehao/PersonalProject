@@ -60,6 +60,7 @@
     <string name="search">SEARCH</string>
     <string name="empty" />
     <string name="add_player">Add</string>
+    <string name="fraction">&#160;&#047;&#160;</string>
 
 
 </resources>

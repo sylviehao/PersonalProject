@@ -13,7 +13,7 @@
         android:id="@+id/constraint_detail_post"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/rosyOrange">
+        android:background="@color/white">
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -21,10 +21,10 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintVertical_bias="1.0">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -32,6 +32,31 @@
                 app:layout_constraintEnd_toEndOf="@+id/constraint_detail_post"
                 app:layout_constraintStart_toStartOf="@+id/constraint_detail_post"
                 app:layout_constraintTop_toTopOf="@+id/constraint_detail_post">
+
+                <com.github.florent37.shapeofview.shapes.RoundRectView
+                    android:id="@+id/clipCorner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shape_roundRect_bottomLeftRadius="100dp"
+                    app:shape_roundRect_bottomRightRadius="15dp"
+                    app:shape_roundRect_topLeftRadius="15dp"
+                    app:shape_roundRect_topRightRadius="15dp">
+
+                    <ImageView
+                        android:id="@+id/image_host"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        app:imageUrl="@{viewModel.getEventData.user.image}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                </com.github.florent37.shapeofview.shapes.RoundRectView>
+
 
                 <TextView
                     android:id="@+id/text_host_name"
@@ -45,172 +70,272 @@
                     android:textSize="24sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside"
                     tools:text="sylviehao" />
 
-
-                <TextView
-                    android:id="@+id/text_game_topic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/ic_clock"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:layout_marginTop="8dp"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@{viewModel.getEventData.topic}"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="22sp"
                     app:layout_constraintStart_toStartOf="@+id/text_host_name"
                     app:layout_constraintTop_toBottomOf="@+id/text_host_name"
-                    tools:text="不服來戰" />
+                    app:srcCompat="@drawable/ic_clock" />
 
+                <ImageView
+                    android:id="@+id/ic_map_pin"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="@+id/ic_clock"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_clock"
+                    app:srcCompat="@drawable/ic_map_pin" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/round_light_blue_corner"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/ic_map_pin"
+                    app:layout_constraintTop_toBottomOf="@+id/ic_map_pin">
+
+                    <TextView
+                        android:id="@+id/text_game_topic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/finger_paint"
+                        android:text="@{viewModel.getEventData.topic}"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="不服來戰" />
+
+                    <TextView
+                        android:id="@+id/text_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:alpha="0.8"
+                        android:text="@{viewModel.getEventData.description}"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_game_topic"
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
+                        tools:text="今天玩了狼人殺 好讚" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_player"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:layout_constraintStart_toStartOf="@+id/ic_baby"
+                        app:layout_constraintTop_toBottomOf="@+id/ic_baby" />
+
+                    <ImageView
+                        android:id="@+id/ic_baby"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintStart_toStartOf="@+id/text_description"
+                        app:layout_constraintTop_toBottomOf="@+id/text_description"
+                        app:srcCompat="@drawable/ic_player" />
+
+                    <TextView
+                        android:id="@+id/text_total_player"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/noto_sans"
+                        android:text="@{String.valueOf(viewModel.getEventData.playerList.size())}"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic_baby"
+                        app:layout_constraintStart_toEndOf="@+id/ic_baby"
+                        app:layout_constraintTop_toTopOf="@+id/ic_baby"
+                        tools:text="12" />
+
+                    <ImageView
+                        android:id="@+id/ic_like"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/text_total_player"
+                        app:layout_constraintStart_toEndOf="@+id/text_total_player"
+                        app:layout_constraintTop_toTopOf="@+id/text_total_player"
+                        app:srcCompat="@drawable/ic_good_circle" />
+
+                    <TextView
+                        android:id="@+id/text_total_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/noto_sans"
+                        android:text="@{String.valueOf(viewModel.getEventData.like.size())}"
+                        android:textColor="@color/darkBrown"
+                        android:textSize="17sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/ic_like"
+                        app:layout_constraintStart_toEndOf="@+id/ic_like"
+                        app:layout_constraintTop_toTopOf="@+id/ic_like"
+                        tools:text="23" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/text_game_time"
+                    android:id="@+id/text_created_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="3dp"
+                    android:alpha="0.8"
                     android:textColor="@color/darkBrown"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_topic"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_topic"
-                    tools:text="20201231" />
-
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_clock"
+                    app:layout_constraintStart_toEndOf="@+id/ic_clock"
+                    app:layout_constraintTop_toTopOf="@+id/ic_clock"
+                    tools:text="20201231 14:00" />
 
                 <TextView
                     android:id="@+id/text_game_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
                     android:fontFamily="@font/noto_sans"
                     android:text="@{viewModel.getEventData.location}"
                     android:textColor="@color/darkBrown"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_time"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_time"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/ic_map_pin"
+                    app:layout_constraintStart_toEndOf="@+id/ic_map_pin"
+                    app:layout_constraintTop_toTopOf="@+id/ic_map_pin"
                     tools:text="AppWorks School" />
 
-
-                <ImageView
-                    android:id="@+id/ic_baby"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_total_player"
-                    app:layout_constraintEnd_toStartOf="@+id/text_total_player"
-                    app:layout_constraintTop_toTopOf="@+id/text_total_player"
-                    app:srcCompat="@drawable/ic_player" />
-
-                <ImageView
-                    android:id="@+id/ic_like"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginEnd="4dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
-                    app:layout_constraintEnd_toStartOf="@+id/text_total_like"
-                    app:layout_constraintTop_toTopOf="@+id/text_total_like"
-                    app:srcCompat="@drawable/ic_good_circle" />
-
-                <TextView
-                    android:id="@+id/text_total_player"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="@{String.valueOf(viewModel.getEventData.playerList.size())}"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/text_total_like"
-                    app:layout_constraintEnd_toStartOf="@+id/ic_like"
-                    app:layout_constraintTop_toTopOf="@+id/text_total_like"
-                    tools:text="12" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_game_time"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginStart="8dp"-->
+                <!--                    android:textColor="@color/darkBrown"-->
+                <!--                    android:textSize="14sp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/text_game_location"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/text_game_location"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/text_game_location"-->
+                <!--                    tools:text="20201231" />-->
 
 
-                <TextView
-                    android:id="@+id/text_total_like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="16dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="@{String.valueOf(viewModel.getEventData.like.size())}"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="23" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_mr_krabs"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:srcCompat="@drawable/ic_mr_krabs"-->
+                <!--                    tools:layout_editor_absoluteX="16dp"-->
+                <!--                    tools:layout_editor_absoluteY="831dp" />-->
 
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/constraintLayout2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/edit_comment">-->
 
-                <ImageView
-                    android:id="@+id/icon_mr_krabs"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="24dp"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_location"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_location"
-                    app:srcCompat="@drawable/ic_mr_krabs" />
+<!--                    <Button-->
+<!--                        android:id="@+id/button_down"-->
+<!--                        android:layout_width="32dp"-->
+<!--                        android:layout_height="32dp"-->
+<!--                        android:layout_marginStart="12dp"-->
+<!--                        android:background="@drawable/ic_down_button"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/text_game_info"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/text_game_info"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/text_game_info" />-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"
-                    app:layout_constraintEnd_toStartOf="@+id/icon_patrick_star"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/icon_mr_krabs"
-                    app:layout_constraintTop_toTopOf="@+id/icon_mr_krabs"
-                    app:layout_constraintVertical_bias="1.0">
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                    <TextView
-                        android:id="@+id/text_game_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/finger_paint"
-                        android:text="@string/game_info"
-                        android:textColor="@color/darkBrown"
-                        android:textSize="24sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.436"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_patrick_star"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"-->
+                <!--                    app:srcCompat="@drawable/ic_patrick_star"-->
+                <!--                    tools:layout_editor_absoluteX="363dp" />-->
 
-                    <Button
-                        android:id="@+id/button_down"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_marginStart="12dp"
-                        android:background="@drawable/ic_down_button"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_game_info"
-                        app:layout_constraintStart_toEndOf="@+id/text_game_info"
-                        app:layout_constraintTop_toTopOf="@+id/text_game_info" />
+<!--                <TextView-->
+<!--                    android:id="@+id/line_1"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:background="@color/darkBrown"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/constraintLayout2"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />-->
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_jake"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:srcCompat="@drawable/ic_jake"-->
+                <!--                    tools:layout_editor_absoluteX="16dp"-->
+                <!--                    tools:layout_editor_absoluteY="253dp" />-->
 
-                <ImageView
-                    android:id="@+id/icon_patrick_star"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_mr_krabs"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/icon_mr_krabs"
-                    app:srcCompat="@drawable/ic_patrick_star" />
+                <!--                <TextView-->
+                <!--                    android:id="@+id/text_event_area"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:fontFamily="@font/finger_paint"-->
+                <!--                    android:text="@string/photo"-->
+                <!--                    android:textColor="@color/darkBrown"-->
+                <!--                    android:textSize="24sp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"-->
+                <!--                    app:layout_constraintEnd_toStartOf="@+id/icon_finn"-->
+                <!--                    app:layout_constraintStart_toEndOf="@+id/icon_jake"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/icon_jake" />-->
 
-                <TextView
-                    android:id="@+id/line_1"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="3dp"
-                    android:background="@color/darkBrown"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_patrick_star"
-                    app:layout_constraintStart_toStartOf="@+id/icon_mr_krabs"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_mr_krabs" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_finn"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    android:layout_marginEnd="16dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/icon_jake"-->
+                <!--                    app:layout_constraintVertical_bias="0.0"-->
+                <!--                    app:srcCompat="@drawable/ic_finn" />-->
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/line_2"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="2dp"-->
+                <!--                    android:background="@color/darkBrown"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@+id/icon_finn"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/icon_jake"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/icon_jake" />-->
+
+                <!--                <com.github.florent37.shapeofview.shapes.ArcView-->
+                <!--                    android:id="@+id/arcView"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    -->
+                <!--                    app:shape_arc_height="30dp"-->
+                <!--                    app:shape_arc_position="left">-->
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_game_info"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="@+id/text_total_like"
-                    app:layout_constraintStart_toStartOf="@+id/icon_mr_krabs"
-                    app:layout_constraintTop_toBottomOf="@+id/line_1">
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_game_info"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_info">
 
                     <TextView
                         android:id="@+id/text_game_name"
@@ -248,175 +373,150 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_player"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/constraint_game_info"
-                    app:layout_constraintStart_toStartOf="@+id/constraint_game_info"
-                    app:layout_constraintTop_toBottomOf="@+id/constraint_game_info" />
-
-                <ImageView
-                    android:id="@+id/icon_jake"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_player"
-                    app:srcCompat="@drawable/ic_jake" />
-
-                <TextView
-                    android:id="@+id/text_event_area"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@string/event_area"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"
-                    app:layout_constraintEnd_toStartOf="@+id/icon_finn"
-                    app:layout_constraintStart_toEndOf="@+id/icon_jake"
-                    app:layout_constraintTop_toTopOf="@+id/icon_jake" />
-
-                <ImageView
-                    android:id="@+id/icon_finn"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_jake"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/icon_jake"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/ic_finn" />
-
-                <TextView
-                    android:id="@+id/line_2"
-                    android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:background="@color/darkBrown"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_finn"
-                    app:layout_constraintStart_toStartOf="@+id/icon_jake"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_jake" />
-
-                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_photo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/line_2"
-                    app:layout_constraintStart_toStartOf="@+id/icon_jake"
-                    app:layout_constraintTop_toBottomOf="@+id/line_2"
-                    tools:listitem="@layout/item_detail_post_photo"/>
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/constraintLayout4"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                    tools:listitem="@layout/item_detail_post_photo" />
+                <!--                </com.github.florent37.shapeofview.shapes.ArcView>-->
 
                 <TextView
                     android:id="@+id/button_add_photo"
-                    android:layout_width="0dp"
-                    android:layout_height="200dp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    app:layout_constraintEnd_toEndOf="@+id/line_2"
-                    app:layout_constraintStart_toStartOf="@+id/line_2"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
-
-                <ImageView
-                    android:id="@+id/icon_add_photo"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
-                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
-                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"
-                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"
-                    app:srcCompat="@drawable/ic_add" />
-
-                <ImageView
-                    android:id="@+id/icon_bart"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="@+id/recycler_photo"
-                    app:layout_constraintTop_toBottomOf="@+id/button_add_photo"
-                    app:srcCompat="@drawable/ic_bart" />
+                    android:layout_marginEnd="65dp"
+                    android:background="@drawable/ic_add"
+                    app:layout_constraintBottom_toBottomOf="@+id/recycler_photo"
+                    app:layout_constraintEnd_toEndOf="@+id/recycler_photo"
+                    app:layout_constraintTop_toTopOf="@+id/recycler_photo" />
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_add_photo"-->
+                <!--                    android:layout_width="30dp"-->
+                <!--                    android:layout_height="30dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@+id/button_add_photo"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/button_add_photo"-->
+                <!--                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"-->
+                <!--                    app:srcCompat="@drawable/ic_add" />-->
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_bart"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:srcCompat="@drawable/ic_bart"-->
+                <!--                    tools:layout_editor_absoluteX="16dp"-->
+                <!--                    tools:layout_editor_absoluteY="513dp" />-->
 
                 <TextView
                     android:id="@+id/text_comment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@string/post_comment"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_bart"
-                    app:layout_constraintEnd_toStartOf="@+id/icon_lisa"
-                    app:layout_constraintStart_toEndOf="@+id/icon_bart"
-                    app:layout_constraintTop_toTopOf="@+id/icon_bart" />
-
-                <ImageView
-                    android:id="@+id/icon_lisa"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/icon_bart"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/icon_bart"
-                    app:srcCompat="@drawable/ic_lisa" />
-
-                <TextView
-                    android:id="@+id/line_3"
                     android:layout_width="0dp"
-                    android:layout_height="2dp"
-                    android:background="@color/darkBrown"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_lisa"
-                    app:layout_constraintStart_toStartOf="@+id/icon_bart"
-                    app:layout_constraintTop_toBottomOf="@+id/icon_bart" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/round_grey_corner"
+                    android:fontFamily="@font/finger_paint"
+                    android:gravity="center"
+                    android:text="@string/post_comment"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
+
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/icon_lisa"-->
+                <!--                    android:layout_width="48dp"-->
+                <!--                    android:layout_height="48dp"-->
+                <!--                    app:srcCompat="@drawable/ic_lisa"-->
+                <!--                    tools:layout_editor_absoluteX="363dp"-->
+                <!--                    tools:layout_editor_absoluteY="513dp" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/line_3"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="2dp"-->
+<!--                    android:layout_marginEnd="16dp"-->
+<!--                    android:background="@color/darkBrown"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/text_comment"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/text_comment" />-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_comment"
                     android:layout_width="0dp"
-                    android:layout_height="203dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="@+id/icon_lisa"
-                    app:layout_constraintStart_toStartOf="@+id/icon_bart"
-                    app:layout_constraintTop_toBottomOf="@+id/line_3" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_comment"
+                    app:layout_constraintTop_toBottomOf="@+id/text_comment" />
 
                 <EditText
                     android:id="@+id/edit_comment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/frame_edit_new_post"
+                    android:background="@drawable/round_light_blue_corner"
                     android:ems="10"
                     android:fontFamily="@font/finger_paint"
-                    android:gravity="center"
+                    android:gravity="center|start"
                     android:hint="@string/edit_comment"
                     android:inputType="textMultiLine"
                     android:textColorHint="@color/gray_888888"
-                    android:textSize="24sp"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="@+id/recycler_comment"
-                    app:layout_constraintStart_toStartOf="@+id/recycler_comment"
+                    app:layout_constraintStart_toEndOf="@+id/image_profile"
                     app:layout_constraintTop_toBottomOf="@+id/recycler_comment" />
 
-                <Button
+                <TextView
                     android:id="@+id/button_send"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/frame_edit_new_post"
-                    android:backgroundTint="@color/darkBrown"
+                    android:layout_width="60dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_red_corner"
                     android:fontFamily="@font/finger_paint"
+                    android:gravity="center"
                     android:text="@string/send"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_comment"
                     app:layout_constraintEnd_toEndOf="@+id/edit_comment"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/edit_comment"
+                    app:layout_constraintTop_toTopOf="@+id/edit_comment" />
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/image_profile"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    app:civ_border_width="0dp"
+                    app:imageUrl="@{viewModel.getUserData.image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_comment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edit_comment"
+                    tools:src="@drawable/pic_pumpkin" />
+
+                <TextView
+                    android:id="@+id/text_game_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/round_grey_corner"
+                    android:fontFamily="@font/finger_paint"
+                    android:gravity="center"
+                    android:text="@string/game_info"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/image_profile"
                     app:layout_constraintTop_toBottomOf="@+id/edit_comment" />
 
 

@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.databinding.ItemDetailPostPhotoBinding
+import com.sylvie.boardgameguide.databinding.ItemHomePhotoBinding
 
 class NewPostPhotoAdapter:
     ListAdapter<String, NewPostPhotoAdapter.PhotoViewHolder>(DiffCallback) {
 
-    class PhotoViewHolder(private val binding: ItemDetailPostPhotoBinding) :
+    class PhotoViewHolder(private val binding: ItemHomePhotoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: String) {
@@ -21,7 +22,7 @@ class NewPostPhotoAdapter:
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         return PhotoViewHolder(
-            ItemDetailPostPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHomePhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 

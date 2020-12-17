@@ -13,15 +13,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_new_post"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/rosyOrange">
 
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_newPost_create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +30,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_new_post"
                 app:layout_constraintStart_toStartOf="@+id/constraint_new_post"
                 app:layout_constraintTop_toTopOf="@+id/constraint_new_post">
@@ -38,6 +38,7 @@
 
                 <EditText
                     android:id="@+id/edit_newPost_topic"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -48,11 +49,11 @@
                     android:text="@{viewModel.event.topic}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/edit_newPost_description"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -61,33 +62,32 @@
                     android:text="@{viewModel.event.description}"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_topic"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_topic"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_topic"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_topic" />
 
-                <TextView
-                    android:id="@+id/edit_newPost_game_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/game_time"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_newPost_description"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="@+id/edit_newPost_description"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_description"
-                    style="@style/edit_new_field"/>
+                <!--                <TextView-->
+                <!--                    android:id="@+id/edit_newPost_game_time"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="8dp"-->
+                <!--                    android:hint="@string/game_time"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@+id/edit_newPost_description"-->
+                <!--                    app:layout_constraintHorizontal_bias="0.0"-->
+                <!--                    app:layout_constraintStart_toStartOf="@+id/edit_newPost_description"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_description"-->
+                <!--                    style="@style/edit_new_field"/>-->
 
                 <EditText
                     android:id="@+id/edit_newPost_game_location"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:hint="@string/game_location"
                     android:inputType="textPersonName"
                     android:text="@{viewModel.event.location}"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_time"
-                    app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_time"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_time"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newPost_description"
+                    app:layout_constraintStart_toStartOf="@+id/edit_newPost_description"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_description" />
 
                 <ImageView
                     android:id="@+id/icon_mr_krabs"
@@ -132,6 +132,7 @@
 
                 <EditText
                     android:id="@+id/edit_newPost_game_name"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -141,11 +142,11 @@
                     app:layout_constraintEnd_toEndOf="@+id/line_1"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/line_1"
-                    app:layout_constraintTop_toBottomOf="@+id/line_1"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/line_1" />
 
                 <EditText
                     android:id="@+id/edit_newPost_game_type"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -154,11 +155,11 @@
                     android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.type)}"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_name"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_name"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_name" />
 
                 <EditText
                     android:id="@+id/edit_newPost_game_rule"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -167,8 +168,7 @@
                     android:text="@{viewModel.game.rules}"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_type"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_type"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_type"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_type" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_player"
@@ -184,6 +184,7 @@
 
                 <EditText
                     android:id="@+id/edit_newPost_game_member"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -192,8 +193,7 @@
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_rule"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_player"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_player" />
 
                 <TextView
                     android:id="@+id/button_add_player"
@@ -258,7 +258,6 @@
                     android:layout_marginTop="8dp"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@+id/button_add_photo"
                     app:layout_constraintEnd_toEndOf="@+id/line_2"
                     app:layout_constraintStart_toStartOf="@+id/icon_jake"
                     app:layout_constraintTop_toBottomOf="@+id/line_2" />
@@ -267,11 +266,12 @@
                     android:id="@+id/button_add_photo"
                     android:layout_width="0dp"
                     android:layout_height="55dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/frame_edit_new_post"
-                    app:layout_constraintBottom_toTopOf="@+id/button_newPost_create"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/recycler_newPost_photo"
-                    app:layout_constraintStart_toStartOf="@+id/recycler_newPost_photo" />
+                    app:layout_constraintStart_toStartOf="@+id/recycler_newPost_photo"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_newPost_photo" />
 
                 <ImageView
                     android:id="@+id/icon_add_photo"
@@ -280,23 +280,24 @@
                     app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
                     app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
                     app:layout_constraintStart_toStartOf="@+id/button_add_photo"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_newPost_photo"
+                    app:layout_constraintTop_toTopOf="@+id/button_add_photo"
                     app:srcCompat="@drawable/ic_add" />
 
-                <Button
-                    android:id="@+id/button_newPost_create"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:background="@color/vintageOrange"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@string/create"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/button_newPost_create"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@color/vintageOrange"
+            android:fontFamily="@font/finger_paint"
+            android:text="@string/create"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

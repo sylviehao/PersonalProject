@@ -126,23 +126,23 @@ class NewPostFragment : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
-        binding.editNewPostGameTime.setOnClickListener {
-            SingleDateAndTimePickerDialog.Builder(context)
-                .bottomSheet()
-                .curved()
-                .backgroundColor(resources.getColor(R.color.oliveGreen))
-                .mainColor(Color.WHITE)
-                .titleTextColor(Color.WHITE)
-                //.stepSizeMinutes(15)
-                //.todayText("aujourd'hui")
-                .displayListener {}
-                .title("Simple")
-                .listener { date ->
-                    binding.editNewPostGameTime.text = date.toString()
-                    viewModel.date.value = date.time
-                }
-                .display()
-        }
+//        binding.editNewPostGameTime.setOnClickListener {
+//            SingleDateAndTimePickerDialog.Builder(context)
+//                .bottomSheet()
+//                .curved()
+//                .backgroundColor(resources.getColor(R.color.oliveGreen))
+//                .mainColor(Color.WHITE)
+//                .titleTextColor(Color.WHITE)
+//                //.stepSizeMinutes(15)
+//                //.todayText("aujourd'hui")
+//                .displayListener {}
+//                .title("Simple")
+//                .listener { date ->
+//                    binding.editNewPostGameTime.text = date.toString()
+//                    viewModel.date.value = date.time
+//                }
+//                .display()
+//        }
 
 
         binding.buttonNewPostCreate.setOnClickListener {

@@ -14,6 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,6 +36,11 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val getAllUsers: LiveData<List<User>>
         get() = _getAllUsers
 
+    private var _getUserData = MutableLiveData<User>()
+
+    val getUserData: LiveData<User>
+        get() = _getUserData
+
     // Save change from Event
     var getEventData = MutableLiveData<Event>()
 
@@ -52,8 +58,28 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     }
 
     init {
-
+        getUser()
     }
+
+    fun getUser() {
+        coroutineScope.launch {
+            try {
+                UserManager.userToken?.let {
+                    val result = gameRepository.getUser(it)
+                    _getUserData.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
+
 //    fun getGame(id: String) {
 //
 //        coroutineScope.launch {

@@ -48,13 +48,10 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
         imagesUri: MutableList<String>
     ) {
 
-
-
         coroutineScope.launch {
             try {
 
 //                UserManager.user.value?.let {
-
                     val game = Game(
                         name = name,
                         image = imagesUri,
