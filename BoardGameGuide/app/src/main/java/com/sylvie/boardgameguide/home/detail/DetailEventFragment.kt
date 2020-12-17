@@ -42,35 +42,26 @@ class DetailEventFragment : Fragment() {
 //        binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
 
         val adapter = DetailEventPlayerAdapter(viewModel)
-        val adapter2 = DetailEventPhotoAdapter()
+        val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener{
+            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+        }, viewModel)
 
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
 
         viewModel.getAllUsers()
 
-        adapter2.submitList(bundle.image)
+        viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+//            adapter2.submitList(viewModel.toPhotoItems(it))
+            viewModel.add(bundle.image!!)
+        })
+
+        viewModel.newArray.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            adapter2.submitList(viewModel.toPhotoItems(it))
+        })
 
         // upload photo permission
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
-
-        viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
-            it?.let {
-                if(it){
-                    binding.buttonAddPhoto.visibility = View.VISIBLE
-//                    binding.iconAddPhoto.visibility = View.VISIBLE
-                }else{
-                    binding.buttonAddPhoto.visibility = View.GONE
-//                    binding.iconAddPhoto.visibility = View.GONE
-                }
-            }
-        })
-
-        binding.buttonAddPhoto.setOnClickListener {
-            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
-        }
-
 
 
         viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
