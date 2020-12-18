@@ -23,6 +23,11 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getEvents(status)
     }
 
+    override suspend fun getEvent(id: String): Result<Event?> {
+        return gameRemoteDataSource.getEvent(id)
+    }
+
+
     override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> {
         return gameRemoteDataSource.setLike(userId, event, status)
     }
@@ -31,7 +36,7 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.setPlayer(userId, event, status)
     }
 
-    override suspend fun addPhoto(image: MutableList<String>, eventId: String, status: Boolean): Result<Boolean> {
+    override suspend fun addPhoto(image: String, eventId: String, status: Boolean): Result<Boolean> {
         return gameRemoteDataSource.addPhoto(image, eventId, status)
     }
 

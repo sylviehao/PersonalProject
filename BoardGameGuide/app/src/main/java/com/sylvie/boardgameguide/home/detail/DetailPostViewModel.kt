@@ -23,10 +23,20 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val getGameData: LiveData<Game>
         get() = _getGameData
 
+    private var _getEventData2 = MutableLiveData<Event>()
+
+    val getEventData2: LiveData<Event>
+        get() = _getEventData2
+
     private var _like = MutableLiveData<Boolean>()
 
     val like: LiveData<Boolean>
         get() = _like
+
+    private var _photoStatus = MutableLiveData<Boolean>()
+
+    val photoStatus: LiveData<Boolean>
+        get() = _photoStatus
 
     private var _getPhoto = MutableLiveData<List<PhotoItem>>()
 
@@ -43,7 +53,7 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val getUserData: LiveData<User>
         get() = _getUserData
 
-    var imagesUri = MutableLiveData<MutableList<String>>()
+    var imagesUri = MutableLiveData<String>()
 
     var localImageList = MutableLiveData<MutableList<String>>()
 
@@ -65,6 +75,19 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     init {
         getUser()
+    }
+
+    fun getEvent(id: String) {
+        coroutineScope.launch {
+            val result = gameRepository.getEvent(id)
+            _getEventData2.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
     }
 
     fun getUser() {
@@ -110,7 +133,20 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
             val result = gameRepository.setLike(userId, event, status)
             _like.value = when (result) {
                 is Result.Success -> {
-                   result.data
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
+    }
+
+    fun addPhoto(image: String, eventId: String, status: Boolean) {
+        coroutineScope.launch {
+            val result = gameRepository.addPhoto(image, eventId, status)
+            _photoStatus.value = when (result) {
+                is Result.Success -> {
+                    result.data
                 } else -> {
                     null
                 }
@@ -130,14 +166,12 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     }
 
 
-    var newArray = MutableLiveData<MutableList<String>>()
-
-    fun add(imageList: List<String>){
+    fun add(imageList: List<String>): List<String>{
         var list = mutableListOf<String>()
         list.clear()
         list = imageList.toMutableList()
         list.add("")
-        newArray.value = list
+        return list
     }
 
     fun toPhotoItems(list: List<String>): List<PhotoItem> {

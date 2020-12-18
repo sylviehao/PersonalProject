@@ -124,25 +124,6 @@ class NewPostFragment : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
-//        binding.editNewPostGameTime.setOnClickListener {
-//            SingleDateAndTimePickerDialog.Builder(context)
-//                .bottomSheet()
-//                .curved()
-//                .backgroundColor(resources.getColor(R.color.oliveGreen))
-//                .mainColor(Color.WHITE)
-//                .titleTextColor(Color.WHITE)
-//                //.stepSizeMinutes(15)
-//                //.todayText("aujourd'hui")
-//                .displayListener {}
-//                .title("Simple")
-//                .listener { date ->
-//                    binding.editNewPostGameTime.text = date.toString()
-//                    viewModel.date.value = date.time
-//                }
-//                .display()
-//        }
-
-
         binding.buttonNewPostCreate.setOnClickListener {
 
             if (filePath == "") {
@@ -273,11 +254,6 @@ class NewPostFragment : Fragment() {
     private fun uploadPhoto(storageRef: StorageReference, localImage: String) {
         val file = Uri.fromFile(File(localImage))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
-//        val metadata = StorageMetadata.Builder()
-//            .setContentDisposition("game")
-//            .setContentType("image/jpg")
-//            .build()
 
         val uploadTask = eventsRef.putFile(file)
         uploadTask

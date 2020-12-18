@@ -19,8 +19,10 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
@@ -41,7 +43,6 @@ class DetailPostFragment : Fragment() {
     private val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
-    val storageFirebase = FirebaseStorage.getInstance().reference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,12 +52,39 @@ class DetailPostFragment : Fragment() {
         binding = FragmentDetailPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        val adapter = DetailPostCommentAdapter()
 
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+        val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
+        viewModel.getEventData.value = bundle
+        viewModel.getEvent(bundle.id)
+
+        val adapter = DetailPostCommentAdapter()
         val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener{
-            checkPermission()
-            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
+                checkPermission()
         }, viewModel)
+
+
+        viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+
+            viewModel.addPhoto(
+                eventId = bundle.id,
+                image = viewModel.imagesUri.value!!,
+                status = true
+            )
+        })
+
+
+        viewModel.getEventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it.let {
+                adapter2.submitList(viewModel.toPhotoItems(viewModel.add(it.image!!)))
+            }
+        })
+
+        viewModel.photoStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.getEvent(bundle.id)
+        })
 
         val adapter3 = DetailPostPlayerAdapter(viewModel)
         binding.recyclerComment.adapter = adapter
@@ -64,36 +92,17 @@ class DetailPostFragment : Fragment() {
         binding.recyclerPlayer.adapter = adapter3
 
 
-
-
-        val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
-
         binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
         viewModel.getAllUsers()
 
-        viewModel.getEventData.value = bundle
-//        bundle.game?.name?.let { viewModel.getGame(it) }
+
 
         // upload photo permission
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
         viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-//            adapter2.submitList(viewModel.toPhotoItems(it))
-//            it?.let {
-//                if(it){
-//                    binding.buttonAddPhoto.visibility = View.VISIBLE
-////                    binding.iconAddPhoto.visibility = View.VISIBLE
-//                }else{
-//                    binding.buttonAddPhoto.visibility = View.GONE
-////                    binding.iconAddPhoto.visibility = View.GONE
-//                }
-//            }
+
         })
-
-        viewModel.add(bundle.image!!)
-
-//        viewModel.add(bundle.image!!)
-
 
         val db = FirebaseFirestore.getInstance()
 
@@ -135,15 +144,14 @@ class DetailPostFragment : Fragment() {
 
 
 //        bundle.image?.let { viewModel.add(it) }
-        viewModel.newArray.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            adapter2.submitList(viewModel.toPhotoItems(it))
-        })
 
         viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
             adapter3.submitList(bundle.playerList)
         })
 
+        viewModel.localImageList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            uploadPhoto(storageRef)
+        })
 
         binding.buttonSend.setOnClickListener {
 
@@ -241,6 +249,8 @@ class DetailPostFragment : Fragment() {
         }
     }
 
+
+//    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
@@ -248,9 +258,7 @@ class DetailPostFragment : Fragment() {
         }
         ref.downloadUrl.addOnSuccessListener {
 
-            val imageList = mutableListOf<String>()
-            imageList.add(it.toString())
-            viewModel.imagesUri.value = imageList
+            viewModel.imagesUri.value = it.toString()
 
         }.addOnFailureListener { exception ->
             Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()
@@ -258,13 +266,9 @@ class DetailPostFragment : Fragment() {
     }
 
     private fun uploadPhoto(storageRef: StorageReference) {
+
         val file = Uri.fromFile(File(filePath))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
-//        val metadata = StorageMetadata.Builder()
-//            .setContentDisposition("game")
-//            .setContentType("image/jpg")
-//            .build()
 
         val uploadTask = eventsRef.putFile(file)
         uploadTask

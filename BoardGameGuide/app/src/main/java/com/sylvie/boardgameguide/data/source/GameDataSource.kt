@@ -11,11 +11,13 @@ interface GameDataSource {
 
     fun getEvents(status: String): MutableLiveData<List<Event>>
 
+    suspend fun getEvent(id: String): Result<Event?>
+
     suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean>
 
     suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean>
 
-    suspend fun addPhoto(image: MutableList<String>, eventId: String, status: Boolean): Result<Boolean>
+    suspend fun addPhoto(image: String, eventId: String, status: Boolean): Result<Boolean>
 
     suspend fun getGame(id : String): Result<List<Game>>
 

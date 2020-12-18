@@ -31,7 +31,18 @@
             app:snowflakeImage="@drawable/snowflake">
         </com.jetradarmobile.snowfall.SnowfallView>
 
-        <ImageView
+<!--        <ImageView-->
+<!--            android:id="@+id/image_drawer_avatar"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:layout_marginTop="40dp"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:srcCompat="@drawable/ic_baby_white"/>-->
+
+        <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/image_drawer_avatar"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -40,7 +51,8 @@
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_baby_white"/>
+            app:imageUrl="@{viewModel.getUserData.image}"
+            tools:src="@drawable/pic_pumpkin"/>
 
         <TextView
             android:id="@+id/image_drawer_name"

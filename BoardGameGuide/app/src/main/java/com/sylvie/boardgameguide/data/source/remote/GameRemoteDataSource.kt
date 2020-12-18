@@ -140,6 +140,24 @@ object GameRemoteDataSource : GameDataSource {
         return liveData
     }
 
+    override suspend fun getEvent(id: String): Result<Event?> =
+        suspendCoroutine { continuation ->
+            FirebaseFirestore.getInstance()
+                .collection("Event").document(id)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val event  = task.result?.toObject(Event::class.java)
+                        continuation.resume(Result.Success(event))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
     override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> =
         suspendCoroutine { continuation ->
             val db = FirebaseFirestore.getInstance().collection("Event")
@@ -161,7 +179,7 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
-    override suspend fun addPhoto(image: MutableList<String>, eventId: String, status: Boolean): Result<Boolean> =
+    override suspend fun addPhoto(image: String, eventId: String, status: Boolean): Result<Boolean> =
         suspendCoroutine { continuation ->
             val db = FirebaseFirestore.getInstance().collection("Event")
             val document = db.document(eventId)

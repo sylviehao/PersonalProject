@@ -23,6 +23,20 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     val getGameData: LiveData<Game>
         get() = _getGameData
 
+    private var _getEventData2 = MutableLiveData<Event>()
+
+    val getEventData2: LiveData<Event>
+        get() = _getEventData2
+
+    var imagesUri = MutableLiveData<String>()
+
+    var localImageList = MutableLiveData<MutableList<String>>()
+
+    private var _photoStatus = MutableLiveData<Boolean>()
+
+    val photoStatus: LiveData<Boolean>
+        get() = _photoStatus
+
     private var _getAllUsers = MutableLiveData<List<User>>()
 
     val getAllUsers: LiveData<List<User>>
@@ -78,6 +92,19 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 //        }
 //    }
 
+    fun getEvent(id: String) {
+        coroutineScope.launch {
+            val result = gameRepository.getEvent(id)
+            _getEventData2.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
+    }
+
     fun getGame(id: String) {
 
         coroutineScope.launch {
@@ -119,12 +146,12 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     var newArray = MutableLiveData<MutableList<String>>()
 
-    fun add(imageList: List<String>){
+    fun add(imageList: List<String>): List<String>{
         var list = mutableListOf<String>()
         list.clear()
         list = imageList.toMutableList()
         list.add("")
-        newArray.value = list
+        return list
     }
 
     fun toPhotoItems(list: List<String>): List<PhotoItem> {
@@ -141,4 +168,16 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
         return items
     }
 
+    fun addPhoto(image: String, eventId: String, status: Boolean) {
+        coroutineScope.launch {
+            val result = gameRepository.addPhoto(image, eventId, status)
+            _photoStatus.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
+    }
 }

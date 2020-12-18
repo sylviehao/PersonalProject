@@ -19,6 +19,10 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
         TODO("Not yet implemented")
     }
 
+    override suspend fun getEvent(id: String): Result<Event?> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> {
         TODO("Not yet implemented")
     }
@@ -27,7 +31,7 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun addPhoto(image: MutableList<String>, eventId: String, status: Boolean): Result<Boolean> {
+    override suspend fun addPhoto(image: String, eventId: String, status: Boolean): Result<Boolean> {
         TODO("Not yet implemented")
     }
 
