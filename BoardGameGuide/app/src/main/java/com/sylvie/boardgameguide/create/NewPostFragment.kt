@@ -81,11 +81,9 @@ class NewPostFragment : Fragment() {
         adapter.submitList(event?.playerList)
         adapter2.submitList(event?.image)
 
-//        val storageFirebase = FirebaseStorage.getInstance().reference
-        var storage = Firebase.storage
-        var storageRef = storage.reference
-//        var eventsRef = storageRef.child("events.jpg")
-//        var eventsImagesRef = storageRef.child("events/game.jpg")
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+
 
 
         binding.buttonAddPhoto.setOnClickListener {
@@ -165,29 +163,34 @@ class NewPostFragment : Fragment() {
                     imagesUri = imagesList
                 )
             } else {
-                uploadPhoto(storageRef)
+                for(localImage in localImageList){
+                    uploadPhoto(storageRef, localImage)
+                }
             }
 
         }
 
         viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
-            val typeList = mutableListOf<String>()
-            typeList.add(binding.editNewPostGameType.text.toString())
 
-            val memberList = mutableListOf<String>()
-            memberList.add(binding.editNewPostGameMember.text.toString())
+            if (it.size == localImageList.size) {
 
-            viewModel.addPost(
-                topic = binding.editNewPostTopic.text.toString(),
-                description = binding.editNewPostDescription.text.toString(),
-                location = binding.editNewPostGameLocation.text.toString(),
-                rules = binding.editNewPostGameRule.text.toString(),
-                member = memberList,
-                type = typeList,
-                name = binding.editNewPostGameName.text.toString(),
-                imagesUri = viewModel.imagesUri.value!!
-            )
+                val typeList = mutableListOf<String>()
+                typeList.add(binding.editNewPostGameType.text.toString())
 
+                val memberList = mutableListOf<String>()
+                memberList.add(binding.editNewPostGameMember.text.toString())
+
+                viewModel.addPost(
+                    topic = binding.editNewPostTopic.text.toString(),
+                    description = binding.editNewPostDescription.text.toString(),
+                    location = binding.editNewPostGameLocation.text.toString(),
+                    rules = binding.editNewPostGameRule.text.toString(),
+                    member = memberList,
+                    type = typeList,
+                    name = binding.editNewPostGameName.text.toString(),
+                    imagesUri = viewModel.imagesUri.value!!
+                )
+            }
 
         })
 
@@ -250,6 +253,7 @@ class NewPostFragment : Fragment() {
         }
     }
 
+    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
@@ -257,7 +261,7 @@ class NewPostFragment : Fragment() {
         }
         ref.downloadUrl.addOnSuccessListener {
 
-            val imageList = mutableListOf<String>()
+
             imageList.add(it.toString())
             viewModel.imagesUri.value = imageList
 
@@ -266,8 +270,8 @@ class NewPostFragment : Fragment() {
         }
     }
 
-    private fun uploadPhoto(storageRef: StorageReference) {
-        val file = Uri.fromFile(File(filePath))
+    private fun uploadPhoto(storageRef: StorageReference, localImage: String) {
+        val file = Uri.fromFile(File(localImage))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
 
 //        val metadata = StorageMetadata.Builder()

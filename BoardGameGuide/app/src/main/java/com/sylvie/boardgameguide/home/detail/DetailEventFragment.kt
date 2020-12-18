@@ -53,8 +53,9 @@ class DetailEventFragment : Fragment() {
 
         viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 //            adapter2.submitList(viewModel.toPhotoItems(it))
-            viewModel.add(bundle.image!!)
+
         })
+        viewModel.add(bundle.image!!)
 
         viewModel.newArray.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter2.submitList(viewModel.toPhotoItems(it))

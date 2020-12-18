@@ -20,7 +20,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     val event = MutableLiveData<Event>()
 
-    val date = MutableLiveData<Long>()
+//    val date = MutableLiveData<Long>()
 
     private var _getUserData = MutableLiveData<User>()
 
@@ -92,7 +92,6 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
                         topic = topic,
                         description = description,
                         image = imagesUri,
-                        time = date.value!!,
                         location = location,
                         game = Game(
                             name = name,

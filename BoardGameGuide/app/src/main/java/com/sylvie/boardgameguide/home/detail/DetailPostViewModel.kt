@@ -43,6 +43,10 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val getUserData: LiveData<User>
         get() = _getUserData
 
+    var imagesUri = MutableLiveData<MutableList<String>>()
+
+    var localImageList = MutableLiveData<MutableList<String>>()
+
     // Save change from Event
     var getEventData = MutableLiveData<Event>()
 
@@ -128,9 +132,10 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     var newArray = MutableLiveData<MutableList<String>>()
 
-    fun add(imageList: MutableList<String>){
+    fun add(imageList: List<String>){
         var list = mutableListOf<String>()
-        list = imageList
+        list.clear()
+        list = imageList.toMutableList()
         list.add("")
         newArray.value = list
     }

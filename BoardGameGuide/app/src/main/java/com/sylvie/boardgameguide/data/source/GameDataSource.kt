@@ -15,6 +15,8 @@ interface GameDataSource {
 
     suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean>
 
+    suspend fun addPhoto(image: MutableList<String>, eventId: String, status: Boolean): Result<Boolean>
+
     suspend fun getGame(id : String): Result<List<Game>>
 
     suspend fun addGame(game: Game): Result<Boolean>

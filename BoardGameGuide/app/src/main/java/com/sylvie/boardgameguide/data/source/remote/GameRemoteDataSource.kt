@@ -161,6 +161,27 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
+    override suspend fun addPhoto(image: MutableList<String>, eventId: String, status: Boolean): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("Event")
+            val document = db.document(eventId)
+            if (status) {
+                document.update("image", FieldValue.arrayUnion(image))
+            } else {
+                document.update("image", FieldValue.arrayRemove(image))
+            }
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
     override suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean> =
         suspendCoroutine { continuation ->
             val db = FirebaseFirestore.getInstance().collection("Event")

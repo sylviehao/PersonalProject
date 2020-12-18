@@ -18,7 +18,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
@@ -27,13 +26,17 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentNewGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_new_post.button_add_photo
 import java.io.File
 
 class NewGameFragment : Fragment() {
 
     val viewModel by viewModels<NewGameViewModel> { getVmFactory() }
     lateinit var binding : FragmentNewGameBinding
+    var localImageList = mutableListOf<String>()
+    val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
+    var filePath: String = ""
+    val imagesList = mutableListOf<String>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -64,14 +67,14 @@ class NewGameFragment : Fragment() {
                 viewModel.addGame(
                     name = binding.editGameName.text.toString(),
                     type = typeList,
-                    time = binding.editGameTime.text.toString().toLong(),
-                    limit = binding.editPlayerLimit.text.toString().toInt(),
+                    time = binding.editGameTime.text.toString(),
+                    limit = binding.editPlayerLimit.text.toString(),
                     rules = binding.editGameRules.text.toString(),
                     roles = rolesList,
                     imagesUri = imagesList
                 )
             } else {
-                uploadPhoto(storageRef)
+                    uploadPhoto(storageRef)
             }
         }
 
@@ -86,8 +89,8 @@ class NewGameFragment : Fragment() {
             viewModel.addGame(
                 name = binding.editGameName.text.toString(),
                 type = typeList,
-                time = binding.editGameTime.text.toString().toLong(),
-                limit = binding.editPlayerLimit.text.toString().toInt(),
+                time = binding.editGameTime.text.toString(),
+                limit = binding.editPlayerLimit.text.toString(),
                 rules = binding.editGameRules.text.toString(),
                 roles = rolesList,
                 imagesUri = viewModel.imagesUri.value!!
@@ -101,33 +104,9 @@ class NewGameFragment : Fragment() {
         })
 
 
-
-
         return binding.root
     }
 
-    private fun uploadPhoto(storageRef: StorageReference) {
-        val file = Uri.fromFile(File(filePath))
-        val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
-        val metadata = StorageMetadata.Builder()
-            .setContentDisposition("game")
-            .setContentType("image/jpg")
-            .build()
-
-            val uploadTask = eventsRef.putFile(file)
-            uploadTask
-                .addOnSuccessListener {
-                    downloadImg(eventsRef)
-                    Log.i("Upload", "Success")
-                }
-                .addOnFailureListener { exception ->
-                    Log.i("Upload", exception.toString())
-                }
-
-    }
-
-    val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -146,8 +125,7 @@ class NewGameFragment : Fragment() {
             }
         }
     }
-    var filePath: String = ""
-    val imagesList = mutableListOf<String>()
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -156,6 +134,8 @@ class NewGameFragment : Fragment() {
                 filePath = ImagePicker.getFilePath(data) ?: ""
                 if (filePath.isNotEmpty()) {
                     binding.clipCorner.visibility = View.VISIBLE
+                    localImageList.add(filePath)
+                    viewModel.localImageList.value = localImageList
                     Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                     Glide.with(this.requireContext()).load(filePath).into(binding.imagePhoto)
                 } else {
@@ -205,6 +185,28 @@ class NewGameFragment : Fragment() {
             .start()
     }
 
+    private fun uploadPhoto(storageRef: StorageReference) {
+        val file = Uri.fromFile(File(filePath))
+        val eventsRef = storageRef.child(file.lastPathSegment ?: "")
+
+        val metadata = StorageMetadata.Builder()
+            .setContentDisposition("game")
+            .setContentType("image/jpg")
+            .build()
+
+        val uploadTask = eventsRef.putFile(file)
+        uploadTask
+            .addOnSuccessListener {
+                downloadImg(eventsRef)
+                Log.i("Upload", "Success")
+            }
+            .addOnFailureListener { exception ->
+                Log.i("Upload", exception.toString())
+            }
+    }
+
+
+    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
@@ -212,10 +214,8 @@ class NewGameFragment : Fragment() {
         }
         ref.downloadUrl.addOnSuccessListener {
 
-            val imageList = mutableListOf<String>()
             imageList.add(it.toString())
             viewModel.imagesUri.value = imageList
-
 
 //            Toast.makeText(this.requireContext(), "Success", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {

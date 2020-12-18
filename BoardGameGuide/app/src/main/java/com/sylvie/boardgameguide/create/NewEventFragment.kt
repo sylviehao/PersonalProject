@@ -21,8 +21,10 @@ import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
@@ -41,7 +43,6 @@ class NewEventFragment : Fragment() {
     private val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
-    val storageFirebase = FirebaseStorage.getInstance().reference
 
     // Separate the situation from HomeFragment and from GameFragment
     var arg: Game? = null
@@ -55,6 +56,9 @@ class NewEventFragment : Fragment() {
         binding = FragmentNewEventBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
 
         val adapter = NewPostPhotoAdapter()
         binding.recyclerNewPostPhoto.adapter = adapter
@@ -108,31 +112,35 @@ class NewEventFragment : Fragment() {
                 )
 
             } else {
-                uploadPhoto(storageFirebase)
+                for(localImage in localImageList){
+                    uploadPhoto(storageRef, localImage)
+                }
             }
 
         }
 
         viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
 
-            val typeList = mutableListOf<String>()
-            typeList.add(binding.editNewEventGameType.text.toString())
+            if (it.size == localImageList.size) {
+                val typeList = mutableListOf<String>()
+                typeList.add(binding.editNewEventGameType.text.toString())
 
-            val memberList = mutableListOf<String>()
-            memberList.add(binding.editNewEventGameMember.text.toString())
+                val memberList = mutableListOf<String>()
+                memberList.add(binding.editNewEventGameMember.text.toString())
 
-            viewModel.addPost(
+                viewModel.addPost(
 
-                topic = binding.editNewEventTopic.text.toString(),
-                description = binding.editNewEventDescription.text.toString(),
-                location = binding.editNewEventGameLocation.text.toString(),
-                rules = binding.editNewEventGameRule.text.toString(),
-                member = memberList,
-                type = typeList,
-                name = binding.editNewEventGameName.text.toString(),
-                limit = binding.editNewEventGameMember.text.toString(),
-                imagesUri = viewModel.imagesUri.value!!
-            )
+                    topic = binding.editNewEventTopic.text.toString(),
+                    description = binding.editNewEventDescription.text.toString(),
+                    location = binding.editNewEventGameLocation.text.toString(),
+                    rules = binding.editNewEventGameRule.text.toString(),
+                    member = memberList,
+                    type = typeList,
+                    name = binding.editNewEventGameName.text.toString(),
+                    limit = binding.editNewEventGameMember.text.toString(),
+                    imagesUri = viewModel.imagesUri.value!!
+                )
+            }
         })
 
         viewModel.localImageList.observe(viewLifecycleOwner, Observer {
@@ -193,6 +201,7 @@ class NewEventFragment : Fragment() {
         }
     }
 
+    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
@@ -200,7 +209,7 @@ class NewEventFragment : Fragment() {
         }
         ref.downloadUrl.addOnSuccessListener {
 
-            val imageList = mutableListOf<String>()
+
             imageList.add(it.toString())
             viewModel.imagesUri.value = imageList
 
@@ -209,8 +218,8 @@ class NewEventFragment : Fragment() {
         }
     }
 
-    private fun uploadPhoto(storageRef: StorageReference) {
-        val file = Uri.fromFile(File(filePath))
+    private fun uploadPhoto(storageRef: StorageReference, localImage: String) {
+        val file = Uri.fromFile(File(localImage))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
 
 //        val metadata = StorageMetadata.Builder()

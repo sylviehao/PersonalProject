@@ -31,6 +31,10 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.setPlayer(userId, event, status)
     }
 
+    override suspend fun addPhoto(image: MutableList<String>, eventId: String, status: Boolean): Result<Boolean> {
+        return gameRemoteDataSource.addPhoto(image, eventId, status)
+    }
+
     override suspend fun getGame(id: String): Result<List<Game>> {
         return gameRemoteDataSource.getGame(id)
     }

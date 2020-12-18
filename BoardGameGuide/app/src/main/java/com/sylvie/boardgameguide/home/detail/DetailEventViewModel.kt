@@ -119,9 +119,10 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     var newArray = MutableLiveData<MutableList<String>>()
 
-    fun add(imageList: MutableList<String>){
+    fun add(imageList: List<String>){
         var list = mutableListOf<String>()
-        list = imageList
+        list.clear()
+        list = imageList.toMutableList()
         list.add("")
         newArray.value = list
     }
