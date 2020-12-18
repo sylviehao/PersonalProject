@@ -15,6 +15,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -29,6 +30,7 @@ import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.login.LoginActivity
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.CurrentFragmentType
+import com.sylvie.boardgameguide.util.DrawerToggleType
 import kotlinx.android.synthetic.main.fragment_new_post.*
 
 class MainActivity : AppCompatActivity() {
@@ -90,7 +92,6 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -105,24 +106,6 @@ class MainActivity : AppCompatActivity() {
         setupDrawer()
 
     }
-
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        when (requestCode) {
-//            MY_PERMISSIONS_REQUEST_READ_CONTACTS -> {
-//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    //get image
-//                } else {
-//                    Toast.makeText(this@MainActivity, "Permission denied", Toast.LENGTH_SHORT).show()
-//                }
-//                return
-//            }
-//        }
-//    }
 
 
     private fun setupBottomNav() {
@@ -142,6 +125,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.profileFragment -> CurrentFragmentType.PROFILE
                 R.id.favoriteFragment -> CurrentFragmentType.FAVORITE
                 R.id.gameFragment -> CurrentFragmentType.GAME
+                R.id.newGameFragment -> CurrentFragmentType.NEW_GAME
+                R.id.gameDetailFragment -> CurrentFragmentType.DETAIL_GAME
                 else -> viewModel.currentFragmentType.value
             }
         }
@@ -191,32 +176,36 @@ class MainActivity : AppCompatActivity() {
         bindingNavHeader.lifecycleOwner = this
         bindingNavHeader.viewModel = viewModel
         binding.drawerNavView.addHeaderView(bindingNavHeader.root)
+
+        viewModel.currentDrawerToggleType.observe(this, Observer { type ->
+
+            actionBarDrawerToggle?.isDrawerIndicatorEnabled = type.indicatorEnabled
+            supportActionBar?.setDisplayHomeAsUpEnabled(!type.indicatorEnabled)
+            binding.toolbar.setNavigationIcon(
+                when (type) {
+                    DrawerToggleType.BACK -> R.drawable.ic_back
+                    else -> R.drawable.ic_drawer_menu
+                }
+            )
+
+            actionBarDrawerToggle?.setToolbarNavigationClickListener {
+                when (type) {
+                    DrawerToggleType.BACK -> onBackPressed()
+                    else -> {}
+                }
+            }
+        })
     }
 
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//
-//        when (resultCode) {
-//            Activity.RESULT_OK -> {
-//                val filePath = ImagePicker.getFilePath(data) ?: ""
-//                if (filePath.isNotEmpty()) {
-//                    val imgPath = filePath
-//                    Toast.makeText(this, imgPath, Toast.LENGTH_SHORT).show()
-//                    Glide.with(this).load(filePath).into(button_add_photo)
-//                } else {
-//                    Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//            }
-//            ImagePicker.RESULT_ERROR -> Toast.makeText(
-//                this,
-//                ImagePicker.getError(data),
-//                Toast.LENGTH_SHORT
-//            ).show()
-//            else -> Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT)
-//                .show()
-//        }
-//    }
+    override fun onBackPressed() {
+
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 
 //    private fun checkPermission() {
 //        val permission = ActivityCompat.checkSelfPermission(this@MainActivity,

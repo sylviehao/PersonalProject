@@ -2,6 +2,7 @@ package com.sylvie.boardgameguide
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.facebook.internal.Mutable
 import com.sylvie.boardgameguide.data.Result
@@ -10,6 +11,7 @@ import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.network.LoadApiStatus
 import com.sylvie.boardgameguide.util.CurrentFragmentType
+import com.sylvie.boardgameguide.util.DrawerToggleType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -20,6 +22,19 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
     // Record current fragment to support data binding
     val currentFragmentType = MutableLiveData<CurrentFragmentType>()
+
+    val currentDrawerToggleType: LiveData<DrawerToggleType> = Transformations.map(currentFragmentType) {
+        when (it) {
+            CurrentFragmentType.NEW_POST -> DrawerToggleType.BACK
+            CurrentFragmentType.NEW_EVENT -> DrawerToggleType.BACK
+            CurrentFragmentType.DETAIL_POST -> DrawerToggleType.BACK
+            CurrentFragmentType.DETAIL_EVENT -> DrawerToggleType.BACK
+            CurrentFragmentType.NEW_GAME -> DrawerToggleType.BACK
+            CurrentFragmentType.DETAIL_GAME -> DrawerToggleType.BACK
+
+            else -> DrawerToggleType.NORMAL
+        }
+    }
 
     val navigate = MutableLiveData<Int>()
 
@@ -63,6 +78,7 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 val result = gameRepository.getUser(uid)
                 UserManager.user.value = when (result) {
                     is Result.Success -> {
+                        _getUserData.value = result.data
                         result.data
                     }
                     else -> {

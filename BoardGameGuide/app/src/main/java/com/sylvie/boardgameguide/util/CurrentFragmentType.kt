@@ -11,5 +11,7 @@ enum class CurrentFragmentType(val value: String) {
     FAVORITE("FAVORITE"),
     TOOLS("TOOLS"),
     PROFILE("PROFILE"),
-    GAME("GAME")
+    GAME("GAME"),
+    NEW_GAME("NEW GAME"),
+    DETAIL_GAME("GAME DETAIL")
 }
