@@ -22,10 +22,10 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
 //    val date = MutableLiveData<Long>()
 
-    private var _getUserData = MutableLiveData<User>()
+    private var _getAllUsersData = MutableLiveData<List<User>>()
 
-    val getUserData: LiveData<User>
-        get() = _getUserData
+    val getAllUsersData: LiveData<List<User>>
+        get() = _getAllUsersData
 
     private var _eventStatus = MutableLiveData<Boolean>()
 
@@ -51,6 +51,11 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     init {
 //        getUser()
+        getAllUsers()
+    }
+
+    fun getAllUsers() {
+        _getAllUsersData = gameRepository.getAllUsers()
     }
 
 //    fun getUser() {
@@ -87,6 +92,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
                 UserManager.user.value?.let {
 
+                    member.add(it.name)
                     val event = Event(
                         user = it,
                         topic = topic,
@@ -120,6 +126,22 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
             }
 
         }
+    }
+
+    fun filter(list: List<User>, query: String): List<User> {
+
+        val lowerCaseQueryString = query.toLowerCase(Locale.ROOT)
+        val filteredList = mutableListOf<User>()
+
+        for (user in list) {
+
+            val name = user.name.toLowerCase(Locale.ROOT)
+
+            if (name.contains(lowerCaseQueryString)) {
+                filteredList.add(user)
+            }
+        }
+        return filteredList
     }
 
 }

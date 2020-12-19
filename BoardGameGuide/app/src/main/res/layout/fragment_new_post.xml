@@ -190,6 +190,7 @@
                     android:layout_marginTop="8dp"
                     android:hint="@string/game_member"
                     android:inputType="textMultiLine"
+                    android:clickable="true"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_rule"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_rule"
@@ -215,7 +216,7 @@
                     android:id="@+id/icon_jake"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_member"
                     app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_member"
                     app:srcCompat="@drawable/ic_jake" />
@@ -257,6 +258,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:orientation="vertical"
+                    android:scrollbarSize="0dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/line_2"
                     app:layout_constraintStart_toStartOf="@+id/icon_jake"
@@ -282,6 +284,18 @@
                     app:layout_constraintStart_toStartOf="@+id/button_add_photo"
                     app:layout_constraintTop_toTopOf="@+id/button_add_photo"
                     app:srcCompat="@drawable/ic_add" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_player_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:visibility="invisible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_member"
+                    app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_member"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_member"
+                    tools:listitem="@layout/item_player_filter" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

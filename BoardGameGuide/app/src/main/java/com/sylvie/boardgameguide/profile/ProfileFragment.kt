@@ -107,12 +107,15 @@ class ProfileFragment : Fragment() {
 
         binding.buttonEditInfo.setOnClickListener {
             binding.textDescription.isEnabled = true
+            binding.textDescription.requestFocus()
+            binding.textDescription.setSelection(binding.textDescription.length())
 //            binding.textEdit.text = "SEND"
             if (binding.textEdit.text == "SEND") {
             viewModel.getUserData.value?.let { user -> viewModel.setUser(user, binding.textDescription.text.toString() ) }
                 binding.textDescription.isEnabled = false
                 binding.textEdit.text = getString(R.string.edit)
             } else {
+                binding.textDescription.requestFocus()
                 binding.textEdit.text = "SEND"
             }
         }

@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -62,8 +63,10 @@ class NewPostFragment : Fragment() {
         binding.viewModel = viewModel
         val adapter = NewPostPlayerAdapter()
         val adapter2 = NewPostPhotoAdapter()
+        val adapter3 = NewPostPlayerFilterAdapter()
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerNewPostPhoto.adapter = adapter2
+        binding.recyclerPlayerFilter.adapter = adapter3
 
         if (viewModel.event.value?.playerList.isNullOrEmpty()) {
             binding.recyclerPlayer.visibility = View.GONE
@@ -111,6 +114,28 @@ class NewPostFragment : Fragment() {
             oldPlayerList?.add(binding.editNewPostGameMember.text.toString())
             viewModel.userList.value = oldPlayerList
             binding.editNewPostGameMember.text = null
+        }
+
+        binding.editNewPostGameMember.addTextChangedListener {
+            if (binding.editNewPostGameMember.text.toString() == "") {
+                binding.recyclerPlayerFilter.visibility = View.INVISIBLE
+            } else {
+                binding.recyclerPlayerFilter.visibility = View.VISIBLE
+                viewModel.getAllUsersData.value?.let { userList ->
+                    val filterList =
+                        viewModel.filter(userList, binding.editNewPostGameMember.text.toString())
+                    adapter3.submitList(filterList)
+                }
+            }
+        }
+
+        binding.editNewPostGameMember.setOnFocusChangeListener { v, hasFocus ->
+
+            if(hasFocus){
+                binding.recyclerPlayerFilter.visibility = View.VISIBLE
+            } else{
+                binding.recyclerPlayerFilter.visibility = View.INVISIBLE
+            }
         }
 
         viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
