@@ -13,11 +13,12 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.FragmentProfileEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.home.HomeFragmentDirections
+import com.sylvie.boardgameguide.profile.ProfileFragmentArgs
 import com.sylvie.boardgameguide.profile.post.ProfilePostAdapter
 
 class ProfileEventFragment : Fragment() {
 
-    val viewModel by viewModels<ProfileEventViewModel> { getVmFactory() }
+    val viewModel by viewModels<ProfileEventViewModel> { getVmFactory(ProfileEventFragmentArgs.fromBundle(requireArguments()).userId) }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,6 +28,7 @@ class ProfileEventFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        val userId = ProfileEventFragmentArgs.fromBundle(requireArguments()).userId
         val adapter = ProfileEventAdapter(ProfileEventAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })

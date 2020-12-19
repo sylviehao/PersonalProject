@@ -16,7 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel() {
+class ProfileViewModel(private val gameRepository: GameRepository, private val userId: String?) : ViewModel() {
 
     // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Game>()
@@ -62,7 +62,7 @@ class ProfileViewModel(private val gameRepository: GameRepository) : ViewModel()
     fun getUser() {
         coroutineScope.launch {
             try {
-                UserManager.userToken?.let {
+                userId?.let {
                 val result = gameRepository.getUser(it)
                 _getUserData.value = when (result) {
                     is Result.Success -> {

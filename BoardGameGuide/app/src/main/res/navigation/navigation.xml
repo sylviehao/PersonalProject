@@ -85,7 +85,11 @@
         android:id="@+id/profileFragment"
         android:name="com.sylvie.boardgameguide.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
@@ -158,10 +162,18 @@
     <fragment
         android:id="@+id/profilePostFragment"
         android:name="com.sylvie.boardgameguide.profile.post.ProfilePostFragment"
-        android:label="ProfilePostFragment" />
+        android:label="ProfilePostFragment" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
     <action android:id="@+id/action_global_profilePostFragment" app:destination="@id/profilePostFragment" />
     <fragment
         android:id="@+id/profileEventFragment"
         android:name="com.sylvie.boardgameguide.profile.event.ProfileEventFragment"
-        android:label="ProfileEventFragment" /><action android:id="@+id/action_global_profileEventFragment" app:destination="@id/profileEventFragment"/>
+        android:label="ProfileEventFragment" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment><action android:id="@+id/action_global_profileEventFragment" app:destination="@id/profileEventFragment"/>
 </navigation>

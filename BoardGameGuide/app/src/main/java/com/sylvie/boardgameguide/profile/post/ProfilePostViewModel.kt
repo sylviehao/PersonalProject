@@ -13,7 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-class ProfilePostViewModel(private val gameRepository: GameRepository) : ViewModel() {
+class ProfilePostViewModel(private val gameRepository: GameRepository, private val userId: String?) : ViewModel() {
 
     // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Event>()
@@ -56,7 +56,7 @@ class ProfilePostViewModel(private val gameRepository: GameRepository) : ViewMod
     }
 
     fun filterMyPost(list: List<Event>){
-        _myPostData.value = list.filter { it.user?.id == UserManager.userToken }
+        _myPostData.value = list.filter { it.user?.id == userId }
     }
 
     fun navigateToDetail(event: Event) {

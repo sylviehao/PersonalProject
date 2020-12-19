@@ -22,10 +22,11 @@ import com.sylvie.boardgameguide.game.GameAdapter
 import com.sylvie.boardgameguide.game.GameFragmentDirections
 import com.sylvie.boardgameguide.game.GameViewModel
 import com.sylvie.boardgameguide.login.UserManager
+import com.sylvie.boardgameguide.profile.post.ProfilePostFragmentDirections
 
 class ProfileFragment : Fragment() {
 
-    val viewModel by viewModels<ProfileViewModel> { getVmFactory() }
+    val viewModel by viewModels<ProfileViewModel> { getVmFactory(ProfileFragmentArgs.fromBundle(requireArguments()).userId) }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,6 +36,7 @@ class ProfileFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         val db = FirebaseFirestore.getInstance()
+        val userId = ProfileFragmentArgs.fromBundle(requireArguments()).userId
 
         val adapter = ProfileBrowseAdapter(ProfileBrowseAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
@@ -66,7 +68,7 @@ class ProfileFragment : Fragment() {
                     }
                     listResult.sortByDescending { it.createdTime }
                     listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { id -> id == UserManager.user.value?.id }
+                        list.playerList!!.any { id -> id == userId }
                     })
                     binding.textGameNumber.text = listResultOpen.size.toString()
                 }
@@ -84,7 +86,7 @@ class ProfileFragment : Fragment() {
                     }
                     listResult.sortByDescending { it.createdTime }
                     listResultClose.addAll( listResult.filter {list ->
-                        list.user!!.id == UserManager.user.value?.id
+                        list.user!!.id == userId
                     })
                     binding.textPostNumber.text = listResultClose.size.toString()
                 }
@@ -120,40 +122,12 @@ class ProfileFragment : Fragment() {
             }
         }
 
-
-//        binding.buttonEditInfo.setOnClickListener {
-//            val data = User(
-//                id = "001",
-//                name = "sylviehao",
-//                image = "https://images.unsplash.com/photo-1526800544336-d04f0cbfd700?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTZ8fHByb2ZpbGV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-//                introduction = "嗨嗨",
-//                favorite = mutableListOf(
-//                    Game(
-//                    )
-//                ),
-//                browseRecently = mutableListOf()
-//            )
-//
-//            // Add a new document with a generated ID
-//            db.collection("User").document("001")
-//                .set(data)
-//                .addOnSuccessListener { documentReference ->
-////                    documentReference.update("id", documentReference.id)
-//                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
-//                }
-//                .addOnFailureListener {
-//                    Log.d("TAG", "$it")
-//                    Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
-//                        .show()
-//                }
-//        }
-
         binding.constraintPost.setOnClickListener {
-            findNavController().navigate(R.id.action_global_profilePostFragment)
+            findNavController().navigate(ProfilePostFragmentDirections.actionGlobalProfilePostFragment(userId))
         }
 
         binding.constraintEvent.setOnClickListener {
-            findNavController().navigate(R.id.action_global_profileEventFragment)
+            findNavController().navigate(ProfilePostFragmentDirections.actionGlobalProfileEventFragment(userId))
         }
 
 

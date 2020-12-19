@@ -64,17 +64,14 @@ class ViewModelFactory constructor(
                 isAssignableFrom(GameDetailViewModel::class.java) ->
                     GameDetailViewModel(gameRepository)
 
-                isAssignableFrom(ProfileViewModel::class.java) ->
-                    ProfileViewModel(gameRepository)
-
                 isAssignableFrom(DetailEventViewModel::class.java) ->
                     DetailEventViewModel(gameRepository)
 
-                isAssignableFrom(ProfilePostViewModel::class.java) ->
-                    ProfilePostViewModel(gameRepository)
-
-                isAssignableFrom(ProfileEventViewModel::class.java) ->
-                    ProfileEventViewModel(gameRepository)
+//                isAssignableFrom(ProfilePostViewModel::class.java) ->
+//                    ProfilePostViewModel(gameRepository)
+//
+//                isAssignableFrom(ProfileEventViewModel::class.java) ->
+//                    ProfileEventViewModel(gameRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

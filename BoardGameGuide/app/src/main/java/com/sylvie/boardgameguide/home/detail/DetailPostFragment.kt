@@ -191,6 +191,11 @@ class DetailPostFragment : Fragment() {
 //                    listResult.filter { list -> list.id == bundle.gameId }[0]
 //            }
 
+        binding.imageHost.setOnClickListener {
+            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+
+        }
+
 
         return binding.root
     }
