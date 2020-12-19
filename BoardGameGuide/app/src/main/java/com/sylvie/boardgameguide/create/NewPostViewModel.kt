@@ -36,9 +36,12 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     var localImageList = MutableLiveData<MutableList<String>>()
 
+    var focusStatus = MutableLiveData<Boolean>()
+
     var userList = MutableLiveData<MutableList<String>>().apply {
         value = mutableListOf()
     }
+
 
     private var viewModelJob = Job()
 
@@ -92,7 +95,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
                 UserManager.user.value?.let {
 
-                    member.add(it.name)
+                    member.add(it.id)
                     val event = Event(
                         user = it,
                         topic = topic,
@@ -142,6 +145,25 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
             }
         }
         return filteredList
+    }
+
+
+    fun addData(userId: String) {
+
+        val oldPlayerList = userList.value
+        oldPlayerList?.add(userId)
+        userList.value = oldPlayerList
+        focusStatus.value = true
+    }
+
+    fun idToName(userId: String): String {
+        var name : String = ""
+        _getAllUsersData.value?.let {
+            if (it.any { user -> user.id == userId }) {
+                name =  it.filter { user -> user.id == userId }[0].name
+            }
+        }
+        return name
     }
 
 }

@@ -61,9 +61,9 @@ class NewPostFragment : Fragment() {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        val adapter = NewPostPlayerAdapter()
+        val adapter = NewPostPlayerAdapter(viewModel)
         val adapter2 = NewPostPhotoAdapter()
-        val adapter3 = NewPostPlayerFilterAdapter()
+        val adapter3 = NewPostPlayerFilterAdapter(viewModel)
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerNewPostPhoto.adapter = adapter2
         binding.recyclerPlayerFilter.adapter = adapter3
@@ -109,34 +109,42 @@ class NewPostFragment : Fragment() {
 //                }
 //            }
 
-        binding.buttonAddPlayer.setOnClickListener {
-            val oldPlayerList = viewModel.userList.value
-            oldPlayerList?.add(binding.editNewPostGameMember.text.toString())
-            viewModel.userList.value = oldPlayerList
-            binding.editNewPostGameMember.text = null
-        }
+//        binding.buttonAddPlayer.setOnClickListener {
+//            val oldPlayerList = viewModel.userList.value
+//            oldPlayerList?.add(binding.editNewPostGameMember.text.toString())
+//            viewModel.userList.value = oldPlayerList
+//            binding.editNewPostGameMember.text = null
+//        }
 
         binding.editNewPostGameMember.addTextChangedListener {
-            if (binding.editNewPostGameMember.text.toString() == "") {
-                binding.recyclerPlayerFilter.visibility = View.INVISIBLE
-            } else {
+//            if (binding.editNewPostGameMember.text.toString() == "") {
+//                binding.recyclerPlayerFilter.visibility = View.INVISIBLE
+//            } else {
                 binding.recyclerPlayerFilter.visibility = View.VISIBLE
                 viewModel.getAllUsersData.value?.let { userList ->
                     val filterList =
                         viewModel.filter(userList, binding.editNewPostGameMember.text.toString())
                     adapter3.submitList(filterList)
                 }
-            }
+
+//            }
         }
 
         binding.editNewPostGameMember.setOnFocusChangeListener { v, hasFocus ->
 
-            if(hasFocus){
+            if (hasFocus) {
                 binding.recyclerPlayerFilter.visibility = View.VISIBLE
+                viewModel.getAllUsersData.value?.let { userList ->
+                    adapter3.submitList(userList)
+                }
             } else{
                 binding.recyclerPlayerFilter.visibility = View.INVISIBLE
             }
         }
+
+        viewModel.focusStatus.observe(viewLifecycleOwner, Observer {
+            binding.editNewPostGameMember.clearFocus()
+        })
 
         viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Log.i("userList", it.toString())
@@ -147,6 +155,7 @@ class NewPostFragment : Fragment() {
             }
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
+            binding.editNewPostGameMember.text = null
         })
 
         binding.buttonNewPostCreate.setOnClickListener {
@@ -183,15 +192,15 @@ class NewPostFragment : Fragment() {
                 val typeList = mutableListOf<String>()
                 typeList.add(binding.editNewPostGameType.text.toString())
 
-                val memberList = mutableListOf<String>()
-                memberList.add(binding.editNewPostGameMember.text.toString())
+//                val memberList = mutableListOf<String>()
+//                memberList.add(binding.editNewPostGameMember.text.toString())
 
                 viewModel.addPost(
                     topic = binding.editNewPostTopic.text.toString(),
                     description = binding.editNewPostDescription.text.toString(),
                     location = binding.editNewPostGameLocation.text.toString(),
                     rules = binding.editNewPostGameRule.text.toString(),
-                    member = memberList,
+                    member = viewModel.userList.value!!,
                     type = typeList,
                     name = binding.editNewPostGameName.text.toString(),
                     imagesUri = viewModel.imagesUri.value!!

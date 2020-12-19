@@ -13,6 +13,7 @@
         <import type="com.sylvie.boardgameguide.util.CurrentFragmentType"/>
     </data>
 
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"

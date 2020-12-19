@@ -7,6 +7,9 @@
         <variable
             name="user"
             type="com.sylvie.boardgameguide.data.User" />
+        <variable
+            name="viewModel"
+            type="com.sylvie.boardgameguide.create.NewPostViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,6 +23,7 @@
             android:background="@drawable/round_green_corner"
             android:gravity="start|center"
             android:text="@{user.name}"
+            android:onClick="@{() -> viewModel.addData(user.id)}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

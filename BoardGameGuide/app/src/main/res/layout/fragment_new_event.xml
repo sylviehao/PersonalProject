@@ -13,19 +13,20 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_new_post"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/rosyOrange">
 
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_newEvent_create"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@+id/constraint_new_post"
@@ -34,6 +35,7 @@
 
                 <EditText
                     android:id="@+id/edit_newEvent_topic"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
@@ -43,11 +45,11 @@
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    style="@style/edit_new_field" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/edit_newEvent_description"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -55,22 +57,22 @@
                     android:inputType="textMultiLine"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_topic"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_topic"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_topic"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_topic" />
 
                 <TextView
                     android:id="@+id/edit_newEvent_game_time"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:hint="@string/game_time"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_description"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_description"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_description"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_description" />
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_location"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -78,8 +80,7 @@
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_time"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_time"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_time"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_time" />
 
                 <ImageView
                     android:id="@+id/icon_mr_krabs"
@@ -124,6 +125,7 @@
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_name"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -132,11 +134,11 @@
                     android:text="@{viewModel.game.name}"
                     app:layout_constraintEnd_toEndOf="@+id/line_1"
                     app:layout_constraintStart_toStartOf="@+id/line_1"
-                    app:layout_constraintTop_toBottomOf="@+id/line_1"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/line_1" />
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_type"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -145,11 +147,11 @@
                     android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.type)}"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_name"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_name"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_name" />
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_rule"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -158,11 +160,11 @@
                     android:text="@{viewModel.game.rules}"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_type"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_type"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_type"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_type" />
 
                 <EditText
                     android:id="@+id/edit_newEvent_game_member"
+                    style="@style/edit_new_field"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -171,8 +173,7 @@
                     android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.playerLimit)}"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_rule"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_rule"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_rule"
-                    style="@style/edit_new_field"/>
+                    app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_rule" />
 
                 <ImageView
                     android:id="@+id/icon_jake"
@@ -223,8 +224,10 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/button_add_photo"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_member"
+                    app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_member"
-                    app:layout_constraintTop_toBottomOf="@+id/line_2" />
+                    app:layout_constraintTop_toBottomOf="@+id/line_2"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
                     android:id="@+id/button_add_photo"
@@ -232,7 +235,7 @@
                     android:layout_height="55dp"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/frame_edit_new_post"
-                    app:layout_constraintBottom_toTopOf="@+id/button_newEvent_create"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_member"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_member" />
 
@@ -240,26 +243,27 @@
                     android:id="@+id/icon_add_photo"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_add_photo"
+                    app:layout_constraintBottom_toBottomOf="@id/constraint2"
                     app:layout_constraintEnd_toEndOf="@+id/button_add_photo"
                     app:layout_constraintStart_toStartOf="@+id/button_add_photo"
                     app:layout_constraintTop_toTopOf="@+id/button_add_photo"
                     app:srcCompat="@drawable/ic_add" />
 
-                <Button
-                    android:id="@+id/button_newEvent_create"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:background="@color/vintageOrange"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@string/create"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+        <Button
+            android:id="@+id/button_newEvent_create"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:background="@color/vintageOrange"
+            android:fontFamily="@font/finger_paint"
+            android:text="@string/create"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
