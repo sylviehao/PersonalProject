@@ -32,6 +32,7 @@
     <string name="profile">PROFILE</string>
     <string name="join">JOIN</string>
     <string name="leave">LEAVE</string>
+    <string name="no_more_place">NO MORE PLACE</string>
     <string name="game">GAME</string>
     <string name="post">POST</string>
     <string name="edit">EDIT</string>

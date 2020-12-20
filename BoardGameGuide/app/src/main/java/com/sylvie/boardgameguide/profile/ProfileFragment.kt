@@ -95,6 +95,7 @@ class ProfileFragment : Fragment() {
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
             val gameIdList = mutableListOf<String>()
+            it.browseRecently?.sortByDescending { browseList-> browseList.time }
             it.browseRecently?.forEach { browseRecently->
                 gameIdList.add(browseRecently.gameId)
             }

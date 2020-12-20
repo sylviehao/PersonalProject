@@ -38,7 +38,7 @@ class EventFragment : Fragment() {
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
-                    findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment(it))
+                findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment(it))
                 viewModel.onDetailNavigated()
             }
         })

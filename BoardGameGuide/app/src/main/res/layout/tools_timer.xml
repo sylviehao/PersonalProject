@@ -11,19 +11,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/circularProgressBar"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            app:cpb_background_progressbar_color="@color/lightGreen"
-            app:cpb_background_progressbar_width="8dp"
-            app:cpb_progress_direction="to_right"
-            app:cpb_progressbar_color="@color/darkGreen"
-            app:cpb_progressbar_width="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/circularProgressBar"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:cpb_background_progressbar_color="@color/lightGreen"
+                app:cpb_background_progressbar_width="8dp"
+                app:cpb_progress_direction="to_right"
+                app:cpb_progressbar_color="@color/white"
+                app:cpb_progressbar_width="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/yatra_one"
+                android:text="60"
+                tools:text="60"
+                android:textColor="@color/lightGreen"
+                android:textSize="56sp"
+                app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
+                app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
+                app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
+                app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
         <!--        <ImageView-->
         <!--            android:id="@+id/button_time"-->
@@ -47,18 +72,7 @@
         <!--            app:layout_constraintStart_toStartOf="@+id/button_time"-->
         <!--            app:layout_constraintTop_toTopOf="@+id/button_time" />-->
 
-        <TextView
-            android:id="@+id/text_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/yatra_one"
-            android:text="120"
-            android:textColor="@color/lightGreen"
-            android:textSize="56sp"
-            app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
-            app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
-            app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
-            app:layout_constraintTop_toTopOf="@+id/circularProgressBar" />
+
 
         <ImageView
             android:id="@+id/button_1"

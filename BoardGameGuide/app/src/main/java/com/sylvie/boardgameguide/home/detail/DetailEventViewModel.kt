@@ -18,7 +18,7 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     var getEventData = MutableLiveData<Event>()
 
     // Save change from Game
-    var _getGameData = MutableLiveData<Game>()
+    private var _getGameData = MutableLiveData<Game>()
 
     val getGameData: LiveData<Game>
         get() = _getGameData
@@ -47,7 +47,7 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     val getUserData: LiveData<User>
         get() = _getUserData
 
-    var _addPlayer = MutableLiveData<Boolean>()
+    private var _addPlayer = MutableLiveData<Boolean>()
 
     val addPlayer: LiveData<Boolean>
         get() = _addPlayer

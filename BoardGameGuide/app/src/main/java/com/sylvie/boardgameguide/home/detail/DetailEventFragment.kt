@@ -53,7 +53,12 @@ class DetailEventFragment : Fragment() {
             if(it.any { userId-> userId == UserManager.userToken }){
                 binding.buttonJoin.setText(R.string.leave)
             }else{
-                binding.buttonJoin.setText(R.string.join)
+                if(it.size >= bundle.playerLimit){
+                    binding.buttonJoin.setText(R.string.no_more_place)
+                    binding.buttonJoin.isEnabled = false
+                }else{
+                    binding.buttonJoin.setText(R.string.join)
+                }
             }
         }
 
