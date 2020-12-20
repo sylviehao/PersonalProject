@@ -61,12 +61,17 @@ class NewPostFragment : Fragment() {
         binding = FragmentNewPostBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        val gameType = mutableListOf<String>("策略" ,"陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
+
         val adapter = NewPostPlayerAdapter(viewModel)
         val adapter2 = NewPostPhotoAdapter()
         val adapter3 = NewPostPlayerFilterAdapter(viewModel)
+        val adapter4 = NewPostGameTypeAdapter(viewModel)
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerNewPostPhoto.adapter = adapter2
         binding.recyclerPlayerFilter.adapter = adapter3
+        binding.recyclerGameType.adapter = adapter4
 
         if (viewModel.event.value?.playerList.isNullOrEmpty()) {
             binding.recyclerPlayer.visibility = View.GONE
@@ -83,6 +88,7 @@ class NewPostFragment : Fragment() {
         //initialize
         adapter.submitList(event?.playerList)
         adapter2.submitList(event?.image)
+        adapter4.submitList(gameType)
 
         val storage = Firebase.storage
         val storageRef = storage.reference
@@ -161,8 +167,8 @@ class NewPostFragment : Fragment() {
         binding.buttonNewPostCreate.setOnClickListener {
 
             if (filePath == "") {
-                val typeList = mutableListOf<String>()
-                typeList.add(binding.editNewPostGameType.text.toString())
+//                val typeList = mutableListOf<String>()
+//                typeList.add(binding.editNewPostGameType.text.toString())
 
 //            val memberList = mutableListOf<String>()
 //            memberList.add(binding.editNewPostGameMember.text.toString())
@@ -173,7 +179,7 @@ class NewPostFragment : Fragment() {
                     location = binding.editNewPostGameLocation.text.toString(),
                     rules = binding.editNewPostGameRule.text.toString(),
                     member = viewModel.userList.value!!,
-                    type = typeList,
+//                    type = typeList,
                     name = binding.editNewPostGameName.text.toString(),
                     imagesUri = imagesList
                 )
@@ -189,8 +195,8 @@ class NewPostFragment : Fragment() {
 
             if (it.size == localImageList.size) {
 
-                val typeList = mutableListOf<String>()
-                typeList.add(binding.editNewPostGameType.text.toString())
+//                val typeList = mutableListOf<String>()
+//                typeList.add(binding.editNewPostGameType.text.toString())
 
 //                val memberList = mutableListOf<String>()
 //                memberList.add(binding.editNewPostGameMember.text.toString())
@@ -201,7 +207,7 @@ class NewPostFragment : Fragment() {
                     location = binding.editNewPostGameLocation.text.toString(),
                     rules = binding.editNewPostGameRule.text.toString(),
                     member = viewModel.userList.value!!,
-                    type = typeList,
+//                    type = typeList,
                     name = binding.editNewPostGameName.text.toString(),
                     imagesUri = viewModel.imagesUri.value!!
                 )

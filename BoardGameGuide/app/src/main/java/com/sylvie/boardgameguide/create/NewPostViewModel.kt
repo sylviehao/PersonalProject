@@ -87,7 +87,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
         rules: String,
         member: MutableList<String>,
         name: String,
-        type: MutableList<String>,
+//        type: MutableList<String>,
         imagesUri: MutableList<String>
     ) {
         coroutineScope.launch {
@@ -105,7 +105,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
                         game = Game(
                             name = name,
                             image = mutableListOf(),
-                            type = type,
+                            type = typeList.value,
                             rules = rules,
                             roles = mutableListOf()
                         ),
@@ -164,6 +164,22 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
             }
         }
         return name
+    }
+
+    private val typeList = MutableLiveData<MutableList<String>>()
+
+    fun addType(type: String, Status: Boolean){
+        var list = mutableListOf<String>()
+
+        typeList.value?.let {
+            list = it.toMutableList()
+        }
+        if(Status){
+            list.add(type)
+        } else{
+            list.remove(type)
+        }
+        typeList.value = list
     }
 
 }
