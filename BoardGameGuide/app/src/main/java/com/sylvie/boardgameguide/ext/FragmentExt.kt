@@ -16,13 +16,3 @@ fun Fragment.getVmFactory(userId: String): ProfileViewModelFactory {
     val repository = (requireContext().applicationContext as GameApplication).gameRepository
     return ProfileViewModelFactory(repository, userId)
 }
-
-//fun Fragment.getVmFactory(userId: String): ProfilePostViewModelFactory {
-//    val repository = (requireContext().applicationContext as GameApplication).gameRepository
-//    return ProfilePostViewModelFactory(repository, userId)
-//}
-
-//fun Fragment.getVmFactory(userId: String): ProfileEventViewModeFactory {
-//    val repository = (requireContext().applicationContext as GameApplication).gameRepository
-//    return ProfileEventViewModeFactory(repository, userId)
-//}

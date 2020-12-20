@@ -93,18 +93,16 @@ class ProfileFragment : Fragment() {
             }
 
 
-
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
-            db.collection("Game").addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Game>()
-                    it.forEach { data ->
-                        val d = data.toObject(Game::class.java)
-                        listResult.add(d)
-                    }
-                    adapter.submitList(listResult)
-                }
+            val gameIdList = mutableListOf<String>()
+            it.browseRecently?.forEach { browseRecently->
+                gameIdList.add(browseRecently.gameId)
             }
+             viewModel.getBrowseRecently(gameIdList)
+        })
+
+        viewModel.getBrowseRecentlyInfo.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
         })
 
         binding.buttonEditInfo.setOnClickListener {

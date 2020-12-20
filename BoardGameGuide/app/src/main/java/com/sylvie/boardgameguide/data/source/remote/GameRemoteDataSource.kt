@@ -2,6 +2,7 @@ package com.sylvie.boardgameguide.data.source.remote
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -338,4 +339,42 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
+    override suspend fun setBrowseRecently(userId: String, gameId: BrowseRecently): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("User")
+            val document = db.document(userId)
+                document.update("browseRecently", FieldValue.arrayUnion(gameId))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
+    override suspend fun getBrowseRecently(userId: String, gamesId: List<String>): Result<List<Game>> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("Game")
+                .whereIn(FieldPath.documentId(),gamesId)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Game>()
+                        for (document in task.result!!) {
+                            val game = document.toObject(Game::class.java)
+                            list.add(game)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
 }

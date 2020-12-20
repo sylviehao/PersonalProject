@@ -38,6 +38,8 @@ interface GameRepository {
 
     suspend fun addEvent(event: Event): Result<Boolean>
 
+    suspend fun setBrowseRecently(userId: String,gameId: BrowseRecently): Result<Boolean>
 
+    suspend fun getBrowseRecently(userId: String, gamesId: List<String>): Result<List<Game>>
 
 }

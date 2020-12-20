@@ -42,11 +42,22 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
     val setUserData: LiveData<User>
         get() = _setUserData
 
+    // get browseRecently
+    private var _getBrowseRecentlyInfo = MutableLiveData<List<Game>>()
+
+    val getBrowseRecentlyInfo: LiveData<List<Game>>
+        get() = _getBrowseRecentlyInfo
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
 
     init {
         getEvents()
@@ -56,8 +67,6 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
     private fun getEvents() {
         _getEventData = gameRepository.getEvents("")
     }
-
-
 
     fun getUser() {
         coroutineScope.launch {
@@ -96,6 +105,26 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
             }
         }
     }
+
+    fun getBrowseRecently(gamesId: List<String>) {
+        coroutineScope.launch {
+            try {
+                UserManager.userToken?.let {
+                    val result = gameRepository.getBrowseRecently(it, gamesId)
+                    _getBrowseRecentlyInfo.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
+
 
     fun navigateToDetail(game: Game) {
         _navigateToDetail.value = game

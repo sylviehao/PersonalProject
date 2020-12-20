@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sylvie.boardgameguide.data.BrowseRecently
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
@@ -17,7 +18,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class GameDetailViewModel(private val gameRepository: GameRepository) : ViewModel() {
+class GameDetailViewModel(private val gameRepository: GameRepository, private val gameId: String?) : ViewModel() {
 
     // Save change from User
     var _getUserData = MutableLiveData<User>()
@@ -25,7 +26,13 @@ class GameDetailViewModel(private val gameRepository: GameRepository) : ViewMode
     val getUserData: LiveData<User>
         get() = _getUserData
 
+    private var _setBrowseRecentlyStatus = MutableLiveData<Boolean>()
+    val setBrowseRecentlyStatus: LiveData<Boolean>
+        get() = _setBrowseRecentlyStatus
+
     var getGameData = MutableLiveData<Game>()
+
+    private lateinit var gameLog: BrowseRecently
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -33,9 +40,9 @@ class GameDetailViewModel(private val gameRepository: GameRepository) : ViewMode
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-
     init {
         getUser()
+        setBrowseRecently()
     }
 
     fun getUser() {
@@ -51,6 +58,32 @@ class GameDetailViewModel(private val gameRepository: GameRepository) : ViewMode
                         null
                     }
                 }
+                }
+            } catch (e: Exception) {
+
+            }
+        }
+    }
+
+    fun setBrowseRecently() {
+        coroutineScope.launch {
+            try {
+                gameId?.let {
+                    gameLog = BrowseRecently(
+                        gameId = gameId,
+                        time = System.currentTimeMillis()
+                    )
+                }
+                UserManager.userToken?.let {
+                    val result = gameRepository.setBrowseRecently(it,gameLog)
+                    _setBrowseRecentlyStatus.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
+                    }
                 }
             } catch (e: Exception) {
 

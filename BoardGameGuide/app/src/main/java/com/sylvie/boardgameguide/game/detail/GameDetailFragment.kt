@@ -14,7 +14,7 @@ import com.sylvie.boardgameguide.databinding.FragmentDetailGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 
 class GameDetailFragment : Fragment() {
-    val viewModel by viewModels<GameDetailViewModel> { getVmFactory() }
+    val viewModel by viewModels<GameDetailViewModel> { getVmFactory(GameDetailFragmentArgs.fromBundle(requireArguments()).game.id) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

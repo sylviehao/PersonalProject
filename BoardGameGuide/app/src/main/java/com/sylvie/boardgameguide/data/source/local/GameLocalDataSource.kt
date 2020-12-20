@@ -70,4 +70,12 @@ class GameLocalDataSource(val context: Context) : GameDataSource {
     override suspend fun addEvent(event: Event): Result<Boolean> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun setBrowseRecently(userId: String, gameId: BrowseRecently): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getBrowseRecently(userId: String, gamesId: List<String>): Result<List<Game>> {
+        TODO("Not yet implemented")
+    }
 }

@@ -75,4 +75,12 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
     override suspend fun addEvent(event: Event): Result<Boolean> {
         return gameRemoteDataSource.addEvent(event)
     }
+
+    override suspend fun setBrowseRecently(userId: String, gameId: BrowseRecently): Result<Boolean> {
+        return gameRemoteDataSource.setBrowseRecently(userId, gameId)
+    }
+
+    override suspend fun getBrowseRecently(userId: String, gamesId: List<String>): Result<List<Game>> {
+        return gameRemoteDataSource.getBrowseRecently(userId, gamesId)
+    }
 }
