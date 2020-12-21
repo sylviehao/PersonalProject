@@ -60,8 +60,15 @@ class NewEventFragment : Fragment() {
         val storage = Firebase.storage
         val storageRef = storage.reference
 
+        val gameType = mutableListOf<String>("策略" ,"陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
+
         val adapter = NewPostPhotoAdapter()
+        val adapter2 = NewEventGameTypeAdapter(viewModel)
+
         binding.recyclerNewPostPhoto.adapter = adapter
+        binding.recyclerGameType.adapter = adapter2
+
+        adapter2.submitList(gameType)
 
         arg = NewEventFragmentArgs.fromBundle(requireArguments()).game
         viewModel.game.value = arg
@@ -93,15 +100,15 @@ class NewEventFragment : Fragment() {
         binding.buttonNewEventCreate.setOnClickListener {
 
             if (filePath == "") {
-                val typeList = mutableListOf<String>()
-                typeList.add(binding.editNewEventGameType.text.toString())
+//                val typeList = mutableListOf<String>()
+//                typeList.add(binding.editNewEventGameType.text.toString())
 
                 viewModel.addPost(
                     topic = binding.editNewEventTopic.text.toString(),
                     description = binding.editNewEventDescription.text.toString(),
                     location = binding.editNewEventGameLocation.text.toString(),
                     rules = binding.editNewEventGameRule.text.toString(),
-                    type = typeList,
+//                    type = typeList,
                     name = binding.editNewEventGameName.text.toString(),
                     limit = binding.editNewEventGameMember.text.toString(),
                     imagesUri = mutableListOf()
@@ -118,8 +125,8 @@ class NewEventFragment : Fragment() {
         viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
 
             if (it.size == localImageList.size) {
-                val typeList = mutableListOf<String>()
-                typeList.add(binding.editNewEventGameType.text.toString())
+//                val typeList = mutableListOf<String>()
+//                typeList.add(binding.editNewEventGameType.text.toString())
 
                 viewModel.addPost(
 
@@ -127,7 +134,7 @@ class NewEventFragment : Fragment() {
                     description = binding.editNewEventDescription.text.toString(),
                     location = binding.editNewEventGameLocation.text.toString(),
                     rules = binding.editNewEventGameRule.text.toString(),
-                    type = typeList,
+//                    type = typeList,
                     name = binding.editNewEventGameName.text.toString(),
                     limit = binding.editNewEventGameMember.text.toString(),
                     imagesUri = viewModel.imagesUri.value!!
