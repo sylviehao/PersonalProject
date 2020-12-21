@@ -43,7 +43,7 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
         description: String,
         location: String,
         rules: String,
-        member: MutableList<String>,
+//        member: MutableList<String>,
         name: String,
         type: MutableList<String>,
         limit: String,
@@ -61,7 +61,8 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
                         limit
                     }
 
-                    member.add(it.name)
+                    val member = mutableListOf<String>()
+                    member.add(it.id)
                     val event = Event(
                         user = it,
                         topic = topic,

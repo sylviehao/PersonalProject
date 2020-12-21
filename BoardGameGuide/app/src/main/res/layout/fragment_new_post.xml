@@ -266,7 +266,9 @@
                     android:id="@+id/button_add_photo"
                     android:layout_width="0dp"
                     android:layout_height="55dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/frame_edit_new_post"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/recycler_newPost_photo"
                     app:layout_constraintStart_toStartOf="@+id/recycler_newPost_photo"
                     app:layout_constraintTop_toBottomOf="@+id/recycler_newPost_photo" />
