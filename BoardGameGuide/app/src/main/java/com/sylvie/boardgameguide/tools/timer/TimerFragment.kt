@@ -37,15 +37,15 @@ class TimerFragment : Fragment() {
             }
         }
 
-        binding.text1.setOnClickListener {
+        binding.button1.setOnClickListener {
             resetCount(binding.text1.text.toString())
         }
 
-        binding.text2.setOnClickListener {
+        binding.button2.setOnClickListener {
             resetCount(binding.text2.text.toString())
         }
 
-        binding.text3.setOnClickListener {
+        binding.button3.setOnClickListener {
             resetCount(binding.text3.text.toString())
         }
 
@@ -75,8 +75,10 @@ class TimerFragment : Fragment() {
         }
     }
     private fun resetCount(time: String){
-        timer.cancel()
-        timerStatus = false
+        if(timerStatus){
+            timer.cancel()
+            timerStatus = false
+        }
         binding.circularProgressBar.progress = 0F
         binding.textTime.text = time
     }
