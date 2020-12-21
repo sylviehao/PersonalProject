@@ -38,6 +38,8 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     var focusStatus = MutableLiveData<Boolean>()
 
+    var visibilityStatus = MutableLiveData<Boolean>()
+
     var userList = MutableLiveData<MutableList<String>>().apply {
         value = mutableListOf()
     }
@@ -148,12 +150,16 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     }
 
 
-    fun addData(userId: String) {
+    fun editPlayer(userId: String, status: Boolean) {
 
         val oldPlayerList = userList.value
-        oldPlayerList?.add(userId)
-        userList.value = oldPlayerList
+        if(status) {
+            oldPlayerList?.add(userId)
+        } else {
+            oldPlayerList?.remove(userId)
+        }
         focusStatus.value = true
+        userList.value = oldPlayerList
     }
 
     fun idToName(userId: String): String {

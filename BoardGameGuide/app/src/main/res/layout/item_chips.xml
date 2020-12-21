@@ -21,6 +21,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:mcv_textColor="@color/white"
+            app:mcv_iconTextColor="@color/white"
+            app:mcv_closeColor="@color/white"
+            app:mcv_backgroundColor="@color/lightGreen"
             app:mcv_closable="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

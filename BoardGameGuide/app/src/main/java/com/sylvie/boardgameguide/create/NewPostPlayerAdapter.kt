@@ -5,6 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.robertlevonyan.views.chip.OnCloseClickListener
+import com.robertlevonyan.views.chip.OnSelectClickListener
 import com.sylvie.boardgameguide.databinding.ItemChipsBinding
 import com.sylvie.boardgameguide.databinding.ItemDetailEventPlayerBinding
 
@@ -17,6 +19,10 @@ class NewPostPlayerAdapter(var viewModel: NewPostViewModel):
         fun bind(data: String, viewModel: NewPostViewModel) {
             binding.data = data
             binding.textPlayer.text = viewModel.idToName(data)
+            binding.textPlayer.onCloseClickListener = OnCloseClickListener { v ->
+                viewModel.editPlayer(data, false)
+                viewModel.visibilityStatus.value = true
+            }
             binding.executePendingBindings()
         }
     }

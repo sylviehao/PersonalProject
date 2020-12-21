@@ -1,6 +1,7 @@
 package com.sylvie.boardgameguide.create
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -21,6 +22,10 @@ class NewPostPlayerFilterAdapter(var viewModel: NewPostViewModel):
         fun bind(user: User, viewModel: NewPostViewModel) {
             binding.user = user
             binding.viewModel = viewModel
+            binding.textPlayerName.setOnClickListener {
+                viewModel.editPlayer(user.id, true)
+                viewModel.visibilityStatus.value = true
+            }
             binding.executePendingBindings()
         }
     }

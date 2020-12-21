@@ -20,9 +20,7 @@
             android:id="@+id/text_player_name"
             android:layout_width="0dp"
             android:layout_height="35dp"
-            android:background="@drawable/round_grey_corner"
             android:gravity="start|center"
-            android:onClick="@{() -> viewModel.addData(user.id)}"
             android:text="@{user.name}"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,5 +28,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Sylvie Hao" />
+
+<!--        android:onClick="@{() -> viewModel.editPlayer(user.id, true)}"-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

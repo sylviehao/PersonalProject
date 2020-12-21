@@ -143,13 +143,15 @@ class NewPostFragment : Fragment() {
                 viewModel.getAllUsersData.value?.let { userList ->
                     adapter3.submitList(userList)
                 }
-            } else{
-                binding.recyclerPlayerFilter.visibility = View.INVISIBLE
             }
         }
 
         viewModel.focusStatus.observe(viewLifecycleOwner, Observer {
             binding.editNewPostGameMember.clearFocus()
+        })
+
+        viewModel.visibilityStatus.observe(viewLifecycleOwner, Observer {
+            binding.recyclerPlayerFilter.visibility = View.GONE
         })
 
         viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {

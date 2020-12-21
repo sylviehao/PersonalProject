@@ -28,8 +28,6 @@ class NewPostGameTypeAdapter(var viewModel: NewPostViewModel):
 
             }
 
-
-//            binding.textGameType.onSelectClickListener
             binding.executePendingBindings()
         }
     }
