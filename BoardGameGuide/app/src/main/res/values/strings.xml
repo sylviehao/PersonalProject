@@ -4,6 +4,9 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+
+    <string name="app_title">TABLE\nGAMER</string>
+    <string name="sign_in">SIGN IN</string>
     <string name="home">HOME</string>
     <string name="new_post">NEW POST</string>
     <string name="game_topic">貼文標題</string>

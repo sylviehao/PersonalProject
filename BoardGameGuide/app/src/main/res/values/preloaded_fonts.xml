@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/amaranth</item>
         <item>@font/amita_bold</item>
         <item>@font/atma_light</item>
+        <item>@font/bangers</item>
+        <item>@font/bevan</item>
+        <item>@font/cabin</item>
+        <item>@font/caveat_brush</item>
+        <item>@font/coming_soon</item>
         <item>@font/finger_paint</item>
         <item>@font/noto_sans</item>
         <item>@font/permanent_marker</item>
+        <item>@font/ribeye</item>
         <item>@font/rock_salt</item>
         <item>@font/satisfy</item>
         <item>@font/yatra_one</item>

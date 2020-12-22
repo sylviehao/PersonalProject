@@ -121,4 +121,7 @@ dependencies {
 
     //Chips
     implementation 'com.robertlevonyan.view:MaterialChipView:2.0.6'
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:3.5.0'
 }

@@ -12,31 +12,64 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
         tools:context=".login.LoginActivity">
 
 
-        <ImageView
-            android:id="@+id/background_login"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:alpha="0.5"
-            android:scaleType="centerCrop"
+        <!--        <ImageView-->
+        <!--            android:id="@+id/background_login"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:alpha="0.5"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.0"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.0"-->
+        <!--            app:srcCompat="@drawable/pic_login" />-->
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/ribeye"
+            android:text="@string/app_title"
+            android:textColor="@color/white"
+            android:textSize="68sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pic_login" />
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="celebrating-christmas.json"
+            app:lottie_imageAssetsFolder="images"
+            app:lottie_loop="true" />
 
         <TextView
             android:id="@+id/button_login"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginBottom="90dp"
-            android:alpha="0.6"
-            android:background="@color/white"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/round_red_corner"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line_1" />
 
         <ImageView
             android:id="@+id/ic_login"
@@ -45,7 +78,9 @@
             app:layout_constraintBottom_toBottomOf="@+id/button_login"
             app:layout_constraintEnd_toStartOf="@+id/text_login"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_login"
+            android:foregroundGravity="center"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/button_login"
             app:layout_constraintTop_toTopOf="@+id/button_login"
             app:srcCompat="@drawable/ic_google_login" />
 
@@ -53,29 +88,29 @@
             android:id="@+id/text_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:fontFamily="@font/noto_sans"
-            android:text="SIGN IN"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/cabin"
+            android:gravity="center"
+            android:text="@string/sign_in"
             android:textColor="@color/ic_launcher_background"
             android:textSize="28sp"
             app:layout_constraintBottom_toBottomOf="@+id/ic_login"
-            app:layout_constraintEnd_toStartOf="@+id/button_login"
+            app:layout_constraintEnd_toEndOf="@+id/button_login"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/ic_login"
             app:layout_constraintTop_toTopOf="@+id/ic_login" />
 
         <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="90dp"
-            android:fontFamily="@font/atma_light"
-            android:text="Board Game"
-            android:textColor="@color/white"
-            android:textSize="64sp"
+            android:id="@+id/line_1"
+            android:layout_width="0dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="72dp"
+            android:background="@drawable/round_light_blue_corner"
+            app:layout_constraintBottom_toBottomOf="@+id/animation_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <!--        <TextView-->
         <!--            android:id="@+id/button2"-->

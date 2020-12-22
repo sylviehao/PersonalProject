@@ -44,8 +44,8 @@ class LoginActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        spark = Spark(binding.root, Spark.ANIM_YELLOW_BLUE, 4000)
-        spark.startAnimation()
+//        spark = Spark(binding.root, Spark.ANIM_YELLOW_BLUE, 4000)
+//        spark.startAnimation()
 
 
         // Initialize Firebase Auth
