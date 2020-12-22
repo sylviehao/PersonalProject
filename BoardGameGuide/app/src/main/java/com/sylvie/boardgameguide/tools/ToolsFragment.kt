@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.sylvie.boardgameguide.R
@@ -24,6 +25,10 @@ class ToolsFragment : Fragment() {
         binding.iconPick.setOnClickListener {
             findNavController().navigate(R.id.action_global_bottleFragment)
         }
+
+        binding.animationView.startAnimation(AnimationUtils.loadAnimation(binding.root.context, R.anim.anim_slide_up))
+        binding.animationAstronaut.visibility = View.VISIBLE
+        binding.animationAstronaut.startAnimation(AnimationUtils.loadAnimation(binding.root.context, R.anim.anim_slide_right))
 
 
         return binding.root
