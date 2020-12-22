@@ -176,4 +176,13 @@
             android:name="userId"
             app:argType="string" />
     </fragment><action android:id="@+id/action_global_profileEventFragment" app:destination="@id/profileEventFragment"/>
+    <dialog
+        android:id="@+id/profileEditDialog"
+        android:name="com.sylvie.boardgameguide.dialog.ProfileEditDialog"
+        android:label="ProfileEditDialog" >
+        <argument
+            android:name="user"
+            app:argType="com.sylvie.boardgameguide.data.User" />
+    </dialog>
+    <action android:id="@+id/action_global_profileEditDialog" app:destination="@id/profileEditDialog" />
 </navigation>

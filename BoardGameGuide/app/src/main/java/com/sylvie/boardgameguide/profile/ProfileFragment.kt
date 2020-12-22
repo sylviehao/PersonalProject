@@ -129,6 +129,12 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(ProfilePostFragmentDirections.actionGlobalProfileEventFragment(userId))
         }
 
+        binding.textName.setOnClickListener {
+            viewModel.getUserData.value?.let {
+                findNavController().navigate(ProfileFragmentDirections.actionGlobalProfileEditDialog(it))
+            }
+        }
+
 
         return binding.root
     }

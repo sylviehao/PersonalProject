@@ -71,10 +71,11 @@ object GameRemoteDataSource : GameDataSource {
 
     override suspend fun setUser(user: User, introduction: String): Result<User> =
         suspendCoroutine { continuation ->
+            user.introduction = introduction
             FirebaseFirestore.getInstance()
                 .collection("User").document(user.id)
-                .update("introduction", introduction)
-//                .set(introduction)
+//                .update("introduction", introduction)
+                .set(user)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         continuation.resume(Result.Success(user))
