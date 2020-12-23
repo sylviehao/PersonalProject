@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_nav_dice_selector"
         android:title="@string/tools" />
     <item
-        android:id="@+id/navigation_event"
-        android:icon="@drawable/ic_nav_group_selector"
-        android:title="@string/event" />
+        android:id="@+id/navigation_game"
+        android:icon="@drawable/ic_nav_game_selector"
+        android:title="@string/game" />
     <item
         android:id="@+id/navigation_favorite"
         android:icon="@drawable/ic_nav_pin_selector"

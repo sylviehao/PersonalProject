@@ -134,27 +134,27 @@
                 app:srcCompat="@drawable/ic_nav_pin" />
 
             <TextView
-            android:id="@+id/button_create_event"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/round_corner_message"
-            android:gravity="center"
-            android:text="@string/event_status"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_name" />
+                android:id="@+id/button_create_event"
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/round_corner_message"
+                android:gravity="center"
+                android:text="@string/event"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/text_name" />
 
             <TextView
                 android:id="@+id/button_create_post"
-                android:layout_width="60dp"
+                android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:background="@drawable/round_corner_message"
                 android:gravity="center"
-                android:text="@string/post_status"
+                android:text="@string/post"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"

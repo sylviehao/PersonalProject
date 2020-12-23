@@ -31,7 +31,9 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
             CurrentFragmentType.DETAIL_EVENT -> DrawerToggleType.BACK
             CurrentFragmentType.NEW_GAME -> DrawerToggleType.BACK
             CurrentFragmentType.DETAIL_GAME -> DrawerToggleType.BACK
-
+            CurrentFragmentType.DICE -> DrawerToggleType.BACK
+            CurrentFragmentType.TIMER -> DrawerToggleType.BACK
+            CurrentFragmentType.PICKER -> DrawerToggleType.BACK
             else -> DrawerToggleType.NORMAL
         }
     }

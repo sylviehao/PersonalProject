@@ -42,6 +42,12 @@ class ProfileFragment : Fragment() {
             viewModel.navigateToDetail(it)
         })
 
+        if (userId != UserManager.userToken) {
+            binding.buttonEditInfo.visibility = View.GONE
+        } else {
+            binding.buttonEditInfo.visibility = View.VISIBLE
+        }
+
         binding.recyclerBrowse.adapter = adapter
 
         binding.imageProfile.setOnClickListener {

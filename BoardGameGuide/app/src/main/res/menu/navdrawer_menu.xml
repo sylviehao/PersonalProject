@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Welcome">
+    <item android:title="Your event">
         <menu>
             <item
-                android:id="@+id/nav_game_all"
-                android:icon="@drawable/ic_bart"
-                android:title="遊戲列表" />
+                android:id="@+id/nav_event"
+                android:icon="@drawable/ic_nav_group"
+                android:title="揪團列表" />
 <!--            <item-->
 <!--                android:id="@+id/nav_awaiting_shipment"-->
 <!--                android:icon="@drawable/ic_awaiting_shipment"-->

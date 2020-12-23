@@ -1,18 +1,13 @@
 package com.sylvie.boardgameguide
 
-import android.Manifest
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.app.ActivityCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -21,8 +16,6 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.bumptech.glide.Glide
-import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.sylvie.boardgameguide.databinding.ActivityMainBinding
 import com.sylvie.boardgameguide.databinding.NavHeaderDrawerBinding
@@ -31,7 +24,6 @@ import com.sylvie.boardgameguide.login.LoginActivity
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.CurrentFragmentType
 import com.sylvie.boardgameguide.util.DrawerToggleType
-import kotlinx.android.synthetic.main.fragment_new_post.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,8 +43,8 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalFavoriteFragment())
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_event -> {
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalEventFragment())
+            R.id.navigation_game -> {
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalGameFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_tools -> {
@@ -129,6 +121,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.gameFragment -> CurrentFragmentType.GAME
                 R.id.newGameFragment -> CurrentFragmentType.NEW_GAME
                 R.id.gameDetailFragment -> CurrentFragmentType.DETAIL_GAME
+                R.id.diceFragment -> CurrentFragmentType.DICE
+                R.id.timerFragment -> CurrentFragmentType.TIMER
+                R.id.bottleFragment -> CurrentFragmentType.PICKER
                 else -> viewModel.currentFragmentType.value
             }
         }
@@ -148,10 +143,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.drawerNavView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_game_all -> {
+                R.id.nav_event -> {
                     viewModel.navigate.value = 1
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
-                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_gameFragment)
+                    findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_eventFragment)
                     true
                 }
                 else -> false
