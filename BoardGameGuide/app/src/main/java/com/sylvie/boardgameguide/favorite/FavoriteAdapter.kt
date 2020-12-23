@@ -21,8 +21,6 @@ class FavoriteAdapter(private val onClickListener: OnClickListener, var viewMode
 
         fun bind(game: Game, onClickListener: OnClickListener, viewModel: FavoriteViewModel) {
             binding.game = game
-            binding.textGameName.text = game.name
-            binding.textGameType.text = game.type.toString()
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
 
             viewModel.getUserData.let {

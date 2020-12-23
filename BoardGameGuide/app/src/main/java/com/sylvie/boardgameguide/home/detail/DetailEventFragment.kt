@@ -16,10 +16,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
+import com.sylvie.boardgameguide.data.Event
+import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
@@ -68,9 +73,11 @@ class DetailEventFragment : Fragment() {
         val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener{
             checkPermission()
         }, viewModel)
+        val adapter3 = DetailEventCommentAdapter()
 
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
+        binding.recyclerComment.adapter = adapter3
 
         viewModel.getAllUsers()
 
@@ -158,6 +165,49 @@ class DetailEventFragment : Fragment() {
         binding.imageHost.setOnClickListener {
             findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
 
+        }
+
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("Event")
+            .orderBy("createdTime", Query.Direction.DESCENDING)
+            .addSnapshotListener { value, error ->
+                value?.let {
+                    val listResult = mutableListOf<Event>()
+
+                    it.forEach { data ->
+                        val d = data.toObject(Event::class.java)
+                        listResult.add(d)
+
+                    }
+                    var b = listResult.filter { result-> result.id == bundle.id }[0]
+                    adapter3.submitList(b.message)
+                    adapter3.notifyDataSetChanged()
+                }
+            }
+
+        binding.buttonSend.setOnClickListener {
+
+            val data = Message(
+                hostId = bundle.user!!.id,
+                userName = UserManager.user.value?.name,
+                message = binding.editComment.text.toString()
+            )
+
+            db.collection("Event").document(bundle.id)
+                //No covering
+                .update("message", FieldValue.arrayUnion(data))
+                .addOnSuccessListener { documentReference ->
+//                    documentReference.update("id", bundle.id)
+                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
+                }
+                .addOnFailureListener {
+                    Log.d("TAG", "$it")
+                    Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
+                        .show()
+                }
+
+            binding.editComment.text = null
         }
 
 

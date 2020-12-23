@@ -193,36 +193,6 @@
                         tools:text="規則:" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_photo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintBottom_toTopOf="@+id/button_join"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                    tools:listitem="@layout/item_detail_post_photo" />
-
-
-                <Button
-                    android:id="@+id/button_join"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:background="@color/vintageOrange"
-                    android:fontFamily="@font/finger_paint"
-                    android:text="@string/join"
-                    android:textColor="@android:color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent" />
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout"
                     android:layout_width="0dp"
@@ -310,6 +280,109 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_photo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                    tools:listitem="@layout/item_detail_post_photo" />
+
+                <TextView
+                    android:id="@+id/text_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/round_grey_corner"
+                    android:fontFamily="@font/finger_paint"
+                    android:gravity="center"
+                    android:text="@string/post_comment"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_comment"
+                    app:layout_constraintTop_toBottomOf="@+id/text_comment" />
+
+                <EditText
+                    android:id="@+id/edit_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/round_light_blue_corner"
+                    android:ems="10"
+                    android:fontFamily="@font/finger_paint"
+                    android:gravity="center|start"
+                    android:hint="@string/edit_comment"
+                    android:inputType="textMultiLine"
+                    android:textColorHint="@color/gray_888888"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toTopOf="@+id/button_join"
+                    app:layout_constraintEnd_toEndOf="@+id/recycler_comment"
+                    app:layout_constraintStart_toEndOf="@+id/image_profile"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_comment" />
+
+                <TextView
+                    android:id="@+id/button_send"
+                    android:layout_width="60dp"
+                    android:layout_height="0dp"
+                    android:background="@drawable/round_red_corner"
+                    android:fontFamily="@font/finger_paint"
+                    android:gravity="center"
+                    android:text="@string/send"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_comment"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_comment"
+                    app:layout_constraintTop_toTopOf="@+id/edit_comment" />
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/image_profile"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    app:civ_border_width="0dp"
+                    app:imageUrl="@{viewModel.getUserData.image}"
+                    app:layout_constraintBottom_toBottomOf="@+id/edit_comment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/edit_comment"
+                    tools:src="@drawable/pic_pumpkin" />
+
+                <Button
+                    android:id="@+id/button_join"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:background="@color/vintageOrange"
+                    android:fontFamily="@font/finger_paint"
+                    android:text="@string/join"
+                    android:textColor="@android:color/white"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

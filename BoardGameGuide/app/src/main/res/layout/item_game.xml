@@ -55,7 +55,7 @@
                 android:fontFamily="@font/noto_sans"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
-                takeOffBracket="@{game.type}"
+                app:takeOffBracket="@{game.type}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/text_game_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_game_name"

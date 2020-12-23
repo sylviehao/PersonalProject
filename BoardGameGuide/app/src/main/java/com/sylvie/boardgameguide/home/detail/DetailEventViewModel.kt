@@ -67,7 +67,7 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     }
 
     init {
-
+        getUser()
     }
 
     fun getAllUsers() {
@@ -91,6 +91,25 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 //            }
 //        }
 //    }
+
+    fun getUser() {
+        coroutineScope.launch {
+            try {
+                UserManager.userToken?.let {
+                    val result = gameRepository.getUser(it)
+                    _getUserData.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+            }
+        }
+    }
 
     fun getEvent(id: String) {
         coroutineScope.launch {

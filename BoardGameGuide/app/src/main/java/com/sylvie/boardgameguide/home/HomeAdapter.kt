@@ -40,7 +40,7 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
 
         fun bind(event: Event, onClickListener: OnClickListener,viewModel: HomeViewModel) {
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
-            binding.textGameTime.text = "時間: " + dateString
+            binding.textGameTime.text = "Time " + dateString
             binding.event = event
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())

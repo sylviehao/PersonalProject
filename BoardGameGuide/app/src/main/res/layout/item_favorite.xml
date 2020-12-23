@@ -41,6 +41,7 @@
                 android:fontFamily="@font/noto_sans"
                 android:textColor="@color/darkBrown"
                 android:textSize="20sp"
+                android:text="@{game.name}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/image_game"
                 tools:text="狼人殺"/>
@@ -54,6 +55,7 @@
                 android:fontFamily="@font/noto_sans"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
+                app:takeOffBracket="@{game.type}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/text_game_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_game_name"
