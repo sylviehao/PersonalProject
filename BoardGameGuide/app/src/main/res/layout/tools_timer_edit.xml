@@ -8,6 +8,8 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_edit_time"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -44,8 +46,8 @@
             app:layout_constraintTop_toTopOf="@+id/button_2"
             app:srcCompat="@drawable/round_time_3" />
 
-        <TextView
-            android:id="@+id/text_1"
+        <EditText
+            android:id="@+id/edit_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
@@ -57,8 +59,8 @@
             app:layout_constraintStart_toStartOf="@+id/button_1"
             app:layout_constraintTop_toTopOf="@+id/button_1" />
 
-        <TextView
-            android:id="@+id/text_2"
+        <EditText
+            android:id="@+id/edit_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
@@ -70,8 +72,8 @@
             app:layout_constraintStart_toStartOf="@+id/button_2"
             app:layout_constraintTop_toTopOf="@+id/button_2" />
 
-        <TextView
-            android:id="@+id/text_3"
+        <EditText
+            android:id="@+id/edit_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"

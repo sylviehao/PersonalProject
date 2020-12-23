@@ -1,11 +1,17 @@
 package com.sylvie.boardgameguide.tools.timer
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.ToolsTimerBinding
@@ -25,6 +31,8 @@ class TimerFragment : Fragment() {
     ): View? {
         binding = ToolsTimerBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        readData()
 
         binding.constraintTimer.setOnClickListener {
             timerStatus = if(timerStatus){
@@ -50,7 +58,7 @@ class TimerFragment : Fragment() {
         }
 
         binding.textCustom.setOnClickListener {
-
+            showDialog()
         }
 
         return binding.root
@@ -81,5 +89,42 @@ class TimerFragment : Fragment() {
         }
         binding.circularProgressBar.progress = 0F
         binding.textTime.text = time
+    }
+
+    private fun showDialog() {
+        val dialog = Dialog(requireActivity())
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(true)
+        dialog.setContentView(R.layout.tools_timer_edit)
+        val edit1 = dialog.findViewById(R.id.edit_1) as EditText
+        val edit2 = dialog.findViewById(R.id.edit_2) as EditText
+        val edit3 = dialog.findViewById(R.id.edit_3) as EditText
+        val textSend = dialog.findViewById(R.id.text_send) as TextView
+
+        textSend.setOnClickListener {
+            binding.text1.text = edit1.text.toString()
+            binding.text2.text = edit2.text.toString()
+            binding.text3.text = edit3.text.toString()
+            saveData(edit1.text.toString(), edit2.text.toString(), edit3.text.toString())
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
+
+    private fun readData() {
+        val settings = requireContext().getSharedPreferences("Timer", 0)
+        binding.text1.text = (settings.getString("time1", "0"))
+        binding.text2.text = (settings.getString("time2", "0"))
+        binding.text3.text = (settings.getString("time3", "0"))
+    }
+
+    private fun saveData(time1: String, time2: String, time3: String) {
+        val settings = requireContext().getSharedPreferences("Timer", 0)
+        settings.edit()
+            .putString("time1", time1)
+            .putString("time2", time2)
+            .putString("time3", time3)
+            .apply()
     }
 }
