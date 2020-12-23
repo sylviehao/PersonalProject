@@ -196,6 +196,11 @@ class DetailPostFragment : Fragment() {
 
         }
 
+        binding.textHostName.setOnClickListener {
+            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+        }
+
+
         binding.buttonSortDown.setOnClickListener {
             if (it.tag == "empty") {
                 it.tag = "select"

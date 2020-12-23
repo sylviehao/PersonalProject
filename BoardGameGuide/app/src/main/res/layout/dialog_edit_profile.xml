@@ -18,21 +18,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_dialog_corner"
+            android:paddingBottom="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/image_profile"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:background="@drawable/frame_edit_new_post"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/pic_graffiti_small" />
+                app:layout_constraintEnd_toEndOf="@+id/edit_intro"
+                app:layout_constraintStart_toStartOf="@+id/edit_intro"
+                app:layout_constraintTop_toBottomOf="@+id/edit_intro" />
 
             <ImageView
                 android:id="@+id/icon_add_photo"
@@ -49,21 +48,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:alpha="0.6"
                 android:background="@drawable/round_yellow_corner"
+                android:text="@{viewModel.user.name}"
                 android:hint="Your name"
-                app:layout_constraintStart_toEndOf="@+id/image_profile"
-                app:layout_constraintTop_toTopOf="@+id/image_profile"
+                android:textColorHint="@color/gray_888888"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="sylviehao" />
 
             <EditText
                 android:id="@+id/edit_intro"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:alpha="0.6"
                 android:background="@drawable/round_yellow_corner"
+                android:text="@{viewModel.user.introduction}"
                 android:hint="Your introduction"
                 android:inputType="textMultiLine"
+                android:textColorHint="@color/gray_888888"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/edit_name"
                 app:layout_constraintTop_toBottomOf="@+id/edit_name"
@@ -72,15 +78,16 @@
             <TextView
                 android:id="@+id/button_send"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/round_red_corner"
                 android:text="SEND"
+                android:gravity="center"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/edit_intro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_intro" />
+                app:layout_constraintBottom_toBottomOf="@+id/edit_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

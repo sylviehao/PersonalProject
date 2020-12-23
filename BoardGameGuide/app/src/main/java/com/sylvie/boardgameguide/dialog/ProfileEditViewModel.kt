@@ -3,6 +3,7 @@ package com.sylvie.boardgameguide.dialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
@@ -18,6 +19,8 @@ class ProfileEditViewModel(private val gameRepository: GameRepository) : ViewMod
 
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    val user = MutableLiveData<User>()
 
     var imageUri = MutableLiveData<String>()
 

@@ -151,6 +151,15 @@ class DetailEventFragment : Fragment() {
             }
         }
 
+        binding.textHostName.setOnClickListener {
+            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+        }
+
+        binding.imageHost.setOnClickListener {
+            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+
+        }
+
 
         return binding.root
     }

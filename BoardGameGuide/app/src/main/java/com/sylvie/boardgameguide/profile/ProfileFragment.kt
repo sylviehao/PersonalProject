@@ -113,20 +113,20 @@ class ProfileFragment : Fragment() {
             adapter.submitList(it)
         })
 
-        binding.buttonEditInfo.setOnClickListener {
-            binding.textDescription.isEnabled = true
-            binding.textDescription.requestFocus()
-            binding.textDescription.setSelection(binding.textDescription.length())
-//            binding.textEdit.text = "SEND"
-            if (binding.textEdit.text == "SEND") {
-            viewModel.getUserData.value?.let { user -> viewModel.setUser(user, binding.textDescription.text.toString() ) }
-                binding.textDescription.isEnabled = false
-                binding.textEdit.text = getString(R.string.edit)
-            } else {
-                binding.textDescription.requestFocus()
-                binding.textEdit.text = "SEND"
-            }
-        }
+//        binding.buttonEditInfo.setOnClickListener {
+//            binding.textDescription.isEnabled = true
+//            binding.textDescription.requestFocus()
+//            binding.textDescription.setSelection(binding.textDescription.length())
+////            binding.textEdit.text = "SEND"
+//            if (binding.textEdit.text == "SEND") {
+//            viewModel.getUserData.value?.let { user -> viewModel.setUser(user, binding.textDescription.text.toString() ) }
+//                binding.textDescription.isEnabled = false
+//                binding.textEdit.text = getString(R.string.edit)
+//            } else {
+//                binding.textDescription.requestFocus()
+//                binding.textEdit.text = "SEND"
+//            }
+//        }
 
         binding.constraintPost.setOnClickListener {
             findNavController().navigate(ProfilePostFragmentDirections.actionGlobalProfilePostFragment(userId))
@@ -136,7 +136,7 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(ProfilePostFragmentDirections.actionGlobalProfileEventFragment(userId))
         }
 
-        binding.textName.setOnClickListener {
+        binding.buttonEditInfo.setOnClickListener {
             viewModel.getUserData.value?.let {
                 findNavController().navigate(ProfileFragmentDirections.actionGlobalProfileEditDialog(it))
             }

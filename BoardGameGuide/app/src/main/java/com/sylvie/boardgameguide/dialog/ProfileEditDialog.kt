@@ -24,6 +24,8 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.NavigationDirections
 import com.sylvie.boardgameguide.R
+import com.sylvie.boardgameguide.data.Game
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.DialogEditProfileBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.login.UserManager
@@ -52,11 +54,22 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
         binding.viewModel = viewModel
         val user = ProfileEditDialogArgs.fromBundle(requireArguments()).user
 
+        viewModel.user.value = user
+
         val storage = Firebase.storage
         val storageRef = storage.reference
 
         binding.buttonSend.setOnClickListener {
+            if (!filePath.isBlank()){
+
             uploadPhoto(storageRef,filePath)
+            } else {
+                user.apply {
+                    name = binding.editName.text.toString()
+                }
+                val introduction = binding.editIntro.text.toString()
+                viewModel.setUser(user, introduction)
+            }
         }
 
         binding.imageProfile.setOnClickListener {
