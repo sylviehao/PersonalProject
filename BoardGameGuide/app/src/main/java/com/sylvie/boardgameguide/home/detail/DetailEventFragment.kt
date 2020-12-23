@@ -141,6 +141,17 @@ class DetailEventFragment : Fragment() {
         binding.textGameTime.text = dateString
 
 
+        binding.buttonSortDown.setOnClickListener {
+            if (it.tag == "empty") {
+                it.tag = "select"
+                binding.constraintGameInfo.visibility = View.VISIBLE
+            } else {
+                it.tag = "empty"
+                binding.constraintGameInfo.visibility = View.GONE
+            }
+        }
+
+
         return binding.root
     }
 

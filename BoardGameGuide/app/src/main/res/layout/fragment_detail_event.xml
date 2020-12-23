@@ -126,6 +126,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:alpha="0.5"
                     android:background="@drawable/round_grey_corner"
                     android:fontFamily="@font/finger_paint"
                     android:gravity="center"
@@ -134,29 +135,26 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_photo" />
+                    app:layout_constraintTop_toBottomOf="@+id/ic_map_pin" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_photo"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-                    tools:listitem="@layout/item_detail_post_photo" />
-
+                <ImageView
+                    android:id="@+id/button_sort_down"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="10dp"
+                    android:tag="empty"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_game_info"
+                    app:layout_constraintEnd_toEndOf="@+id/text_game_info"
+                    app:layout_constraintTop_toTopOf="@+id/text_game_info"
+                    app:srcCompat="@drawable/ic_sort_down" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_game_info"
                     android:layout_width="361dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/button_join"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
+                    android:tag="empty"
                     app:layout_constraintEnd_toEndOf="@+id/text_game_info"
                     app:layout_constraintStart_toStartOf="@+id/text_game_info"
                     app:layout_constraintTop_toBottomOf="@+id/text_game_info">
@@ -166,7 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@{viewModel.getEventData.game.name}"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:text="名稱: 風聲" />
@@ -176,10 +174,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        app:takeOffBracket="@{viewModel.getEventData.game.type}"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toStartOf="@+id/text_game_name"
                         app:layout_constraintTop_toBottomOf="@+id/text_game_name"
+                        app:takeOffBracket="@{viewModel.getEventData.game.type}"
                         tools:text="種類: 陣營" />
 
                     <TextView
@@ -188,12 +186,28 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@{viewModel.getEventData.game.rules}"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/text_game_type"
                         app:layout_constraintTop_toBottomOf="@+id/text_game_type"
                         tools:text="規則:" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_photo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toTopOf="@+id/button_join"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+                    tools:listitem="@layout/item_detail_post_photo" />
+
 
                 <Button
                     android:id="@+id/button_join"
@@ -218,12 +232,13 @@
                     android:background="@drawable/round_light_blue_corner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/ic_map_pin"
-                    app:layout_constraintTop_toBottomOf="@+id/ic_map_pin">
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_game_info">
 
                     <TextView
                         android:id="@+id/text_game_topic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/finger_paint"
                         android:text="@{viewModel.getEventData.topic}"
@@ -283,7 +298,7 @@
 
                     <TextView
                         android:id="@+id/text_status"
-                        android:layout_width="65dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:background="@drawable/round_red_corner"

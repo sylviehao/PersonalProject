@@ -120,6 +120,80 @@
                     app:layout_constraintTop_toTopOf="@+id/ic_map_pin"
                     tools:text="AppWorks School" />
 
+                <TextView
+                    android:id="@+id/text_game_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:alpha="0.5"
+                    android:background="@drawable/round_grey_corner"
+                    android:fontFamily="@font/finger_paint"
+                    android:gravity="center"
+                    android:text="@string/game_info"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/ic_map_pin"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_location" />
+
+                <ImageView
+                    android:id="@+id/button_sort_down"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_marginEnd="10dp"
+                    android:tag="empty"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_game_info"
+                    app:layout_constraintEnd_toEndOf="@+id/text_game_info"
+                    app:layout_constraintTop_toTopOf="@+id/text_game_info"
+                    app:srcCompat="@drawable/ic_sort_down" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_game_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/text_game_info"
+                    app:layout_constraintTop_toBottomOf="@+id/text_game_info">
+
+                    <TextView
+                        android:id="@+id/text_game_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.getEventData.game.name}"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="狼人殺" />
+
+
+                    <TextView
+                        android:id="@+id/text_game_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_game_name"
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_name"
+                        app:takeOffBracket="@{viewModel.getEventData.game.type}"
+                        tools:text="陣營" />
+
+                    <TextView
+                        android:id="@+id/text_game_rule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewModel.getEventData.game.rules}"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="@+id/text_game_type"
+                        app:layout_constraintTop_toBottomOf="@+id/text_game_type"
+                        tools:text="規則" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayout4"
                     android:layout_width="0dp"
@@ -130,12 +204,13 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/ic_map_pin"
-                    app:layout_constraintTop_toBottomOf="@+id/ic_map_pin">
+                    app:layout_constraintTop_toBottomOf="@+id/constraint_game_info">
 
                     <TextView
                         android:id="@+id/text_game_topic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/finger_paint"
                         android:text="@{viewModel.getEventData.topic}"
@@ -163,8 +238,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/ic_baby"
                         app:layout_constraintTop_toBottomOf="@+id/ic_baby" />
 
@@ -233,9 +310,9 @@
                 <TextView
                     android:id="@+id/text_comment"
                     android:layout_width="0dp"
-                    android:layout_height="36dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:alpha="0.5"
                     android:background="@drawable/round_grey_corner"
@@ -252,7 +329,7 @@
                     android:id="@+id/recycler_comment"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -264,7 +341,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@drawable/round_light_blue_corner"
                     android:ems="10"
                     android:fontFamily="@font/finger_paint"
@@ -273,6 +351,7 @@
                     android:inputType="textMultiLine"
                     android:textColorHint="@color/gray_888888"
                     android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/recycler_comment"
                     app:layout_constraintStart_toEndOf="@+id/image_profile"
                     app:layout_constraintTop_toBottomOf="@+id/recycler_comment" />
@@ -302,71 +381,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/edit_comment"
                     tools:src="@drawable/pic_pumpkin" />
-
-                <TextView
-                    android:id="@+id/text_game_info"
-                    android:layout_width="0dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginEnd="16dp"
-                    android:alpha="0.5"
-                    android:background="@drawable/round_grey_corner"
-                    android:fontFamily="@font/finger_paint"
-                    android:gravity="center"
-                    android:text="@string/game_info"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_comment" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_game_info"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/text_game_info"
-                    app:layout_constraintTop_toBottomOf="@+id/text_game_info">
-
-                    <TextView
-                        android:id="@+id/text_game_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{viewModel.getEventData.game.name}"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="狼人殺" />
-
-
-                    <TextView
-                        android:id="@+id/text_game_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/text_game_name"
-                        app:layout_constraintTop_toBottomOf="@+id/text_game_name"
-                        app:takeOffBracket="@{viewModel.getEventData.game.type}"
-                        tools:text="陣營" />
-
-                    <TextView
-                        android:id="@+id/text_game_rule"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@{viewModel.getEventData.game.rules}"
-                        android:textSize="18sp"
-                        app:layout_constraintStart_toStartOf="@+id/text_game_type"
-                        app:layout_constraintTop_toBottomOf="@+id/text_game_type"
-                        tools:text="規則" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
