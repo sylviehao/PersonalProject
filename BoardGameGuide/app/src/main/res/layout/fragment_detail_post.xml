@@ -233,10 +233,11 @@
                 <TextView
                     android:id="@+id/text_comment"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
+                    android:alpha="0.5"
                     android:background="@drawable/round_grey_corner"
                     android:fontFamily="@font/finger_paint"
                     android:gravity="center"
@@ -305,9 +306,11 @@
                 <TextView
                     android:id="@+id/text_game_info"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
+                    android:alpha="0.5"
                     android:background="@drawable/round_grey_corner"
                     android:fontFamily="@font/finger_paint"
                     android:gravity="center"
@@ -315,7 +318,7 @@
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/image_profile"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_comment" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -346,10 +349,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        app:takeOffBracket="@{viewModel.getEventData.game.type}"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="@+id/text_game_name"
                         app:layout_constraintTop_toBottomOf="@+id/text_game_name"
+                        app:takeOffBracket="@{viewModel.getEventData.game.type}"
                         tools:text="陣營" />
 
                     <TextView

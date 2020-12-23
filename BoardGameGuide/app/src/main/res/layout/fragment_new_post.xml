@@ -299,12 +299,12 @@
                     android:id="@+id/recycler_game_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newPost_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_newPost_game_name"
                     app:layout_constraintTop_toBottomOf="@+id/edit_newPost_game_name"
-                    app:spanCount="5" />
+                    app:spanCount="2" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

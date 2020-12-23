@@ -72,7 +72,7 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
             viewModel.setUser(user, introduction)
         })
 
-        viewModel.setUserData.observe(viewLifecycleOwner, Observer { 
+        viewModel.setUserData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalProfileFragment(it.id))
             }

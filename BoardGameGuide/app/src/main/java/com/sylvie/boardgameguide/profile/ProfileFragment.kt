@@ -103,6 +103,13 @@ class ProfileFragment : Fragment() {
         })
 
         viewModel.getBrowseRecentlyInfo.observe(viewLifecycleOwner, Observer {
+//            if (viewModel.getBrowseRecentlyInfo.value.isNullOrEmpty()) {
+//                binding.animationNoInfo.visibility = View.VISIBLE
+//                binding.recyclerBrowse.visibility = View.INVISIBLE
+//            } else {
+//                binding.animationNoInfo.visibility = View.INVISIBLE
+//                binding.recyclerBrowse.visibility = View.VISIBLE
+//            }
             adapter.submitList(it)
         })
 
