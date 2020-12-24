@@ -15,19 +15,22 @@
             android:id="@+id/constraint_timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
                 android:id="@+id/circularProgressBar"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                app:cpb_background_progressbar_color="@color/lightGreen"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                app:cpb_background_progressbar_color="@color/darkGreen"
+                app:cpb_background_progressbar_color_start="@color/lightBlue"
                 app:cpb_background_progressbar_width="8dp"
                 app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="@color/white"
+                app:cpb_progressbar_color="@color/lightBlue"
                 app:cpb_progressbar_width="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -38,16 +41,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans"
-                android:text="60"
+                android:text="30"
                 android:textColor="@color/lightGreen"
-                android:textSize="56sp"
+                android:textSize="48sp"
                 app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
                 app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
                 app:layout_constraintTop_toTopOf="@+id/circularProgressBar"
                 tools:text="60" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
         <!--        <ImageView-->
@@ -73,51 +75,51 @@
         <!--            app:layout_constraintTop_toTopOf="@+id/button_time" />-->
 
 
-
         <ImageView
             android:id="@+id/button_1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="36dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_2"
+            app:layout_constraintEnd_toStartOf="@+id/button_2"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="@+id/button_2"
             app:srcCompat="@drawable/round_time_1" />
 
         <ImageView
             android:id="@+id/button_2"
-            android:layout_width="100dp"
+            android:layout_width="90dp"
             android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_3"
-            app:layout_constraintEnd_toEndOf="@+id/button_1"
-            app:layout_constraintStart_toStartOf="@+id/button_1"
-            app:layout_constraintTop_toBottomOf="@+id/button_1"
+            android:layout_marginTop="42dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_1"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_timer"
             app:srcCompat="@drawable/round_time_2" />
 
         <ImageView
             android:id="@+id/button_3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_custom"
-            app:layout_constraintEnd_toEndOf="@+id/button_2"
-            app:layout_constraintStart_toStartOf="@+id/button_2"
-            app:layout_constraintTop_toBottomOf="@+id/button_2"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button_2"
+            app:layout_constraintTop_toTopOf="@+id/button_2"
             app:srcCompat="@drawable/round_time_3" />
 
         <ImageView
             android:id="@+id/button_custom"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/button_3"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/button_3"
-            app:layout_constraintTop_toBottomOf="@+id/button_3"
-            app:srcCompat="@drawable/round_time_custom" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.5"
+            android:background="@drawable/round_grey_corner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/round_player_corner" />
 
         <TextView
             android:id="@+id/text_1"
@@ -125,7 +127,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
             android:text="30"
-            android:textColor="@android:color/white"
+            android:textColor="@color/lightYellow"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/button_1"
             app:layout_constraintEnd_toEndOf="@+id/button_1"
@@ -138,7 +140,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
             android:text="60"
-            android:textColor="@android:color/white"
+            android:textColor="@color/orange"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/button_2"
             app:layout_constraintEnd_toEndOf="@+id/button_2"
@@ -151,7 +153,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/noto_sans"
             android:text="90"
-            android:textColor="@android:color/white"
+            android:textColor="@color/red"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/button_3"
             app:layout_constraintEnd_toEndOf="@+id/button_3"
@@ -160,8 +162,8 @@
 
         <ImageView
             android:id="@+id/text_custom"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
             app:layout_constraintBottom_toBottomOf="@+id/button_custom"
             app:layout_constraintEnd_toEndOf="@+id/button_custom"
             app:layout_constraintStart_toStartOf="@+id/button_custom"

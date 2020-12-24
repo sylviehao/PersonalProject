@@ -12,7 +12,9 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
 import android.widget.TextView
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.ToolsTimerBinding
 import java.sql.Time
@@ -57,7 +59,7 @@ class TimerFragment : Fragment() {
             resetCount(binding.text3.text.toString())
         }
 
-        binding.textCustom.setOnClickListener {
+        binding.buttonCustom.setOnClickListener {
             showDialog()
         }
 
@@ -114,9 +116,9 @@ class TimerFragment : Fragment() {
 
     private fun readData() {
         val settings = requireContext().getSharedPreferences("Timer", 0)
-        binding.text1.text = (settings.getString("time1", "0"))
-        binding.text2.text = (settings.getString("time2", "0"))
-        binding.text3.text = (settings.getString("time3", "0"))
+        binding.text1.text = (settings.getString("time1", "30"))
+        binding.text2.text = (settings.getString("time2", "60"))
+        binding.text3.text = (settings.getString("time3", "90"))
     }
 
     private fun saveData(time1: String, time2: String, time3: String) {
