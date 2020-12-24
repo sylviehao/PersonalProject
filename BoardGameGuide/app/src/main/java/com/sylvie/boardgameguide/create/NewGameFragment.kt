@@ -223,20 +223,4 @@ class NewGameFragment : Fragment() {
             Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()
         }
     }
-
-    override fun onStart() {
-        super.onStart()
-        let {
-            requireActivity().toolbar.visibility = View.GONE
-            requireActivity().bottomNavView.visibility = View.GONE
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        let {
-            requireActivity().toolbar.visibility = View.VISIBLE
-            requireActivity().bottomNavView.visibility = View.VISIBLE
-        }
-    }
 }

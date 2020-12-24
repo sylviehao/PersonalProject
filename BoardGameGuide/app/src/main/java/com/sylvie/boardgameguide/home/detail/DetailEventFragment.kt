@@ -326,19 +326,4 @@ class DetailEventFragment : Fragment() {
             .start()
     }
 
-    override fun onStart() {
-        super.onStart()
-        let {
-//            requireActivity().toolbar.visibility = View.GONE
-            requireActivity().bottomNavView.visibility = View.GONE
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        let {
-//            requireActivity().toolbar.visibility = View.VISIBLE
-            requireActivity().bottomNavView.visibility = View.VISIBLE
-        }
-    }
 }

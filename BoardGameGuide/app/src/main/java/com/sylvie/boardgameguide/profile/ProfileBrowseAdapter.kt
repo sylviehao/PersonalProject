@@ -21,7 +21,6 @@ class ProfileBrowseAdapter(private val onClickListener: ProfileBrowseAdapter.OnC
         fun bind(game: Game, onClickListener: ProfileBrowseAdapter.OnClickListener) {
             binding.game = game
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
-
             binding.executePendingBindings()
         }
     }

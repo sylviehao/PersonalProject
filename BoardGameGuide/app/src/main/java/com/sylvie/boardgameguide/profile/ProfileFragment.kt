@@ -50,11 +50,6 @@ class ProfileFragment : Fragment() {
 
         binding.recyclerBrowse.adapter = adapter
 
-        binding.imageProfile.setOnClickListener {
-            UserManager.clear()
-            Toast.makeText(context, "Sign Out", Toast.LENGTH_SHORT).show()
-        }
-
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(GameFragmentDirections.actionGlobalGameDetailFragment(it))

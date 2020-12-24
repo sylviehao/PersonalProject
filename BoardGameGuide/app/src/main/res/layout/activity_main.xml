@@ -82,7 +82,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:menu="@menu/bottom_nav_menu" />
+                app:menu="@menu/bottom_nav_menu"
+                android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.DETAIL_EVENT || viewModel.currentFragmentType == CurrentFragmentType.DETAIL_POST || viewModel.currentFragmentType == CurrentFragmentType.NEW_EVENT || viewModel.currentFragmentType == CurrentFragmentType.NEW_POST || viewModel.currentFragmentType == CurrentFragmentType.NEW_GAME? View.GONE : View.VISIBLE }"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,6 +95,7 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:menu="@menu/navdrawer_menu"
+            app:itemTextAppearance="@color/white"
             app:itemIconSize="36dp"
             app:itemTextColor="@color/darkBrown"
             app:itemShapeFillColor="@color/lightGreen"

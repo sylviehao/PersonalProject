@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
@@ -151,6 +152,13 @@ class MainActivity : AppCompatActivity() {
                     viewModel.navigate.value = 1
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_eventFragment)
+                    true
+                }
+                R.id.nav_sign_out -> {
+                    UserManager.clear()
+                    Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
