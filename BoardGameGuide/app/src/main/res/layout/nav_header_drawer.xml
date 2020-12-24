@@ -10,93 +10,93 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@color/darkGreen"
+        android:layout_height="250dp"
+        android:background="@color/oliveGreen"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+        <!--        <ImageView-->
+        <!--            android:id="@+id/image_drawer_avatar"-->
+        <!--            android:layout_width="60dp"-->
+        <!--            android:layout_height="60dp"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:scaleType="centerCrop"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:srcCompat="@drawable/ic_baby_white"/>-->
 
         <com.jetradarmobile.snowfall.SnowfallView
             android:id="@+id/snow_fall_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:snowflakesNum="250"
+            app:snowflakeAlphaMax="200"
             app:snowflakeAlphaMin="150"
-            app:snowflakeAlphaMax="255"
             app:snowflakeAngleMax="5"
-            app:snowflakeSizeMin="8dp"
-            app:snowflakeSizeMax="32dp"
+            app:snowflakeImage="@drawable/snowflake"
+            app:snowflakeSizeMax="28dp"
+            app:snowflakeSizeMin="4dp"
+            app:snowflakeSpeedMax="6"
             app:snowflakeSpeedMin="2"
-            app:snowflakeSpeedMax="8"
-            app:snowflakesFadingEnabled="true"
             app:snowflakesAlreadyFalling="false"
-            app:snowflakeImage="@drawable/snowflake">
-        </com.jetradarmobile.snowfall.SnowfallView>
-
-<!--        <ImageView-->
-<!--            android:id="@+id/image_drawer_avatar"-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="40dp"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:srcCompat="@drawable/ic_baby_white"/>-->
+            app:snowflakesFadingEnabled="true"
+            app:snowflakesNum="250"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/image_drawer_avatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
             android:scaleType="centerCrop"
             app:civ_border_width="0dp"
+            app:imageUrl="@{viewModel.getUserData.image}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:imageUrl="@{viewModel.getUserData.image}"
-            tools:src="@drawable/pic_pumpkin"/>
+            tools:src="@drawable/pic_pumpkin" />
 
         <TextView
             android:id="@+id/image_drawer_name"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:fontFamily="@font/noto_sans"
+            android:gravity="center"
             android:text="@{viewModel.getUserData.name}"
             android:textColor="@android:color/white"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_drawer_avatar"
-            tools:text="Sylvie HAO"/>
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_drawer_avatar"
+            app:layout_constraintStart_toEndOf="@+id/image_drawer_avatar"
+            app:layout_constraintTop_toTopOf="@+id/image_drawer_avatar"
+            tools:text="Sylvie HAO" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/image_drawer_info"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="4dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:fontFamily="@font/noto_sans"-->
-<!--            android:textColor="@android:color/white"-->
-<!--            android:textSize="13sp"-->
-<!--            android:text="TOP PLAYER"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/image_drawer_name"-->
-<!--            tools:text="AKA小安老師"/>-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/image_drawer_info"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:layout_marginTop="4dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:fontFamily="@font/noto_sans"-->
+        <!--            android:textColor="@android:color/white"-->
+        <!--            android:textSize="13sp"-->
+        <!--            android:text="TOP PLAYER"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/image_drawer_name"-->
+        <!--            tools:text="AKA小安老師"/>-->
 
-<!--        <ProgressBar-->
-<!--            android:theme="@style/ProgressThemeDark"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:visibility="gone"-->
-<!--            app:setupApiStatus="@{viewModel.status}"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
+        <!--        <ProgressBar-->
+        <!--            android:theme="@style/ProgressThemeDark"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:visibility="gone"-->
+        <!--            app:setupApiStatus="@{viewModel.status}"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

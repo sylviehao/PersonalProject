@@ -28,7 +28,7 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
 
         fun bind(event: Event, onClickListener: OnClickListener,viewModel: HomeViewModel) {
             binding.event = event
-            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
+            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_christmas)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()
@@ -42,7 +42,7 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
             binding.textGameTime.text = "Time " + dateString
             binding.event = event
-            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
+            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_christmas)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()

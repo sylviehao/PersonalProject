@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.sylvie.boardgameguide.game.detail.GameDetailViewModel" />
+
     </data>
 
     <ScrollView
@@ -42,85 +43,95 @@
                 android:id="@+id/text_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginStart="4dp"
+                android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{@string/game_name_chinese + viewModel.getGameData.name}"
+                android:text="@{viewModel.getGameData.name}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/arcView"
-                tools:text="名稱: 矮人金礦" />
+                app:layout_constraintBottom_toBottomOf="@+id/text_game_name"
+                app:layout_constraintStart_toEndOf="@+id/text_game_name"
+                app:layout_constraintTop_toTopOf="@+id/text_game_name"
+                tools:text="矮人金礦" />
 
             <TextView
                 android:id="@+id/text_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
+                android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                app:takeOffBracket="@{viewModel.getGameData.type}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/text_name"
+                app:layout_constraintBottom_toBottomOf="@+id/text_game_type"
+                app:layout_constraintStart_toEndOf="@+id/text_game_type"
                 app:layout_constraintTop_toBottomOf="@+id/text_name"
-                tools:text="種類: 派對、陣營" />
+                app:takeOffBracket="@{viewModel.getGameData.type}"
+                tools:text="派對、陣營" />
 
             <TextView
                 android:id="@+id/text_player_limit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
+                android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{@string/game_player_limit_chinese + String.valueOf(viewModel.getGameData.playerLimit) + @string/people}"
+                android:text="@{String.valueOf(viewModel.getGameData.playerLimit) + @string/people}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/text_type"
-                app:layout_constraintTop_toBottomOf="@+id/text_type"
-                tools:text="人數限制: 10" />
+                app:layout_constraintBottom_toBottomOf="@+id/text_game_player_limit"
+                app:layout_constraintStart_toEndOf="@+id/text_game_player_limit"
+                app:layout_constraintTop_toTopOf="@+id/text_game_player_limit"
+                tools:text="10" />
 
             <TextView
                 android:id="@+id/text_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="4dp"
+                android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{@string/game_time_chinese + String.valueOf(viewModel.getGameData.time) + @string/minutes}"
+                android:text="@{String.valueOf(viewModel.getGameData.time) + @string/minutes}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/text_player_limit"
-                app:layout_constraintTop_toBottomOf="@+id/text_player_limit"
-                tools:text="遊戲時間: 30 分鐘" />
+                app:layout_constraintBottom_toBottomOf="@+id/text_game_time"
+                app:layout_constraintStart_toEndOf="@+id/text_game_time"
+                app:layout_constraintTop_toTopOf="@+id/text_game_time"
+                tools:text="30 分鐘" />
 
             <TextView
                 android:id="@+id/text_rules"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="16dp"
+                android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{@string/game_rules_chinese + viewModel.getGameData.rules}"
+                android:text="@{viewModel.getGameData.rules}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/text_time"
-                app:layout_constraintTop_toBottomOf="@+id/text_time"
-                tools:text="簡介: \n卡坦島(Catan)桌遊裡，玩家扮演卡坦島的新移民者，要拓荒開墾自己的領地。玩家輪流擲骰子決定哪個板塊可以生產資源，因此加入了一點機率和運氣成份。透過在不同的板塊取得的資源，玩家可以建造村莊和道路。當村莊數量越多，就可以從板塊收成越多的資源。玩家也可以和其他玩家交易，或是買發展卡來獲取額外的資源和機會" />
+                app:layout_constraintStart_toStartOf="@+id/text_game_intro"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_intro"
+                tools:text="卡坦島(Catan)桌遊裡，玩家扮演卡坦島的新移民者，要拓荒開墾自己的領地。玩家輪流擲骰子決定哪個板塊可以生產資源，因此加入了一點機率和運氣成份。透過在不同的板塊取得的資源，玩家可以建造村莊和道路。當村莊數量越多，就可以從板塊收成越多的資源。玩家也可以和其他玩家交易，或是買發展卡來獲取額外的資源和機會" />
 
             <TextView
                 android:id="@+id/text_roles"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
+                android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{@string/game_roles_chinese + String.valueOf(viewModel.getGameData.roles)}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_rules"
-                app:layout_constraintStart_toStartOf="@+id/text_rules"
-                app:layout_constraintTop_toBottomOf="@+id/text_rules"
-                tools:text="角色: 玩家本身" />
+                app:layout_constraintStart_toStartOf="@+id/text_game_roles"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_roles"
+                app:takeOffBracket="@{viewModel.getGameData.roles}"
+                tools:text="玩家本身" />
 
             <ImageView
                 android:id="@+id/icon_pin"
@@ -159,6 +170,79 @@
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_create_event" />
+
+            <TextView
+                android:id="@+id/text_game_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/game_name_chinese"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/arcView" />
+
+            <TextView
+                android:id="@+id/text_game_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/game_type_chinese"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_game_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_name" />
+
+            <TextView
+                android:id="@+id/text_game_player_limit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/game_player_limit_chinese"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_game_type"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_type" />
+
+            <TextView
+                android:id="@+id/text_game_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/game_time_chinese"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_game_player_limit"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_player_limit" />
+
+            <TextView
+                android:id="@+id/text_game_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/game_rules_chinese"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_game_time"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_time" />
+
+            <TextView
+                android:id="@+id/text_game_roles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/game_roles_chinese"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_rules"
+                app:layout_constraintTop_toBottomOf="@+id/text_rules" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

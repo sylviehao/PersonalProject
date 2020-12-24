@@ -16,7 +16,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .load(imgUri)
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.pic_graffiti_small)
+                    .placeholder(R.drawable.pic_christmas)
                     .error(R.drawable.pic_graffiti_small))
             .into(imgView)
     }
