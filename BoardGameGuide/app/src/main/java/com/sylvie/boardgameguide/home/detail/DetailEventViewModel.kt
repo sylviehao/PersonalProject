@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.Timestamp
 import com.sylvie.boardgameguide.data.*
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
@@ -11,7 +12,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.Exception
+
 
 class DetailEventViewModel(private val gameRepository: GameRepository) : ViewModel() {
     // Save change from Event
@@ -72,7 +73,17 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     fun getAllUsers() {
         _getAllUsers = gameRepository.getAllUsers()
-        Log.i("event","${_getAllUsers}")
+        Log.i("event", "${_getAllUsers}")
+    }
+
+    fun filterUserPhoto(hostId: String): String{
+        hostId.let {
+            var imageUrl: String = ""
+            if (_getAllUsers.value!!.any { it.id == hostId }) {
+                imageUrl = _getAllUsers.value!!.filter { it.id == hostId }[0].image
+            }
+            return imageUrl
+        }
     }
 
 //    fun getUser(uid: String) {
@@ -198,5 +209,9 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
                 }
             }
         }
+    }
+
+    fun convertDateToLong(date: Timestamp): Long {
+        return date.toDate().time
     }
 }

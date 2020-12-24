@@ -60,3 +60,20 @@ fun bindTakeOffBracket2(textView: TextView, typeList: MutableList<String>){
         textView.text = "遊戲種類: " + typeString.substring(0, typeString.length-2)
     }
 }
+
+@SuppressLint("SimpleDateFormat", "SetTextI18n")
+@BindingAdapter("textTime")
+fun bindTextTime(textView: TextView, date: Long) {
+    val timeDiff = System.currentTimeMillis() - date
+    val day = (1000 * 60 * 60 * 24)
+    val hour = (1000 * 60 * 60)
+    val minute = (1000 * 60)
+    when {
+        timeDiff > day -> {
+            textView.text = "${(timeDiff/day)}天前" }
+        timeDiff in (hour + 1) until day -> {
+            textView.text = "${(timeDiff/hour)}小時前"}
+        else -> {
+            textView.text = "${(timeDiff/minute)}分鐘前" }
+    }
+}

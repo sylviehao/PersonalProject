@@ -7,44 +7,69 @@
         <variable
             name="message"
             type="com.sylvie.boardgameguide.data.Message" />
+        <variable
+            name="viewModel"
+            type="com.sylvie.boardgameguide.home.detail.DetailPostViewModel" />
+        <variable
+            name="imageUrl"
+            type="String" />
+        <variable
+            name="time"
+            type="Long" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp">
+        android:paddingVertical="4dp">
 
-        <!--        <com.mikhaellopez.circularimageview.CircularImageView-->
-        <!--            android:id="@+id/image_profile"-->
-        <!--            android:layout_width="36dp"-->
-        <!--            android:layout_height="36dp"-->
-        <!--            app:civ_border_width="0dp"-->
-        <!--            app:imageUrl="@{viewModel.getUserData.image}"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            tools:src="@drawable/pic_pumpkin" />-->
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/image_profile"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="4dp"
+            app:civ_border_width="0dp"
+            app:imageUrl="@{imageUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/pic_pumpkin" />
 
         <TextView
             android:id="@+id/text_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
             android:textColor="@color/darkBrown"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/image_profile"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_profile"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="sylviehao" />
 
         <TextView
             android:id="@+id/text_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:alpha="0.9"
+            android:textColor="@color/darkBrown"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/text_user"
+            app:layout_constraintTop_toBottomOf="@+id/text_user"
+            tools:text="不揪" />
+
+        <TextView
+            android:id="@+id/text_created_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textColor="@color/darkBrown"
-            android:textSize="16sp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_user"
             app:layout_constraintStart_toEndOf="@+id/text_user"
             app:layout_constraintTop_toTopOf="@+id/text_user"
-            tools:text="不揪" />
+            app:textTime="@{time}"
+            tools:text="一天前" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

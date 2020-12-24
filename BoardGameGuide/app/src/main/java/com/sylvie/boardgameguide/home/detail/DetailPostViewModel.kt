@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.Timestamp
 import com.sylvie.boardgameguide.data.*
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
@@ -48,6 +49,7 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val getAllUsers: LiveData<List<User>>
         get() = _getAllUsers
 
+
     private var _getUserData = MutableLiveData<User>()
 
     val getUserData: LiveData<User>
@@ -75,7 +77,9 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     init {
         getUser()
+        getAllUsers()
     }
+
 
     fun getEvent(id: String) {
         coroutineScope.launch {
@@ -165,6 +169,16 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
         _getAllUsers = gameRepository.getAllUsers()
     }
 
+    fun filterUserPhoto(hostId: String): String{
+        hostId.let {
+            var imageUrl: String = ""
+            if (_getAllUsers.value!!.any { it.id == hostId }) {
+               imageUrl = _getAllUsers.value!!.filter { it.id == hostId }[0].image
+            }
+            return imageUrl
+        }
+    }
+
 
     fun add(imageList: List<String>): List<String>{
         var list = mutableListOf<String>()
@@ -186,6 +200,10 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
             }
         }
         return items
+    }
+
+    fun convertDateToLong(date: Timestamp): Long {
+        return date.toDate().time
     }
 
 }

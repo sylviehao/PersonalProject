@@ -73,7 +73,7 @@ class DetailEventFragment : Fragment() {
         val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener{
             checkPermission()
         }, viewModel)
-        val adapter3 = DetailEventCommentAdapter()
+        val adapter3 = DetailEventCommentAdapter(viewModel)
 
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
@@ -189,7 +189,7 @@ class DetailEventFragment : Fragment() {
         binding.buttonSend.setOnClickListener {
 
             val data = Message(
-                hostId = bundle.user!!.id,
+                hostId = viewModel.getUserData.value!!.id,
                 userName = UserManager.user.value?.name,
                 message = binding.editComment.text.toString()
             )

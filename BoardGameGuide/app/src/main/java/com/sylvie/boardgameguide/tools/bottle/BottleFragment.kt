@@ -73,7 +73,7 @@ class BottleFragment : Fragment() {
             {
                 Log.d("bottle", "Should be not here")
             }
-            Toast.makeText(context, "Result = " + value, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Result = " + value, Toast.LENGTH_SHORT).show()
         }
 
         override fun onAnimationRepeat(animation: Animation?) {

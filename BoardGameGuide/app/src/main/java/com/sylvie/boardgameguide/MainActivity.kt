@@ -17,6 +17,9 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import com.sylvie.boardgameguide.databinding.ActivityMainBinding
 import com.sylvie.boardgameguide.databinding.NavHeaderDrawerBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
@@ -30,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
@@ -84,7 +88,7 @@ class MainActivity : AppCompatActivity() {
 //        val userName = UserManager.userToken  ?:  "No Name"
 //        viewModel.loginAndSetUser(UserManager.userToken!!, userName)
 //        }
-
+        firebaseAnalytics = Firebase.analytics
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this

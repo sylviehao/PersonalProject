@@ -8,16 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.ItemDetailPostCommentBinding
 
-class DetailEventCommentAdapter:
+class DetailEventCommentAdapter(var viewModel: DetailEventViewModel):
     ListAdapter<Message, DetailEventCommentAdapter.CommentViewHolder>(DiffCallback) {
 
     class CommentViewHolder(private val binding: ItemDetailPostCommentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(message: Message) {
+        fun bind(message: Message, viewModel: DetailEventViewModel) {
             binding.message = message
             binding.textUser.text = message.userName
             binding.textMessage.text = message.message
+            binding.imageUrl = viewModel.filterUserPhoto(message.hostId)
+            binding.time = viewModel.convertDateToLong(message.createdTime)
             binding.executePendingBindings()
         }
     }
@@ -30,7 +32,7 @@ class DetailEventCommentAdapter:
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val message = getItem(position)
-        holder.bind(message)
+        holder.bind(message, viewModel)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Message>() {

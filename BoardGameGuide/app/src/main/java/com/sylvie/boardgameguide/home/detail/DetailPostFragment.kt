@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -60,7 +61,7 @@ class DetailPostFragment : Fragment() {
         viewModel.getEventData.value = bundle
         viewModel.getEvent(bundle.id)
 
-        val adapter = DetailPostCommentAdapter()
+        val adapter = DetailPostCommentAdapter(viewModel)
         val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener{
                 checkPermission()
         }, viewModel)
@@ -93,8 +94,6 @@ class DetailPostFragment : Fragment() {
 
 
         binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
-        viewModel.getAllUsers()
-
 
 
         // upload photo permission
@@ -107,6 +106,7 @@ class DetailPostFragment : Fragment() {
         val db = FirebaseFirestore.getInstance()
 
         db.collection("Event")
+//            .whereEqualTo(FieldPath.documentId(),bundle.id)
             .orderBy("createdTime", Query.Direction.DESCENDING)
             .addSnapshotListener { value, error ->
                 value?.let {
@@ -119,6 +119,7 @@ class DetailPostFragment : Fragment() {
                     }
                     var b = listResult.filter { result-> result.id == bundle.id }[0]
                     adapter.submitList(b.message)
+//                  adapter.submitList(listResult[0].message)
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -156,7 +157,7 @@ class DetailPostFragment : Fragment() {
         binding.buttonSend.setOnClickListener {
 
             val data = Message(
-                hostId = bundle.user!!.id,
+                hostId = viewModel.getUserData.value!!.id,
                 userName = UserManager.user.value?.name,
                 message = binding.editComment.text.toString()
             )
