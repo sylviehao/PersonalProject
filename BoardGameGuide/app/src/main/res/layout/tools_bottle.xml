@@ -13,22 +13,25 @@
 
         <ImageView
             android:id="@+id/image_bottle"
-            android:layout_width="250dp"
-            android:layout_height="350dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/button_bottle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/ic_beer_1" />
+            app:srcCompat="@drawable/ic_beer" />
 
         <Button
             android:id="@+id/button_bottle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/round_player_corner"
             android:text="GO"
+            android:textColor="@color/white"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/image_bottle"
             app:layout_constraintHorizontal_bias="0.5"

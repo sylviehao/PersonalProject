@@ -1,7 +1,5 @@
 package com.sylvie.boardgameguide.tools.bottle
 
-import android.animation.Animator
-import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,12 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.sylvie.boardgameguide.MainActivity
-import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.databinding.ToolsBottleBinding
-import kotlinx.android.synthetic.main.fragment_profile.*
 
 class BottleFragment : Fragment() {
 
@@ -33,11 +27,10 @@ class BottleFragment : Fragment() {
             onClick(binding.imageBottle)
         }
 
-
         return binding.root
     }
 
-    val animListener = object: Animation.AnimationListener {
+    private val animListener = object : Animation.AnimationListener {
         override fun onAnimationStart(animation: Animation?) {
             Log.d("bottle", "onAnimationStart")
         }
@@ -45,32 +38,31 @@ class BottleFragment : Fragment() {
         override fun onAnimationEnd(animation: Animation?) {
             Log.d("bottle", "onAnimationEnd")
             var value = ""
-            if (stop < 5)
-            {
+            if (stop < 3) {
                 value = "A"
-            }
-            else if (5 <= stop && stop < 15)
-            {
+            } else if (stop in 4..7) {
                 value = "B"
-            }
-            else if (15 <= stop && stop < 30)
-            {
+            } else if (stop in 8..14) {
                 value = "C"
-            }
-            else if (30 <= stop && stop < 45)
-            {
+            } else if (stop in 15..21) {
                 value = "D"
-            }
-            else if (45 <= stop && stop < 65)
-            {
+            } else if (stop in 22..32) {
                 value = "E"
-            }
-            else if (65 <= stop && stop < 100)
-            {
+            } else if (stop in 33..45) {
                 value = "F"
-            }
-            else
-            {
+            } else if (stop in 46..56) {
+                value = "G"
+            } else if (stop in 57..68) {
+                value = "H"
+            } else if (stop in 69..70) {
+                value = "I"
+            } else if (stop in 71..82) {
+                value = "J"
+            } else if (stop in 83..90) {
+                value = "K"
+            } else if (stop in 91..99) {
+                value = "L"
+            }  else {
                 Log.d("bottle", "Should be not here")
             }
 //            Toast.makeText(context, "Result = " + value, Toast.LENGTH_SHORT).show()
@@ -83,43 +75,63 @@ class BottleFragment : Fragment() {
 
     fun onClick(view: View) {
         stop = (Math.random() * 100).toInt()
-        Log.d("bottle", "Stop = " + stop)
-        result = prosibility(stop)
-        Log.d("bottle", "After prosibility: temp = " + result)
+        Log.d("bottle", "Stop = $stop")
+        result = possibility(stop)
+        Log.d("bottle", "After possibility: temp = $result")
         val am = RotateAnimation(
             0f, (3600 + result).toFloat(),
             Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f
         )
         am.setAnimationListener(animListener)
-        am.setDuration(3000)
-        am.setFillAfter(true)
+        am.duration = 3000
+        am.fillAfter = true
         binding.imageBottle.startAnimation(am)
     }
 
-    private fun prosibility(stop: Int): Int {
-        if (stop < 5) {
-            return 360
-        } else if (5 <= stop && stop < 15) {
-            return 300
-        } else if (15 <= stop && stop < 30) {
-            return 240
-        }
-        else if (30 <= stop && stop < 45)
-        {
-            return 180
-        }
-        else if (45 <= stop && stop < 65)
-        {
-            return 120
-        }
-        else if (65 <= stop && stop < 100)
-        {
-            return 60
-        }
-        else
-        {
-            Log.d("bottle", "Should be not here")
-            return 0
+    private fun possibility(stop: Int): Int {
+        when {
+            stop < 3 -> {
+                return 360
+            }
+            stop in 4..7 -> {
+                return 330
+            }
+            stop in 8..14 -> {
+                return 300
+            }
+            stop in 15..21 -> {
+                return 270
+            }
+            stop in 22..32 -> {
+                return 240
+            }
+            stop in 33..45 -> {
+                return 210
+            }
+            stop in 46..56 -> {
+                return 180
+            }
+            stop in 57..68 -> {
+                return 150
+            }
+            stop in 69..70 -> {
+                return 120
+            }
+            stop in 71..82 -> {
+                return 90
+            }
+            stop in 83..90 -> {
+                return 60
+            }
+            stop in 91..99 -> {
+                return 30
+            }
+
+
+            else -> {
+                Log.d("bottle", "Should be not here")
+                return 0
+            }
         }
     }
 }

@@ -83,7 +83,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:menu="@menu/bottom_nav_menu"
-                android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.DETAIL_EVENT || viewModel.currentFragmentType == CurrentFragmentType.DETAIL_POST || viewModel.currentFragmentType == CurrentFragmentType.NEW_EVENT || viewModel.currentFragmentType == CurrentFragmentType.NEW_POST || viewModel.currentFragmentType == CurrentFragmentType.NEW_GAME? View.GONE : View.VISIBLE }"/>
+                android:visibility="@{viewModel.currentFragmentType == CurrentFragmentType.DETAIL_EVENT || viewModel.currentFragmentType == CurrentFragmentType.DETAIL_POST || viewModel.currentFragmentType == CurrentFragmentType.NEW_EVENT || viewModel.currentFragmentType == CurrentFragmentType.NEW_POST || viewModel.currentFragmentType == CurrentFragmentType.NEW_GAME || viewModel.currentFragmentType == CurrentFragmentType.PICKER || viewModel.currentFragmentType == CurrentFragmentType.DICE || viewModel.currentFragmentType == CurrentFragmentType.TIMER? View.GONE : View.VISIBLE }"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
