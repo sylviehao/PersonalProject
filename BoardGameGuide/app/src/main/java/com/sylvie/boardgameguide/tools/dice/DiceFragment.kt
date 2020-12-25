@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.ToolsDiceBinding
-import kotlinx.android.synthetic.main.tools_dice.*
-import java.util.*
 
 class DiceFragment : Fragment() {
 
@@ -29,13 +26,16 @@ class DiceFragment : Fragment() {
         binding.recyclerDice.adapter = adapter
 
         binding.buttonDice.setOnClickListener {
-            image_dice.setImageResource(viewModel.rollDice())
-            viewModel.text.value = true
+            viewModel.totalAmount.value = 0
+            viewModel.rotateStatus.value = true
         }
 
-        viewModel.text.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
-            adapter.notifyDataSetChanged()
+        viewModel.rotateStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let{
+                if(it){
+                    adapter.notifyDataSetChanged()
+                }
+            }
         })
 
         viewModel.amount.observe(viewLifecycleOwner, androidx.lifecycle.Observer {

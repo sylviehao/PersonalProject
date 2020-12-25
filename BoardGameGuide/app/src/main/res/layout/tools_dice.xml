@@ -13,37 +13,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/image_dice"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_dice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:srcCompat="@drawable/ic_gambler" />
+        <!--        <ImageView-->
+        <!--            android:id="@+id/image_dice"-->
+        <!--            android:layout_width="120dp"-->
+        <!--            android:layout_height="120dp"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/button_dice"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.5"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintVertical_chainStyle="packed"-->
+        <!--            app:srcCompat="@drawable/dice_grey_empty" />-->
 
 
         <Button
             android:id="@+id/button_dice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
             android:alpha="0.8"
             android:background="@drawable/round_grey_corner"
             android:text="ROLL"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/image_dice"
-            app:layout_constraintStart_toStartOf="@+id/image_dice"
-            app:layout_constraintTop_toBottomOf="@+id/image_dice" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/button_minus"
             android:layout_width="52dp"
             android:layout_height="52dp"
+            android:layout_marginStart="24dp"
             android:onClick="@{() -> viewModel.minusStock()}"
             app:layout_constraintBottom_toBottomOf="@+id/button_edit"
             app:layout_constraintEnd_toStartOf="@+id/button_edit"
@@ -57,6 +57,7 @@
             android:id="@+id/button_plus"
             android:layout_width="52dp"
             android:layout_height="52dp"
+            android:layout_marginEnd="24dp"
             android:onClick="@{() -> viewModel.plusStock()}"
             app:layout_constraintBottom_toBottomOf="@+id/button_edit"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +68,7 @@
 
         <EditText
             android:id="@+id/button_edit"
-            android:layout_width="200dp"
+            android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/round_light_blue_corner"
@@ -82,14 +83,38 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_dice"
-            android:layout_width="391dp"
-            android:layout_height="292dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:orientation="horizontal"
-            tools:listitem="@layout/item_dice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/button_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/button_dice"
+            app:spanCount="3"
+            tools:listitem="@layout/item_dice" />
+
+        <TextView
+            android:id="@+id/text_amount_total"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:alpha="0.6"
+            android:background="@drawable/round_yellow_corner"
+            android:fontFamily="@font/finger_paint"
+            android:gravity="start|center"
+            android:text="@{@string/dice_total + String.valueOf(viewModel.totalAmount)}"
+            android:textColor="@color/darkBrown"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_dice"
+            app:layout_constraintEnd_toStartOf="@+id/button_dice"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Total: 45" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

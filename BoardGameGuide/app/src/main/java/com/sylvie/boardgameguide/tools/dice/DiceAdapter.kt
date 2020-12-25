@@ -2,9 +2,12 @@ package com.sylvie.boardgameguide.tools.dice
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.ItemDiceBinding
 
 class DiceAdapter(var viewModel: DiceViewModel) : ListAdapter<Int, DiceAdapter.GameViewHolder>(DiffCallback) {
@@ -14,8 +17,29 @@ class DiceAdapter(var viewModel: DiceViewModel) : ListAdapter<Int, DiceAdapter.G
 
         fun bind(item: Int, viewModel: DiceViewModel) {
 //            binding.item = item
-            if(viewModel.text.value == true){
-                binding.imageDice.setImageResource(viewModel.rollDice())
+            if(viewModel.rotateStatus.value == true){
+                binding.imageDice.setImageResource(R.drawable.dice_grey_empty)
+                val anim = AnimationUtils.loadAnimation(binding.root.context, R.anim.anim_rotate_dice)
+                binding.imageDice.startAnimation(anim)
+                anim.setAnimationListener(object:
+                    Animation.AnimationListener {
+                    override fun onAnimationStart(animation: Animation) {
+
+                    }
+                    override fun onAnimationRepeat(animation: Animation) {
+
+                    }
+                    override fun onAnimationEnd(animation: Animation) {
+
+                        val getNumber = viewModel.rollDice()
+
+                        binding.imageDice.setImageResource(viewModel.getImage(getNumber))
+
+                        viewModel.totalAmount.value = viewModel.totalAmount.value?.plus(getNumber)
+
+                        viewModel.rotateStatus.value == false
+                    }
+                })
             }
             binding.executePendingBindings()
         }

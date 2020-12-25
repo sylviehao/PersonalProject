@@ -10,17 +10,20 @@ class DiceViewModel : ViewModel() {
 
     val amount = MutableLiveData<Int>()
 
-    val text = MutableLiveData<Boolean>().apply {
+    val rotateStatus = MutableLiveData<Boolean>().apply {
         value == false
     }
+
+    val totalAmount = MutableLiveData<Int>()
 
     init {
         amount.value = 1
     }
 
     fun plusStock() {
-        if (amount.value!! < 10) {
+        if (amount.value!! < 9) {
         amount.value = amount.value?.plus(1)
+        rotateStatus.value = false
         Log.d("Bottom", "$amount")
         }
     }
@@ -32,15 +35,19 @@ class DiceViewModel : ViewModel() {
     }
 
     fun rollDice(): Int {
+        return Random().nextInt(6) + 1
+    }
 
-        //        image_dice.setImageResource(drawableResource)
-        return when (Random().nextInt(6) + 1) {
-            1 -> R.drawable.dice_1
-            2 -> R.drawable.dice_2
-            3 -> R.drawable.dice_3
-            4 -> R.drawable.dice_4
-            5 -> R.drawable.dice_5
-            else -> R.drawable.dice_6
-        }
+    fun getImage(randomInt: Int) : Int {
+        val diceCount =
+            mutableListOf(
+                R.drawable.dice_grey_1,
+                R.drawable.dice_grey_2,
+                R.drawable.dice_grey_3,
+                R.drawable.dice_grey_4,
+                R.drawable.dice_grey_5,
+                R.drawable.dice_grey_6
+            )
+        return diceCount[randomInt-1]
     }
 }
