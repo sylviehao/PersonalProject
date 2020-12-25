@@ -83,14 +83,15 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 //    }
 
     fun addPost(
+        gameId: String,
         topic: String,
         description: String,
         location: String,
         rules: String,
         member: MutableList<String>,
         name: String,
-//        type: MutableList<String>,
-        imagesUri: MutableList<String>
+        imagesUri: MutableList<String>,
+        tools: MutableList<String>
     ) {
         coroutineScope.launch {
             try {
@@ -105,11 +106,13 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
                         image = imagesUri,
                         location = location,
                         game = Game(
+                            id = gameId,
                             name = name,
                             image = mutableListOf(),
                             type = typeList.value,
                             rules = rules,
-                            roles = mutableListOf()
+                            roles = mutableListOf(),
+                            tools = tools
                         ),
                         message = mutableListOf(),
                         playerList = member,

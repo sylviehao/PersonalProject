@@ -106,7 +106,18 @@ class NewEventFragment : Fragment() {
 //                val typeList = mutableListOf<String>()
 //                typeList.add(binding.editNewEventGameType.text.toString())
 
+                var id = ""
+                arg?.id?.let {data ->
+                    id = data
+                }
+
+                var tool = mutableListOf<String>()
+                arg?.tools?.let {data ->
+                    tool = data
+                }
+
                 viewModel.addPost(
+                    gameId = id,
                     topic = binding.editNewEventTopic.text.toString(),
                     description = binding.editNewEventDescription.text.toString(),
                     location = binding.editNewEventGameLocation.text.toString(),
@@ -114,8 +125,10 @@ class NewEventFragment : Fragment() {
 //                    type = typeList,
                     name = binding.editNewEventGameName.text.toString(),
                     limit = binding.editNewEventGameMember.text.toString(),
-                    imagesUri = mutableListOf()
+                    imagesUri = mutableListOf(),
+                    tools = tool
                 )
+
 
             } else {
                 for(localImage in localImageList){
@@ -128,19 +141,27 @@ class NewEventFragment : Fragment() {
         viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
 
             if (it.size == localImageList.size) {
-//                val typeList = mutableListOf<String>()
-//                typeList.add(binding.editNewEventGameType.text.toString())
+
+                var id = ""
+                arg?.id?.let {data ->
+                    id = data
+                }
+
+                var tools = mutableListOf<String>()
+                arg?.tools?.let {data ->
+                    tools = data
+                }
 
                 viewModel.addPost(
-
+                    gameId = id,
                     topic = binding.editNewEventTopic.text.toString(),
                     description = binding.editNewEventDescription.text.toString(),
                     location = binding.editNewEventGameLocation.text.toString(),
                     rules = binding.editNewEventGameRule.text.toString(),
-//                    type = typeList,
                     name = binding.editNewEventGameName.text.toString(),
                     limit = binding.editNewEventGameMember.text.toString(),
-                    imagesUri = viewModel.imagesUri.value!!
+                    imagesUri = viewModel.imagesUri.value!!,
+                    tools = tools
                 )
             }
         })

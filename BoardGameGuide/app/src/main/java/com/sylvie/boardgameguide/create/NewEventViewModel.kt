@@ -29,6 +29,8 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
     val eventStatus: LiveData<Boolean>
         get() = _eventStatus
 
+    private val toolList = MutableLiveData<MutableList<String>>()
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -39,15 +41,15 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
     }
 
     fun addPost(
+        gameId: String,
         topic: String,
         description: String,
         location: String,
         rules: String,
-//        member: MutableList<String>,
         name: String,
-//        type: MutableList<String>,
         limit: String,
-        imagesUri: MutableList<String>
+        imagesUri: MutableList<String>,
+        tools: MutableList<String>
     ) {
         coroutineScope.launch {
             try {
@@ -71,11 +73,13 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
                         time = date.value!!,
                         location = location,
                         game = Game(
+                            id = gameId,
                             name = name,
                             image = mutableListOf(),
                             type = typeList.value,
                             rules = rules,
-                            roles = mutableListOf()
+                            roles = mutableListOf(),
+                            tools = tools
                         ),
                         message = mutableListOf(),
                         playerList = member,

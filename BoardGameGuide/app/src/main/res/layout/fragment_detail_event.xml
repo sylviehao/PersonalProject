@@ -266,15 +266,16 @@
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_tools"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/recycler_player"
-                        app:layout_constraintStart_toStartOf="@+id/recycler_player"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/recycler_player"
                         tools:listitem="@layout/item_tools" />
 

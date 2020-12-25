@@ -172,21 +172,27 @@ class NewPostFragment : Fragment() {
                 return@setOnClickListener
             }
             if (filePath == "") {
-//                val typeList = mutableListOf<String>()
-//                typeList.add(binding.editNewPostGameType.text.toString())
 
-//            val memberList = mutableListOf<String>()
-//            memberList.add(binding.editNewPostGameMember.text.toString())
+                var id = ""
+                arg?.id?.let {data ->
+                    id = data
+                }
+
+                var tools = mutableListOf<String>()
+                arg?.tools?.let {data ->
+                    tools = data
+                }
 
                 viewModel.addPost(
+                    gameId = id,
                     topic = binding.editNewPostTopic.text.toString(),
                     description = binding.editNewPostDescription.text.toString(),
                     location = binding.editNewPostGameLocation.text.toString(),
                     rules = binding.editNewPostGameRule.text.toString(),
                     member = viewModel.userList.value!!,
-//                    type = typeList,
                     name = binding.editNewPostGameName.text.toString(),
-                    imagesUri = imagesList
+                    imagesUri = imagesList,
+                    tools = tools
                 )
             } else {
                 for(localImage in localImageList){
@@ -200,21 +206,26 @@ class NewPostFragment : Fragment() {
 
             if (it.size == localImageList.size) {
 
-//                val typeList = mutableListOf<String>()
-//                typeList.add(binding.editNewPostGameType.text.toString())
+                var id = ""
+                arg?.id?.let {data ->
+                    id = data
+                }
 
-//                val memberList = mutableListOf<String>()
-//                memberList.add(binding.editNewPostGameMember.text.toString())
+                var tools = mutableListOf<String>()
+                arg?.tools?.let {data ->
+                    tools = data
+                }
 
                 viewModel.addPost(
+                    gameId = id,
                     topic = binding.editNewPostTopic.text.toString(),
                     description = binding.editNewPostDescription.text.toString(),
                     location = binding.editNewPostGameLocation.text.toString(),
                     rules = binding.editNewPostGameRule.text.toString(),
                     member = viewModel.userList.value!!,
-//                    type = typeList,
                     name = binding.editNewPostGameName.text.toString(),
-                    imagesUri = viewModel.imagesUri.value!!
+                    imagesUri = viewModel.imagesUri.value!!,
+                    tools = tools
                 )
             }
 
