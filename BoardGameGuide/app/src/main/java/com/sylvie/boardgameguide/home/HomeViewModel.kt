@@ -39,6 +39,8 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val getAllGame: LiveData<List<Game>>
         get() = _getAllGame
 
+    var fabStatus = MutableLiveData<Boolean>()
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 

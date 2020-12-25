@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
 
     private var isMenuOpen = false
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
+    private var flag = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentHomeBinding.inflate(inflater, container,false)
@@ -71,9 +72,17 @@ class HomeFragment : Fragment() {
         binding.fabEvent.hide()
 
         binding.fab.setOnClickListener {
-            binding.fabPost.show()
-            binding.fabEvent.show()
+            flag = if (flag == 0) {
+                binding.fabPost.show()
+                binding.fabEvent.show()
+                1
+            } else {
+                binding.fabPost.hide()
+                binding.fabEvent.hide()
+                0
+            }
         }
+        
 
         binding.fabPost.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionGlobalNewPostFragment(null, null))
@@ -89,6 +98,7 @@ class HomeFragment : Fragment() {
                 adapter.submitList(filterList)
             }
         }
+
 
 
 
