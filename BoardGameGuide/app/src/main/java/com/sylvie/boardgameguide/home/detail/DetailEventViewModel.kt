@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
+import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.*
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
@@ -54,6 +55,8 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
         get() = _addPlayer
 
     var photoPermission = MutableLiveData<Boolean>()
+
+    var navigateToTool = MutableLiveData<String>()
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -213,5 +216,18 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     fun convertDateToLong(date: Timestamp): Long {
         return date.toDate().time
+    }
+
+    fun changeToolIcon(tool: String): Int {
+        val drawableResource = when (tool) {
+            "Dice" -> R.drawable.ic_dice_white
+            "Timer" -> R.drawable.ic_timer_white
+            else -> R.drawable.ic_bottle_white
+        }
+        return drawableResource
+    }
+
+    fun navigated() {
+        navigateToTool.value = null
     }
 }

@@ -28,9 +28,7 @@ import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
-import com.sylvie.boardgameguide.home.getTimeDate
 import com.sylvie.boardgameguide.login.UserManager
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -74,10 +72,12 @@ class DetailEventFragment : Fragment() {
             checkPermission()
         }, viewModel)
         val adapter3 = DetailEventCommentAdapter(viewModel)
+        val adapter4 = DetailEventToolAdapter(viewModel)
 
         binding.recyclerPlayer.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
         binding.recyclerComment.adapter = adapter3
+        binding.recyclerTools.adapter = adapter4
 
         viewModel.getAllUsers()
 
@@ -116,6 +116,21 @@ class DetailEventFragment : Fragment() {
 
         viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(bundle.playerList)
+        })
+
+        viewModel.getGameData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            adapter4.submitList(bundle.game?.tools)
+        })
+
+        viewModel.navigateToTool.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                when(it){
+                    "Dice" -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalDiceFragment())
+                    "Timer" -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalTimerFragment())
+                    else -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalBottleFragment())
+                }
+                viewModel.navigated()
+            }
         })
 
 

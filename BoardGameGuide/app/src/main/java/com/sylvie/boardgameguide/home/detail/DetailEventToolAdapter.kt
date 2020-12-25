@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.game.detail
+package com.sylvie.boardgameguide.home.detail
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,14 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.databinding.ItemToolsBinding
+import com.sylvie.boardgameguide.game.detail.GameDetailViewModel
 
-class GameDetailToolAdapter(var viewModel: GameDetailViewModel):
-    ListAdapter<String, GameDetailToolAdapter.ToolViewHolder>(DiffCallback) {
+class DetailEventToolAdapter(var viewModel: DetailEventViewModel):
+    ListAdapter<String, DetailEventToolAdapter.ToolViewHolder>(DiffCallback) {
 
     class ToolViewHolder(private val binding: ItemToolsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: String, viewModel: GameDetailViewModel) {
+        fun bind(data: String, viewModel: DetailEventViewModel) {
             binding.data = data
             binding.iconTool.setImageResource(viewModel.changeToolIcon(data))
             binding.buttonTool.setOnClickListener {
