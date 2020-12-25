@@ -30,7 +30,7 @@ class EventAdapter(private val onClickListener: OnClickListener) :
             binding.textGameName.text = event.game?.name
             binding.textGameTopic.text = event.topic
             binding.textGameLocation.text = event.location
-            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
+            binding.imageGamePicture.setBackgroundResource(R.drawable.pic_christmas)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }
             binding.executePendingBindings()

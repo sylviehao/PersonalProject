@@ -86,6 +86,13 @@ class DetailEventFragment : Fragment() {
 
         })
 
+        viewModel.navigateToProfile.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                findNavController().navigate(DetailEventFragmentDirections.actionGlobalProfileFragment(it))
+                viewModel.navigated()
+            }
+        })
+
         viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
             viewModel.addPhoto(

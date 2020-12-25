@@ -58,6 +58,8 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     var navigateToTool = MutableLiveData<String>()
 
+    var navigateToProfile = MutableLiveData<String>()
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -227,7 +229,12 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
         return drawableResource
     }
 
+    fun navigateToProfile(userId: String){
+        navigateToProfile.value = userId
+    }
+
     fun navigated() {
         navigateToTool.value = null
+        navigateToProfile.value = null
     }
 }

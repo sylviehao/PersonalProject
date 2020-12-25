@@ -28,6 +28,7 @@ import com.sylvie.boardgameguide.login.LoginActivity
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.CurrentFragmentType
 import com.sylvie.boardgameguide.util.DrawerToggleType
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -199,19 +200,31 @@ class MainActivity : AppCompatActivity() {
 
             actionBarDrawerToggle?.setToolbarNavigationClickListener {
                 when (type) {
-                    DrawerToggleType.BACK -> onBackPressed()
+//                    DrawerToggleType.BACK -> onBackPressed()
+                    DrawerToggleType.BACK -> findNavController(R.id.myNavHostFragment).navigateUp()
                     else -> {}
                 }
             }
         })
     }
 
+
+    private var firstPressedTime: Long = 0
     override fun onBackPressed() {
 
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()
+            if(viewModel.currentFragmentType.value == CurrentFragmentType.HOME){
+                if (System.currentTimeMillis() - firstPressedTime < 2000) {
+                    super.onBackPressed()
+                } else {
+                    Toast.makeText(this@MainActivity, "再按一次退出", Toast.LENGTH_SHORT).show()
+                    firstPressedTime = System.currentTimeMillis()
+                }
+            }else{
+                super.onBackPressed()
+            }
         }
     }
 

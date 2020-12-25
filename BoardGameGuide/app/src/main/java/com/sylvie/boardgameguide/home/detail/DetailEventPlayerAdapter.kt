@@ -27,6 +27,10 @@ class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel):
                 binding.textPlayer.text = ""
             }
 
+            binding.textPlayer.setOnClickListener {
+                viewModel.navigateToProfile(data)
+            }
+
             binding.executePendingBindings()
         }
     }

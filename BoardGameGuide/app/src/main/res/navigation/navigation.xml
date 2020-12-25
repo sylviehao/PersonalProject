@@ -72,9 +72,7 @@
         tools:layout="@layout/fragment_tools"/>
     <action
         android:id="@+id/action_global_toolsFragment"
-        app:destination="@id/toolsFragment"
-        app:popUpTo="@id/navigation"
-        app:popUpToInclusive="true" />
+        app:destination="@id/toolsFragment" />
     <dialog
         android:id="@+id/uploadPhotoDialog"
         android:name="com.sylvie.boardgameguide.upload.UploadPhotoDialog"
@@ -93,7 +91,7 @@
     <action
         android:id="@+id/action_global_profileFragment"
         app:destination="@id/profileFragment"
-        app:popUpTo="@id/navigation"
+        app:popUpTo="@id/profileFragment"
         app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/eventFragment"
@@ -102,9 +100,7 @@
         tools:layout="@layout/fragment_event"/>
     <action
         android:id="@+id/action_global_eventFragment"
-        app:destination="@id/eventFragment"
-        app:popUpTo="@id/navigation"
-        app:popUpToInclusive="true" />
+        app:destination="@id/eventFragment" />
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.sylvie.boardgameguide.favorite.FavoriteFragment"
@@ -120,7 +116,11 @@
         android:name="com.sylvie.boardgameguide.game.GameFragment"
         android:label="GameFragment"
         tools:layout="@layout/fragment_game"/>
-    <action android:id="@+id/action_global_gameFragment" app:destination="@id/gameFragment"/>
+    <action
+        android:id="@+id/action_global_gameFragment"
+        app:destination="@id/gameFragment"
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true" />
     <fragment
         android:id="@+id/gameDetailFragment"
         android:name="com.sylvie.boardgameguide.game.detail.GameDetailFragment"

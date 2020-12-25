@@ -71,7 +71,9 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
         }
     }
 
-    fun setBrowseRecently() {
+
+
+    private fun setBrowseRecently() {
         coroutineScope.launch {
             try {
                 gameId?.let {
@@ -127,15 +129,6 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
         }
         return drawableResource
     }
-
-//    fun navigateToTool(tool: String): Unit {
-//        val navigation = when (tool) {
-//            "Dice" -> navigateToDice.value = true
-//            "Timer" -> navigateToTimer.value = true
-//            else -> navigateToBottle.value = true
-//        }
-//        return navigation
-//    }
 
     fun navigated() {
         navigateToTool.value = null

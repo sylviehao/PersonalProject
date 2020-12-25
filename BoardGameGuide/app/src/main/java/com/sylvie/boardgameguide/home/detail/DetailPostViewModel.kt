@@ -64,6 +64,10 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     var photoPermission = MutableLiveData<Boolean>()
 
+    var playerNavigation = MutableLiveData<String>()
+
+    var navigateToTool = MutableLiveData<String>()
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -179,6 +183,10 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
         }
     }
 
+    fun filterPlayer(hostId: String) {
+
+    }
+
 
     fun add(imageList: List<String>): List<String>{
         var list = mutableListOf<String>()
@@ -204,6 +212,11 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     fun convertDateToLong(date: Timestamp): Long {
         return date.toDate().time
+    }
+
+    fun navigated() {
+        navigateToTool.value = null
+        playerNavigation.value = null
     }
 
 }

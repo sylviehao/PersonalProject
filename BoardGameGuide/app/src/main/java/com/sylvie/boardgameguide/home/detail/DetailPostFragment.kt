@@ -154,6 +154,14 @@ class DetailPostFragment : Fragment() {
             uploadPhoto(storageRef)
         })
 
+        viewModel.playerNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                val userId = bundle.playerList
+                findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(it))
+                viewModel.navigated()
+            }
+        })
+
         binding.buttonSend.setOnClickListener {
 
             val data = Message(
@@ -194,7 +202,6 @@ class DetailPostFragment : Fragment() {
 
         binding.imageHost.setOnClickListener {
             findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
-
         }
 
         binding.textHostName.setOnClickListener {

@@ -23,6 +23,10 @@ class DetailPostPlayerAdapter(val viewModel: DetailPostViewModel):
                 binding.textPlayer.text = ""
             }
 
+            binding.textPlayer.setOnClickListener {
+                viewModel.playerNavigation.value = data
+//                viewModel.navigated()
+            }
 
             binding.executePendingBindings()
         }
