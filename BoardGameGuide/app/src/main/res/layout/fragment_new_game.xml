@@ -151,20 +151,31 @@
                     app:layout_constraintTop_toBottomOf="@+id/edit_game_rules" />
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_tools"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_game_roles"
+                    app:layout_constraintStart_toStartOf="@+id/edit_game_roles"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_game_roles"
+                    tools:listitem="@layout/item_tools" />
+
                 <com.github.florent37.shapeofview.shapes.RoundRectView
                     android:id="@+id/clipCorner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_roles"
-                    app:layout_constraintStart_toStartOf="@+id/edit_game_roles"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_game_roles"
+                    app:layout_constraintStart_toStartOf="@+id/recycler_tools"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_tools"
                     app:shape_roundRect_bottomLeftRadius="10dp"
                     app:shape_roundRect_bottomRightRadius="10dp"
                     app:shape_roundRect_topLeftRadius="10dp"
-                    app:shape_roundRect_topRightRadius="10dp"
-                    android:visibility="gone">
+                    app:shape_roundRect_topRightRadius="10dp">
 
 
                     <ImageView

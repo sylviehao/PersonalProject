@@ -42,9 +42,15 @@ class NewGameFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        val toolsType = mutableListOf<String>("Dice" ,"Timer", "Picker")
+        val adapter = NewGameToolAdapter(viewModel)
+        binding.recyclerTools.adapter = adapter
+
+        adapter.submitList(toolsType)
+
+
         val storage = Firebase.storage
         val storageRef = storage.reference
-//        val db = FirebaseFirestore.getInstance()
 
 
 

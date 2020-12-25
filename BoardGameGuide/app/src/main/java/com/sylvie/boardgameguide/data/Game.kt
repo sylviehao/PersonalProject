@@ -13,7 +13,8 @@ data class Game(
     var playerLimit: Int = 0,
     var time: Long = 0,
     var rules: String = "",
-    var roles: MutableList<String>? = null
+    var roles: MutableList<String>? = null,
+    var tools: MutableList<String>? = null
 ): Parcelable {
 
 }

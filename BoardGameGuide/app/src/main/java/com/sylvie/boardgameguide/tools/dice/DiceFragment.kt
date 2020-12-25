@@ -25,18 +25,11 @@ class DiceFragment : Fragment() {
         val adapter = DiceAdapter(viewModel)
         binding.recyclerDice.adapter = adapter
 
+
         binding.buttonDice.setOnClickListener {
             viewModel.totalAmount.value = 0
             viewModel.rotateStatus.value = true
         }
-
-        viewModel.rotateStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it?.let{
-                if(it){
-                    adapter.notifyDataSetChanged()
-                }
-            }
-        })
 
         viewModel.amount.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
@@ -46,8 +39,16 @@ class DiceFragment : Fragment() {
                 }
                 adapter.submitList(amount)
             }
-
         })
+
+        viewModel.rotateStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let{
+                if(it){
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        })
+
 
         return binding.root
     }

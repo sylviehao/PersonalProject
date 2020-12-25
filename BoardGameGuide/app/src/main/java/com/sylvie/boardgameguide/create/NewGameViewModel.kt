@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.source.GameRepository
+import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -62,11 +63,11 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
 
                 playerLimit = if (limit == "") {
                     0
-                }else{
+                } else {
                     limit.toInt()
                 }
 
-//                UserManager.user.value?.let {
+                UserManager.user.value?.let {
                     val game = Game(
                         name = name,
                         image = imagesUri,
@@ -74,8 +75,8 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
                         playerLimit = playerLimit,
                         time = gameTime,
                         rules = rules,
-                        roles = roles
-
+                        roles = roles,
+                        tools = toolList.value
                     )
 
                     val result = gameRepository.addGame(game)
@@ -88,10 +89,28 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
                         }
                     }
 //                }
+                }
+
             } catch (e: Exception) {
             }
 
         }
+    }
+
+    private val toolList = MutableLiveData<MutableList<String>>()
+
+    fun addTool(type: String, Status: Boolean){
+        var list = mutableListOf<String>()
+
+        toolList.value?.let {
+            list = it.toMutableList()
+        }
+        if(Status){
+            list.add(type)
+        } else{
+            list.remove(type)
+        }
+        toolList.value = list
     }
 
 }

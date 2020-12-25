@@ -31,11 +31,11 @@ class DiceAdapter(var viewModel: DiceViewModel) : ListAdapter<Int, DiceAdapter.G
                     }
                     override fun onAnimationEnd(animation: Animation) {
 
-                        val getNumber = viewModel.rollDice()
+                        val number = viewModel.getRandomNumber()
 
-                        binding.imageDice.setImageResource(viewModel.getImage(getNumber))
+                        binding.imageDice.setImageResource(viewModel.getDiceImage(number))
 
-                        viewModel.totalAmount.value = viewModel.totalAmount.value?.plus(getNumber)
+                        viewModel.totalAmount.value = viewModel.totalAmount.value?.plus(number)
 
                         viewModel.rotateStatus.value == false
                     }

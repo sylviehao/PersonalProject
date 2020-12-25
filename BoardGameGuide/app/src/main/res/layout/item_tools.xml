@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="data"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/button_tool"
+            android:layout_width="115dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_light_green_corner"
+            app:layout_constraintBottom_toBottomOf="@+id/image_tool"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/image_tool" />
+
+        <TextView
+            android:id="@+id/image_tool"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/round_grey_corner"
+            app:layout_constraintStart_toStartOf="@+id/button_tool"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/icon_tool"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_tool"
+            app:layout_constraintEnd_toEndOf="@+id/image_tool"
+            app:layout_constraintStart_toStartOf="@+id/image_tool"
+            app:layout_constraintTop_toTopOf="@+id/image_tool"
+            app:srcCompat="@drawable/ic_dice_white" />
+
+        <TextView
+            android:id="@+id/text_tool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:text="@{data}"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_tool"
+            app:layout_constraintEnd_toEndOf="@+id/button_tool"
+            app:layout_constraintStart_toEndOf="@+id/image_tool"
+            app:layout_constraintTop_toTopOf="@+id/icon_tool"
+            tools:text="Dice" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

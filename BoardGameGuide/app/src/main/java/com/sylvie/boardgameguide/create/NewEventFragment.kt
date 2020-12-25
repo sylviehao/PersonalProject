@@ -98,7 +98,10 @@ class NewEventFragment : Fragment() {
         }
 
         binding.buttonNewEventCreate.setOnClickListener {
-
+            if(viewModel.typeList.value.isNullOrEmpty()){
+                Toast.makeText(context, "請填寫遊戲種類", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if (filePath == "") {
 //                val typeList = mutableListOf<String>()
 //                typeList.add(binding.editNewEventGameType.text.toString())

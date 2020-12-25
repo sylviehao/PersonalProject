@@ -172,7 +172,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
         return name
     }
 
-    private val typeList = MutableLiveData<MutableList<String>>()
+    val typeList = MutableLiveData<MutableList<String>>()
 
     fun addType(type: String, Status: Boolean){
         var list = mutableListOf<String>()

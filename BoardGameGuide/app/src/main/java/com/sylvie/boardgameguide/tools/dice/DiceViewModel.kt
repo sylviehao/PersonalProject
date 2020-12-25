@@ -10,6 +10,8 @@ class DiceViewModel : ViewModel() {
 
     val amount = MutableLiveData<Int>()
 
+
+    //Let dices rotate together -> initialize
     val rotateStatus = MutableLiveData<Boolean>().apply {
         value == false
     }
@@ -34,11 +36,12 @@ class DiceViewModel : ViewModel() {
         }
     }
 
-    fun rollDice(): Int {
+    fun getRandomNumber(): Int {
+        //start number = 1, finish number = 6
         return Random().nextInt(6) + 1
     }
 
-    fun getImage(randomInt: Int) : Int {
+    fun getDiceImage(randomInt: Int) : Int {
         val diceCount =
             mutableListOf(
                 R.drawable.dice_grey_1,
@@ -48,6 +51,6 @@ class DiceViewModel : ViewModel() {
                 R.drawable.dice_grey_5,
                 R.drawable.dice_grey_6
             )
-        return diceCount[randomInt-1]
+        return diceCount[randomInt - 1]
     }
 }
