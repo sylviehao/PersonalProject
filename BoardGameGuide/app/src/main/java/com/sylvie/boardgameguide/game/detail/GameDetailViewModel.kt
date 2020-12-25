@@ -1,11 +1,13 @@
 package com.sylvie.boardgameguide.game.detail
 
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.BrowseRecently
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.data.Result
@@ -17,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.util.*
 
 class GameDetailViewModel(private val gameRepository: GameRepository, private val gameId: String?) : ViewModel() {
 
@@ -33,6 +36,9 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
     var getGameData = MutableLiveData<Game>()
 
     private lateinit var gameLog: BrowseRecently
+
+    var navigateToTool = MutableLiveData<String>()
+
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -111,6 +117,28 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
             }
 
         }
+    }
+
+    fun changeToolIcon(tool: String): Int {
+        val drawableResource = when (tool) {
+            "Dice" -> R.drawable.ic_dice_white
+            "Timer" -> R.drawable.ic_timer_white
+            else -> R.drawable.ic_bottle_white
+        }
+        return drawableResource
+    }
+
+//    fun navigateToTool(tool: String): Unit {
+//        val navigation = when (tool) {
+//            "Dice" -> navigateToDice.value = true
+//            "Timer" -> navigateToTimer.value = true
+//            else -> navigateToBottle.value = true
+//        }
+//        return navigation
+//    }
+
+    fun navigated() {
+        navigateToTool.value = null
     }
 
     var boomStatus = MutableLiveData<ImageView>()

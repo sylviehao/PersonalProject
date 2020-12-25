@@ -121,12 +121,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="16dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_rules"
                 app:layout_constraintStart_toStartOf="@+id/text_game_roles"
                 app:layout_constraintTop_toBottomOf="@+id/text_game_roles"
@@ -243,6 +241,32 @@
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/text_rules"
                 app:layout_constraintTop_toBottomOf="@+id/text_rules" />
+
+            <TextView
+                android:id="@+id/text_game_tools"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:text="@string/game_tools_chinese"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/text_roles"
+                app:layout_constraintTop_toBottomOf="@+id/text_roles" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_tools"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/text_roles"
+                app:layout_constraintStart_toStartOf="@+id/text_game_tools"
+                app:layout_constraintTop_toBottomOf="@+id/text_game_tools"
+                tools:listitem="@layout/item_tools" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

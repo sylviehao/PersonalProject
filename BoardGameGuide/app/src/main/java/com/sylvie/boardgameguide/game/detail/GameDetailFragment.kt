@@ -34,8 +34,10 @@ class GameDetailFragment : Fragment() {
         var bundle = GameDetailFragmentArgs.fromBundle(requireArguments()).game
         viewModel.getGameData.value = bundle
 
-        val db = FirebaseFirestore.getInstance()
+        val adapter = GameDetailToolAdapter(viewModel)
+        binding.recyclerTools.adapter = adapter
 
+        val db = FirebaseFirestore.getInstance()
 
         binding.buttonCreateEvent.setOnClickListener {
             findNavController().navigate(GameDetailFragmentDirections.actionGlobalNewEventFragment(bundle))
@@ -56,6 +58,22 @@ class GameDetailFragment : Fragment() {
             }else{
                 binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
                 binding.iconPin.tag = "empty"
+            }
+        })
+
+        viewModel.getGameData.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it.tools)
+        })
+
+
+        viewModel.navigateToTool.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                when(it){
+                    "Dice" -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalDiceFragment())
+                    "Timer" -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalTimerFragment())
+                    else -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalBottleFragment())
+                }
+                viewModel.navigated()
             }
         })
 
