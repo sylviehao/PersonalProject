@@ -48,7 +48,6 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
 
     init {
         getUser()
-        setBrowseRecently()
     }
 
     fun getUser() {
@@ -73,7 +72,7 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
 
 
 
-    private fun setBrowseRecently() {
+    fun setBrowseRecently(){
         coroutineScope.launch {
             try {
                 gameId?.let {

@@ -59,6 +59,9 @@ class GameDetailFragment : Fragment() {
                 binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
                 binding.iconPin.tag = "empty"
             }
+            if(it.browseRecently.isNullOrEmpty() || !it.browseRecently!!.any { browse -> browse.gameId == bundle.id } ){
+                viewModel.setBrowseRecently()
+            }
         })
 
         viewModel.getGameData.observe(viewLifecycleOwner, Observer {

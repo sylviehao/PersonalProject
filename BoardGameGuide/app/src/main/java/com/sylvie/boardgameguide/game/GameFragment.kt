@@ -75,6 +75,7 @@ class GameFragment : Fragment() {
                         listResult.add(d)
                     }
                     adapter.submitList(listResult)
+                    adapter.notifyDataSetChanged()
                 }
             }
         })
