@@ -18,20 +18,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/round_dialog_corner"
-            android:paddingBottom="16dp"
+            android:paddingBottom="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/image_profile"
-                android:layout_width="0dp"
+                android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/frame_edit_new_post"
+                android:layout_marginTop="24dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="@+id/edit_intro"
-                app:layout_constraintStart_toStartOf="@+id/edit_intro"
-                app:layout_constraintTop_toBottomOf="@+id/edit_intro" />
+                app:civ_border_width="0dp"
+                app:imageUrl="@{viewModel.user.image}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/icon_add_photo"
@@ -45,17 +47,19 @@
 
             <EditText
                 android:id="@+id/edit_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
                 android:alpha="0.6"
                 android:background="@drawable/round_yellow_corner"
-                android:text="@{viewModel.user.name}"
                 android:hint="Your name"
+                android:text="@{viewModel.user.name}"
                 android:textColorHint="@color/gray_888888"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_profile"
                 tools:text="sylviehao" />
 
             <EditText
@@ -66,9 +70,9 @@
                 android:layout_marginEnd="16dp"
                 android:alpha="0.6"
                 android:background="@drawable/round_yellow_corner"
-                android:text="@{viewModel.user.introduction}"
                 android:hint="Your introduction"
                 android:inputType="textMultiLine"
+                android:text="@{viewModel.user.introduction}"
                 android:textColorHint="@color/gray_888888"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/edit_name"
@@ -77,17 +81,16 @@
 
             <TextView
                 android:id="@+id/button_send"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:background="@drawable/round_red_corner"
-                android:text="SEND"
                 android:gravity="center"
+                android:text="SEND"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="@+id/edit_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="@+id/edit_intro"
+                app:layout_constraintStart_toStartOf="@+id/edit_intro"
+                app:layout_constraintTop_toBottomOf="@+id/edit_intro" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
