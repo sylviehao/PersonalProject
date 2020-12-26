@@ -140,13 +140,13 @@
                     android:id="@+id/recycler_game_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_name"
                     app:layout_constraintTop_toBottomOf="@+id/edit_newEvent_game_name"
-                    app:spanCount="5" />
+                    app:spanCount="4"
+                    tools:listitem="@layout/item_game_type" />
 
 <!--                <EditText-->
 <!--                    android:id="@+id/edit_newEvent_game_type"-->
@@ -168,8 +168,8 @@
                     android:hint="@string/game_rule"
                     android:inputType="textMultiLine"
                     android:text="@{viewModel.game.rules}"
-                    app:layout_constraintEnd_toEndOf="@+id/recycler_game_type"
-                    app:layout_constraintStart_toStartOf="@+id/recycler_game_type"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_newEvent_game_name"
+                    app:layout_constraintStart_toStartOf="@+id/edit_newEvent_game_name"
                     app:layout_constraintTop_toBottomOf="@+id/recycler_game_type" />
 
                 <EditText

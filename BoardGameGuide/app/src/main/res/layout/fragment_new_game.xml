@@ -89,17 +89,27 @@
                     app:layout_constraintStart_toStartOf="@+id/line_1"
                     app:layout_constraintTop_toBottomOf="@+id/line_1" />
 
-                <EditText
-                    android:id="@+id/edit_game_type"
-                    style="@style/edit_new_field"
+<!--                <EditText-->
+<!--                    android:id="@+id/edit_game_type"-->
+<!--                    style="@style/edit_new_field"-->
+<!--                    android:layout_width="361dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:hint="@string/game_type"-->
+<!--                    android:inputType="textPersonName"-->
+<!--                    tools:layout_editor_absoluteX="16dp"-->
+<!--                    tools:layout_editor_absoluteY="131dp" />-->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_game_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/game_type"
-                    android:inputType="textPersonName"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintEnd_toEndOf="@+id/edit_game_name"
                     app:layout_constraintStart_toStartOf="@+id/edit_game_name"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_game_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/edit_game_name"
+                    app:spanCount="4"
+                    tools:listitem="@layout/item_game_type" />
 
                 <EditText
                     android:id="@+id/edit_player_limit"
@@ -109,9 +119,9 @@
                     android:layout_marginTop="8dp"
                     android:hint="@string/game_member_limit"
                     android:inputType="textPersonName"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_game_type"
-                    app:layout_constraintStart_toStartOf="@+id/edit_game_type"
-                    app:layout_constraintTop_toBottomOf="@+id/edit_game_type" />
+                    app:layout_constraintEnd_toEndOf="@+id/edit_game_name"
+                    app:layout_constraintStart_toStartOf="@+id/edit_game_name"
+                    app:layout_constraintTop_toBottomOf="@+id/recycler_game_type" />
 
 
                 <EditText

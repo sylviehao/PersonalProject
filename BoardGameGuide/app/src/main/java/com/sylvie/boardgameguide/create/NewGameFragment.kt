@@ -43,10 +43,14 @@ class NewGameFragment : Fragment() {
         binding.viewModel = viewModel
 
         val toolsType = mutableListOf<String>("Dice" ,"Timer", "Picker")
+        val gameType = mutableListOf<String>("策略" ,"陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
         val adapter = NewGameToolAdapter(viewModel)
+        val adapter2 = NewGameTypeAdapter(viewModel)
         binding.recyclerTools.adapter = adapter
+        binding.recyclerGameType.adapter = adapter2
 
         adapter.submitList(toolsType)
+        adapter2.submitList(gameType)
 
 
         val storage = Firebase.storage
@@ -62,17 +66,22 @@ class NewGameFragment : Fragment() {
 
         binding.buttonGameCreate.setOnClickListener {
 
+            if(viewModel.typeList.value.isNullOrEmpty()){
+                Toast.makeText(context, "請填寫遊戲種類", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             if (filePath == ""){
 
-                val typeList= mutableListOf<String>()
-                typeList.add(binding.editGameType.text.toString())
+//                val typeList= mutableListOf<String>()
+//                typeList.add(binding.editGameType.text.toString())
 
                 val rolesList= mutableListOf<String>()
                 rolesList.add(binding.editGameRoles.text.toString())
 
                 viewModel.addGame(
                     name = binding.editGameName.text.toString(),
-                    type = typeList,
+//                    type = typeList,
                     time = binding.editGameTime.text.toString(),
                     limit = binding.editPlayerLimit.text.toString(),
                     rules = binding.editGameRules.text.toString(),
@@ -86,15 +95,16 @@ class NewGameFragment : Fragment() {
 
 
         viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
-            val typeList= mutableListOf<String>()
-            typeList.add(binding.editGameType.text.toString())
+
+//            val typeList= mutableListOf<String>()
+//            typeList.add(binding.editGameType.text.toString())
 
             val rolesList= mutableListOf<String>()
             rolesList.add(binding.editGameRoles.text.toString())
 
             viewModel.addGame(
                 name = binding.editGameName.text.toString(),
-                type = typeList,
+//                type = typeList,
                 time = binding.editGameTime.text.toString(),
                 limit = binding.editPlayerLimit.text.toString(),
                 rules = binding.editGameRules.text.toString(),

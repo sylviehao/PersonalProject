@@ -11,12 +11,12 @@ data class EventResult(
         val items = mutableListOf<HomeItem>()
 
         eventList?.let {
-                for (event in it) {
-                    when (event.status) {
-                        "OPEN" -> items.add(HomeItem.EventItem(event))
-                        "CLOSE" -> items.add(HomeItem.PostItem(event))
-                    }
+            for (event in it) {
+                when (event.status) {
+                    "OPEN" -> items.add(HomeItem.EventItem(event))
+                    "CLOSE" -> items.add(HomeItem.PostItem(event))
                 }
+            }
         }
         return items
     }
