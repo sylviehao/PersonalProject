@@ -13,9 +13,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_message"
-            android:layout_width="123dp"
-            android:layout_height="123dp"
-            android:background="@drawable/round_corner_message"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/round_yellow_corner"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,34 +23,37 @@
 
             <ImageView
                 android:id="@+id/image_message_icon"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
                 android:layout_marginEnd="40dp"
-                android:background="@{@drawable/ic_launcher_foreground}"
-                app:layout_constraintDimensionRatio="1:1"
+                android:background="@{@drawable/ic_mario}"
+                app:layout_constraintBottom_toTopOf="@+id/text_message_content"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:background="@drawable/ic_launcher_foreground"/>
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/ic_mario" />
 
             <TextView
                 android:id="@+id/text_message_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="25dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/noto_sans"
                 android:gravity="center"
                 android:maxLines="2"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/join_success"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
+                android:textColor="@color/darkBrown"
+                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/image_message_icon" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

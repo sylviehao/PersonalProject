@@ -98,8 +98,11 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
             val user = event.user!!.name.toLowerCase(Locale.ROOT)
             val topic = event.topic.toLowerCase(Locale.ROOT)
+            val game = event.game!!.name.toLowerCase(Locale.ROOT)
+            val location = event.location.toLowerCase(Locale.ROOT)
 
-            if (user.contains(lowerCaseQueryString) || topic.contains(lowerCaseQueryString)) {
+            if (user.contains(lowerCaseQueryString) || topic.contains(lowerCaseQueryString)
+                || game.contains(lowerCaseQueryString) || location.contains(lowerCaseQueryString)) {
                 val homeItem = when (event.status) {
                     "OPEN" ->HomeItem.EventItem(event)
                     "CLOSE" ->HomeItem.PostItem(event)

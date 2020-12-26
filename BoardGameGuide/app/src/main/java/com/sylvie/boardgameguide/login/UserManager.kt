@@ -38,6 +38,7 @@ object UserManager {
         }
     val isLoggedIn: Boolean
         get() = userToken != null
+
     fun clear() {
         userToken = null
 //        _user.value = null

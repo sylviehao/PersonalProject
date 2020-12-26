@@ -203,6 +203,8 @@ class DetailEventFragment : Fragment() {
 
                     }
                     var b = listResult.filter { result-> result.id == bundle.id }[0]
+                    adapter.submitList(b.playerList)
+                    adapter.notifyDataSetChanged()
                     adapter3.submitList(b.message)
                     adapter3.notifyDataSetChanged()
                 }

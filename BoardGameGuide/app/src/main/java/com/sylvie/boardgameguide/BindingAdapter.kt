@@ -14,9 +14,10 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
         val imgUri = it.toUri().buildUpon().build()
         Glide.with(imgView.context)
             .load(imgUri)
+            .centerCrop()
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.pic_christmas)
+                    .placeholder(R.drawable.pic_christmas_cookie)
                     .error(R.drawable.pic_graffiti_small))
             .into(imgView)
     }
