@@ -97,6 +97,9 @@ class ProfileFragment : Fragment() {
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
             val gameIdList = mutableListOf<String>()
             it.browseRecently?.sortByDescending { browseList-> browseList.time }
+
+//            if (it.browseRecently)
+
             it.browseRecently?.forEach { browseRecently->
                 gameIdList.add(browseRecently.gameId)
             }
@@ -111,6 +114,7 @@ class ProfileFragment : Fragment() {
 //                binding.animationNoInfo.visibility = View.INVISIBLE
 //                binding.recyclerBrowse.visibility = View.VISIBLE
 //            }
+
             adapter.submitList(it)
         })
 

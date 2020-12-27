@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="dialog"
+            type="com.sylvie.boardgameguide.dialog.JoinDialog" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onClick="@{() -> dialog.dismiss()}">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +50,8 @@
                 android:maxLines="2"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="@string/join_success"
+                android:text='@{dialog.message ?? ""}'
+                android:visibility='@{dialog.message != null ? View.VISIBLE : View. GONE}'
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"

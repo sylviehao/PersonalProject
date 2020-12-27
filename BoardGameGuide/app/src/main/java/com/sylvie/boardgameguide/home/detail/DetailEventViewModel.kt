@@ -60,6 +60,9 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     var navigateToProfile = MutableLiveData<String>()
 
+    val join = MutableLiveData<Boolean>()
+    val leave = MutableLiveData<Boolean>()
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 

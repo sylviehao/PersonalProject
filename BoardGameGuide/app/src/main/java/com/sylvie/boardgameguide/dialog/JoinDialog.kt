@@ -7,9 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.databinding.DialogJoinSuccessBinding
+import com.sylvie.boardgameguide.databinding.DialogJoinBinding
 
 class JoinDialog : DialogFragment() {
+
+    var message: String? = null
+    private val messageType by lazy {
+        JoinDialogArgs.fromBundle(requireArguments()).messageType
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +26,10 @@ class JoinDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DialogJoinSuccessBinding.inflate(inflater, container, false)
+        val binding = DialogJoinBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.dialog = this
+        init()
 
 
 
@@ -33,5 +40,33 @@ class JoinDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         Handler().postDelayed({ this.dismiss() }, 2000)
+    }
+
+
+    private fun init() {
+        when (messageType) {
+            MessageType.JOIN -> {
+                message = "加入成功"
+            }
+            MessageType.LEAVE -> {
+                message = "退出成功"
+            }
+            else -> {
+            }
+        }
+    }
+
+    enum class MessageType(val value: Message) {
+        JOIN(Message()),
+        LEAVE(Message())
+    }
+    interface IMessage {
+        var message: String
+    }
+    class Message : IMessage {
+        private var _message = ""
+        override var message: String
+            get() = _message
+            set(value) { _message = value }
     }
 }

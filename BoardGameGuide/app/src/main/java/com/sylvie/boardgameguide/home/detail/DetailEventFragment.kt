@@ -25,7 +25,9 @@ import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
+import com.sylvie.boardgameguide.databinding.DialogJoinBinding
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
+import com.sylvie.boardgameguide.dialog.JoinDialog
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
 import com.sylvie.boardgameguide.login.UserManager
@@ -140,20 +142,32 @@ class DetailEventFragment : Fragment() {
             }
         })
 
+        viewModel.join.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it.let {
+                findNavController().navigate(DetailEventFragmentDirections.actionGlobalJoinDialog(JoinDialog.MessageType.JOIN))
+            }
+        })
+
+        viewModel.leave.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it.let {
+                findNavController().navigate(DetailEventFragmentDirections.actionGlobalJoinDialog(JoinDialog.MessageType.LEAVE))
+            }
+        })
+
 
         binding.buttonJoin.setOnClickListener {
             //判斷是否加入過
             UserManager.user.value?.let { userId ->
                 viewModel.setPlayer(userId.id, bundle, true)
                 if (bundle.playerList!!.any { it == userId.id }) {
+                    viewModel.leave.value = true
                     bundle.playerList?.remove(userId.id)
                     viewModel.setPlayer(userId.id, bundle, false)
                     binding.buttonJoin.setText(R.string.join)
-                    findNavController().navigate(R.id.action_global_deleteDialog)
                 } else {
+                    viewModel.join.value = true
                     bundle.playerList?.add(userId.id)
                     binding.buttonJoin.setText(R.string.leave)
-                    findNavController().navigate(R.id.action_global_joinDialog)
                 }
                 viewModel.getEventData.value = bundle
 //                adapter.submitList(bundle.playerList)

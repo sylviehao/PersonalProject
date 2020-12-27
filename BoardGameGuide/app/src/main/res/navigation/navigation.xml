@@ -140,7 +140,11 @@
     <dialog
         android:id="@+id/joinDialog"
         android:name="com.sylvie.boardgameguide.dialog.JoinDialog"
-        android:label="JoinDialog" />
+        android:label="JoinDialog" >
+        <argument
+            android:name="messageType"
+            app:argType="com.sylvie.boardgameguide.dialog.JoinDialog$MessageType" />
+    </dialog>
     <action android:id="@+id/action_global_joinDialog" app:destination="@id/joinDialog" />
     <dialog
         android:id="@+id/deleteDialog"
