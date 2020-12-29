@@ -180,6 +180,23 @@ object GameRemoteDataSource : GameDataSource {
                 }
         }
 
+    override suspend fun setMessage(message: Message, event: Event): Result<Boolean> =
+        suspendCoroutine { continuation ->
+            val db = FirebaseFirestore.getInstance().collection("Event")
+            val document = db.document(event.id)
+                document.update("message", FieldValue.arrayUnion(message))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        task.exception?.let {
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                    }
+                }
+        }
+
     override suspend fun addPhoto(image: String, eventId: String, status: Boolean): Result<Boolean> =
         suspendCoroutine { continuation ->
             val db = FirebaseFirestore.getInstance().collection("Event")

@@ -48,6 +48,11 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val like: LiveData<Boolean>
         get() = _like
 
+    private var _messageStatus = MutableLiveData<Boolean>()
+
+    val messageStatus: LiveData<Boolean>
+        get() = _messageStatus
+
     private var _photoStatus = MutableLiveData<Boolean>()
 
     val photoStatus: LiveData<Boolean>
@@ -102,6 +107,19 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     fun filterMessage(event: List<Event>, eventId: String) {
         _messages.value = event.filter { it.id == eventId }
+    }
+
+    fun setMessage(message: Message, event: Event) {
+        coroutineScope.launch {
+            val result = gameRepository.setMessage(message, event)
+            _messageStatus.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
     }
 
     fun getEvent(id: String) {

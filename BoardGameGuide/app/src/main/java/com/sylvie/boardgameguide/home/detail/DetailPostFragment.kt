@@ -16,25 +16,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.Util.getTimeDate
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DetailPostFragment : Fragment() {
 
@@ -53,7 +45,7 @@ class DetailPostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-
+        val db = FirebaseFirestore.getInstance()
         val storage = Firebase.storage
         val storageRef = storage.reference
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
@@ -65,7 +57,6 @@ class DetailPostFragment : Fragment() {
                 checkPermission()
         }, viewModel)
 
-
         viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             viewModel.addPhoto(
                 eventId = bundle.id,
@@ -73,7 +64,6 @@ class DetailPostFragment : Fragment() {
                 status = true
             )
         })
-
 
         viewModel.getEventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.let {
@@ -91,43 +81,12 @@ class DetailPostFragment : Fragment() {
         binding.recyclerPlayer.adapter = adapter3
         binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
 
-
         // upload photo permission
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
         viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
 
         })
-
-        val db = FirebaseFirestore.getInstance()
-
-        viewModel.allEvents.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it?.let { eventList ->
-                viewModel.filterMessage(eventList, bundle.id)
-            }
-        })
-
-        viewModel.messages.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it?.let {
-                adapter.submitList(it[0].message)
-                adapter.notifyDataSetChanged()
-            }
-        })
-
-        binding.icLike.setOnClickListener {
-            UserManager.user.value?.let {userId->
-                viewModel.setLike(userId.id, bundle, true)
-                if(bundle.like!!.any { it == userId.id }) {
-                    bundle.like?.remove(userId.id)
-                    viewModel.setLike(userId.id, bundle, false)
-                    binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
-                }else{
-                    bundle.like?.add(userId.id)
-                    binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
-                }
-                viewModel.getEventData.value = bundle
-            }
-        }
 
         viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter3.submitList(bundle.playerList)
@@ -145,26 +104,28 @@ class DetailPostFragment : Fragment() {
             }
         })
 
-        binding.buttonSend.setOnClickListener {
+        //Get events snapshot
+        viewModel.allEvents.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let { eventList ->
+                viewModel.filterMessage(eventList, bundle.id)
+            }
+        })
 
+        //Filter message snapshot
+        viewModel.messages.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                adapter.submitList(it[0].message)
+                adapter.notifyDataSetChanged()
+            }
+        })
+
+        binding.buttonSend.setOnClickListener {
             val data = Message(
                 hostId = viewModel.getUserData.value!!.id,
                 userName = UserManager.user.value?.name,
                 message = binding.editComment.text.toString()
             )
-
-            db.collection("Event").document(bundle.id)
-                //No covering
-                .update("message", FieldValue.arrayUnion(data))
-                .addOnSuccessListener { documentReference ->
-                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
-                }
-                .addOnFailureListener {
-                    Log.d("TAG", "$it")
-                    Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
+            viewModel.setMessage(data, bundle)
             binding.editComment.text = null
         }
 
@@ -184,6 +145,21 @@ class DetailPostFragment : Fragment() {
             } else {
                 it.tag = "empty"
                 binding.constraintGameInfo.visibility = View.GONE
+            }
+        }
+
+        binding.icLike.setOnClickListener {
+            UserManager.user.value?.let {userId->
+                viewModel.setLike(userId.id, bundle, true)
+                if(bundle.like!!.any { it == userId.id }) {
+                    bundle.like?.remove(userId.id)
+                    viewModel.setLike(userId.id, bundle, false)
+                    binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
+                }else{
+                    bundle.like?.add(userId.id)
+                    binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
+                }
+                viewModel.getEventData.value = bundle
             }
         }
 

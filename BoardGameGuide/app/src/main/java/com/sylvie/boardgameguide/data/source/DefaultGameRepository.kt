@@ -27,9 +27,12 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getEvent(id)
     }
 
-
     override suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean> {
         return gameRemoteDataSource.setLike(userId, event, status)
+    }
+
+    override suspend fun setMessage(message: Message, event: Event): Result<Boolean> {
+        return gameRemoteDataSource.setMessage(message, event)
     }
 
     override suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean> {

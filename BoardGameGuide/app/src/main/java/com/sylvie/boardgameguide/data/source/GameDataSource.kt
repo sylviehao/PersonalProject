@@ -15,6 +15,8 @@ interface GameDataSource {
 
     suspend fun setLike(userId: String, event: Event, status: Boolean): Result<Boolean>
 
+    suspend fun setMessage(message: Message, event: Event): Result<Boolean>
+
     suspend fun setPlayer(userId: String, event: Event, status: Boolean): Result<Boolean>
 
     suspend fun addPhoto(image: String, eventId: String, status: Boolean): Result<Boolean>
