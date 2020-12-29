@@ -120,7 +120,6 @@ object GameRemoteDataSource : GameDataSource {
     override fun getEvents(status: String): MutableLiveData<List<Event>> {
 
         val liveData = MutableLiveData<List<Event>>()
-
         val db = FirebaseFirestore.getInstance()
             .collection("Event")
                 when(status){

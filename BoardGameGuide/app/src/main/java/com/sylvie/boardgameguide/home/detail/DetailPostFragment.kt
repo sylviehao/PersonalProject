@@ -30,6 +30,7 @@ import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.login.UserManager
+import com.sylvie.boardgameguide.util.Util.getTimeDate
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -66,7 +67,6 @@ class DetailPostFragment : Fragment() {
 
 
         viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
             viewModel.addPhoto(
                 eventId = bundle.id,
                 image = viewModel.imagesUri.value!!,
@@ -89,8 +89,6 @@ class DetailPostFragment : Fragment() {
         binding.recyclerComment.adapter = adapter
         binding.recyclerPhoto.adapter = adapter2
         binding.recyclerPlayer.adapter = adapter3
-
-
         binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
 
 
@@ -103,35 +101,25 @@ class DetailPostFragment : Fragment() {
 
         val db = FirebaseFirestore.getInstance()
 
-        db.collection("Event")
-//            .whereEqualTo(FieldPath.documentId(),bundle.id)
-            .orderBy("createdTime", Query.Direction.DESCENDING)
-            .addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Event>()
-
-                    it.forEach { data ->
-                        val d = data.toObject(Event::class.java)
-                        listResult.add(d)
-
-                    }
-                    var b = listResult.filter { result-> result.id == bundle.id }[0]
-                    adapter.submitList(b.message)
-//                  adapter.submitList(listResult[0].message)
-                    adapter.notifyDataSetChanged()
-                }
+        viewModel.allEvents.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let { eventList ->
+                viewModel.filterMessage(eventList, bundle.id)
             }
+        })
 
-
-//        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
-//        binding.textGameTime.text = dateString
+        viewModel.messages.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                adapter.submitList(it[0].message)
+                adapter.notifyDataSetChanged()
+            }
+        })
 
         binding.icLike.setOnClickListener {
             UserManager.user.value?.let {userId->
-                viewModel.setEvent(userId.id, bundle, true)
+                viewModel.setLike(userId.id, bundle, true)
                 if(bundle.like!!.any { it == userId.id }) {
                     bundle.like?.remove(userId.id)
-                    viewModel.setEvent(userId.id, bundle, false)
+                    viewModel.setLike(userId.id, bundle, false)
                     binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
                 }else{
                     bundle.like?.add(userId.id)
@@ -140,9 +128,6 @@ class DetailPostFragment : Fragment() {
                 viewModel.getEventData.value = bundle
             }
         }
-
-
-//        bundle.image?.let { viewModel.add(it) }
 
         viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter3.submitList(bundle.playerList)
@@ -172,7 +157,6 @@ class DetailPostFragment : Fragment() {
                 //No covering
                 .update("message", FieldValue.arrayUnion(data))
                 .addOnSuccessListener { documentReference ->
-//                    documentReference.update("id", bundle.id)
                     Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
                 }
                 .addOnFailureListener {
@@ -204,16 +188,6 @@ class DetailPostFragment : Fragment() {
         }
 
         return binding.root
-    }
-
-    fun getTimeDate(timestamp: Date): String {
-        try {
-            val netDate = (timestamp)
-            val sfd = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.TAIWAN)
-            return sfd.format(netDate)
-        } catch (e: Exception) {
-            return "date"
-        }
     }
 
     override fun onRequestPermissionsResult(
@@ -260,27 +234,21 @@ class DetailPostFragment : Fragment() {
         }
     }
 
-
-//    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
             return
         }
         ref.downloadUrl.addOnSuccessListener {
-
             viewModel.imagesUri.value = it.toString()
-
         }.addOnFailureListener { exception ->
             Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun uploadPhoto(storageRef: StorageReference) {
-
         val file = Uri.fromFile(File(filePath))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
         val uploadTask = eventsRef.putFile(file)
         uploadTask
             .addOnSuccessListener {
@@ -290,7 +258,6 @@ class DetailPostFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.i("Upload", exception.toString())
             }
-
     }
 
     private fun checkPermission() {
@@ -311,7 +278,6 @@ class DetailPostFragment : Fragment() {
         } else {
             getLocalImg()
         }
-
     }
 
     private fun getLocalImg() {

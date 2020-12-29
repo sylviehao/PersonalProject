@@ -18,11 +18,25 @@ import java.util.*
 
 class DetailPostViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    // Save change from Game
     private var _getGameData = MutableLiveData<Game>()
 
     val getGameData: LiveData<Game>
         get() = _getGameData
+
+    private var _allEvents = MutableLiveData<List<Event>>()
+
+    val allEvents: LiveData<List<Event>>
+        get() = _allEvents
+
+    private var _event = MutableLiveData<Event>()
+
+    val event: LiveData<Event>
+        get() = _event
+
+    private var _messages = MutableLiveData<List<Event>>()
+
+    val messages: LiveData<List<Event>>
+        get() = _messages
 
     private var _getEventData2 = MutableLiveData<Event>()
 
@@ -59,7 +73,6 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     var localImageList = MutableLiveData<MutableList<String>>()
 
-    // Save change from Event
     var getEventData = MutableLiveData<Event>()
 
     var photoPermission = MutableLiveData<Boolean>()
@@ -68,10 +81,8 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
 
     var navigateToTool = MutableLiveData<String>()
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     override fun onCleared() {
@@ -82,8 +93,16 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     init {
         getUser()
         getAllUsers()
+        getEvents()
     }
 
+    private fun getEvents() {
+        _allEvents = gameRepository.getEvents("")
+    }
+
+    fun filterMessage(event: List<Event>, eventId: String) {
+        _messages.value = event.filter { it.id == eventId }
+    }
 
     fun getEvent(id: String) {
         coroutineScope.launch {
@@ -117,26 +136,8 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
         }
     }
 
-//    fun getGame(id: String) {
-//
-//        coroutineScope.launch {
-//
-//            val result = gameRepository.getGame(id)
-//            _getGameData.value = when (result) {
-//                is Result.Success -> {
-//                    if (result.data.any { it.id == id }) {
-//                        result.data.filter { it.id == id }[0]
-//                    } else {
-//                        null
-//                    }
-//                } else -> {
-//                    null
-//                }
-//            }
-//        }
-//    }
 
-    fun setEvent(userId: String, event: Event, status: Boolean) {
+    fun setLike(userId: String, event: Event, status: Boolean) {
         coroutineScope.launch {
             val result = gameRepository.setLike(userId, event, status)
             _like.value = when (result) {
@@ -163,7 +164,6 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     }
 
     fun checkUserPermission(memberList: MutableList<String>){
-
         memberList.let {
             photoPermission.value = it.any { id-> id == UserManager.userToken  }
         }
@@ -182,11 +182,6 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
             return imageUrl
         }
     }
-
-    fun filterPlayer(hostId: String) {
-
-    }
-
 
     fun add(imageList: List<String>): List<String>{
         var list = mutableListOf<String>()

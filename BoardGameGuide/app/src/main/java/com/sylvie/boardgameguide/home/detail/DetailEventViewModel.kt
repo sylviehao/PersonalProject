@@ -94,23 +94,6 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
         }
     }
 
-//    fun getUser(uid: String) {
-//        coroutineScope.launch {
-//            try {
-//                val result = gameRepository.getUser(uid)
-//                _getUserData.value = when (result) {
-//                    is Result.Success -> {
-//                        result.data
-//                    }
-//                    else -> {
-//                        null
-//                    }
-//                }
-//            } catch (e: Exception) {
-//            }
-//        }
-//    }
-
     fun getUser() {
         coroutineScope.launch {
             try {
@@ -181,8 +164,6 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
             photoPermission.value = it.any { id-> id == UserManager.userToken  }
         }
     }
-
-    var newArray = MutableLiveData<MutableList<String>>()
 
     fun add(imageList: List<String>): List<String>{
         var list = mutableListOf<String>()

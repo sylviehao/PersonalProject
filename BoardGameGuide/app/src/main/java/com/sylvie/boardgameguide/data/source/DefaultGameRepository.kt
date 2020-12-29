@@ -19,7 +19,7 @@ class DefaultGameRepository (private val gameRemoteDataSource: GameDataSource,
         return gameRemoteDataSource.getHome()
     }
 
-    override  fun getEvents(status: String): MutableLiveData<List<Event>> {
+    override fun getEvents(status: String): MutableLiveData<List<Event>> {
         return gameRemoteDataSource.getEvents(status)
     }
 
