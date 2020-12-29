@@ -47,7 +47,16 @@ class ProfilePostFragment : Fragment() {
         })
 
         viewModel.myPostData.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            it?.let {
+                if (viewModel.myPostData.value.isNullOrEmpty()) {
+                    binding.constraintAnimation.visibility = View.VISIBLE
+                    binding.recyclerPost.visibility = View.INVISIBLE
+                } else {
+                    binding.constraintAnimation.visibility = View.INVISIBLE
+                    binding.recyclerPost.visibility = View.VISIBLE
+                    adapter.submitList(it)
+                }
+            }
         })
 
         return binding.root

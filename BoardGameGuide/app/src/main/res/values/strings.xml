@@ -67,6 +67,10 @@
     <string name="add_player">Add</string>
     <string name="fraction">&#160;&#047;&#160;</string>
     <string name="dice_total">TOTAL:&#160;</string>
+    <string name="watch_game">Watch game first</string>
+    <string name="add_game">Add game first</string>
+    <string name="no_event">No event yet</string>
+    <string name="no_post">No post yet</string>
 
 
 </resources>

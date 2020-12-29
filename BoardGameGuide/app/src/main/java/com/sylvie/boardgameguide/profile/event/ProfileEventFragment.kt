@@ -46,7 +46,16 @@ class ProfileEventFragment : Fragment() {
         })
 
         viewModel.myEventData.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
+            it?.let{
+                if (viewModel.myEventData.value.isNullOrEmpty()) {
+                    binding.constraintAnimation.visibility = View.VISIBLE
+                    binding.recyclerEvent.visibility = View.INVISIBLE
+                } else {
+                    binding.constraintAnimation.visibility = View.INVISIBLE
+                    binding.recyclerEvent.visibility = View.VISIBLE
+                    adapter.submitList(it)
+                }
+            }
         })
 
         return binding.root
