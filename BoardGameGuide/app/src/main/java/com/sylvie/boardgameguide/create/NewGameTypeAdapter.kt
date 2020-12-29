@@ -23,7 +23,6 @@ class NewGameTypeAdapter(var viewModel: NewGameViewModel):
                     viewModel.addType(data, selected)
                 }
             }
-
             binding.executePendingBindings()
         }
     }

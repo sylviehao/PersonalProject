@@ -47,7 +47,6 @@ class NewEventFragment : Fragment() {
     // Separate the situation from HomeFragment and from GameFragment
     var arg: Game? = null
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -103,8 +102,6 @@ class NewEventFragment : Fragment() {
                 return@setOnClickListener
             }
             if (filePath == "") {
-//                val typeList = mutableListOf<String>()
-//                typeList.add(binding.editNewEventGameType.text.toString())
 
                 var id = ""
                 arg?.id?.let {data ->
@@ -122,13 +119,11 @@ class NewEventFragment : Fragment() {
                     description = binding.editNewEventDescription.text.toString(),
                     location = binding.editNewEventGameLocation.text.toString(),
                     rules = binding.editNewEventGameRule.text.toString(),
-//                    type = typeList,
                     name = binding.editNewEventGameName.text.toString(),
                     limit = binding.editNewEventGameMember.text.toString(),
                     imagesUri = mutableListOf(),
                     tools = tool
                 )
-
 
             } else {
                 for(localImage in localImageList){
@@ -174,8 +169,6 @@ class NewEventFragment : Fragment() {
         viewModel.eventStatus.observe(viewLifecycleOwner, Observer {
             findNavController().navigate(R.id.action_global_homeFragment)
         })
-
-
 
         return binding.root
     }
@@ -231,11 +224,8 @@ class NewEventFragment : Fragment() {
             return
         }
         ref.downloadUrl.addOnSuccessListener {
-
-
             imageList.add(it.toString())
             viewModel.imagesUri.value = imageList
-
         }.addOnFailureListener { exception ->
             Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()
         }
@@ -244,12 +234,6 @@ class NewEventFragment : Fragment() {
     private fun uploadPhoto(storageRef: StorageReference, localImage: String) {
         val file = Uri.fromFile(File(localImage))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
-//        val metadata = StorageMetadata.Builder()
-//            .setContentDisposition("game")
-//            .setContentType("image/jpg")
-//            .build()
-
         val uploadTask = eventsRef.putFile(file)
         uploadTask
             .addOnSuccessListener {
@@ -295,21 +279,5 @@ class NewEventFragment : Fragment() {
                 1080
             )
             .start()
-    }
-
-    override fun onStart() {
-        super.onStart()
-        let {
-//            requireActivity().toolbar.visibility = View.GONE
-            requireActivity().bottomNavView.visibility = View.GONE
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        let {
-//            requireActivity().toolbar.visibility = View.VISIBLE
-            requireActivity().bottomNavView.visibility = View.VISIBLE
-        }
     }
 }

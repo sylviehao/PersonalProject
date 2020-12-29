@@ -24,7 +24,6 @@ class NewGameToolAdapter(var viewModel: NewGameViewModel):
                     viewModel.addTool(data, selected)
                 }
             }
-
             binding.executePendingBindings()
         }
     }

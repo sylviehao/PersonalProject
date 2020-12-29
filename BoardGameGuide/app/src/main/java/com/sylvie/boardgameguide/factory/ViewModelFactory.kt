@@ -11,15 +11,10 @@ import com.sylvie.boardgameguide.home.detail.DetailPostViewModel
 import com.sylvie.boardgameguide.event.EventViewModel
 import com.sylvie.boardgameguide.favorite.FavoriteViewModel
 import com.sylvie.boardgameguide.game.GameViewModel
-import com.sylvie.boardgameguide.game.detail.GameDetailViewModel
 import com.sylvie.boardgameguide.home.HomeViewModel
 import com.sylvie.boardgameguide.create.NewPostViewModel
-import com.sylvie.boardgameguide.dialog.ProfileEditViewModel
+import com.sylvie.boardgameguide.profile.ProfileEditViewModel
 import com.sylvie.boardgameguide.login.LoginViewModel
-import com.sylvie.boardgameguide.profile.ProfileViewModel
-import com.sylvie.boardgameguide.profile.event.ProfileEventViewModel
-import com.sylvie.boardgameguide.profile.post.ProfilePostViewModel
-import com.sylvie.boardgameguide.upload.UploadPhotoViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
@@ -46,9 +41,6 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(NewGameViewModel::class.java) ->
                     NewGameViewModel(gameRepository)
-
-                isAssignableFrom(UploadPhotoViewModel::class.java) ->
-                    UploadPhotoViewModel(gameRepository)
 
                 isAssignableFrom(GameViewModel::class.java) ->
                     GameViewModel(gameRepository)

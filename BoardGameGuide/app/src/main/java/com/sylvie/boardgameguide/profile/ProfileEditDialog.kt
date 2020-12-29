@@ -1,4 +1,4 @@
-package com.sylvie.boardgameguide.dialog
+package com.sylvie.boardgameguide.profile
 
 import android.Manifest
 import android.app.Activity
@@ -24,11 +24,9 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.NavigationDirections
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Game
-import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.DialogEditProfileBinding
+import com.sylvie.boardgameguide.profile.ProfileEditDialogArgs
 import com.sylvie.boardgameguide.ext.getVmFactory
-import com.sylvie.boardgameguide.login.UserManager
 import java.io.File
 
 

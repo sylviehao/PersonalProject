@@ -25,9 +25,7 @@ class NewPostGameTypeAdapter(var viewModel: NewPostViewModel):
                 }else{
                     viewModel.addType(data, selected)
                 }
-
             }
-
             binding.executePendingBindings()
         }
     }

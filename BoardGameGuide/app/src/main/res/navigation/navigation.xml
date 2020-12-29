@@ -182,7 +182,7 @@
     </fragment><action android:id="@+id/action_global_profileEventFragment" app:destination="@id/profileEventFragment"/>
     <dialog
         android:id="@+id/profileEditDialog"
-        android:name="com.sylvie.boardgameguide.dialog.ProfileEditDialog"
+        android:name="com.sylvie.boardgameguide.profile.ProfileEditDialog"
         android:label="ProfileEditDialog" >
         <argument
             android:name="user"

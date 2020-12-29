@@ -29,8 +29,6 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
     val eventStatus: LiveData<Boolean>
         get() = _eventStatus
 
-    private val toolList = MutableLiveData<MutableList<String>>()
-
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -100,7 +98,6 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
                 }
             } catch (e: Exception) {
             }
-
         }
     }
 

@@ -16,13 +16,11 @@ import kotlinx.coroutines.launch
 
 class ProfileEventViewModel(private val gameRepository: GameRepository, private val userId: String?) : ViewModel() {
 
-    // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Event>()
 
     val navigateToDetail: LiveData<Event>
         get() = _navigateToDetail
 
-    // Save change from Event
     private var _getEventData = MutableLiveData<List<Event>>()
 
     val getEventData: LiveData<List<Event>>
@@ -33,15 +31,8 @@ class ProfileEventViewModel(private val gameRepository: GameRepository, private 
     val myEventData: LiveData<List<Event>>
         get() = _myEventData
 
-    private var _getHome = MutableLiveData<List<HomeItem>>()
-
-    val getHome: LiveData<List<HomeItem>>
-        get() = _getHome
-
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {

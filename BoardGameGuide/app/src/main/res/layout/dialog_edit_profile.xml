@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.sylvie.boardgameguide.dialog.ProfileEditViewModel" />
+            type="com.sylvie.boardgameguide.profile.ProfileEditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

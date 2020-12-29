@@ -16,26 +16,28 @@ import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel() {
-    // Handle navigation to detail
+
     private val _navigateToDetail = MutableLiveData<Game>()
 
     val navigateToDetail: LiveData<Game>
         get() = _navigateToDetail
 
-    // Save change from Game
-    var _getUserData = MutableLiveData<User>()
+    private var _getUserData = MutableLiveData<User>()
 
     val getUserData: LiveData<User>
         get() = _getUserData
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
         getUser()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
     private fun getUser() {

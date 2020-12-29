@@ -24,7 +24,6 @@ class EventViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val navigateToDetail: LiveData<Event>
         get() = _navigateToDetail
 
-
     init {
         getAllEvents()
     }

@@ -1,6 +1,8 @@
 package com.sylvie.boardgameguide.game
 
 import android.util.Log
+import android.view.View
+import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +14,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import me.samlss.bloom.Bloom
+import me.samlss.bloom.effector.BloomEffector
+import me.samlss.bloom.shape.distributor.CircleShapeDistributor
+import me.samlss.bloom.shape.distributor.ParticleShapeDistributor
 import java.lang.Exception
 
 
@@ -127,6 +133,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     fun onDetailNavigated() {
         _navigateToDetail.value = null
     }
+
+
 
     var boomStatus = MutableLiveData<ImageView>()
     fun boomImage(view: ImageView){

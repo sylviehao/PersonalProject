@@ -102,7 +102,6 @@ class GameFragment : Fragment() {
     }
 
 
-
     private var mBloom: Bloom? = null
 
     private fun boom(view: View) {
@@ -124,4 +123,5 @@ class GameFragment : Fragment() {
                     .build())
         mBloom?.boom(view)
     }
+
 }

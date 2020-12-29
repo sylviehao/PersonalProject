@@ -52,17 +52,12 @@ class NewGameFragment : Fragment() {
         adapter.submitList(toolsType)
         adapter2.submitList(gameType)
 
-
         val storage = Firebase.storage
         val storageRef = storage.reference
 
-
-
         binding.buttonAddPhoto.setOnClickListener {
             checkPermission()
-//            findNavController().navigate(R.id.action_global_uploadPhotoDialog)
         }
-
 
         binding.buttonGameCreate.setOnClickListener {
 
@@ -73,15 +68,11 @@ class NewGameFragment : Fragment() {
 
             if (filePath == ""){
 
-//                val typeList= mutableListOf<String>()
-//                typeList.add(binding.editGameType.text.toString())
-
                 val rolesList= mutableListOf<String>()
                 rolesList.add(binding.editGameRoles.text.toString())
 
                 viewModel.addGame(
                     name = binding.editGameName.text.toString(),
-//                    type = typeList,
                     time = binding.editGameTime.text.toString(),
                     limit = binding.editPlayerLimit.text.toString(),
                     rules = binding.editGameRules.text.toString(),
@@ -93,25 +84,19 @@ class NewGameFragment : Fragment() {
             }
         }
 
-
         viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
-
-//            val typeList= mutableListOf<String>()
-//            typeList.add(binding.editGameType.text.toString())
 
             val rolesList= mutableListOf<String>()
             rolesList.add(binding.editGameRoles.text.toString())
 
             viewModel.addGame(
                 name = binding.editGameName.text.toString(),
-//                type = typeList,
                 time = binding.editGameTime.text.toString(),
                 limit = binding.editPlayerLimit.text.toString(),
                 rules = binding.editGameRules.text.toString(),
                 roles = rolesList,
                 imagesUri = viewModel.imagesUri.value!!
             )
-
         })
 
 
@@ -175,7 +160,7 @@ class NewGameFragment : Fragment() {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
         if (permission != PackageManager.PERMISSION_GRANTED) {
-            //未取得權限，向使用者要求允許權限
+            //if not having permission, ask for it
             ActivityCompat.requestPermissions(
                 this.requireActivity(), arrayOf(
                     Manifest.permission.CAMERA,
@@ -192,24 +177,21 @@ class NewGameFragment : Fragment() {
 
     private fun getLocalImg() {
         ImagePicker.with(this)
-            .crop()                    //Crop image(Optional), Check Customization for more option
-            .compress(1024)            //Final image size will be less than 1 MB(Optional)
+            //Crop image(Optional), Check Customization for more option
+            .crop()
+            //Final image size will be less than 1 MB(Optional)
+            .compress(1024)
+            //Final image resolution will be less than 1080 x 1080(Optional)
             .maxResultSize(
                 1080,
                 1080
-            )    //Final image resolution will be less than 1080 x 1080(Optional)
+            )
             .start()
     }
 
     private fun uploadPhoto(storageRef: StorageReference) {
         val file = Uri.fromFile(File(filePath))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
-        val metadata = StorageMetadata.Builder()
-            .setContentDisposition("game")
-            .setContentType("image/jpg")
-            .build()
-
         val uploadTask = eventsRef.putFile(file)
         uploadTask
             .addOnSuccessListener {
@@ -229,11 +211,8 @@ class NewGameFragment : Fragment() {
             return
         }
         ref.downloadUrl.addOnSuccessListener {
-
             imageList.add(it.toString())
             viewModel.imagesUri.value = imageList
-
-//            Toast.makeText(this.requireContext(), "Success", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {
                 exception ->
             Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()

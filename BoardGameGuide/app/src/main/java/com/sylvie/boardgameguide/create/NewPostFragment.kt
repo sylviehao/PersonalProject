@@ -47,7 +47,6 @@ class NewPostFragment : Fragment() {
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
-
     // Separate the situation from HomeFragment and from GameFragment
     var arg: Game? = null
     var event: Event? = null
@@ -99,45 +98,16 @@ class NewPostFragment : Fragment() {
             checkPermission()
         }
 
-////            val uploadTask = eventsRef.putFile(file)
-//            uploadTask
-//                .addOnSuccessListener {
-//                    textView.text = "Success"
-//                }
-//                .addOnFailureListener { exception ->
-//                    textView.text = exception.message
-//                }
-//                ?.addOnProgressListener { taskSnapshot ->
-//                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
-//                upload_progress.progress = progress
-//                if (progress >= 100) {
-//                    upload_progress.visibility = View.GONE
-//                }
-//            }
-
-//        binding.buttonAddPlayer.setOnClickListener {
-//            val oldPlayerList = viewModel.userList.value
-//            oldPlayerList?.add(binding.editNewPostGameMember.text.toString())
-//            viewModel.userList.value = oldPlayerList
-//            binding.editNewPostGameMember.text = null
-//        }
-
         binding.editNewPostGameMember.addTextChangedListener {
-//            if (binding.editNewPostGameMember.text.toString() == "") {
-//                binding.recyclerPlayerFilter.visibility = View.INVISIBLE
-//            } else {
                 binding.recyclerPlayerFilter.visibility = View.VISIBLE
                 viewModel.getAllUsersData.value?.let { userList ->
                     val filterList =
                         viewModel.filter(userList, binding.editNewPostGameMember.text.toString())
                     adapter3.submitList(filterList)
                 }
-
-//            }
         }
 
         binding.editNewPostGameMember.setOnFocusChangeListener { v, hasFocus ->
-
             if (hasFocus) {
                 binding.recyclerPlayerFilter.visibility = View.VISIBLE
                 viewModel.getAllUsersData.value?.let { userList ->
@@ -145,26 +115,6 @@ class NewPostFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.focusStatus.observe(viewLifecycleOwner, Observer {
-            binding.editNewPostGameMember.clearFocus()
-        })
-
-        viewModel.visibilityStatus.observe(viewLifecycleOwner, Observer {
-            binding.recyclerPlayerFilter.visibility = View.GONE
-        })
-
-        viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.i("userList", it.toString())
-            if (it.isNullOrEmpty()) {
-                binding.recyclerPlayer.visibility = View.GONE
-            } else {
-                binding.recyclerPlayer.visibility = View.VISIBLE
-            }
-            adapter.submitList(it)
-            adapter.notifyDataSetChanged()
-            binding.editNewPostGameMember.text = null
-        })
 
         binding.buttonNewPostCreate.setOnClickListener {
             if(viewModel.typeList.value.isNullOrEmpty()){
@@ -201,6 +151,27 @@ class NewPostFragment : Fragment() {
             }
 
         }
+
+        viewModel.focusStatus.observe(viewLifecycleOwner, Observer {
+            binding.editNewPostGameMember.clearFocus()
+        })
+
+        viewModel.visibilityStatus.observe(viewLifecycleOwner, Observer {
+            binding.recyclerPlayerFilter.visibility = View.GONE
+        })
+
+        viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.i("userList", it.toString())
+            if (it.isNullOrEmpty()) {
+                binding.recyclerPlayer.visibility = View.GONE
+            } else {
+                binding.recyclerPlayer.visibility = View.VISIBLE
+            }
+            adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+            binding.editNewPostGameMember.text = null
+        })
+
 
         viewModel.imagesUri.observe(viewLifecycleOwner, Observer {
 
@@ -310,7 +281,6 @@ class NewPostFragment : Fragment() {
     private fun uploadPhoto(storageRef: StorageReference, localImage: String) {
         val file = Uri.fromFile(File(localImage))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
         val uploadTask = eventsRef.putFile(file)
         uploadTask
             .addOnSuccessListener {

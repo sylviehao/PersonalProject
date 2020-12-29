@@ -12,10 +12,6 @@ import com.sylvie.boardgameguide.databinding.ItemPlayerFilterBinding
 class NewPostPlayerFilterAdapter(var viewModel: NewPostViewModel):
     ListAdapter<User, NewPostPlayerFilterAdapter.PlayerViewHolder>(DiffCallback) {
 
-//    class OnClickListener(val clickListener: (user: User) -> Unit) {
-//        fun onClick(user: User) = clickListener(user)
-//    }
-
     class PlayerViewHolder(private val binding: ItemPlayerFilterBinding) :
         RecyclerView.ViewHolder(binding.root) {
 

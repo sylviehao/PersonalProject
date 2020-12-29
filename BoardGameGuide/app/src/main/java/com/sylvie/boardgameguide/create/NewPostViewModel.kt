@@ -20,8 +20,6 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     val event = MutableLiveData<Event>()
 
-//    val date = MutableLiveData<Long>()
-
     private var _getAllUsersData = MutableLiveData<List<User>>()
 
     val getAllUsersData: LiveData<List<User>>
@@ -55,32 +53,12 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     }
 
     init {
-//        getUser()
         getAllUsers()
     }
 
     fun getAllUsers() {
         _getAllUsersData = gameRepository.getAllUsers()
     }
-
-//    fun getUser() {
-//        coroutineScope.launch {
-//            try {
-//                UserManager.userToken?.let {
-//                    val result = gameRepository.getUser(it)
-//                    _getUserData.value = when (result) {
-//                        is Result.Success -> {
-//                            result.data
-//                        }
-//                        else -> {
-//                            null
-//                        }
-//                    }
-//                }
-//            } catch (e: Exception) {
-//            }
-//        }
-//    }
 
     fun addPost(
         gameId: String,

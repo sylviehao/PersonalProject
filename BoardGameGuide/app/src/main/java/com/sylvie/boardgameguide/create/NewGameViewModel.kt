@@ -38,7 +38,6 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     fun addGame(
         name: String,
-//        type: MutableList<String>,
         limit: String,
         time: String,
         rules: String,
@@ -86,7 +85,6 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
                             null
                         }
                     }
-//                }
                 }
 
             } catch (e: Exception) {
