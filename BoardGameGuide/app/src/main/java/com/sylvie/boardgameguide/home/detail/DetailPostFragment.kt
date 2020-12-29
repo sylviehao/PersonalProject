@@ -29,8 +29,6 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
-import com.sylvie.boardgameguide.home.HomeAdapter
-import com.sylvie.boardgameguide.home.getTimeDate
 import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
@@ -185,20 +183,6 @@ class DetailPostFragment : Fragment() {
 
             binding.editComment.text = null
         }
-
-//        val db = FirebaseFirestore.getInstance()
-
-//        db.collection("Game")
-//            .get()
-//            .addOnSuccessListener {
-//                val listResult = mutableListOf<Game>()
-//                it.forEach { data ->
-//                    val d = data.toObject(Game::class.java)
-//                    listResult.add(d)
-//                }
-//                viewModel.getGameData.value =
-//                    listResult.filter { list -> list.id == bundle.gameId }[0]
-//            }
 
         binding.imageHost.setOnClickListener {
             findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))

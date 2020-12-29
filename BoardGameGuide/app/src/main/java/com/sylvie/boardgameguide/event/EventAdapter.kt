@@ -1,5 +1,6 @@
 package com.sylvie.boardgameguide.event
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.ItemHomeEventBinding
-import com.sylvie.boardgameguide.home.getTimeDate
+import com.sylvie.boardgameguide.util.Util.getTimeDate
 import java.text.SimpleDateFormat
 import java.util.*
 
-class EventAdapter(private val onClickListener: OnClickListener) :
+class EventAdapter(private val onClickListener: OnClickListener, val viewModel: EventViewModel) :
     ListAdapter<Event, EventAdapter.EventViewHolder>(DiffCallback) {
 
     class OnClickListener(val clickListener: (event: Event) -> Unit) {
@@ -22,9 +23,10 @@ class EventAdapter(private val onClickListener: OnClickListener) :
     class EventViewHolder(private val binding: ItemHomeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(event: Event, onClickListener: OnClickListener) {
+        @SuppressLint("SimpleDateFormat", "SetTextI18n")
+        fun bind(event: Event, onClickListener: OnClickListener, viewModel: EventViewModel) {
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
-            binding.textGameTime.text = "時間: " + dateString
+            binding.textGameTime.text = "時間: $dateString"
             binding.event = event
             binding.textHostName.text = event.user?.name
             binding.textGameName.text = event.game?.name
@@ -45,7 +47,7 @@ class EventAdapter(private val onClickListener: OnClickListener) :
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
         val event = getItem(position)
-        holder.bind(event, onClickListener)
+        holder.bind(event, onClickListener, viewModel)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Event>() {

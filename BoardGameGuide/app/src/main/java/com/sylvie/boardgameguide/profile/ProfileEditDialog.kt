@@ -42,7 +42,6 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.custom_dialog)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -153,12 +152,6 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
     private fun uploadPhoto(storageRef: StorageReference, localImage: String) {
         val file = Uri.fromFile(File(localImage))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
-
-//        val metadata = StorageMetadata.Builder()
-//            .setContentDisposition("game")
-//            .setContentType("image/jpg")
-//            .build()
-
         val uploadTask = eventsRef.putFile(file)
         uploadTask
             .addOnSuccessListener {
@@ -168,7 +161,6 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
             .addOnFailureListener { exception ->
                 Log.i("Upload", exception.toString())
             }
-
     }
 
     private fun checkPermission() {
@@ -205,6 +197,4 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
             )
             .start()
     }
-
-
 }

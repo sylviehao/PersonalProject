@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.source.GameRepository
 import com.sylvie.boardgameguide.login.UserManager
+import java.text.SimpleDateFormat
+import java.util.*
 
 class EventViewModel(private val gameRepository: GameRepository) : ViewModel() {
 

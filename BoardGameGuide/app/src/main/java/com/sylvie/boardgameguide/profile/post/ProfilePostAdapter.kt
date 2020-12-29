@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.ItemHomePostBinding
-import com.sylvie.boardgameguide.home.getTimeDate
+import com.sylvie.boardgameguide.util.Util.getTimeDate
 
 class ProfilePostAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<Event, ProfilePostAdapter.ProfilePostViewHolder>(DiffCallback) {

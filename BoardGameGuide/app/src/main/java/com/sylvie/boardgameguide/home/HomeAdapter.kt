@@ -1,6 +1,7 @@
 package com.sylvie.boardgameguide.home
 
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -11,13 +12,12 @@ import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.HomeItem
 import com.sylvie.boardgameguide.databinding.ItemHomeEventBinding
 import com.sylvie.boardgameguide.databinding.ItemHomePostBinding
+import com.sylvie.boardgameguide.util.Util.getTimeDate
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeAdapter(private val onClickListener: OnClickListener, private val viewModel: HomeViewModel) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
-
-
 
     class OnClickListener(val clickListener: (event: Event) -> Unit) {
         fun onClick(event: Event) = clickListener(event)
@@ -38,9 +38,10 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
     class EventViewHolder(private val binding: ItemHomeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(event: Event, onClickListener: OnClickListener,viewModel: HomeViewModel) {
+        @SuppressLint("SimpleDateFormat", "SetTextI18n")
+        fun bind(event: Event, onClickListener: OnClickListener, viewModel: HomeViewModel) {
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
-            binding.textGameTime.text = "Time " + dateString
+            binding.textGameTime.text = "Time $dateString"
             binding.event = event
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
@@ -94,12 +95,3 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
     }
 }
 
-fun getTimeDate(timestamp: Date): String {
-    try {
-        val netDate = (timestamp)
-        val sfd = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.TAIWAN)
-        return sfd.format(netDate)
-    } catch (e: Exception) {
-        return "date"
-    }
-}

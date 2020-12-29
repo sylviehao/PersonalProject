@@ -98,10 +98,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     fun filter(list: List<Game>, query: String): List<Game> {
-
         val lowerCaseQueryString = query.toLowerCase()
         val filteredList = mutableListOf<Game>()
-
         for (game in list) {
             val name = game.name
             if (name.contains(lowerCaseQueryString)) {

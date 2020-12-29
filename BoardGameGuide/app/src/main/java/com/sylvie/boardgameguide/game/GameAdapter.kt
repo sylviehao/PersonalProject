@@ -27,7 +27,7 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
                 if(it.value?.favorite!!.any { favorite -> favorite.id == game.id }){
                     binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
                     binding.iconPin.tag = "select"
-                }else{
+                } else {
                     binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
                     binding.iconPin.tag = "empty"
                 }
@@ -39,7 +39,7 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
                     viewModel.add2Favorite(game)
                     viewModel.boomImage(binding.imageGame)
                     it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-                }else{
+                } else {
                     it.tag = "empty"
                     it.setBackgroundResource(R.drawable.ic_nav_pin)
                     viewModel.removeFavorite(game)

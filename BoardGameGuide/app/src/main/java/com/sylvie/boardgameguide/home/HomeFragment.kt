@@ -22,7 +22,6 @@ import com.sylvie.boardgameguide.ext.getVmFactory
 
 class HomeFragment : Fragment() {
 
-    private var isMenuOpen = false
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
     private var flag = 0
 
@@ -36,24 +35,8 @@ class HomeFragment : Fragment() {
         }, viewModel)
         binding.recyclerHome.adapter = adapter
 
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                viewModel.getEvents()
-
-                if(it.status == "CLOSE"){
-
-                    findNavController().navigate(HomeFragmentDirections.actionGlobalDetailPostFragment(it))
-
-                } else {
-                    findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment(it))
-                }
-                viewModel.onDetailNavigated()
-            }
-        })
-
         binding.refreshLayout.setOnRefreshListener(object : LiquidRefreshLayout.OnRefreshListener {
             override fun completeRefresh() {
-                
             }
             override fun refreshing() {
                 object : CountDownTimer(1800, 1000) {
@@ -82,7 +65,6 @@ class HomeFragment : Fragment() {
                 0
             }
         }
-        
 
         binding.fabPost.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionGlobalNewPostFragment(null, null))
@@ -99,49 +81,22 @@ class HomeFragment : Fragment() {
             }
         }
 
-
-
-
-//        val db = FirebaseFirestore.getInstance()
-//
-//        //即時監聽資料庫是否變動
-//        db.collection("Event").addSnapshotListener { value, error ->
-//            value?.let {
-//                val listResult = mutableListOf<Event>()
-//                it.forEach { data ->
-//                    val d = data.toObject(Event::class.java)
-//                    listResult.add(d)
-//                }
-//                listResult.sortByDescending { it.createdTime }
-//                adapter.submitList(listResult)
-//            }
-//        }
-
-//        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
-//            adapter.submitList(it)
-//        })
-
         viewModel.getHome.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 
-
-
-//        fun openFabMenu() {
-//            isMenuOpen = true
-//            binding.fabPost.show()
-//            binding.fabEvent.show()
-//        }
-//
-//        fun closeFabMenu() {
-//            isMenuOpen = false
-//            binding.fabPost.hide()
-//            binding.fabEvent.hide()
-//        }
-
+        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                viewModel.getEvents()
+                if(it.status == "CLOSE"){
+                    findNavController().navigate(HomeFragmentDirections.actionGlobalDetailPostFragment(it))
+                } else {
+                    findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment(it))
+                }
+                viewModel.onDetailNavigated()
+            }
+        })
 
         return binding.root
     }
-
-
 }

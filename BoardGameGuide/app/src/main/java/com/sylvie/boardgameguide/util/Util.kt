@@ -7,6 +7,8 @@ import me.samlss.bloom.Bloom
 import me.samlss.bloom.effector.BloomEffector
 import me.samlss.bloom.shape.distributor.CircleShapeDistributor
 import me.samlss.bloom.shape.distributor.ParticleShapeDistributor
+import java.text.SimpleDateFormat
+import java.util.*
 
 object Util {
 
@@ -30,5 +32,15 @@ object Util {
                     .setFadeOut(500, AccelerateInterpolator())
                     .build())
         mBloom?.boom(view)
+    }
+
+    fun getTimeDate(timestamp: Date): String {
+        return try {
+            val netDate = (timestamp)
+            val sfd = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.TAIWAN)
+            sfd.format(netDate)
+        } catch (e: Exception) {
+            "date"
+        }
     }
 }

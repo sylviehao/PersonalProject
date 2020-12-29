@@ -1,5 +1,6 @@
 package com.sylvie.boardgameguide.profile.event
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.ItemHomeEventBinding
-import com.sylvie.boardgameguide.home.getTimeDate
+import com.sylvie.boardgameguide.util.Util.getTimeDate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -22,9 +23,10 @@ class ProfileEventAdapter(private val onClickListener: OnClickListener) :
     class ProfileEventViewHolder(private val binding: ItemHomeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
+        @SuppressLint("SimpleDateFormat", "SetTextI18n")
         fun bind(event: Event, onClickListener: OnClickListener) {
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
-            binding.textGameTime.text = "時間: " + dateString
+            binding.textGameTime.text = "時間: $dateString"
             binding.event = event
             binding.textHostName.text = event.user?.name
             binding.textGameName.text = event.game?.name

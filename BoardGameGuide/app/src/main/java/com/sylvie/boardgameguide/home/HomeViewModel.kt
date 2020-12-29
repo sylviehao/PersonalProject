@@ -13,17 +13,16 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Event>()
 
     val navigateToDetail: LiveData<Event>
         get() = _navigateToDetail
 
-    // Save change from Event
     private var _getEventData = MutableLiveData<List<Event>>()
 
     val getEventData: LiveData<List<Event>>
@@ -39,14 +38,9 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val getAllGame: LiveData<List<Game>>
         get() = _getAllGame
 
-    var fabStatus = MutableLiveData<Boolean>()
-
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
 
     init {
         getEvents()
@@ -62,6 +56,7 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
             _getEventData = gameRepository.getEvents("")
             Log.i("event","${_getEventData}")
     }
+
     fun getHome() {
         coroutineScope.launch {
             val result = gameRepository.getHome()
@@ -88,14 +83,12 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
     }
 
-
     fun filter(list: List<Event>, query: String): List<HomeItem> {
 
         val lowerCaseQueryString = query.toLowerCase(Locale.ROOT)
         val filteredList = mutableListOf<HomeItem>()
 
         for (event in list) {
-
             val user = event.user!!.name.toLowerCase(Locale.ROOT)
             val topic = event.topic.toLowerCase(Locale.ROOT)
             val game = event.game!!.name.toLowerCase(Locale.ROOT)

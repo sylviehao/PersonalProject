@@ -30,10 +30,9 @@ class EventFragment : Fragment() {
 
         val adapter = EventAdapter(EventAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
-        })
+        }, viewModel)
 
         binding.recyclerEvent.adapter = adapter
-
 
         viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
