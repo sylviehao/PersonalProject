@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.DialogJoinBinding
+import kotlin.concurrent.fixedRateTimer
 
 class JoinDialog : DialogFragment() {
 
@@ -31,14 +33,11 @@ class JoinDialog : DialogFragment() {
         binding.dialog = this
         init()
 
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         Handler().postDelayed({ this.dismiss() }, 2000)
     }
 

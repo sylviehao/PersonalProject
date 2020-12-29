@@ -43,23 +43,22 @@ class FavoriteFragment : Fragment() {
         binding.recyclerFavorite.adapter = adapter
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
-            it.let {user->
-                adapter.submitList(user.favorite)
+            it?.let {user->
+                if (user.favorite.isNullOrEmpty()) {
+                    binding.constraintAnimation.visibility = View.VISIBLE
+                    binding.recyclerFavorite.visibility = View.INVISIBLE
+                } else {
+                    binding.constraintAnimation.visibility = View.INVISIBLE
+                    binding.recyclerFavorite.visibility = View.VISIBLE
+                    adapter.submitList(user.favorite)
+                }
             }
         })
 
-//        val db = FirebaseFirestore.getInstance()
-        //即時監聽資料庫是否變動
-//        db.collection("Game").addSnapshotListener { value, error ->
-//            value?.let {
-//                val listResult = mutableListOf<Game>()
-//                it.forEach { data ->
-//                    val d = data.toObject(Game::class.java)
-//                    listResult.add(d)
-//                }
-//                adapter.submitList(listResult)
-//            }
-//        }
+        binding.constraintAnimation.setOnClickListener {
+            findNavController().navigate(FavoriteFragmentDirections.actionGlobalGameFragment())
+        }
+
 
         return binding.root
     }
