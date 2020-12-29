@@ -29,7 +29,5 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Sylvie Hao" />
 
-<!--        android:onClick="@{() -> viewModel.editPlayer(user.id, true)}"-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

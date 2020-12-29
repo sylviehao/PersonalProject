@@ -227,20 +227,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-
-//    private fun checkPermission() {
-//        val permission = ActivityCompat.checkSelfPermission(this@MainActivity,
-//            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//        if (permission != PackageManager.PERMISSION_GRANTED) {
-//            //未取得權限，向使用者要求允許權限
-//            ActivityCompat.requestPermissions(this, arrayOf(
-//                Manifest.permission.CAMERA,
-//                Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//                MY_PERMISSIONS_REQUEST_READ_CONTACTS)
-//        } else {
-////            getLocalImg()
-//        }
-//    }
-
 }

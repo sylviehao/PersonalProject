@@ -56,9 +56,7 @@ object GameRemoteDataSource : GameDataSource {
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-
                         val user  = task.result?.toObject(User::class.java)
-
                         continuation.resume(Result.Success(user))
                     } else {
                         task.exception?.let {
@@ -74,7 +72,6 @@ object GameRemoteDataSource : GameDataSource {
             user.introduction = introduction
             FirebaseFirestore.getInstance()
                 .collection("User").document(user.id)
-//                .update("introduction", introduction)
                 .set(user)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -97,16 +94,15 @@ object GameRemoteDataSource : GameDataSource {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val list = mutableListOf<Event>()
-
-                        val event1 = task.result?.toObjects(EventResult::class.java)
+                        val eventList = task.result?.toObjects(EventResult::class.java)
                         for (document in task.result!!) {
                             val event = document.toObject(Event::class.java)
                             list.add(event)
                         }
-                        var a = EventResult(
+                        val a = EventResult(
                             list
                         )
-                        Log.i("getHome", "${a}")
+                        Log.i("getHome", "$a")
                         continuation.resume(Result.Success(a.toHomeItems()))
                     } else {
                         task.exception?.let {
@@ -304,13 +300,10 @@ object GameRemoteDataSource : GameDataSource {
 
     override suspend fun removeGame(user: User, game: Game): Result<Boolean> =
         suspendCoroutine { continuation ->
-
-            val userTest = user
-            userTest.favorite = user.favorite?.filter { it.id != game.id } as MutableList<Game>?
-
+            user.favorite = user.favorite?.filter { it.id != game.id } as MutableList<Game>?
             FirebaseFirestore.getInstance()
                 .collection("User").document(user.id)
-                .set(userTest)
+                .set(user)
                 .addOnCompleteListener { task ->
                     continuation.resume(Result.Success(true))
                 }.addOnFailureListener {
@@ -375,7 +368,7 @@ object GameRemoteDataSource : GameDataSource {
 
     override suspend fun getBrowseRecently(userId: String, gamesId: List<String>): Result<List<Game>> =
         suspendCoroutine { continuation ->
-            val db = FirebaseFirestore.getInstance().collection("Game")
+            FirebaseFirestore.getInstance().collection("Game")
                 .whereIn(FieldPath.documentId(),gamesId)
                 .get()
                 .addOnCompleteListener { task ->

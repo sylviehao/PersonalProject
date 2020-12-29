@@ -25,7 +25,6 @@ class DiceFragment : Fragment() {
         val adapter = DiceAdapter(viewModel)
         binding.recyclerDice.adapter = adapter
 
-
         binding.buttonDice.setOnClickListener {
             viewModel.totalAmount.value = 0
             viewModel.rotateStatus.value = true
@@ -48,7 +47,6 @@ class DiceFragment : Fragment() {
                 }
             }
         })
-
 
         return binding.root
     }

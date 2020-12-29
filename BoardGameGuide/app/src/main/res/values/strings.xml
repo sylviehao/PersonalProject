@@ -71,6 +71,12 @@
     <string name="add_game">Add game first</string>
     <string name="no_event">No event yet</string>
     <string name="no_post">No post yet</string>
+    <string name="your_name">Your name</string>
+    <string name="your_intro">Your introduction</string>
+    <string name="go">GO</string>
+    <string name="roll">ROLL</string>
+    <string name="click_to_edit">Click circle below to edit</string>
+    <string name="sure">SURE</string>
 
 
 </resources>

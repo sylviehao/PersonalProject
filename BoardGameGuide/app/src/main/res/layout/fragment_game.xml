@@ -36,14 +36,15 @@
             android:id="@+id/recycler_game"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_view"
             app:spanCount="2"
-            tools:listitem="@layout/item_game" />
+            tools:listitem="@layout/item_game"
+            tools:ignore="RtlSymmetry" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

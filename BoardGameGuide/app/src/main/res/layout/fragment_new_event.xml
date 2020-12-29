@@ -148,17 +148,6 @@
                     app:spanCount="4"
                     tools:listitem="@layout/item_game_type" />
 
-<!--                <EditText-->
-<!--                    android:id="@+id/edit_newEvent_game_type"-->
-<!--                    style="@style/edit_new_field"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:hint="@string/game_type"-->
-<!--                    android:inputType="textPersonName"-->
-<!--                    android:text="@{viewModel.game.type == null ? @string/empty : String.valueOf(viewModel.game.type)}"-->
-<!--                    tools:layout_editor_absoluteX="159dp"-->
-<!--                    tools:layout_editor_absoluteY="354dp" />-->
-
                 <EditText
                     android:id="@+id/edit_newEvent_game_rule"
                     style="@style/edit_new_field"
@@ -275,5 +264,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

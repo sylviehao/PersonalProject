@@ -52,29 +52,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/button_time"-->
-        <!--            android:layout_width="200dp"-->
-        <!--            android:layout_height="200dp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:srcCompat="@drawable/round_circle" />-->
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/text_time"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:fontFamily="@font/yatra_one"-->
-        <!--            android:text="120"-->
-        <!--            android:textColor="@android:color/white"-->
-        <!--            android:textSize="64sp"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/button_time"-->
-        <!--            app:layout_constraintEnd_toEndOf="@+id/button_time"-->
-        <!--            app:layout_constraintStart_toStartOf="@+id/button_time"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/button_time" />-->
-
-
         <ImageView
             android:id="@+id/button_1"
             android:layout_width="90dp"

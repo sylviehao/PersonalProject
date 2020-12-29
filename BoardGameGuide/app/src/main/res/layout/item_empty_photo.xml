@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:paddingEnd="16dp">
+        android:paddingEnd="16dp"
+        tools:ignore="RtlSymmetry">
 
 
         <com.github.florent37.shapeofview.shapes.RoundRectView

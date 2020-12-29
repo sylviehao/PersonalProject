@@ -17,7 +17,7 @@
             android:id="@+id/recycler_favorite"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingRight="16dp"
+            android:paddingEnd="16dp"
             android:paddingBottom="16dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,7 +25,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
-            tools:listitem="@layout/item_game" />
+            tools:listitem="@layout/item_game"
+            tools:ignore="RtlSymmetry" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_animation"
@@ -67,6 +68,5 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

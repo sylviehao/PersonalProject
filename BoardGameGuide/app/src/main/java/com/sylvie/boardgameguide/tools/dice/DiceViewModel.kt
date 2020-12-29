@@ -10,7 +10,6 @@ class DiceViewModel : ViewModel() {
 
     val amount = MutableLiveData<Int>()
 
-
     //Let dices rotate together -> initialize
     val rotateStatus = MutableLiveData<Boolean>().apply {
         value == false

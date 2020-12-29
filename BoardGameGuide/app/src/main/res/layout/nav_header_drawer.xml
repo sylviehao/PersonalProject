@@ -14,17 +14,6 @@
         android:background="@color/oliveGreen"
         android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-        <!--        <ImageView-->
-        <!--            android:id="@+id/image_drawer_avatar"-->
-        <!--            android:layout_width="60dp"-->
-        <!--            android:layout_height="60dp"-->
-        <!--            android:layout_marginStart="16dp"-->
-        <!--            android:layout_marginTop="40dp"-->
-        <!--            android:scaleType="centerCrop"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent"-->
-        <!--            app:srcCompat="@drawable/ic_baby_white"/>-->
-
         <com.jetradarmobile.snowfall.SnowfallView
             android:id="@+id/snow_fall_view"
             android:layout_width="match_parent"
@@ -70,22 +59,6 @@
             app:layout_constraintStart_toEndOf="@+id/image_drawer_avatar"
             app:layout_constraintTop_toTopOf="@+id/image_drawer_avatar"
             tools:text="Sylvie HAO" />
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/image_drawer_info"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginStart="16dp"-->
-        <!--            android:layout_marginTop="4dp"-->
-        <!--            android:layout_marginEnd="16dp"-->
-        <!--            android:fontFamily="@font/noto_sans"-->
-        <!--            android:textColor="@android:color/white"-->
-        <!--            android:textSize="13sp"-->
-        <!--            android:text="TOP PLAYER"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/image_drawer_name"-->
-        <!--            tools:text="AKA小安老師"/>-->
 
         <!--        <ProgressBar-->
         <!--            android:theme="@style/ProgressThemeDark"-->
