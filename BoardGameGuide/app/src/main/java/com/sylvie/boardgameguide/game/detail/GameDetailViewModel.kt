@@ -23,7 +23,6 @@ import java.util.*
 
 class GameDetailViewModel(private val gameRepository: GameRepository, private val gameId: String?) : ViewModel() {
 
-    // Save change from User
     var _getUserData = MutableLiveData<User>()
 
     val getUserData: LiveData<User>
@@ -39,15 +38,17 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
 
     var navigateToTool = MutableLiveData<String>()
 
-
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
         getUser()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
     fun getUser() {
@@ -65,12 +66,9 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
                 }
                 }
             } catch (e: Exception) {
-
             }
         }
     }
-
-
 
     fun setBrowseRecently(){
         coroutineScope.launch {
@@ -93,7 +91,6 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
                     }
                 }
             } catch (e: Exception) {
-
             }
         }
     }
@@ -105,7 +102,6 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
             } catch (e: Exception) {
                 Log.i("Star", "${e.message}")
             }
-
         }
     }
 

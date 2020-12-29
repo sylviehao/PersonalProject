@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentDetailGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.util.Util.boom
 import me.samlss.bloom.Bloom
 import me.samlss.bloom.effector.BloomEffector
 import me.samlss.bloom.shape.distributor.CircleShapeDistributor
@@ -29,15 +30,13 @@ class GameDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding =  FragmentDetailGameBinding.inflate(inflater, container, false)
+        val bundle = GameDetailFragmentArgs.fromBundle(requireArguments()).game
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        var bundle = GameDetailFragmentArgs.fromBundle(requireArguments()).game
         viewModel.getGameData.value = bundle
 
         val adapter = GameDetailToolAdapter(viewModel)
         binding.recyclerTools.adapter = adapter
-
-        val db = FirebaseFirestore.getInstance()
 
         binding.buttonCreateEvent.setOnClickListener {
             findNavController().navigate(GameDetailFragmentDirections.actionGlobalNewEventFragment(bundle))
@@ -47,19 +46,34 @@ class GameDetailFragment : Fragment() {
             findNavController().navigate(GameDetailFragmentDirections.actionGlobalNewPostFragment(bundle, null))
         }
 
+        binding.iconPin.setOnClickListener {
+            if(it.tag == "empty"){
+                it.tag = "select"
+                it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+                viewModel.add2Favorite(bundle)
+                viewModel.boomImage(binding.imageGame)
+            } else {
+                it.tag = "empty"
+                viewModel.removeFavorite(bundle)
+                it.setBackgroundResource(R.drawable.ic_nav_pin)
+            }
+        }
+
         viewModel.boomStatus.observe(viewLifecycleOwner, Observer {
-            boom(it)
+            boom(it, requireActivity())
         })
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
-            if(it?.favorite!!.any { favorite -> favorite.id == bundle.id }){
+            if (it?.favorite!!.any { favorite -> favorite.id == bundle.id }) {
                 binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
                 binding.iconPin.tag = "select"
-            }else{
+            } else {
                 binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
                 binding.iconPin.tag = "empty"
             }
-            if(it.browseRecently.isNullOrEmpty() || !it.browseRecently!!.any { browse -> browse.gameId == bundle.id } ){
+            if (it.browseRecently.isNullOrEmpty() || !it.browseRecently!!
+                    .any { browse -> browse.gameId == bundle.id }
+            ) {
                 viewModel.setBrowseRecently()
             }
         })
@@ -67,7 +81,6 @@ class GameDetailFragment : Fragment() {
         viewModel.getGameData.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it.tools)
         })
-
 
         viewModel.navigateToTool.observe(viewLifecycleOwner, Observer {
             it?.let {
@@ -80,43 +93,6 @@ class GameDetailFragment : Fragment() {
             }
         })
 
-
-        binding.iconPin.setOnClickListener {
-            if(it.tag == "empty"){
-                it.tag = "select"
-                it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-                viewModel.add2Favorite(bundle)
-                viewModel.boomImage(binding.imageGame)
-            }else{
-                it.tag = "empty"
-                viewModel.removeFavorite(bundle)
-                it.setBackgroundResource(R.drawable.ic_nav_pin)
-            }
-        }
-
-
         return binding.root
-    }
-
-    private var mBloom: Bloom? = null
-
-    private fun boom(view: View) {
-        val shapeDistributor: ParticleShapeDistributor = RectShapeDistributor()
-
-        mBloom?.cancel()
-        mBloom = Bloom.with(requireActivity())
-            .setParticleRadius(15F)
-            .setShapeDistributor(shapeDistributor)
-            .setEffector(
-                BloomEffector.Builder()
-                    .setDuration(2000)
-                    .setScaleRange(0.5f, 1.5f)
-                    .setRotationSpeedRange(0.01f, 0.05f)
-                    .setSpeedRange(0.1f, 0.5f)
-                    .setAcceleration(0.00025f, 90)
-                    .setAnchor((view.getWidth() / 2).toFloat(), view.getHeight().toFloat())
-                    .setFadeOut(500, AccelerateInterpolator())
-                    .build())
-        mBloom?.boom(view)
     }
 }

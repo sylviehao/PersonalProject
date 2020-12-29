@@ -1,8 +1,6 @@
 package com.sylvie.boardgameguide.game
 
 import android.util.Log
-import android.view.View
-import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,46 +12,37 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import me.samlss.bloom.Bloom
-import me.samlss.bloom.effector.BloomEffector
-import me.samlss.bloom.shape.distributor.CircleShapeDistributor
-import me.samlss.bloom.shape.distributor.ParticleShapeDistributor
 import java.lang.Exception
 
 
 class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Game>()
 
     val navigateToDetail: LiveData<Game>
         get() = _navigateToDetail
 
-    // Save change from User
     private var _getUserData = MutableLiveData<User>()
 
     val getUserData: LiveData<User>
         get() = _getUserData
 
-    // Save change from Game
     private var _getGameData = MutableLiveData<List<Game>>()
 
     val getGameData: LiveData<List<Game>>
         get() = _getGameData
 
-
-
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
 
     init {
         getUser()
-        getAllGames()
+    }
 
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
     fun getUser() {
@@ -71,7 +60,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
                     }
                 }
             } catch (e: Exception) {
-
             }
         }
     }
@@ -83,7 +71,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             } catch (e: Exception) {
                 Log.i("Star", "${e.message}")
             }
-
         }
     }
 
@@ -94,7 +81,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
             } catch (e: Exception) {
                 Log.i("Star", "${e.message}")
             }
-
         }
     }
 
@@ -125,7 +111,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         return filteredList
     }
 
-
     fun navigateToDetail(game: Game) {
         _navigateToDetail.value = game
     }
@@ -133,8 +118,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     fun onDetailNavigated() {
         _navigateToDetail.value = null
     }
-
-
 
     var boomStatus = MutableLiveData<ImageView>()
     fun boomImage(view: ImageView){
