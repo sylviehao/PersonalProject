@@ -30,6 +30,18 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     val getEventData2: LiveData<Event>
         get() = _getEventData2
 
+    private var _allEvents = MutableLiveData<List<Event>>()
+
+    val allEvents: LiveData<List<Event>>
+        get() = _allEvents
+
+    private var _messages = MutableLiveData<List<Event>>()
+
+    val messages: LiveData<List<Event>>
+        get() = _messages
+
+    private var messageStatus = MutableLiveData<Boolean>()
+
     var imagesUri = MutableLiveData<String>()
 
     var localImageList = MutableLiveData<MutableList<String>>()
@@ -77,6 +89,29 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     init {
         getUser()
+        getAllUsers()
+        getEvents()
+    }
+
+    private fun getEvents() {
+        _allEvents = gameRepository.getEvents("")
+    }
+
+    fun filterMessage(event: List<Event>, eventId: String) {
+        _messages.value = event.filter { it.id == eventId }
+    }
+
+    fun setMessage(message: Message, event: Event) {
+        coroutineScope.launch {
+            val result = gameRepository.setMessage(message, event)
+            messageStatus.value = when (result) {
+                is Result.Success -> {
+                    result.data
+                } else -> {
+                    null
+                }
+            }
+        }
     }
 
     fun getAllUsers() {

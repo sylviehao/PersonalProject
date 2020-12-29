@@ -1,6 +1,7 @@
 package com.sylvie.boardgameguide.home.detail
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -42,6 +43,7 @@ class DetailEventFragment : Fragment() {
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = FragmentDetailEventBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -49,12 +51,13 @@ class DetailEventFragment : Fragment() {
         val storage = Firebase.storage
         val storageRef = storage.reference
         val bundle = DetailEventFragmentArgs.fromBundle(requireArguments()).event
+        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
+        binding.textGameTime.text = dateString
         viewModel.getEventData.value = bundle
         viewModel.getEvent(bundle.id)
         bundle.game?.name?.let { viewModel.getGame(it) }
 
         bundle.playerList?.let {
-
             if(it.any { userId-> userId == UserManager.userToken }){
                 binding.buttonJoin.setText(R.string.leave)
             }else{
@@ -67,7 +70,8 @@ class DetailEventFragment : Fragment() {
             }
         }
 
-//        binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
+        // upload photo permission
+        bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
         val adapter = DetailEventPlayerAdapter(viewModel)
         val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener{
@@ -81,10 +85,7 @@ class DetailEventFragment : Fragment() {
         binding.recyclerComment.adapter = adapter3
         binding.recyclerTools.adapter = adapter4
 
-        viewModel.getAllUsers()
-
         viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-//            adapter2.submitList(viewModel.toPhotoItems(it))
 
         })
 
@@ -96,14 +97,12 @@ class DetailEventFragment : Fragment() {
         })
 
         viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
             viewModel.addPhoto(
                 eventId = bundle.id,
                 image = viewModel.imagesUri.value!!,
                 status = true
             )
         })
-
 
         viewModel.getEventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.let {
@@ -118,10 +117,6 @@ class DetailEventFragment : Fragment() {
         viewModel.localImageList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             uploadPhoto(storageRef)
         })
-
-        // upload photo permission
-        bundle.playerList?.let { viewModel.checkUserPermission(it) }
-
 
         viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(bundle.playerList)
@@ -154,6 +149,30 @@ class DetailEventFragment : Fragment() {
             }
         })
 
+        //Get events snapshot
+        viewModel.allEvents.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let { eventList ->
+                viewModel.filterMessage(eventList, bundle.id)
+            }
+        })
+
+        //Filter message snapshot
+        viewModel.messages.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            it?.let {
+                adapter3.submitList(it[0].message)
+                adapter3.notifyDataSetChanged()
+            }
+        })
+
+        binding.buttonSend.setOnClickListener {
+            val data = Message(
+                hostId = viewModel.getUserData.value!!.id,
+                userName = UserManager.user.value?.name,
+                message = binding.editComment.text.toString()
+            )
+            viewModel.setMessage(data, bundle)
+            binding.editComment.text = null
+        }
 
         binding.buttonJoin.setOnClickListener {
             //判斷是否加入過
@@ -175,14 +194,9 @@ class DetailEventFragment : Fragment() {
             }
         }
 
-
         binding.textStatus.setOnClickListener {
             findNavController().navigate(DetailEventFragmentDirections.actionGlobalNewPostFragment(viewModel.getGameData.value, bundle))
         }
-
-        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
-        binding.textGameTime.text = dateString
-
 
         binding.buttonSortDown.setOnClickListener {
             if (it.tag == "empty") {
@@ -202,52 +216,6 @@ class DetailEventFragment : Fragment() {
             findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
 
         }
-
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection("Event")
-            .orderBy("createdTime", Query.Direction.DESCENDING)
-            .addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Event>()
-
-                    it.forEach { data ->
-                        val d = data.toObject(Event::class.java)
-                        listResult.add(d)
-
-                    }
-                    var b = listResult.filter { result-> result.id == bundle.id }[0]
-                    adapter.submitList(b.playerList)
-                    adapter.notifyDataSetChanged()
-                    adapter3.submitList(b.message)
-                    adapter3.notifyDataSetChanged()
-                }
-            }
-
-        binding.buttonSend.setOnClickListener {
-
-            val data = Message(
-                hostId = viewModel.getUserData.value!!.id,
-                userName = UserManager.user.value?.name,
-                message = binding.editComment.text.toString()
-            )
-
-            db.collection("Event").document(bundle.id)
-                //No covering
-                .update("message", FieldValue.arrayUnion(data))
-                .addOnSuccessListener { documentReference ->
-//                    documentReference.update("id", bundle.id)
-                    Log.d("TAG", "DocumentSnapshot added with ID: ${documentReference}")
-                }
-                .addOnFailureListener {
-                    Log.d("TAG", "$it")
-                    Toast.makeText(this.context, "Please sign in to post", Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            binding.editComment.text = null
-        }
-
 
         return binding.root
     }

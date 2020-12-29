@@ -28,11 +28,6 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val allEvents: LiveData<List<Event>>
         get() = _allEvents
 
-    private var _event = MutableLiveData<Event>()
-
-    val event: LiveData<Event>
-        get() = _event
-
     private var _messages = MutableLiveData<List<Event>>()
 
     val messages: LiveData<List<Event>>
