@@ -18,40 +18,48 @@ import java.lang.Exception
 
 class ProfileViewModel(private val gameRepository: GameRepository, private val userId: String?) : ViewModel() {
 
-    // Handle navigation to detail
     private val _navigateToDetail = MutableLiveData<Game>()
 
     val navigateToDetail: LiveData<Game>
         get() = _navigateToDetail
 
-    // Save change from Event
     private var _getEventData = MutableLiveData<List<Event>>()
 
     val getEventData: LiveData<List<Event>>
         get() = _getEventData
 
-    // Save change from User
+    private var _myEventData = MutableLiveData<List<Event>>()
+
+    val myEventData: LiveData<List<Event>>
+        get() = _myEventData
+
+    private var _myEventOpen = MutableLiveData<List<Event>>()
+
+    val myEventOpen: LiveData<List<Event>>
+        get() = _myEventOpen
+
+    private var _myEventClose = MutableLiveData<List<Event>>()
+
+    val myEventClose: LiveData<List<Event>>
+        get() = _myEventClose
+
     private var _getUserData = MutableLiveData<User>()
 
     val getUserData: LiveData<User>
         get() = _getUserData
 
-    // Save change from User
     private var _setUserData = MutableLiveData<User>()
 
     val setUserData: LiveData<User>
         get() = _setUserData
 
-    // get browseRecently
     private var _getBrowseRecentlyInfo = MutableLiveData<List<Game>>()
 
     val getBrowseRecentlyInfo: LiveData<List<Game>>
         get() = _getBrowseRecentlyInfo
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     override fun onCleared() {
@@ -66,6 +74,15 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
 
     private fun getEvents() {
         _getEventData = gameRepository.getEvents("")
+    }
+
+    fun filterMyEvent(list: List<Event>){
+        _myEventData.value = list.filter { it.user?.id == userId }
+    }
+
+    fun filterMyEventStatus(list: List<Event>){
+        _myEventOpen.value = list.filter { it.status == "OPEN" }
+        _myEventClose.value = list.filter { it.status == "CLOSE" }
     }
 
     fun getUser() {
@@ -124,7 +141,6 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
             }
         }
     }
-
 
     fun navigateToDetail(game: Game) {
         _navigateToDetail.value = game

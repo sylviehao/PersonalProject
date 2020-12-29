@@ -35,9 +35,7 @@ class ProfileFragment : Fragment() {
         val binding = FragmentProfileBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        val db = FirebaseFirestore.getInstance()
         val userId = ProfileFragmentArgs.fromBundle(requireArguments()).userId
-
         val adapter = ProfileBrowseAdapter(ProfileBrowseAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
@@ -57,49 +55,17 @@ class ProfileFragment : Fragment() {
             }
         })
 
-        //即時監聽資料庫是否變動
-        db.collection("Event").whereEqualTo("status","OPEN")
-            .addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Event>()
-                    val listResultOpen = mutableListOf<Event>()
-                    it.forEach { data ->
-                        val d = data.toObject(Event::class.java)
-                        listResult.add(d)
-                    }
-                    listResult.sortByDescending { it.createdTime }
-                    listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { id -> id == userId }
-                    })
-                    binding.textGameNumber.text = listResultOpen.size.toString()
-                }
-            }
+        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+            viewModel.filterMyEvent(it)
+        })
 
-        //即時監聽資料庫是否變動
-        db.collection("Event").whereEqualTo("status","CLOSE")
-            .addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Event>()
-                    val listResultClose = mutableListOf<Event>()
-                    it.forEach { data ->
-                        val d = data.toObject(Event::class.java)
-                        listResult.add(d)
-                    }
-                    listResult.sortByDescending { it.createdTime }
-                    listResultClose.addAll( listResult.filter {list ->
-                        list.user!!.id == userId
-                    })
-                    binding.textPostNumber.text = listResultClose.size.toString()
-                }
-            }
-
+        viewModel.myEventData.observe(viewLifecycleOwner, Observer {
+            viewModel.filterMyEventStatus(it)
+        })
 
         viewModel.getUserData.observe(viewLifecycleOwner, Observer {
             val gameIdList = mutableListOf<String>()
             it.browseRecently?.sortByDescending { browseList-> browseList.time }
-
-//            if (it.browseRecently)
-
             it.browseRecently?.forEach { browseRecently->
                 gameIdList.add(browseRecently.gameId)
             }
@@ -120,21 +86,6 @@ class ProfileFragment : Fragment() {
             adapter.notifyDataSetChanged()
         })
 
-//        binding.buttonEditInfo.setOnClickListener {
-//            binding.textDescription.isEnabled = true
-//            binding.textDescription.requestFocus()
-//            binding.textDescription.setSelection(binding.textDescription.length())
-////            binding.textEdit.text = "SEND"
-//            if (binding.textEdit.text == "SEND") {
-//            viewModel.getUserData.value?.let { user -> viewModel.setUser(user, binding.textDescription.text.toString() ) }
-//                binding.textDescription.isEnabled = false
-//                binding.textEdit.text = getString(R.string.edit)
-//            } else {
-//                binding.textDescription.requestFocus()
-//                binding.textEdit.text = "SEND"
-//            }
-//        }
-
         binding.constraintPost.setOnClickListener {
             findNavController().navigate(ProfilePostFragmentDirections.actionGlobalProfilePostFragment(userId))
         }
@@ -152,7 +103,6 @@ class ProfileFragment : Fragment() {
         binding.constraintAnimation.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionGlobalGameFragment())
         }
-
 
         return binding.root
     }
