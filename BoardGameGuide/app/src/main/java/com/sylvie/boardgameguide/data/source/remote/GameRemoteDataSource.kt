@@ -124,8 +124,8 @@ object GameRemoteDataSource : GameDataSource {
         val db = FirebaseFirestore.getInstance()
             .collection("Event")
                 when(status){
-                    "OPEN"->db.whereEqualTo("status",status)
-                    "CLOSE"->db.whereEqualTo("status",status)
+                    "OPEN"->db.whereEqualTo("status", status)
+                    "CLOSE"->db.whereEqualTo("status", status)
                     else -> db
                 }
             .orderBy("createdTime", Query.Direction.DESCENDING)

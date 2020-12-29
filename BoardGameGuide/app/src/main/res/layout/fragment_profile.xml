@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.sylvie.boardgameguide.profile.ProfileViewModel" />
+
         <variable
             name="user"
             type="com.sylvie.boardgameguide.data.User" />
@@ -225,19 +227,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_name"
                     tools:text="@string/profile_info" />
 
-                <TextView
-                    android:id="@+id/text_browse"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/noto_sans"
-                    android:text="@string/browse_recently"
-                    android:textColor="@color/darkBrown"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_description" />
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_browse"
                     android:layout_width="0dp"
@@ -252,20 +241,60 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_browse"
                     tools:listitem="@layout/item_profile_browse" />
 
-                <!--                <com.airbnb.lottie.LottieAnimationView-->
-                <!--                    android:id="@+id/animation_no_info"-->
-                <!--                    android:layout_width="0dp"-->
-                <!--                    android:layout_height="0dp"-->
-                <!--                    app:layout_constraintBottom_toBottomOf="parent"-->
-                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
-                <!--                    app:layout_constraintHorizontal_bias="0.0"-->
-                <!--                    app:layout_constraintStart_toStartOf="parent"-->
-                <!--                    app:layout_constraintTop_toTopOf="@+id/text_browse"-->
-                <!--                    app:layout_constraintVertical_bias="1.0"-->
-                <!--                    app:lottie_autoPlay="true"-->
-                <!--                    app:lottie_fileName="celebrating-christmas.json"-->
-                <!--                    app:lottie_imageAssetsFolder="images"-->
-                <!--                    app:lottie_loop="true" />-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraint_animation"
+                    android:layout_width="0dp"
+                    android:layout_height="240dp"
+                    android:background="@color/gray_f0f0f0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_description">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/animation_no_info"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginEnd="270dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        app:lottie_autoPlay="true"
+                        app:lottie_fileName="rocket-start.json"
+                        app:lottie_imageAssetsFolder="images"
+                        app:lottie_loop="true" />
+
+                    <TextView
+                        android:id="@+id/text_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="48dp"
+                        android:fontFamily="@font/finger_paint"
+                        android:text="Watch game first"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/animation_no_info"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/text_browse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@string/browse_recently"
+                    android:textColor="@color/darkBrown"
+                    android:textSize="16sp"
+                    android:visibility="invisible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_description" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

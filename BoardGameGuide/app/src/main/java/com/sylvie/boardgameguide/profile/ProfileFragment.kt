@@ -107,15 +107,17 @@ class ProfileFragment : Fragment() {
         })
 
         viewModel.getBrowseRecentlyInfo.observe(viewLifecycleOwner, Observer {
-//            if (viewModel.getBrowseRecentlyInfo.value.isNullOrEmpty()) {
-//                binding.animationNoInfo.visibility = View.VISIBLE
-//                binding.recyclerBrowse.visibility = View.INVISIBLE
-//            } else {
-//                binding.animationNoInfo.visibility = View.INVISIBLE
-//                binding.recyclerBrowse.visibility = View.VISIBLE
-//            }
-
+            if (viewModel.getBrowseRecentlyInfo.value.isNullOrEmpty()) {
+                binding.constraintAnimation.visibility = View.VISIBLE
+                binding.recyclerBrowse.visibility = View.GONE
+                binding.textBrowse.visibility = View.GONE
+            } else {
+                binding.constraintAnimation.visibility = View.INVISIBLE
+                binding.recyclerBrowse.visibility = View.VISIBLE
+                binding.textBrowse.visibility = View.VISIBLE
+            }
             adapter.submitList(it)
+            adapter.notifyDataSetChanged()
         })
 
 //        binding.buttonEditInfo.setOnClickListener {
@@ -145,6 +147,10 @@ class ProfileFragment : Fragment() {
             viewModel.getUserData.value?.let {
                 findNavController().navigate(ProfileFragmentDirections.actionGlobalProfileEditDialog(it))
             }
+        }
+
+        binding.constraintAnimation.setOnClickListener {
+            findNavController().navigate(ProfileFragmentDirections.actionGlobalGameFragment())
         }
 
 
