@@ -28,7 +28,6 @@ class EventFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-
         val adapter = EventAdapter(EventAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
@@ -43,28 +42,22 @@ class EventFragment : Fragment() {
             }
         })
 
+        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+            viewModel.filterMyEvent(it)
+        })
 
-
-        val db = FirebaseFirestore.getInstance()
-
-        //即時監聽資料庫是否變動
-        db.collection("Event").whereEqualTo("status","OPEN")
-            .addSnapshotListener { value, error ->
-                value?.let {
-                    val listResult = mutableListOf<Event>()
-                    val listResultOpen = mutableListOf<Event>()
-                    it.forEach { data ->
-                        val d = data.toObject(Event::class.java)
-                        listResult.add(d)
-                    }
-                    listResult.sortByDescending { it.createdTime }
-                    listResultOpen.addAll( listResult.filter {list ->
-                        list.playerList!!.any { id -> id == UserManager.user.value?.id }
-                    })
-
-                    adapter.submitList(listResultOpen)
+        viewModel.myEventData.observe(viewLifecycleOwner, Observer {
+            it?.let{
+                if (viewModel.myEventData.value.isNullOrEmpty()) {
+                    binding.constraintAnimation.visibility = View.VISIBLE
+                    binding.recyclerEvent.visibility = View.INVISIBLE
+                } else {
+                    binding.constraintAnimation.visibility = View.INVISIBLE
+                    binding.recyclerEvent.visibility = View.VISIBLE
+                    adapter.submitList(it)
                 }
             }
+        })
 
         return binding.root
     }
