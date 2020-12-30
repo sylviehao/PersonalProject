@@ -5,13 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sylvie.boardgameguide.create.NewPostViewModel
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.ItemDetailPostCommentBinding
-import com.sylvie.boardgameguide.databinding.ItemGameBinding
-import com.sylvie.boardgameguide.login.UserManager
 
-class DetailPostCommentAdapter(var viewModel: DetailPostViewModel):
+class DetailPostCommentAdapter(var viewModel: DetailPostViewModel) :
     ListAdapter<Message, DetailPostCommentAdapter.CommentViewHolder>(DiffCallback) {
 
     class CommentViewHolder(private val binding: ItemDetailPostCommentBinding) :
@@ -19,8 +16,6 @@ class DetailPostCommentAdapter(var viewModel: DetailPostViewModel):
 
         fun bind(message: Message, viewModel: DetailPostViewModel) {
             binding.message = message
-            binding.textUser.text = message.userName
-            binding.textMessage.text = message.message
             binding.imageUrl = viewModel.filterUserPhoto(message.hostId)
             binding.time = viewModel.convertDateToLong(message.createdTime)
             binding.executePendingBindings()

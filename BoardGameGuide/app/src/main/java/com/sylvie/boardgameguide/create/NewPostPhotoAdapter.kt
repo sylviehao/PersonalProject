@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.sylvie.boardgameguide.databinding.ItemDetailPostPhotoBinding
 import com.sylvie.boardgameguide.databinding.ItemHomePhotoBinding
 
-class NewPostPhotoAdapter:
+class NewPostPhotoAdapter :
     ListAdapter<String, NewPostPhotoAdapter.PhotoViewHolder>(DiffCallback) {
 
     class PhotoViewHolder(private val binding: ItemHomePhotoBinding) :

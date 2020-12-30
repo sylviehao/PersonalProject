@@ -7,25 +7,19 @@ import com.sylvie.boardgameguide.ext.getVmFactory
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.sylvie.boardgameguide.MainActivity
-import com.sylvie.boardgameguide.MainViewModel
 import com.sylvie.boardgameguide.R
 
 
@@ -61,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
             signIn(mGoogleSignInClient)
         }
 
-        viewModel.getUserData.observe(this, Observer {
+        viewModel.userData.observe(this, Observer {
             viewModel.createUser()
         })
 

@@ -6,11 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.robertlevonyan.views.chip.OnCloseClickListener
-import com.robertlevonyan.views.chip.OnSelectClickListener
 import com.sylvie.boardgameguide.databinding.ItemChipsBinding
-import com.sylvie.boardgameguide.databinding.ItemDetailEventPlayerBinding
 
-class NewPostPlayerAdapter(var viewModel: NewPostViewModel):
+class NewPostPlayerAdapter(var viewModel: NewPostViewModel) :
     ListAdapter<String, NewPostPlayerAdapter.PlayerViewHolder>(DiffCallback) {
 
     class PlayerViewHolder(private val binding: ItemChipsBinding) :

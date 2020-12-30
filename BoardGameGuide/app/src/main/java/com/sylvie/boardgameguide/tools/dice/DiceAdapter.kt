@@ -10,24 +10,23 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.ItemDiceBinding
 
-class DiceAdapter(var viewModel: DiceViewModel) : ListAdapter<Int, DiceAdapter.GameViewHolder>(DiffCallback) {
+class DiceAdapter(var viewModel: DiceViewModel) :
+    ListAdapter<Int, DiceAdapter.GameViewHolder>(DiffCallback) {
 
     class GameViewHolder(private val binding: ItemDiceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Int, viewModel: DiceViewModel) {
-//            binding.item = item
-            if(viewModel.rotateStatus.value == true){
+            if (viewModel.rotateStatus.value == true) {
                 binding.imageDice.setImageResource(R.drawable.dice_grey_empty)
-                val anim = AnimationUtils.loadAnimation(binding.root.context, R.anim.anim_rotate_dice)
+                val anim =
+                    AnimationUtils.loadAnimation(binding.root.context, R.anim.anim_rotate_dice)
                 binding.imageDice.startAnimation(anim)
-                anim.setAnimationListener(object:
+                anim.setAnimationListener(object :
                     Animation.AnimationListener {
                     override fun onAnimationStart(animation: Animation) {
-
                     }
                     override fun onAnimationRepeat(animation: Animation) {
-
                     }
                     override fun onAnimationEnd(animation: Animation) {
 

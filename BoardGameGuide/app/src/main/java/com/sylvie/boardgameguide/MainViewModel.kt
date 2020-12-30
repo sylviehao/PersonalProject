@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.facebook.internal.Mutable
 import com.sylvie.boardgameguide.data.Result
 import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.data.source.GameRepository
@@ -23,22 +22,23 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
     // Record current fragment to support data binding
     val currentFragmentType = MutableLiveData<CurrentFragmentType>()
 
-    val currentDrawerToggleType: LiveData<DrawerToggleType> = Transformations.map(currentFragmentType) {
-        when (it) {
-            CurrentFragmentType.NEW_POST -> DrawerToggleType.BACK
-            CurrentFragmentType.NEW_EVENT -> DrawerToggleType.BACK
-            CurrentFragmentType.DETAIL_POST -> DrawerToggleType.BACK
-            CurrentFragmentType.DETAIL_EVENT -> DrawerToggleType.BACK
-            CurrentFragmentType.NEW_GAME -> DrawerToggleType.BACK
-            CurrentFragmentType.DETAIL_GAME -> DrawerToggleType.BACK
-            CurrentFragmentType.DICE -> DrawerToggleType.BACK
-            CurrentFragmentType.TIMER -> DrawerToggleType.BACK
-            CurrentFragmentType.PICKER -> DrawerToggleType.BACK
-            else -> DrawerToggleType.NORMAL
+    val currentDrawerToggleType: LiveData<DrawerToggleType> =
+        Transformations.map(currentFragmentType) {
+            when (it) {
+                CurrentFragmentType.NEW_POST -> DrawerToggleType.BACK
+                CurrentFragmentType.NEW_EVENT -> DrawerToggleType.BACK
+                CurrentFragmentType.DETAIL_POST -> DrawerToggleType.BACK
+                CurrentFragmentType.DETAIL_EVENT -> DrawerToggleType.BACK
+                CurrentFragmentType.NEW_GAME -> DrawerToggleType.BACK
+                CurrentFragmentType.DETAIL_GAME -> DrawerToggleType.BACK
+                CurrentFragmentType.DICE -> DrawerToggleType.BACK
+                CurrentFragmentType.TIMER -> DrawerToggleType.BACK
+                CurrentFragmentType.PICKER -> DrawerToggleType.BACK
+                else -> DrawerToggleType.NORMAL
+            }
         }
-    }
 
-    val navigate = MutableLiveData<Int>()
+    val navigation = MutableLiveData<Int>()
 
     // check user login status
     val isLoggedIn
@@ -62,15 +62,19 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    private var _getUserData = MutableLiveData<User>()
+    private var _userData = MutableLiveData<User>()
 
-    val getUserData: LiveData<User>
-        get() = _getUserData
+    val userData: LiveData<User>
+        get() = _userData
 
-    var imagesPath = MutableLiveData<List<String>>()
 
     init {
         UserManager.userToken?.let { getUser(it) }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
 
@@ -80,7 +84,7 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
                 val result = gameRepository.getUser(uid)
                 UserManager.user.value = when (result) {
                     is Result.Success -> {
-                        _getUserData.value = result.data
+                        _userData.value = result.data
                         result.data
                     }
                     else -> {

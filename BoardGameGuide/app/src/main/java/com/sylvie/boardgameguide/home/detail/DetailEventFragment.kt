@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.home.detail
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
@@ -12,21 +11,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
-import com.sylvie.boardgameguide.databinding.DialogJoinBinding
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.dialog.JoinDialog
 import com.sylvie.boardgameguide.ext.getVmFactory
@@ -45,8 +38,12 @@ class DetailEventFragment : Fragment() {
     var filePath: String = ""
 
     @SuppressLint("SimpleDateFormat")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentDetailEventBinding.inflate(inflater, container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentDetailEventBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         val storage = Firebase.storage
@@ -54,18 +51,18 @@ class DetailEventFragment : Fragment() {
         val bundle = DetailEventFragmentArgs.fromBundle(requireArguments()).event
         val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
         binding.textGameTime.text = dateString
-        viewModel.getEventData.value = bundle
+        viewModel.eventData.value = bundle
         viewModel.getEvent(bundle.id)
         bundle.game?.name?.let { viewModel.getGame(it) }
 
         bundle.playerList?.let {
-            if(it.any { userId-> userId == UserManager.userToken }){
+            if (it.any { userId -> userId == UserManager.userToken }) {
                 binding.buttonJoin.setText(R.string.leave)
-            }else{
-                if(it.size >= bundle.playerLimit){
+            } else {
+                if (it.size >= bundle.playerLimit) {
                     binding.buttonJoin.setText(R.string.no_more_place)
                     binding.buttonJoin.isEnabled = false
-                }else{
+                } else {
                     binding.buttonJoin.setText(R.string.join)
                 }
             }
@@ -75,7 +72,7 @@ class DetailEventFragment : Fragment() {
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
         val adapter = DetailEventPlayerAdapter(viewModel)
-        val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener{
+        val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener {
             context?.let { context ->
                 GetPhoto.checkPermissionAndGetLocalImg(
                     context,
@@ -96,9 +93,13 @@ class DetailEventFragment : Fragment() {
 
         })
 
-        viewModel.navigateToProfile.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.profileNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-                findNavController().navigate(DetailEventFragmentDirections.actionGlobalProfileFragment(it))
+                findNavController().navigate(
+                    DetailEventFragmentDirections.actionGlobalProfileFragment(
+                        it
+                    )
+                )
                 viewModel.navigated()
             }
         })
@@ -111,9 +112,9 @@ class DetailEventFragment : Fragment() {
             )
         })
 
-        viewModel.getEventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.eventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.let {
-                adapter2.submitList(viewModel.toPhotoItems(viewModel.add(it.image!!)))
+                adapter2.submitList(viewModel.toPhotoItems(viewModel.addImages(it.image!!)))
             }
         })
 
@@ -125,17 +126,17 @@ class DetailEventFragment : Fragment() {
             uploadPhoto(storageRef)
         })
 
-        viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.allUsersData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter.submitList(bundle.playerList)
         })
 
-        viewModel.getGameData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.gameData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter4.submitList(bundle.game?.tools)
         })
 
-        viewModel.navigateToTool.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.toolNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-                when(it){
+                when (it) {
                     "Dice" -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalDiceFragment())
                     "Timer" -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalTimerFragment())
                     else -> findNavController().navigate(GameDetailFragmentDirections.actionGlobalBottleFragment())
@@ -144,15 +145,23 @@ class DetailEventFragment : Fragment() {
             }
         })
 
-        viewModel.join.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.joinStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.let {
-                findNavController().navigate(DetailEventFragmentDirections.actionGlobalJoinDialog(JoinDialog.MessageType.JOIN))
+                findNavController().navigate(
+                    DetailEventFragmentDirections.actionGlobalJoinDialog(
+                        JoinDialog.MessageType.JOIN
+                    )
+                )
             }
         })
 
-        viewModel.leave.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.leaveStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.let {
-                findNavController().navigate(DetailEventFragmentDirections.actionGlobalJoinDialog(JoinDialog.MessageType.LEAVE))
+                findNavController().navigate(
+                    DetailEventFragmentDirections.actionGlobalJoinDialog(
+                        JoinDialog.MessageType.LEAVE
+                    )
+                )
             }
         })
 
@@ -173,7 +182,7 @@ class DetailEventFragment : Fragment() {
 
         binding.buttonSend.setOnClickListener {
             val data = Message(
-                hostId = viewModel.getUserData.value!!.id,
+                hostId = viewModel.userData.value!!.id,
                 userName = UserManager.user.value?.name,
                 message = binding.editComment.text.toString()
             )
@@ -182,27 +191,31 @@ class DetailEventFragment : Fragment() {
         }
 
         binding.buttonJoin.setOnClickListener {
-            //判斷是否加入過
+            //Have joined or not
             UserManager.user.value?.let { userId ->
                 viewModel.setPlayer(userId.id, bundle, true)
                 if (bundle.playerList!!.any { it == userId.id }) {
-                    viewModel.leave.value = true
+                    viewModel.leaveStatus.value = true
                     bundle.playerList?.remove(userId.id)
                     viewModel.setPlayer(userId.id, bundle, false)
                     binding.buttonJoin.setText(R.string.join)
                 } else {
-                    viewModel.join.value = true
+                    viewModel.joinStatus.value = true
                     bundle.playerList?.add(userId.id)
                     binding.buttonJoin.setText(R.string.leave)
                 }
-                viewModel.getEventData.value = bundle
-//                adapter.submitList(bundle.playerList)
+                viewModel.eventData.value = bundle
                 adapter.notifyDataSetChanged()
             }
         }
 
         binding.textStatus.setOnClickListener {
-            findNavController().navigate(DetailEventFragmentDirections.actionGlobalNewPostFragment(viewModel.getGameData.value, bundle))
+            findNavController().navigate(
+                DetailEventFragmentDirections.actionGlobalNewPostFragment(
+                    viewModel.gameData.value,
+                    bundle
+                )
+            )
         }
 
         binding.buttonSortDown.setOnClickListener {
@@ -216,11 +229,19 @@ class DetailEventFragment : Fragment() {
         }
 
         binding.textHostName.setOnClickListener {
-            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+            findNavController().navigate(
+                DetailPostFragmentDirections.actionGlobalProfileFragment(
+                    bundle.user!!.id
+                )
+            )
         }
 
         binding.imageHost.setOnClickListener {
-            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+            findNavController().navigate(
+                DetailPostFragmentDirections.actionGlobalProfileFragment(
+                    bundle.user!!.id
+                )
+            )
 
         }
 
@@ -254,8 +275,6 @@ class DetailEventFragment : Fragment() {
                 if (filePath.isNotEmpty()) {
                     localImageList.add(filePath)
                     viewModel.localImageList.value = localImageList
-//                    Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
-//                    Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
                 } else {
                     Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT)
                         .show()
@@ -271,8 +290,6 @@ class DetailEventFragment : Fragment() {
         }
     }
 
-
-    //    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
@@ -301,7 +318,5 @@ class DetailEventFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.i("Upload", exception.toString())
             }
-
     }
-
 }

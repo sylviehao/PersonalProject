@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.profile
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,17 +15,18 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class ProfileViewModel(private val gameRepository: GameRepository, private val userId: String?) : ViewModel() {
+class ProfileViewModel(private val gameRepository: GameRepository, private val userId: String?) :
+    ViewModel() {
 
-    private val _navigateToDetail = MutableLiveData<Game>()
+    private val _detailNavigation = MutableLiveData<Game>()
 
-    val navigateToDetail: LiveData<Game>
-        get() = _navigateToDetail
+    val detailNavigation: LiveData<Game>
+        get() = _detailNavigation
 
-    private var _getEventData = MutableLiveData<List<Event>>()
+    private var _allEventsData = MutableLiveData<List<Event>>()
 
-    val getEventData: LiveData<List<Event>>
-        get() = _getEventData
+    val allEventsData: LiveData<List<Event>>
+        get() = _allEventsData
 
     private var _myEventData = MutableLiveData<List<Event>>()
 
@@ -43,44 +43,45 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
     val myEventClose: LiveData<List<Event>>
         get() = _myEventClose
 
-    private var _getUserData = MutableLiveData<User>()
+    private var _userData = MutableLiveData<User>()
 
-    val getUserData: LiveData<User>
-        get() = _getUserData
+    val userData: LiveData<User>
+        get() = _userData
 
     private var _setUserData = MutableLiveData<User>()
 
     val setUserData: LiveData<User>
         get() = _setUserData
 
-    private var _getBrowseRecentlyInfo = MutableLiveData<List<Game>>()
+    private var _browseRecentlyInfo = MutableLiveData<List<Game>>()
 
-    val getBrowseRecentlyInfo: LiveData<List<Game>>
-        get() = _getBrowseRecentlyInfo
+    val browseRecentlyInfo: LiveData<List<Game>>
+        get() = _browseRecentlyInfo
 
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     init {
         getEvents()
         getUser()
     }
 
-    private fun getEvents() {
-        _getEventData = gameRepository.getEvents("")
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
-    fun filterMyEvent(list: List<Event>){
+    private fun getEvents() {
+        _allEventsData = gameRepository.getEvents("")
+    }
+
+    fun filterMyEvent(list: List<Event>) {
         _myEventData.value = list.filter { it.user?.id == userId }
     }
 
-    fun filterMyEventStatus(list: List<Event>){
+    fun filterMyEventStatus(list: List<Event>) {
         _myEventOpen.value = list.filter { it.status == "OPEN" }
         _myEventClose.value = list.filter { it.status == "CLOSE" }
     }
@@ -89,15 +90,15 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
         coroutineScope.launch {
             try {
                 userId?.let {
-                val result = gameRepository.getUser(it)
-                _getUserData.value = when (result) {
-                    is Result.Success -> {
-                        result.data
+                    val result = gameRepository.getUser(it)
+                    _userData.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
                     }
-                    else -> {
-                        null
-                    }
-                }
                 }
             } catch (e: Exception) {
             }
@@ -108,15 +109,15 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
         coroutineScope.launch {
             try {
                 UserManager.userToken?.let {
-                val result = gameRepository.setUser(user, introduction)
-                _setUserData.value = when (result) {
-                    is Result.Success -> {
-                        result.data
+                    val result = gameRepository.setUser(user, introduction)
+                    _setUserData.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
                     }
-                    else -> {
-                        null
-                    }
-                }
                 }
             } catch (e: Exception) {
             }
@@ -128,7 +129,7 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
             try {
                 UserManager.userToken?.let {
                     val result = gameRepository.getBrowseRecently(it, gamesId)
-                    _getBrowseRecentlyInfo.value = when (result) {
+                    _browseRecentlyInfo.value = when (result) {
                         is Result.Success -> {
                             result.data
                         }
@@ -143,10 +144,10 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
     }
 
     fun navigateToDetail(game: Game) {
-        _navigateToDetail.value = game
+        _detailNavigation.value = game
     }
 
     fun onDetailNavigated() {
-        _navigateToDetail.value = null
+        _detailNavigation.value = null
     }
 }

@@ -17,24 +17,25 @@ class ProfileEditViewModel(private val gameRepository: GameRepository) : ViewMod
 
 
     private var viewModelJob = Job()
+
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     val user = MutableLiveData<User>()
 
     var imageUri = MutableLiveData<String>()
 
-    private var _setUserData = MutableLiveData<User>()
-    val setUserData: LiveData<User>
-        get() = _setUserData
+    private var _userData = MutableLiveData<User>()
 
+    val userData: LiveData<User>
+        get() = _userData
+
+    init {
+
+    }
 
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()
-    }
-
-    init {
-
     }
 
     fun setUser(user: User, introduction: String) {
@@ -42,7 +43,7 @@ class ProfileEditViewModel(private val gameRepository: GameRepository) : ViewMod
             try {
                 UserManager.userToken?.let {
                     val result = gameRepository.setUser(user, introduction)
-                    _setUserData.value = when (result) {
+                    _userData.value = when (result) {
                         is Result.Success -> {
                             result.data
                         }

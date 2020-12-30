@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.databinding.ItemChipsBinding
 
-class DetailPostPlayerAdapter(val viewModel: DetailPostViewModel):
+class DetailPostPlayerAdapter(val viewModel: DetailPostViewModel) :
     ListAdapter<String, DetailPostPlayerAdapter.PlayerViewHolder>(DiffCallback) {
 
     class PlayerViewHolder(private val binding: ItemChipsBinding) :
@@ -16,18 +16,15 @@ class DetailPostPlayerAdapter(val viewModel: DetailPostViewModel):
         fun bind(data: String, viewModel: DetailPostViewModel) {
             binding.data = data
             binding.textPlayer.closable = false
-
-            if(viewModel.getAllUsers.value!!.any { it.id == data }){
-                binding.textPlayer.text = viewModel.getAllUsers.value!!.filter { it.id == data }[0].name
-            }else{
+            if (viewModel.allUsersData.value!!.any { it.id == data }) {
+                binding.textPlayer.text =
+                    viewModel.allUsersData.value!!.filter { it.id == data }[0].name
+            } else {
                 binding.textPlayer.text = ""
             }
-
             binding.textPlayer.setOnClickListener {
                 viewModel.playerNavigation.value = data
-//                viewModel.navigated()
             }
-
             binding.executePendingBindings()
         }
     }

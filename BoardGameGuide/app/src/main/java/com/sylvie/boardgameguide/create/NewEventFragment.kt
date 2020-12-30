@@ -1,39 +1,30 @@
 package com.sylvie.boardgameguide.create
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import com.sylvie.boardgameguide.login.UserManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Game
-import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentNewEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
-import com.sylvie.boardgameguide.game.detail.GameDetailFragmentArgs
 import com.sylvie.boardgameguide.util.GetPhoto
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class NewEventFragment : Fragment() {
@@ -42,6 +33,7 @@ class NewEventFragment : Fragment() {
     private lateinit var binding: FragmentNewEventBinding
 
     private val myPermissionsRequestRead = 0
+    private val imageList = mutableListOf<String>()
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
@@ -100,19 +92,19 @@ class NewEventFragment : Fragment() {
         }
 
         binding.buttonNewEventCreate.setOnClickListener {
-            if(viewModel.typeList.value.isNullOrEmpty()){
+            if(viewModel.typeList.value.isNullOrEmpty()) {
                 Toast.makeText(context, "請填寫遊戲種類", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (filePath == "") {
 
                 var id = ""
-                arg?.id?.let {data ->
+                arg?.id?.let { data ->
                     id = data
                 }
 
                 var tool = mutableListOf<String>()
-                arg?.tools?.let {data ->
+                arg?.tools?.let { data ->
                     tool = data
                 }
 
@@ -129,7 +121,7 @@ class NewEventFragment : Fragment() {
                 )
 
             } else {
-                for(localImage in localImageList){
+                for(localImage in localImageList) {
                     uploadPhoto(storageRef, localImage)
                 }
             }
@@ -141,12 +133,12 @@ class NewEventFragment : Fragment() {
             if (it.size == localImageList.size) {
 
                 var id = ""
-                arg?.id?.let {data ->
+                arg?.id?.let { data ->
                     id = data
                 }
 
                 var tools = mutableListOf<String>()
-                arg?.tools?.let {data ->
+                arg?.tools?.let { data ->
                     tools = data
                 }
 
@@ -203,8 +195,6 @@ class NewEventFragment : Fragment() {
                 if (filePath.isNotEmpty()) {
                     localImageList.add(filePath)
                     viewModel.localImageList.value = localImageList
-//                    Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
-//                    Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
                 } else {
                     Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT)
                         .show()
@@ -220,7 +210,6 @@ class NewEventFragment : Fragment() {
         }
     }
 
-    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
@@ -246,6 +235,5 @@ class NewEventFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.i("Upload", exception.toString())
             }
-
     }
 }

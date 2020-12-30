@@ -10,7 +10,10 @@ import com.sylvie.boardgameguide.data.PhotoItem
 import com.sylvie.boardgameguide.databinding.ItemDetailPostPhotoBinding
 import com.sylvie.boardgameguide.databinding.ItemEmptyPhotoBinding
 
-class DetailEventPhotoAdapter(private val onClickListener: OnClickListener, var viewModel: DetailEventViewModel):
+class DetailEventPhotoAdapter(
+    private val onClickListener: OnClickListener,
+    var viewModel: DetailEventViewModel
+) :
     ListAdapter<PhotoItem, RecyclerView.ViewHolder>(DiffCallback) {
 
 
@@ -33,12 +36,10 @@ class DetailEventPhotoAdapter(private val onClickListener: OnClickListener, var 
         fun bind(data: String, onClickListener: OnClickListener, viewModel: DetailEventViewModel) {
             binding.data = data
             viewModel.photoPermission.let {
-                if(it.value!!){
+                if (it.value!!) {
                     binding.root.visibility = View.VISIBLE
-//                    binding.iconAddPhoto.visibility = View.VISIBLE
-                }else{
+                } else {
                     binding.root.visibility = View.GONE
-//                    binding.iconAddPhoto.visibility = View.GONE
                 }
             }
             binding.imageAddPhoto.setOnClickListener { onClickListener.onClick(data) }
@@ -66,7 +67,11 @@ class DetailEventPhotoAdapter(private val onClickListener: OnClickListener, var 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is DetailEventPhotoAdapter.EmptyPhotoViewHolder -> {
-                holder.bind((getItem(position) as PhotoItem.EmptyItem).event, onClickListener, viewModel)
+                holder.bind(
+                    (getItem(position) as PhotoItem.EmptyItem).event,
+                    onClickListener,
+                    viewModel
+                )
             }
             is DetailEventPhotoAdapter.PhotoViewHolder -> {
                 holder.bind((getItem(position) as PhotoItem.FullItem).event)
@@ -91,7 +96,7 @@ class DetailEventPhotoAdapter(private val onClickListener: OnClickListener, var 
             return oldItem == newItem
         }
 
-        private const val ITEM_VIEW_TYPE_EMPTY   = 0x00
-        private const val ITEM_VIEW_TYPE_FULL  = 0x01
+        private const val ITEM_VIEW_TYPE_EMPTY = 0x00
+        private const val ITEM_VIEW_TYPE_FULL = 0x01
     }
 }

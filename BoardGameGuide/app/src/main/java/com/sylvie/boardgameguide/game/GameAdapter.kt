@@ -19,12 +19,15 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
     class GameViewHolder(private val binding: ItemGameBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(game: Game, onClickListener: GameAdapter.OnClickListener, viewModel: GameViewModel) {
+        fun bind(
+            game: Game,
+            onClickListener: GameAdapter.OnClickListener,
+            viewModel: GameViewModel
+        ) {
             binding.game = game
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
-
-            viewModel.getUserData.let {
-                if(it.value?.favorite!!.any { favorite -> favorite.id == game.id }){
+            viewModel.userData.let {
+                if (it.value?.favorite!!.any { favorite -> favorite.id == game.id }) {
                     binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
                     binding.iconPin.tag = "select"
                 } else {
@@ -34,7 +37,7 @@ class GameAdapter(private val onClickListener: OnClickListener, var viewModel: G
             }
 
             binding.iconPin.setOnClickListener {
-                if(it.tag == "empty"){
+                if (it.tag == "empty") {
                     it.tag = "select"
                     viewModel.add2Favorite(game)
                     viewModel.boomImage(binding.imageGame)

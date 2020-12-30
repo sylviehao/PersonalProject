@@ -18,7 +18,8 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.pic_christmas_cookie)
-                    .error(R.drawable.pic_graffiti_small))
+                    .error(R.drawable.pic_graffiti_small)
+            )
             .into(imgView)
     }
 }
@@ -31,34 +32,35 @@ fun bindLocalImage(imgView: ImageView, imgUrl: String?) {
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.pic_graffiti_small)
-                    .error(R.drawable.pic_graffiti_small))
+                    .error(R.drawable.pic_graffiti_small)
+            )
             .into(imgView)
     }
 }
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("takeOffBracket")
-fun bindTakeOffBracket(textView: TextView, typeList: MutableList<String>){
+fun bindTakeOffBracket(textView: TextView, typeList: MutableList<String>) {
     typeList.let {
         var typeString = ""
-        for(type in it){
+        for (type in it) {
             typeString += "$type | "
         }
 
-        textView.text = typeString.substring(0, typeString.length-2)
+        textView.text = typeString.substring(0, typeString.length - 2)
 //        @string/game_name_chinese +
     }
 }
 
 @SuppressLint("SetTextI18n")
 @BindingAdapter("takeOffBracket2")
-fun bindTakeOffBracket2(textView: TextView, typeList: MutableList<String>){
+fun bindTakeOffBracket2(textView: TextView, typeList: MutableList<String>) {
     typeList.let {
         var typeString = ""
-        for(type in it){
+        for (type in it) {
             typeString += "$type | "
         }
-        textView.text = "遊戲種類: " + typeString.substring(0, typeString.length-2)
+        textView.text = "遊戲種類: " + typeString.substring(0, typeString.length - 2)
     }
 }
 
@@ -71,10 +73,13 @@ fun bindTextTime(textView: TextView, date: Long) {
     val minute = (1000 * 60)
     when {
         timeDiff > day -> {
-            textView.text = "${(timeDiff/day)}天前" }
+            textView.text = "${(timeDiff / day)}天前"
+        }
         timeDiff in (hour + 1) until day -> {
-            textView.text = "${(timeDiff/hour)}小時前"}
+            textView.text = "${(timeDiff / hour)}小時前"
+        }
         else -> {
-            textView.text = "${(timeDiff/minute)}分鐘前" }
+            textView.text = "${(timeDiff / minute)}分鐘前"
+        }
     }
 }

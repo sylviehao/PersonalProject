@@ -6,12 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.databinding.ItemChipsBinding
-import com.sylvie.boardgameguide.databinding.ItemDetailEventPlayerBinding
-import com.sylvie.boardgameguide.databinding.ItemDetailPostPlayerBinding
-import com.sylvie.boardgameguide.game.GameViewModel
-import com.sylvie.boardgameguide.login.UserManager
 
-class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel):
+class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel) :
     ListAdapter<String, DetailEventPlayerAdapter.PlayerViewHolder>(DiffCallback) {
 
     class PlayerViewHolder(private val binding: ItemChipsBinding) :
@@ -20,17 +16,15 @@ class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel):
         fun bind(data: String, viewModel: DetailEventViewModel) {
             binding.data = data
             binding.textPlayer.closable = false
-
-            if(viewModel.getAllUsers.value!!.any { it.id == data }){
-                binding.textPlayer.text = viewModel.getAllUsers.value!!.filter { it.id == data }[0].name
-            }else{
+            if (viewModel.allUsersData.value!!.any { it.id == data }) {
+                binding.textPlayer.text =
+                    viewModel.allUsersData.value!!.filter { it.id == data }[0].name
+            } else {
                 binding.textPlayer.text = ""
             }
-
             binding.textPlayer.setOnClickListener {
                 viewModel.navigateToProfile(data)
             }
-
             binding.executePendingBindings()
         }
     }

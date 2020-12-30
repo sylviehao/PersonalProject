@@ -33,7 +33,7 @@ class DiceFragment : Fragment() {
         viewModel.amount.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
                 val amount = mutableListOf<Int>()
-                for(i in 1 .. it){
+                for (i in 1..it) {
                     amount.add(i)
                 }
                 adapter.submitList(amount)
@@ -41,8 +41,8 @@ class DiceFragment : Fragment() {
         })
 
         viewModel.rotateStatus.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it?.let{
-                if(it){
+            it?.let {
+                if (it) {
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -50,5 +50,4 @@ class DiceFragment : Fragment() {
 
         return binding.root
     }
-
 }

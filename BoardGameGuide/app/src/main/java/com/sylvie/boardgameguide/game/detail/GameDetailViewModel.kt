@@ -1,8 +1,6 @@
 package com.sylvie.boardgameguide.game.detail
 
-import android.graphics.drawable.Drawable
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,24 +17,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
-import java.util.*
 
-class GameDetailViewModel(private val gameRepository: GameRepository, private val gameId: String?) : ViewModel() {
+class GameDetailViewModel(private val gameRepository: GameRepository, private val gameId: String?) :
+    ViewModel() {
 
-    var _getUserData = MutableLiveData<User>()
+    private var _userData = MutableLiveData<User>()
 
-    val getUserData: LiveData<User>
-        get() = _getUserData
+    val userData: LiveData<User>
+        get() = _userData
 
-    private var _setBrowseRecentlyStatus = MutableLiveData<Boolean>()
-    val setBrowseRecentlyStatus: LiveData<Boolean>
-        get() = _setBrowseRecentlyStatus
+    private var _browseRecentlyStatus = MutableLiveData<Boolean>()
 
-    var getGameData = MutableLiveData<Game>()
+    val browseRecentlyStatus: LiveData<Boolean>
+        get() = _browseRecentlyStatus
+
+    var gameData = MutableLiveData<Game>()
 
     private lateinit var gameLog: BrowseRecently
 
-    var navigateToTool = MutableLiveData<String>()
+    var toolsNavigation = MutableLiveData<String>()
 
     private var viewModelJob = Job()
 
@@ -55,22 +54,22 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
         coroutineScope.launch {
             try {
                 UserManager.userToken?.let {
-                val result = gameRepository.getUser(it)
-                _getUserData.value = when (result) {
-                    is Result.Success -> {
-                        result.data
+                    val result = gameRepository.getUser(it)
+                    _userData.value = when (result) {
+                        is Result.Success -> {
+                            result.data
+                        }
+                        else -> {
+                            null
+                        }
                     }
-                    else -> {
-                        null
-                    }
-                }
                 }
             } catch (e: Exception) {
             }
         }
     }
 
-    fun setBrowseRecently(){
+    fun setBrowseRecently() {
         coroutineScope.launch {
             try {
                 gameId?.let {
@@ -80,8 +79,8 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
                     )
                 }
                 UserManager.userToken?.let {
-                    val result = gameRepository.setBrowseRecently(it,gameLog)
-                    _setBrowseRecentlyStatus.value = when (result) {
+                    val result = gameRepository.setBrowseRecently(it, gameLog)
+                    _browseRecentlyStatus.value = when (result) {
                         is Result.Success -> {
                             result.data
                         }
@@ -98,7 +97,7 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
     fun add2Favorite(game: Game) {
         coroutineScope.launch {
             try {
-                _getUserData.value?.let { gameRepository.setGame(it,game) }
+                _userData.value?.let { gameRepository.setGame(it, game) }
             } catch (e: Exception) {
                 Log.i("Star", "${e.message}")
             }
@@ -108,7 +107,7 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
     fun removeFavorite(game: Game) {
         coroutineScope.launch {
             try {
-                _getUserData.value?.let { gameRepository.removeGame(it, game) }
+                _userData.value?.let { gameRepository.removeGame(it, game) }
             } catch (e: Exception) {
                 Log.i("Star", "${e.message}")
             }
@@ -117,20 +116,19 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
     }
 
     fun changeToolIcon(tool: String): Int {
-        val drawableResource = when (tool) {
+        return when (tool) {
             "Dice" -> R.drawable.ic_dice_white
             "Timer" -> R.drawable.ic_timer_white
             else -> R.drawable.ic_bottle_white
         }
-        return drawableResource
     }
 
     fun navigated() {
-        navigateToTool.value = null
+        toolsNavigation.value = null
     }
 
     var boomStatus = MutableLiveData<ImageView>()
-    fun boomImage(view: ImageView){
+    fun boomImage(view: ImageView) {
         boomStatus.value = view
     }
 

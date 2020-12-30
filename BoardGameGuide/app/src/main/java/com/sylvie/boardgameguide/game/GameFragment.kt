@@ -19,7 +19,11 @@ class GameFragment : Fragment() {
     val viewModel by viewModels<GameViewModel> { getVmFactory() }
     lateinit var binding: FragmentGameBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = FragmentGameBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -27,23 +31,26 @@ class GameFragment : Fragment() {
         val adapter = GameAdapter(GameAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         }, viewModel)
-        
-        binding.recyclerGame.adapter = adapter
 
+        binding.recyclerGame.adapter = adapter
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_global_newGameFragment)
         }
 
         binding.searchView.addTextChangedListener {
-            viewModel.getGameData.value?.let {gameList->
+            viewModel.gameData.value?.let { gameList ->
                 val filterList = viewModel.filter(gameList, binding.searchView.text.toString())
                 adapter.submitList(filterList)
             }
         }
 
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+        viewModel.detailNavigation.observe(viewLifecycleOwner, Observer {
             it?.let {
-                findNavController().navigate(GameFragmentDirections.actionGlobalGameDetailFragment(it))
+                findNavController().navigate(
+                    GameFragmentDirections.actionGlobalGameDetailFragment(
+                        it
+                    )
+                )
                 viewModel.onDetailNavigated()
             }
         })
@@ -52,14 +59,14 @@ class GameFragment : Fragment() {
             boom(it, requireActivity())
         })
 
-        viewModel.getUserData.observe(viewLifecycleOwner, Observer {
+        viewModel.userData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 viewModel.getAllGames()
             }
         })
 
-        viewModel.getGameData.observe(viewLifecycleOwner, Observer {
-            it?.let{
+        viewModel.gameData.observe(viewLifecycleOwner, Observer {
+            it?.let {
                 adapter.submitList(it)
                 adapter.notifyDataSetChanged()
             }

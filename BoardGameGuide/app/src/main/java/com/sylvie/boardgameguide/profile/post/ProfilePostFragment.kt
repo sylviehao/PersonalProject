@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.firestore.FirebaseFirestore
-import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.FragmentProfilePostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.home.HomeFragmentDirections
@@ -17,7 +15,14 @@ import com.sylvie.boardgameguide.profile.event.ProfileEventFragmentArgs
 
 class ProfilePostFragment : Fragment() {
 
-    val viewModel by viewModels<ProfilePostViewModel> { getVmFactory(ProfilePostFragmentArgs.fromBundle(requireArguments()).userId) }
+    val viewModel by viewModels<ProfilePostViewModel> {
+        getVmFactory(
+            ProfilePostFragmentArgs.fromBundle(
+                requireArguments()
+            ).userId
+        )
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -35,14 +40,18 @@ class ProfilePostFragment : Fragment() {
 
         binding.recyclerPost.adapter = adapter
 
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+        viewModel.detailNavigation.observe(viewLifecycleOwner, Observer {
             it?.let {
-                findNavController().navigate(HomeFragmentDirections.actionGlobalDetailEventFragment(it))
+                findNavController().navigate(
+                    HomeFragmentDirections.actionGlobalDetailEventFragment(
+                        it
+                    )
+                )
                 viewModel.onDetailNavigated()
             }
         })
 
-        viewModel.getEventData.observe(viewLifecycleOwner, Observer {
+        viewModel.allEventsData.observe(viewLifecycleOwner, Observer {
             viewModel.filterMyPost(it)
         })
 
@@ -58,7 +67,6 @@ class ProfilePostFragment : Fragment() {
                 }
             }
         })
-
         return binding.root
     }
 }

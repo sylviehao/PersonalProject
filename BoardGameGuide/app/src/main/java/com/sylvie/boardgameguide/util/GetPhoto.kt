@@ -50,6 +50,21 @@ object GetPhoto {
             .start()
     }
 
+    private fun onRequestPermissionsResult() {
+
+    }
+
+    private fun onActivityResult() {
+
+    }
+
+    private fun downloadImg() {
+
+    }
+
+    private fun uploadPhoto() {
+
+    }
 }
 
 

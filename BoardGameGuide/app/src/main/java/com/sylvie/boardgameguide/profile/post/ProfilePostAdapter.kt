@@ -22,11 +22,6 @@ class ProfilePostAdapter(private val onClickListener: OnClickListener) :
 
         fun bind(event: Event, onClickListener: OnClickListener) {
             binding.event = event
-            binding.textHostName.text = event.user?.name
-            binding.textGameTopic.text = event.topic
-            binding.textTotalPlayer.text = event.playerLimit.toString()
-            binding.textTotalLike.text = event.like?.size.toString()
-            binding.textGameName.text = event.game?.name
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }

@@ -35,7 +35,7 @@
                     android:layout_height="250dp"
                     android:scaleType="centerCrop"
                     app:srcCompat="@drawable/pic_pumpkin"
-                    imageUrl="@{viewModel.getGameData.image[0]}" />
+                    imageUrl="@{viewModel.gameData.image[0]}" />
             </com.github.florent37.shapeofview.shapes.ArcView>
 
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_marginStart="4dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{viewModel.getGameData.name}"
+                android:text="@{viewModel.gameData.name}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_game_name"
@@ -66,7 +66,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/text_game_type"
                 app:layout_constraintStart_toEndOf="@+id/text_game_type"
                 app:layout_constraintTop_toBottomOf="@+id/text_name"
-                app:takeOffBracket="@{viewModel.getGameData.type}"
+                app:takeOffBracket="@{viewModel.gameData.type}"
                 tools:text="派對、陣營" />
 
             <TextView
@@ -76,7 +76,7 @@
                 android:layout_marginStart="4dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{String.valueOf(viewModel.getGameData.playerLimit) + @string/people}"
+                android:text="@{String.valueOf(viewModel.gameData.playerLimit) + @string/people}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_game_player_limit"
@@ -91,7 +91,7 @@
                 android:layout_marginStart="4dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{String.valueOf(viewModel.getGameData.time) + @string/minutes}"
+                android:text="@{String.valueOf(viewModel.gameData.time) + @string/minutes}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/text_game_time"
@@ -107,7 +107,7 @@
                 android:layout_marginEnd="16dp"
                 android:alpha="0.6"
                 android:fontFamily="@font/noto_sans"
-                android:text="@{viewModel.getGameData.rules}"
+                android:text="@{viewModel.gameData.rules}"
                 android:textColor="@color/darkBrown"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
                 app:layout_constraintEnd_toEndOf="@+id/text_rules"
                 app:layout_constraintStart_toStartOf="@+id/text_game_roles"
                 app:layout_constraintTop_toBottomOf="@+id/text_game_roles"
-                app:takeOffBracket="@{viewModel.getGameData.roles}"
+                app:takeOffBracket="@{viewModel.gameData.roles}"
                 tools:text="玩家本身" />
 
             <ImageView

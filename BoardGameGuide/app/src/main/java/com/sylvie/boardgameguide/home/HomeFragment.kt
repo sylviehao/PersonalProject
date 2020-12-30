@@ -2,9 +2,6 @@ package com.sylvie.boardgameguide.home
 
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.firestore.FirebaseFirestore
 import com.madapps.liquid.LiquidRefreshLayout
-import com.sylvie.boardgameguide.R
-import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.databinding.FragmentHomeBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 
@@ -33,8 +27,8 @@ class HomeFragment : Fragment() {
         val adapter = HomeAdapter(HomeAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         }, viewModel)
-        binding.recyclerHome.adapter = adapter
 
+        binding.recyclerHome.adapter = adapter
         binding.refreshLayout.setOnRefreshListener(object : LiquidRefreshLayout.OnRefreshListener {
             override fun completeRefresh() {
             }
@@ -75,17 +69,17 @@ class HomeFragment : Fragment() {
         }
 
         binding.searchView.addTextChangedListener {
-            viewModel.getEventData.value?.let {eventList->
+            viewModel.allEventsData.value?.let { eventList->
                 val filterList = viewModel.filter(eventList, binding.searchView.text.toString())
                 adapter.submitList(filterList)
             }
         }
 
-        viewModel.getHome.observe(viewLifecycleOwner, Observer {
+        viewModel.homeData.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
         })
 
-        viewModel.navigateToDetail.observe(viewLifecycleOwner, Observer {
+        viewModel.detailNavigation.observe(viewLifecycleOwner, Observer {
             it?.let {
                 viewModel.getEvents()
                 if(it.status == "CLOSE"){
@@ -96,7 +90,6 @@ class HomeFragment : Fragment() {
                 viewModel.onDetailNavigated()
             }
         })
-
         return binding.root
     }
 }

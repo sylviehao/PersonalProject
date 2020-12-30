@@ -17,7 +17,7 @@ class GameDetailToolAdapter(var viewModel: GameDetailViewModel):
             binding.data = data
             binding.iconTool.setImageResource(viewModel.changeToolIcon(data))
             binding.buttonTool.setOnClickListener {
-                viewModel.navigateToTool.value = data
+                viewModel.toolsNavigation.value = data
             }
             binding.executePendingBindings()
         }

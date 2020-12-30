@@ -1,10 +1,8 @@
 package com.sylvie.boardgameguide.create
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -12,19 +10,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
-
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Event
@@ -32,10 +25,7 @@ import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.FragmentNewPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.util.GetPhoto
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_new_post.*
 import java.io.File
-import kotlin.math.log
 
 
 class NewPostFragment : Fragment() {
@@ -45,13 +35,13 @@ class NewPostFragment : Fragment() {
 
     private val myPermissionsRequestRead = 0
     private val imagesList = mutableListOf<String>()
+    private val imageList = mutableListOf<String>()
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
     // Separate the situation from HomeFragment and from GameFragment
     var arg: Game? = null
     var event: Event? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,7 +52,7 @@ class NewPostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val gameType = mutableListOf<String>("策略" ,"陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
+        val gameType = mutableListOf<String>("策略", "陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
 
         val adapter = NewPostPlayerAdapter(viewModel)
         val adapter2 = NewPostPhotoAdapter()
@@ -104,37 +94,37 @@ class NewPostFragment : Fragment() {
         }
 
         binding.editNewPostGameMember.addTextChangedListener {
-                binding.recyclerPlayerFilter.visibility = View.VISIBLE
-                viewModel.getAllUsersData.value?.let { userList ->
-                    val filterList =
-                        viewModel.filter(userList, binding.editNewPostGameMember.text.toString())
-                    adapter3.submitList(filterList)
-                }
+            binding.recyclerPlayerFilter.visibility = View.VISIBLE
+            viewModel.allUsersData.value?.let { userList ->
+                val filterList =
+                    viewModel.filter(userList, binding.editNewPostGameMember.text.toString())
+                adapter3.submitList(filterList)
+            }
         }
 
         binding.editNewPostGameMember.setOnFocusChangeListener { v, hasFocus ->
             if (hasFocus) {
                 binding.recyclerPlayerFilter.visibility = View.VISIBLE
-                viewModel.getAllUsersData.value?.let { userList ->
+                viewModel.allUsersData.value?.let { userList ->
                     adapter3.submitList(userList)
                 }
             }
         }
 
         binding.buttonNewPostCreate.setOnClickListener {
-            if(viewModel.typeList.value.isNullOrEmpty()){
+            if (viewModel.typeList.value.isNullOrEmpty()) {
                 Toast.makeText(context, "請填寫遊戲種類", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             if (filePath == "") {
 
                 var id = ""
-                arg?.id?.let {data ->
+                arg?.id?.let { data ->
                     id = data
                 }
 
                 var tools = mutableListOf<String>()
-                arg?.tools?.let {data ->
+                arg?.tools?.let { data ->
                     tools = data
                 }
 
@@ -150,7 +140,7 @@ class NewPostFragment : Fragment() {
                     tools = tools
                 )
             } else {
-                for(localImage in localImageList){
+                for (localImage in localImageList) {
                     uploadPhoto(storageRef, localImage)
                 }
             }
@@ -183,12 +173,12 @@ class NewPostFragment : Fragment() {
             if (it.size == localImageList.size) {
 
                 var id = ""
-                arg?.id?.let {data ->
+                arg?.id?.let { data ->
                     id = data
                 }
 
                 var tools = mutableListOf<String>()
-                arg?.tools?.let {data ->
+                arg?.tools?.let { data ->
                     tools = data
                 }
 
@@ -249,8 +239,6 @@ class NewPostFragment : Fragment() {
                 if (filePath.isNotEmpty()) {
                     localImageList.add(filePath)
                     viewModel.localImageList.value = localImageList
-//                    Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
-//                    Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
                 } else {
                     Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT)
                         .show()
@@ -266,14 +254,12 @@ class NewPostFragment : Fragment() {
         }
     }
 
-    val imageList = mutableListOf<String>()
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()
             return
         }
         ref.downloadUrl.addOnSuccessListener {
-
 
             imageList.add(it.toString())
             viewModel.imagesUri.value = imageList
@@ -295,6 +281,5 @@ class NewPostFragment : Fragment() {
             .addOnFailureListener { exception ->
                 Log.i("Upload", exception.toString())
             }
-
     }
 }

@@ -11,8 +11,12 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentToolsBinding
 
 class ToolsFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentToolsBinding.inflate(inflater,container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val binding = FragmentToolsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.iconDice.setOnClickListener {
             findNavController().navigate(R.id.action_global_diceFragment)
@@ -26,10 +30,19 @@ class ToolsFragment : Fragment() {
             findNavController().navigate(R.id.action_global_bottleFragment)
         }
 
-        binding.animationView.startAnimation(AnimationUtils.loadAnimation(binding.root.context, R.anim.anim_slide_up))
+        binding.animationView.startAnimation(
+            AnimationUtils.loadAnimation(
+                binding.root.context,
+                R.anim.anim_slide_up
+            )
+        )
         binding.animationAstronaut.visibility = View.VISIBLE
-        binding.animationAstronaut.startAnimation(AnimationUtils.loadAnimation(binding.root.context, R.anim.anim_slide_right))
-
+        binding.animationAstronaut.startAnimation(
+            AnimationUtils.loadAnimation(
+                binding.root.context,
+                R.anim.anim_slide_right
+            )
+        )
 
         return binding.root
     }

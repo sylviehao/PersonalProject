@@ -23,9 +23,9 @@ class DiceViewModel : ViewModel() {
 
     fun plusStock() {
         if (amount.value!! < 9) {
-        amount.value = amount.value?.plus(1)
-        rotateStatus.value = false
-        Log.d("Bottom", "$amount")
+            amount.value = amount.value?.plus(1)
+            rotateStatus.value = false
+            Log.d("Bottom", "$amount")
         }
     }
 
@@ -40,7 +40,7 @@ class DiceViewModel : ViewModel() {
         return Random().nextInt(6) + 1
     }
 
-    fun getDiceImage(randomInt: Int) : Int {
+    fun getDiceImage(randomInt: Int): Int {
         val diceCount =
             mutableListOf(
                 R.drawable.dice_grey_1,

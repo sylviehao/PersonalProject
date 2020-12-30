@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.robertlevonyan.views.chip.OnSelectClickListener
 import com.sylvie.boardgameguide.databinding.ItemGameTypeBinding
-import com.sylvie.boardgameguide.databinding.ItemToolsBinding
 
-class NewGameToolAdapter(var viewModel: NewGameViewModel):
+class NewGameToolAdapter(var viewModel: NewGameViewModel) :
     ListAdapter<String, NewGameToolAdapter.PhotoViewHolder>(DiffCallback) {
 
     class PhotoViewHolder(private val binding: ItemGameTypeBinding) :
@@ -18,9 +17,9 @@ class NewGameToolAdapter(var viewModel: NewGameViewModel):
         fun bind(data: String, viewModel: NewGameViewModel) {
             binding.data = data
             binding.textGameType.onSelectClickListener = OnSelectClickListener { v, selected ->
-                if(selected){
+                if (selected) {
                     viewModel.addTool(data, selected)
-                }else{
+                } else {
                     viewModel.addTool(data, selected)
                 }
             }

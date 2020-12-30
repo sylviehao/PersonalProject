@@ -16,7 +16,10 @@ import com.sylvie.boardgameguide.util.Util.getTimeDate
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeAdapter(private val onClickListener: OnClickListener, private val viewModel: HomeViewModel) :
+class HomeAdapter(
+    private val onClickListener: OnClickListener,
+    private val viewModel: HomeViewModel
+) :
     ListAdapter<HomeItem, RecyclerView.ViewHolder>(DiffCallback) {
 
     class OnClickListener(val clickListener: (event: Event) -> Unit) {
@@ -25,8 +28,7 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
 
     class PostViewHolder(private val binding: ItemHomePostBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(event: Event, onClickListener: OnClickListener,viewModel: HomeViewModel) {
+        fun bind(event: Event, onClickListener: OnClickListener, viewModel: HomeViewModel) {
             binding.event = event
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
@@ -37,7 +39,6 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
 
     class EventViewHolder(private val binding: ItemHomeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
         @SuppressLint("SimpleDateFormat", "SetTextI18n")
         fun bind(event: Event, onClickListener: OnClickListener, viewModel: HomeViewModel) {
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
@@ -53,12 +54,16 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
-            ITEM_VIEW_TYPE_POST -> PostViewHolder(ItemHomePostBinding.inflate(
-                LayoutInflater.from(parent.context), parent,false
-            ))
-            ITEM_VIEW_TYPE_EVENT -> EventViewHolder(ItemHomeEventBinding.inflate(
-                LayoutInflater.from(parent.context), parent,false
-            ))
+            ITEM_VIEW_TYPE_POST -> PostViewHolder(
+                ItemHomePostBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
+            ITEM_VIEW_TYPE_EVENT -> EventViewHolder(
+                ItemHomeEventBinding.inflate(
+                    LayoutInflater.from(parent.context), parent, false
+                )
+            )
             else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
@@ -66,10 +71,18 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is PostViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.PostItem).event, onClickListener,viewModel)
+                holder.bind(
+                    (getItem(position) as HomeItem.PostItem).event,
+                    onClickListener,
+                    viewModel
+                )
             }
             is EventViewHolder -> {
-                holder.bind((getItem(position) as HomeItem.EventItem).event, onClickListener,viewModel)
+                holder.bind(
+                    (getItem(position) as HomeItem.EventItem).event,
+                    onClickListener,
+                    viewModel
+                )
             }
         }
     }
@@ -83,8 +96,8 @@ class HomeAdapter(private val onClickListener: OnClickListener, private val view
             return oldItem == newItem
         }
 
-        private const val ITEM_VIEW_TYPE_POST   = 0x00
-        private const val ITEM_VIEW_TYPE_EVENT  = 0x01
+        private const val ITEM_VIEW_TYPE_POST = 0x00
+        private const val ITEM_VIEW_TYPE_EVENT = 0x01
     }
 
     override fun getItemViewType(position: Int): Int {

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.robertlevonyan.views.chip.OnSelectClickListener
 import com.sylvie.boardgameguide.databinding.ItemGameTypeBinding
 
-class NewGameTypeAdapter(var viewModel: NewGameViewModel):
+class NewGameTypeAdapter(var viewModel: NewGameViewModel) :
     ListAdapter<String, NewGameTypeAdapter.GameTypeViewHolder>(DiffCallback) {
 
     class GameTypeViewHolder(private val binding: ItemGameTypeBinding) :
@@ -17,9 +17,9 @@ class NewGameTypeAdapter(var viewModel: NewGameViewModel):
         fun bind(data: String, viewModel: NewGameViewModel) {
             binding.data = data
             binding.textGameType.onSelectClickListener = OnSelectClickListener { v, selected ->
-                if(selected){
+                if (selected) {
                     viewModel.addType(data, selected)
-                }else{
+                } else {
                     viewModel.addType(data, selected)
                 }
             }

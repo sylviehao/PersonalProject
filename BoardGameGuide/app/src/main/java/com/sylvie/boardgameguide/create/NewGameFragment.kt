@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.create
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,25 +17,23 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentNewGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.util.GetPhoto
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
 class NewGameFragment : Fragment() {
 
     val viewModel by viewModels<NewGameViewModel> { getVmFactory() }
     lateinit var binding : FragmentNewGameBinding
-    var localImageList = mutableListOf<String>()
     private val myPermissionsRequestRead = 0
-    var filePath: String = ""
     private val imagesList = mutableListOf<String>()
     private val imageList = mutableListOf<String>()
+    var localImageList = mutableListOf<String>()
+    var filePath: String = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewGameBinding.inflate(inflater, container, false)
@@ -69,12 +65,12 @@ class NewGameFragment : Fragment() {
 
         binding.buttonGameCreate.setOnClickListener {
 
-            if(viewModel.typeList.value.isNullOrEmpty()){
+            if(viewModel.typeList.value.isNullOrEmpty()) {
                 Toast.makeText(context, "請填寫遊戲種類", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if (filePath == ""){
+            if (filePath == "") {
 
                 val rolesList= mutableListOf<String>()
                 rolesList.add(binding.editGameRoles.text.toString())
@@ -88,7 +84,7 @@ class NewGameFragment : Fragment() {
                     imagesUri = imagesList
                 )
             } else {
-                    uploadPhoto(storageRef)
+                uploadPhoto(storageRef)
             }
         }
 
@@ -107,11 +103,9 @@ class NewGameFragment : Fragment() {
             )
         })
 
-
         viewModel.gameStatus.observe(viewLifecycleOwner, Observer {
             findNavController().navigate(R.id.action_global_gameFragment)
         })
-
 
         return binding.root
     }
@@ -162,41 +156,6 @@ class NewGameFragment : Fragment() {
         }
     }
 
-    private fun checkPermission() {
-        val permission = ActivityCompat.checkSelfPermission(
-            this.requireContext(),
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            //if not having permission, ask for it
-            ActivityCompat.requestPermissions(
-                this.requireActivity(), arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                myPermissionsRequestRead
-            )
-            getLocalImg()
-        }else{
-            getLocalImg()
-        }
-
-    }
-
-    private fun getLocalImg() {
-        ImagePicker.with(this)
-            //Crop image(Optional), Check Customization for more option
-            .crop()
-            //Final image size will be less than 1 MB(Optional)
-            .compress(1024)
-            //Final image resolution will be less than 1080 x 1080(Optional)
-            .maxResultSize(
-                1080,
-                1080
-            )
-            .start()
-    }
-
     private fun uploadPhoto(storageRef: StorageReference) {
         val file = Uri.fromFile(File(filePath))
         val eventsRef = storageRef.child(file.lastPathSegment ?: "")
@@ -210,8 +169,6 @@ class NewGameFragment : Fragment() {
                 Log.i("Upload", exception.toString())
             }
     }
-
-
 
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {

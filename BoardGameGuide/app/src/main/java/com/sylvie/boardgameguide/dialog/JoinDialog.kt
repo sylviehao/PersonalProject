@@ -6,10 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import androidx.navigation.fragment.findNavController
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.DialogJoinBinding
-import kotlin.concurrent.fixedRateTimer
 
 class JoinDialog : DialogFragment() {
 
@@ -59,13 +57,17 @@ class JoinDialog : DialogFragment() {
         JOIN(Message()),
         LEAVE(Message())
     }
+
     interface IMessage {
         var message: String
     }
+
     class Message : IMessage {
         private var _message = ""
         override var message: String
             get() = _message
-            set(value) { _message = value }
+            set(value) {
+                _message = value
+            }
     }
 }

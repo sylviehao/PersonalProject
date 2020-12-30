@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.create
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,10 +19,10 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     val event = MutableLiveData<Event>()
 
-    private var _getAllUsersData = MutableLiveData<List<User>>()
+    private var _allUsersData = MutableLiveData<List<User>>()
 
-    val getAllUsersData: LiveData<List<User>>
-        get() = _getAllUsersData
+    val allUsersData: LiveData<List<User>>
+        get() = _allUsersData
 
     private var _eventStatus = MutableLiveData<Boolean>()
 
@@ -34,6 +33,8 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     var localImageList = MutableLiveData<MutableList<String>>()
 
+    val typeList = MutableLiveData<MutableList<String>>()
+
     var focusStatus = MutableLiveData<Boolean>()
 
     var visibilityStatus = MutableLiveData<Boolean>()
@@ -41,7 +42,6 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     var userList = MutableLiveData<MutableList<String>>().apply {
         value = mutableListOf()
     }
-
 
     private var viewModelJob = Job()
 
@@ -57,7 +57,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     }
 
     fun getAllUsers() {
-        _getAllUsersData = gameRepository.getAllUsers()
+        _allUsersData = gameRepository.getAllUsers()
     }
 
     fun addPost(
@@ -73,9 +73,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     ) {
         coroutineScope.launch {
             try {
-
                 UserManager.user.value?.let {
-
                     member.add(it.id)
                     val event = Event(
                         user = it,
@@ -115,14 +113,10 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     }
 
     fun filter(list: List<User>, query: String): List<User> {
-
         val lowerCaseQueryString = query.toLowerCase(Locale.ROOT)
         val filteredList = mutableListOf<User>()
-
         for (user in list) {
-
             val name = user.name.toLowerCase(Locale.ROOT)
-
             if (name.contains(lowerCaseQueryString)) {
                 filteredList.add(user)
             }
@@ -130,11 +124,9 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
         return filteredList
     }
 
-
     fun editPlayer(userId: String, status: Boolean) {
-
         val oldPlayerList = userList.value
-        if(status) {
+        if (status) {
             oldPlayerList?.add(userId)
         } else {
             oldPlayerList?.remove(userId)
@@ -144,26 +136,24 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
     }
 
     fun idToName(userId: String): String {
-        var name : String = ""
-        _getAllUsersData.value?.let {
+        var name: String = ""
+        _allUsersData.value?.let {
             if (it.any { user -> user.id == userId }) {
-                name =  it.filter { user -> user.id == userId }[0].name
+                name = it.filter { user -> user.id == userId }[0].name
             }
         }
         return name
     }
 
-    val typeList = MutableLiveData<MutableList<String>>()
-
-    fun addType(type: String, Status: Boolean){
+    fun addType(type: String, Status: Boolean) {
         var list = mutableListOf<String>()
 
         typeList.value?.let {
             list = it.toMutableList()
         }
-        if(Status){
+        if (Status) {
             list.add(type)
-        } else{
+        } else {
             list.remove(type)
         }
         typeList.value = list

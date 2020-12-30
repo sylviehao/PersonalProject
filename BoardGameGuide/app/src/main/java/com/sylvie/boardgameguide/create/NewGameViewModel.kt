@@ -21,6 +21,10 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
 
     var localImageList = MutableLiveData<MutableList<String>>()
 
+    val typeList = MutableLiveData<MutableList<String>>()
+
+    private val toolList = MutableLiveData<MutableList<String>>()
+
     private var _gameStatus = MutableLiveData<Boolean>()
 
     val gameStatus: LiveData<Boolean>
@@ -34,7 +38,6 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
         super.onCleared()
         viewModelJob.cancel()
     }
-
 
     fun addGame(
         name: String,
@@ -93,33 +96,29 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
         }
     }
 
-    private val toolList = MutableLiveData<MutableList<String>>()
-
-    fun addTool(type: String, Status: Boolean){
+    fun addTool(type: String, Status: Boolean) {
         var list = mutableListOf<String>()
 
         toolList.value?.let {
             list = it.toMutableList()
         }
-        if(Status){
+        if (Status) {
             list.add(type)
-        } else{
+        } else {
             list.remove(type)
         }
         toolList.value = list
     }
 
-    val typeList = MutableLiveData<MutableList<String>>()
-
-    fun addType(type: String, Status: Boolean){
+    fun addType(type: String, Status: Boolean) {
         var list = mutableListOf<String>()
 
         typeList.value?.let {
             list = it.toMutableList()
         }
-        if(Status){
+        if (Status) {
             list.add(type)
-        } else{
+        } else {
             list.remove(type)
         }
         typeList.value = list

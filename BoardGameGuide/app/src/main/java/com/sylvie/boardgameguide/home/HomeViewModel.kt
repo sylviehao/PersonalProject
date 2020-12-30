@@ -13,30 +13,29 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    private val _navigateToDetail = MutableLiveData<Event>()
+    private val _detailNavigation = MutableLiveData<Event>()
 
-    val navigateToDetail: LiveData<Event>
-        get() = _navigateToDetail
+    val detailNavigation: LiveData<Event>
+        get() = _detailNavigation
 
-    private var _getEventData = MutableLiveData<List<Event>>()
+    private var _allEventsData = MutableLiveData<List<Event>>()
 
-    val getEventData: LiveData<List<Event>>
-        get() = _getEventData
+    val allEventsData: LiveData<List<Event>>
+        get() = _allEventsData
 
-    private var _getHome = MutableLiveData<List<HomeItem>>()
+    private var _homeData = MutableLiveData<List<HomeItem>>()
 
-    val getHome: LiveData<List<HomeItem>>
-        get() = _getHome
+    val homeData: LiveData<List<HomeItem>>
+        get() = _homeData
 
-    private var _getAllGame = MutableLiveData<List<Game>>()
+    private var _allGamesData = MutableLiveData<List<Game>>()
 
-    val getAllGame: LiveData<List<Game>>
-        get() = _getAllGame
+    val allGamesData: LiveData<List<Game>>
+        get() = _allGamesData
 
     private var viewModelJob = Job()
 
@@ -53,14 +52,14 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     fun getEvents() {
-            _getEventData = gameRepository.getEvents("")
-            Log.i("event","${_getEventData}")
+            _allEventsData = gameRepository.getEvents("")
+            Log.i("event","${_allEventsData}")
     }
 
     fun getHome() {
         coroutineScope.launch {
             val result = gameRepository.getHome()
-            _getHome.value = when (result) {
+            _homeData.value = when (result) {
                 is Result.Success -> {
                    result.data
                 } else -> {
@@ -70,10 +69,10 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
     }
 
-    fun getAllGames(){
+    private fun getAllGames(){
         coroutineScope.launch {
             val result = gameRepository.getAllGames()
-            _getAllGame.value = when (result) {
+            _allGamesData.value = when (result) {
                 is Result.Success -> {
                     result.data
                 } else -> {
@@ -110,10 +109,10 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
     }
 
     fun navigateToDetail(event: Event) {
-        _navigateToDetail.value = event
+        _detailNavigation.value = event
     }
 
     fun onDetailNavigated() {
-        _navigateToDetail.value = null
+        _detailNavigation.value = null
     }
 }

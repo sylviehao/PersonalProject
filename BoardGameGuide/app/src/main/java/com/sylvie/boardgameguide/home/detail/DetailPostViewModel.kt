@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.home.detail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,15 +12,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DetailPostViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    private var _getGameData = MutableLiveData<Game>()
+    private var _gameData = MutableLiveData<Game>()
 
-    val getGameData: LiveData<Game>
-        get() = _getGameData
+    val gameData: LiveData<Game>
+        get() = _gameData
 
     private var _allEvents = MutableLiveData<List<Event>>()
 
@@ -33,15 +30,15 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val messages: LiveData<List<Event>>
         get() = _messages
 
-    private var _getEventData2 = MutableLiveData<Event>()
+    private var _eventData2 = MutableLiveData<Event>()
 
-    val getEventData2: LiveData<Event>
-        get() = _getEventData2
+    val eventData2: LiveData<Event>
+        get() = _eventData2
 
-    private var _like = MutableLiveData<Boolean>()
+    private var _likeStatus = MutableLiveData<Boolean>()
 
-    val like: LiveData<Boolean>
-        get() = _like
+    val likeStatus: LiveData<Boolean>
+        get() = _likeStatus
 
     private var _messageStatus = MutableLiveData<Boolean>()
 
@@ -53,27 +50,21 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     val photoStatus: LiveData<Boolean>
         get() = _photoStatus
 
-    private var _getPhoto = MutableLiveData<List<PhotoItem>>()
+    private var _allUsersData = MutableLiveData<List<User>>()
 
-    val getPhoto: LiveData<List<PhotoItem>>
-        get() = _getPhoto
+    val allUsersData: LiveData<List<User>>
+        get() = _allUsersData
 
-    private var _getAllUsers = MutableLiveData<List<User>>()
+    private var _userData = MutableLiveData<User>()
 
-    val getAllUsers: LiveData<List<User>>
-        get() = _getAllUsers
-
-
-    private var _getUserData = MutableLiveData<User>()
-
-    val getUserData: LiveData<User>
-        get() = _getUserData
+    val userData: LiveData<User>
+        get() = _userData
 
     var imagesUri = MutableLiveData<String>()
 
     var localImageList = MutableLiveData<MutableList<String>>()
 
-    var getEventData = MutableLiveData<Event>()
+    var eventData = MutableLiveData<Event>()
 
     var photoPermission = MutableLiveData<Boolean>()
 
@@ -110,7 +101,8 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
             _messageStatus.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
@@ -120,10 +112,11 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     fun getEvent(id: String) {
         coroutineScope.launch {
             val result = gameRepository.getEvent(id)
-            _getEventData2.value = when (result) {
+            _eventData2.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
@@ -135,7 +128,7 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
             try {
                 UserManager.userToken?.let {
                     val result = gameRepository.getUser(it)
-                    _getUserData.value = when (result) {
+                    _userData.value = when (result) {
                         is Result.Success -> {
                             result.data
                         }
@@ -153,10 +146,11 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
     fun setLike(userId: String, event: Event, status: Boolean) {
         coroutineScope.launch {
             val result = gameRepository.setLike(userId, event, status)
-            _like.value = when (result) {
+            _likeStatus.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
@@ -169,34 +163,35 @@ class DetailPostViewModel(private val gameRepository: GameRepository) : ViewMode
             _photoStatus.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
         }
     }
 
-    fun checkUserPermission(memberList: MutableList<String>){
+    fun checkUserPermission(memberList: MutableList<String>) {
         memberList.let {
-            photoPermission.value = it.any { id-> id == UserManager.userToken  }
+            photoPermission.value = it.any { id -> id == UserManager.userToken }
         }
     }
 
-    fun getAllUsers() {
-        _getAllUsers = gameRepository.getAllUsers()
+    private fun getAllUsers() {
+        _allUsersData = gameRepository.getAllUsers()
     }
 
-    fun filterUserPhoto(hostId: String): String{
+    fun filterUserPhoto(hostId: String): String {
         hostId.let {
             var imageUrl: String = ""
-            if (_getAllUsers.value!!.any { it.id == hostId }) {
-               imageUrl = _getAllUsers.value!!.filter { it.id == hostId }[0].image
+            if (_allUsersData.value!!.any { it.id == hostId }) {
+                imageUrl = _allUsersData.value!!.filter { it.id == hostId }[0].image
             }
             return imageUrl
         }
     }
 
-    fun add(imageList: List<String>): List<String>{
+    fun addImages(imageList: List<String>): List<String> {
         var list = mutableListOf<String>()
         list.clear()
         list = imageList.toMutableList()

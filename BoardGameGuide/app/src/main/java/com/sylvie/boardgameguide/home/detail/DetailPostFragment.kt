@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.home.detail
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,12 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
@@ -46,15 +43,14 @@ class DetailPostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val db = FirebaseFirestore.getInstance()
         val storage = Firebase.storage
         val storageRef = storage.reference
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
-        viewModel.getEventData.value = bundle
+        viewModel.eventData.value = bundle
         viewModel.getEvent(bundle.id)
 
         val adapter = DetailPostCommentAdapter(viewModel)
-        val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener{
+        val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener {
             context?.let { context ->
                 GetPhoto.checkPermissionAndGetLocalImg(
                     context,
@@ -72,9 +68,9 @@ class DetailPostFragment : Fragment() {
             )
         })
 
-        viewModel.getEventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.eventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.let {
-                adapter2.submitList(viewModel.toPhotoItems(viewModel.add(it.image!!)))
+                adapter2.submitList(viewModel.toPhotoItems(viewModel.addImages(it.image!!)))
             }
         })
 
@@ -95,7 +91,7 @@ class DetailPostFragment : Fragment() {
 
         })
 
-        viewModel.getAllUsers.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.allUsersData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter3.submitList(bundle.playerList)
         })
 
@@ -106,7 +102,11 @@ class DetailPostFragment : Fragment() {
         viewModel.playerNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
                 val userId = bundle.playerList
-                findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(it))
+                findNavController().navigate(
+                    DetailPostFragmentDirections.actionGlobalProfileFragment(
+                        it
+                    )
+                )
                 viewModel.navigated()
             }
         })
@@ -128,7 +128,7 @@ class DetailPostFragment : Fragment() {
 
         binding.buttonSend.setOnClickListener {
             val data = Message(
-                hostId = viewModel.getUserData.value!!.id,
+                hostId = viewModel.userData.value!!.id,
                 userName = UserManager.user.value?.name,
                 message = binding.editComment.text.toString()
             )
@@ -137,11 +137,19 @@ class DetailPostFragment : Fragment() {
         }
 
         binding.imageHost.setOnClickListener {
-            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+            findNavController().navigate(
+                DetailPostFragmentDirections.actionGlobalProfileFragment(
+                    bundle.user!!.id
+                )
+            )
         }
 
         binding.textHostName.setOnClickListener {
-            findNavController().navigate(DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id))
+            findNavController().navigate(
+                DetailPostFragmentDirections.actionGlobalProfileFragment(
+                    bundle.user!!.id
+                )
+            )
         }
 
 
@@ -156,17 +164,17 @@ class DetailPostFragment : Fragment() {
         }
 
         binding.icLike.setOnClickListener {
-            UserManager.user.value?.let {userId->
+            UserManager.user.value?.let { userId ->
                 viewModel.setLike(userId.id, bundle, true)
-                if(bundle.like!!.any { it == userId.id }) {
+                if (bundle.like!!.any { it == userId.id }) {
                     bundle.like?.remove(userId.id)
                     viewModel.setLike(userId.id, bundle, false)
                     binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
-                }else{
+                } else {
                     bundle.like?.add(userId.id)
                     binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
                 }
-                viewModel.getEventData.value = bundle
+                viewModel.eventData.value = bundle
             }
         }
 
@@ -200,8 +208,6 @@ class DetailPostFragment : Fragment() {
                 if (filePath.isNotEmpty()) {
                     localImageList.add(filePath)
                     viewModel.localImageList.value = localImageList
-//                    Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
-//                    Glide.with(this.requireContext()).load(filePath).into(button_add_photo)
                 } else {
                     Toast.makeText(this.requireContext(), "Upload failed", Toast.LENGTH_SHORT)
                         .show()

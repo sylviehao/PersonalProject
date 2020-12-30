@@ -5,25 +5,20 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.EditText
 import android.widget.TextView
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.ToolsTimerBinding
-import java.sql.Time
-import java.util.*
 
 class TimerFragment : Fragment() {
 
     private lateinit var timer: CountDownTimer
-    var timerStatus : Boolean = false
+    var timerStatus: Boolean = false
     lateinit var binding: ToolsTimerBinding
 
     override fun onCreateView(
@@ -37,10 +32,10 @@ class TimerFragment : Fragment() {
         readData()
 
         binding.constraintTimer.setOnClickListener {
-            timerStatus = if(timerStatus){
+            timerStatus = if (timerStatus) {
                 timer.cancel()
                 false
-            }else{
+            } else {
                 createTimer(binding.textTime.text.toString().toFloat())
                 timer.start()
                 true
@@ -67,7 +62,7 @@ class TimerFragment : Fragment() {
     }
 
 
-    private fun createTimer(time: Float){
+    private fun createTimer(time: Float) {
         val second = 1000L
         binding.circularProgressBar.progressMax = time
 
@@ -79,13 +74,14 @@ class TimerFragment : Fragment() {
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                binding.textTime.text = (millisUntilFinished/1000).toString()
-                binding.circularProgressBar.progress = (time * 1000 - millisUntilFinished)/1000
+                binding.textTime.text = (millisUntilFinished / 1000).toString()
+                binding.circularProgressBar.progress = (time * 1000 - millisUntilFinished) / 1000
             }
         }
     }
-    private fun resetCount(time: String){
-        if(timerStatus){
+
+    private fun resetCount(time: String) {
+        if (timerStatus) {
             timer.cancel()
             timerStatus = false
         }

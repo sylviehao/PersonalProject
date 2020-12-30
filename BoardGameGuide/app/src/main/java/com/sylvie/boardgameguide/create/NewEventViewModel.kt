@@ -24,6 +24,8 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
 
     var localImageList = MutableLiveData<MutableList<String>>()
 
+    val typeList = MutableLiveData<MutableList<String>>()
+
     private var _eventStatus = MutableLiveData<Boolean>()
 
     val eventStatus: LiveData<Boolean>
@@ -57,7 +59,7 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
 
                     playerLimit = if (limit == "") {
                         "0"
-                    }else{
+                    } else {
                         limit
                     }
 
@@ -101,17 +103,15 @@ class NewEventViewModel(private val gameRepository: GameRepository) : ViewModel(
         }
     }
 
-    val typeList = MutableLiveData<MutableList<String>>()
-
-    fun addType(type: String, Status: Boolean){
+    fun addType(type: String, Status: Boolean) {
         var list = mutableListOf<String>()
 
         typeList.value?.let {
             list = it.toMutableList()
         }
-        if(Status){
+        if (Status) {
             list.add(type)
-        } else{
+        } else {
             list.remove(type)
         }
         typeList.value = list

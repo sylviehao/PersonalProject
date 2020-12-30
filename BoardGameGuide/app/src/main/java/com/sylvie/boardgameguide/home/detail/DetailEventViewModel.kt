@@ -16,19 +16,18 @@ import kotlinx.coroutines.launch
 
 
 class DetailEventViewModel(private val gameRepository: GameRepository) : ViewModel() {
-    // Save change from Event
-    var getEventData = MutableLiveData<Event>()
 
-    // Save change from Game
-    private var _getGameData = MutableLiveData<Game>()
+    var eventData = MutableLiveData<Event>()
 
-    val getGameData: LiveData<Game>
-        get() = _getGameData
+    private var _eventData2 = MutableLiveData<Event>()
 
-    private var _getEventData2 = MutableLiveData<Event>()
+    val eventData2: LiveData<Event>
+        get() = _eventData2
 
-    val getEventData2: LiveData<Event>
-        get() = _getEventData2
+    private var _gameData = MutableLiveData<Game>()
+
+    val gameData: LiveData<Game>
+        get() = _gameData
 
     private var _allEvents = MutableLiveData<List<Event>>()
 
@@ -51,46 +50,44 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     val photoStatus: LiveData<Boolean>
         get() = _photoStatus
 
-    private var _getAllUsers = MutableLiveData<List<User>>()
+    private var _allUsersData = MutableLiveData<List<User>>()
 
-    val getAllUsers: LiveData<List<User>>
-        get() = _getAllUsers
+    val allUsersData: LiveData<List<User>>
+        get() = _allUsersData
 
-    private var _getUserData = MutableLiveData<User>()
+    private var _userData = MutableLiveData<User>()
 
-    val getUserData: LiveData<User>
-        get() = _getUserData
+    val userData: LiveData<User>
+        get() = _userData
 
-    private var _addPlayer = MutableLiveData<Boolean>()
+    private var _playerStatus = MutableLiveData<Boolean>()
 
-    val addPlayer: LiveData<Boolean>
-        get() = _addPlayer
+    val playerStatus: LiveData<Boolean>
+        get() = _playerStatus
 
     var photoPermission = MutableLiveData<Boolean>()
 
-    var navigateToTool = MutableLiveData<String>()
+    var toolNavigation = MutableLiveData<String>()
 
-    var navigateToProfile = MutableLiveData<String>()
+    var profileNavigation = MutableLiveData<String>()
 
-    val join = MutableLiveData<Boolean>()
-    val leave = MutableLiveData<Boolean>()
+    val joinStatus = MutableLiveData<Boolean>()
 
-    // Create a Coroutine scope using a job to be able to cancel when needed
+    val leaveStatus = MutableLiveData<Boolean>()
+
     private var viewModelJob = Job()
 
-    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
-
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
     init {
         getUser()
         getAllUsers()
         getEvents()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
     private fun getEvents() {
@@ -107,23 +104,24 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
             messageStatus.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
         }
     }
 
-    fun getAllUsers() {
-        _getAllUsers = gameRepository.getAllUsers()
-        Log.i("event", "${_getAllUsers}")
+    private fun getAllUsers() {
+        _allUsersData = gameRepository.getAllUsers()
+        Log.i("event", "${_allUsersData}")
     }
 
-    fun filterUserPhoto(hostId: String): String{
+    fun filterUserPhoto(hostId: String): String {
         hostId.let {
             var imageUrl: String = ""
-            if (_getAllUsers.value!!.any { it.id == hostId }) {
-                imageUrl = _getAllUsers.value!!.filter { it.id == hostId }[0].image
+            if (_allUsersData.value!!.any { it.id == hostId }) {
+                imageUrl = _allUsersData.value!!.filter { it.id == hostId }[0].image
             }
             return imageUrl
         }
@@ -134,7 +132,7 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
             try {
                 UserManager.userToken?.let {
                     val result = gameRepository.getUser(it)
-                    _getUserData.value = when (result) {
+                    _userData.value = when (result) {
                         is Result.Success -> {
                             result.data
                         }
@@ -151,10 +149,11 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     fun getEvent(id: String) {
         coroutineScope.launch {
             val result = gameRepository.getEvent(id)
-            _getEventData2.value = when (result) {
+            _eventData2.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
@@ -162,18 +161,17 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     }
 
     fun getGame(id: String) {
-
         coroutineScope.launch {
-
             val result = gameRepository.getGame(id)
-            _getGameData.value = when (result) {
+            _gameData.value = when (result) {
                 is Result.Success -> {
                     if (result.data.any { it.id == id }) {
                         result.data.filter { it.id == id }[0]
                     } else {
                         null
                     }
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
@@ -183,24 +181,25 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
     fun setPlayer(userId: String, event: Event, status: Boolean) {
         coroutineScope.launch {
             val result = gameRepository.setPlayer(userId, event, status)
-            _addPlayer.value = when (result) {
+            _playerStatus.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
         }
     }
 
-    fun checkUserPermission(memberList: MutableList<String>){
+    fun checkUserPermission(memberList: MutableList<String>) {
 
         memberList.let {
-            photoPermission.value = it.any { id-> id == UserManager.userToken  }
+            photoPermission.value = it.any { id -> id == UserManager.userToken }
         }
     }
 
-    fun add(imageList: List<String>): List<String>{
+    fun addImages(imageList: List<String>): List<String> {
         var list = mutableListOf<String>()
         list.clear()
         list = imageList.toMutableList()
@@ -210,7 +209,6 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     fun toPhotoItems(list: List<String>): List<PhotoItem> {
         val items = mutableListOf<PhotoItem>()
-
         list.let {
             for (event in it) {
                 when (event == "") {
@@ -228,7 +226,8 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
             _photoStatus.value = when (result) {
                 is Result.Success -> {
                     result.data
-                } else -> {
+                }
+                else -> {
                     null
                 }
             }
@@ -248,12 +247,12 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
         return drawableResource
     }
 
-    fun navigateToProfile(userId: String){
-        navigateToProfile.value = userId
+    fun navigateToProfile(userId: String) {
+        profileNavigation.value = userId
     }
 
     fun navigated() {
-        navigateToTool.value = null
-        navigateToProfile.value = null
+        toolNavigation.value = null
+        profileNavigation.value = null
     }
 }

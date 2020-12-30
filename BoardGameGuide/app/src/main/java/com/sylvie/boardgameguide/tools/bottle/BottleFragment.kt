@@ -15,6 +15,7 @@ class BottleFragment : Fragment() {
     private var stop = 0
     private var result = 0
     lateinit var binding: ToolsBottleBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,7 +23,6 @@ class BottleFragment : Fragment() {
     ): View? {
         binding = ToolsBottleBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-
         binding.buttonBottle.setOnClickListener {
             onClick(binding.imageBottle)
         }
@@ -62,10 +62,9 @@ class BottleFragment : Fragment() {
                 value = "K"
             } else if (stop in 91..99) {
                 value = "L"
-            }  else {
+            } else {
                 Log.d("bottle", "Should be not here")
             }
-//            Toast.makeText(context, "Result = " + value, Toast.LENGTH_SHORT).show()
         }
 
         override fun onAnimationRepeat(animation: Animation?) {
@@ -126,8 +125,6 @@ class BottleFragment : Fragment() {
             stop in 91..99 -> {
                 return 30
             }
-
-
             else -> {
                 Log.d("bottle", "Should be not here")
                 return 0

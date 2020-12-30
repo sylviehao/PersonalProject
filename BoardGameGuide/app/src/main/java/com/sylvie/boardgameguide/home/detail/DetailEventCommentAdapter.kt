@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.ItemDetailPostCommentBinding
 
-class DetailEventCommentAdapter(var viewModel: DetailEventViewModel):
+class DetailEventCommentAdapter(var viewModel: DetailEventViewModel) :
     ListAdapter<Message, DetailEventCommentAdapter.CommentViewHolder>(DiffCallback) {
 
     class CommentViewHolder(private val binding: ItemDetailPostCommentBinding) :
@@ -16,8 +16,6 @@ class DetailEventCommentAdapter(var viewModel: DetailEventViewModel):
 
         fun bind(message: Message, viewModel: DetailEventViewModel) {
             binding.message = message
-            binding.textUser.text = message.userName
-            binding.textMessage.text = message.message
             binding.imageUrl = viewModel.filterUserPhoto(message.hostId)
             binding.time = viewModel.convertDateToLong(message.createdTime)
             binding.executePendingBindings()

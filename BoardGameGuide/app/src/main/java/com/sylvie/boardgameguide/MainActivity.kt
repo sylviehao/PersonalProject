@@ -28,7 +28,6 @@ import com.sylvie.boardgameguide.login.LoginActivity
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.CurrentFragmentType
 import com.sylvie.boardgameguide.util.DrawerToggleType
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,42 +38,38 @@ class MainActivity : AppCompatActivity() {
 
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
-    private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.navigation_home -> {
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_favorite -> {
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalFavoriteFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_game -> {
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalGameFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_tools -> {
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalToolsFragment())
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.navigation_profile -> {
-                UserManager.userToken?.let {
-                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalProfileFragment(it))
+    private val onNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalHomeFragment())
+                    return@OnNavigationItemSelectedListener true
                 }
-//                when (viewModel.isLoggedIn) {
-//                    true -> {
-//                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToProfileFragment(viewModel.user.value))
-//                    }
-//                    false -> {
-//                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
-//                        return@OnNavigationItemSelectedListener false
-//                    }
-//                }
-                return@OnNavigationItemSelectedListener true
+                R.id.navigation_favorite -> {
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalFavoriteFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_game -> {
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalGameFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_tools -> {
+                    findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.actionGlobalToolsFragment())
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_profile -> {
+                    UserManager.userToken?.let {
+                        findNavController(R.id.myNavHostFragment).navigate(
+                            NavigationDirections.actionGlobalProfileFragment(
+                                it
+                            )
+                        )
+                    }
+                    return@OnNavigationItemSelectedListener true
+                }
             }
+            false
         }
-        false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +80,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-
 //        else{
 //        val userName = UserManager.userToken  ?:  "No Name"
 //        viewModel.loginAndSetUser(UserManager.userToken!!, userName)
 //        }
+
         firebaseAnalytics = Firebase.analytics
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -106,7 +101,6 @@ class MainActivity : AppCompatActivity() {
         setupDrawer()
 
     }
-
 
     private fun setupBottomNav() {
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -145,12 +139,10 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
         NavigationUI.setupWithNavController(binding.drawerNavView, navController)
 
-
-
         binding.drawerNavView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_event -> {
-                    viewModel.navigate.value = 1
+                    viewModel.navigation.value = 1
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     findNavController(R.id.myNavHostFragment).navigate(R.id.action_global_eventFragment)
                     true
@@ -171,17 +163,22 @@ class MainActivity : AppCompatActivity() {
 
         actionBarDrawerToggle = object : ActionBarDrawerToggle(
 
-            this, binding.drawerLayout, binding.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            this,
+            binding.drawerLayout,
+            binding.toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        ) {
             override fun onDrawerOpened(drawerView: View) {
                 super.onDrawerOpened(drawerView)
             }
         }.apply {
             binding.drawerLayout.addDrawerListener(this)
             syncState()
-//            toolbar.setNavigationIcon(R.drawable.ic_menu)
         }
         val bindingNavHeader = NavHeaderDrawerBinding.inflate(
-            LayoutInflater.from(this), binding.drawerNavView, false)
+            LayoutInflater.from(this), binding.drawerNavView, false
+        )
 
         bindingNavHeader.lifecycleOwner = this
         bindingNavHeader.viewModel = viewModel
@@ -202,7 +199,8 @@ class MainActivity : AppCompatActivity() {
                 when (type) {
 //                    DrawerToggleType.BACK -> onBackPressed()
                     DrawerToggleType.BACK -> findNavController(R.id.myNavHostFragment).navigateUp()
-                    else -> {}
+                    else -> {
+                    }
                 }
             }
         })
@@ -215,14 +213,14 @@ class MainActivity : AppCompatActivity() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            if(viewModel.currentFragmentType.value == CurrentFragmentType.HOME){
+            if (viewModel.currentFragmentType.value == CurrentFragmentType.HOME) {
                 if (System.currentTimeMillis() - firstPressedTime < 2000) {
                     super.onBackPressed()
                 } else {
                     Toast.makeText(this@MainActivity, "再按一次退出", Toast.LENGTH_SHORT).show()
                     firstPressedTime = System.currentTimeMillis()
                 }
-            }else{
+            } else {
                 super.onBackPressed()
             }
         }

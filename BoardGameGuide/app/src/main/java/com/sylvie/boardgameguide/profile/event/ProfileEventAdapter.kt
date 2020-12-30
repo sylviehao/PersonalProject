@@ -28,10 +28,6 @@ class ProfileEventAdapter(private val onClickListener: OnClickListener) :
             val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
             binding.textGameTime.text = "時間: $dateString"
             binding.event = event
-            binding.textHostName.text = event.user?.name
-            binding.textGameName.text = event.game?.name
-            binding.textGameTopic.text = event.topic
-            binding.textGameLocation.text = event.location
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())
             binding.root.setOnClickListener { onClickListener.onClick(event) }

@@ -9,7 +9,10 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Game
 import com.sylvie.boardgameguide.databinding.ItemFavoriteBinding
 
-class FavoriteAdapter(private val onClickListener: OnClickListener, var viewModel: FavoriteViewModel) :
+class FavoriteAdapter(
+    private val onClickListener: OnClickListener,
+    var viewModel: FavoriteViewModel
+) :
     ListAdapter<Game, FavoriteAdapter.FavoriteViewHolder>(DiffCallback) {
 
     class OnClickListener(val clickListener: (favorite: Game) -> Unit) {
@@ -22,23 +25,22 @@ class FavoriteAdapter(private val onClickListener: OnClickListener, var viewMode
         fun bind(game: Game, onClickListener: OnClickListener, viewModel: FavoriteViewModel) {
             binding.game = game
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
-
-            viewModel.getUserData.let {
-                if(it.value?.favorite!!.any { favorite -> favorite.id == game.id }){
+            viewModel.userData.let {
+                if (it.value?.favorite!!.any { favorite -> favorite.id == game.id }) {
                     binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
                     binding.iconPin.tag = "select"
-                }else{
+                } else {
                     binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
                     binding.iconPin.tag = "empty"
                 }
             }
 
             binding.iconPin.setOnClickListener {
-                if(it.tag == "select"){
+                if (it.tag == "select") {
                     it.tag = "empty"
                     it.setBackgroundResource(R.drawable.ic_nav_pin)
                     viewModel.removeFavorite(game)
-                }else{
+                } else {
                     it.tag = "select"
                     it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
                     viewModel.add2Favorite(game)

@@ -17,15 +17,15 @@ import java.lang.Exception
 
 class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    private val _navigateToDetail = MutableLiveData<Game>()
+    private val _detailNavigation = MutableLiveData<Game>()
 
-    val navigateToDetail: LiveData<Game>
-        get() = _navigateToDetail
+    val detailNavigation: LiveData<Game>
+        get() = _detailNavigation
 
-    private var _getUserData = MutableLiveData<User>()
+    private var _userData = MutableLiveData<User>()
 
-    val getUserData: LiveData<User>
-        get() = _getUserData
+    val userData: LiveData<User>
+        get() = _userData
 
     private var viewModelJob = Job()
 
@@ -46,7 +46,7 @@ class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel(
             try {
                 UserManager.userToken?.let {
                 val result = gameRepository.getUser(it)
-                _getUserData.value = when (result) {
+                _userData.value = when (result) {
                     is Result.Success -> {
                         result.data
                     }
@@ -64,7 +64,7 @@ class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel(
     fun add2Favorite(game: Game) {
         coroutineScope.launch {
             try {
-                _getUserData.value?.let { gameRepository.setGame(it, game) }
+                _userData.value?.let { gameRepository.setGame(it, game) }
             } catch (e: Exception) {
                 Log.i("Star", "${e.message}")
             }
@@ -75,7 +75,7 @@ class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel(
     fun removeFavorite(game: Game) {
         coroutineScope.launch {
             try {
-                _getUserData.value?.let { gameRepository.removeGame(it, game) }
+                _userData.value?.let { gameRepository.removeGame(it, game) }
             } catch (e: Exception) {
                 Log.i("Star", "${e.message}")
             }
@@ -84,10 +84,10 @@ class FavoriteViewModel(private val gameRepository: GameRepository) : ViewModel(
     }
 
     fun navigateToDetail(game: Game) {
-        _navigateToDetail.value = game
+        _detailNavigation.value = game
     }
 
     fun onDetailNavigated() {
-        _navigateToDetail.value = null
+        _detailNavigation.value = null
     }
 }

@@ -1,45 +1,42 @@
 package com.sylvie.boardgameguide.profile.post
 
-import android.util.Log
-
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.HomeItem
 import com.sylvie.boardgameguide.data.source.GameRepository
-import com.sylvie.boardgameguide.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 
-class ProfilePostViewModel(private val gameRepository: GameRepository, private val userId: String?) : ViewModel() {
+class ProfilePostViewModel(
+    private val gameRepository: GameRepository,
+    private val userId: String?
+) : ViewModel() {
 
-    // Handle navigation to detail
-    private val _navigateToDetail = MutableLiveData<Event>()
+    private val _detailNavigation = MutableLiveData<Event>()
 
-    val navigateToDetail: LiveData<Event>
-        get() = _navigateToDetail
+    val detailNavigation: LiveData<Event>
+        get() = _detailNavigation
 
-    // Save change from Event
-    private var _getEventData = MutableLiveData<List<Event>>()
+    private var _allEventsData = MutableLiveData<List<Event>>()
 
-    val getEventData: LiveData<List<Event>>
-        get() = _getEventData
+    val allEventsData: LiveData<List<Event>>
+        get() = _allEventsData
 
     private var _myPostData = MutableLiveData<List<Event>>()
 
     val myPostData: LiveData<List<Event>>
         get() = _myPostData
 
-
     private var _getHome = MutableLiveData<List<HomeItem>>()
 
     val getHome: LiveData<List<HomeItem>>
         get() = _getHome
 
-
     private var viewModelJob = Job()
+
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
@@ -52,19 +49,18 @@ class ProfilePostViewModel(private val gameRepository: GameRepository, private v
     }
 
     private fun getAllPost() {
-        _getEventData = gameRepository.getEvents("CLOSE")
+        _allEventsData = gameRepository.getEvents("CLOSE")
     }
 
-    fun filterMyPost(list: List<Event>){
+    fun filterMyPost(list: List<Event>) {
         _myPostData.value = list.filter { it.user?.id == userId }
     }
 
     fun navigateToDetail(event: Event) {
-        _navigateToDetail.value = event
+        _detailNavigation.value = event
     }
 
     fun onDetailNavigated() {
-        _navigateToDetail.value = null
+        _detailNavigation.value = null
     }
-
 }

@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.profile
 
-import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -11,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -25,7 +23,6 @@ import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.NavigationDirections
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.DialogEditProfileBinding
-import com.sylvie.boardgameguide.profile.ProfileEditDialogArgs
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.util.GetPhoto.checkPermissionAndGetLocalImg
 import java.io.File
@@ -45,9 +42,13 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.custom_dialog)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        binding = DialogEditProfileBinding.inflate(inflater, container,false)
+        binding = DialogEditProfileBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         val user = ProfileEditDialogArgs.fromBundle(requireArguments()).user
@@ -58,9 +59,9 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
         val storageRef = storage.reference
 
         binding.buttonSend.setOnClickListener {
-            if (!filePath.isBlank()){
+            if (!filePath.isBlank()) {
 
-            uploadPhoto(storageRef,filePath)
+                uploadPhoto(storageRef, filePath)
             } else {
                 user.apply {
                     name = binding.editName.text.toString()
@@ -71,7 +72,13 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
         }
 
         binding.imageProfile.setOnClickListener {
-            context?.let { context -> checkPermissionAndGetLocalImg(context, requireActivity(), this) }
+            context?.let { context ->
+                checkPermissionAndGetLocalImg(
+                    context,
+                    requireActivity(),
+                    this
+                )
+            }
         }
 
         viewModel.imageUri.observe(viewLifecycleOwner, Observer {
@@ -83,7 +90,7 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
             viewModel.setUser(user, introduction)
         })
 
-        viewModel.setUserData.observe(viewLifecycleOwner, Observer {
+        viewModel.userData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.actionGlobalProfileFragment(it.id))
             }
@@ -142,9 +149,7 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
             return
         }
         ref.downloadUrl.addOnSuccessListener {
-
             viewModel.imageUri.value = it.toString()
-
         }.addOnFailureListener { exception ->
             Toast.makeText(this.requireContext(), exception.message, Toast.LENGTH_SHORT).show()
         }
