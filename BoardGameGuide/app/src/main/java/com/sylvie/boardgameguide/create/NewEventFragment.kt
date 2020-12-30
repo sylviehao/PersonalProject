@@ -32,6 +32,7 @@ import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentNewEventBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.game.detail.GameDetailFragmentArgs
+import com.sylvie.boardgameguide.util.GetPhoto
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
@@ -40,7 +41,7 @@ class NewEventFragment : Fragment() {
     val viewModel by viewModels<NewEventViewModel> { getVmFactory() }
     private lateinit var binding: FragmentNewEventBinding
 
-    private val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
+    private val myPermissionsRequestRead = 0
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
@@ -73,7 +74,13 @@ class NewEventFragment : Fragment() {
         viewModel.game.value = arg
 
         binding.buttonAddPhoto.setOnClickListener {
-            checkPermission()
+            context?.let { context ->
+                GetPhoto.checkPermissionAndGetLocalImg(
+                    context,
+                    requireActivity(),
+                    this
+                )
+            }
         }
 
         binding.editNewEventGameTime.setOnClickListener {
@@ -83,10 +90,6 @@ class NewEventFragment : Fragment() {
                 .backgroundColor(resources.getColor(R.color.oliveGreen))
                 .mainColor(Color.WHITE)
                 .titleTextColor(Color.WHITE)
-                //.stepSizeMinutes(15)
-                //.displayHours(false)
-                //.displayMinutes(false)
-                //.todayText("aujourd'hui")
                 .displayListener {}
                 .title("Simple")
                 .listener { date ->
@@ -180,7 +183,7 @@ class NewEventFragment : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            MY_PERMISSIONS_REQUEST_READ_CONTACTS -> {
+            myPermissionsRequestRead -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //get image
                 } else {
@@ -244,40 +247,5 @@ class NewEventFragment : Fragment() {
                 Log.i("Upload", exception.toString())
             }
 
-    }
-
-    private fun checkPermission() {
-        val permission = ActivityCompat.checkSelfPermission(
-            this.requireContext(),
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            //if not having permission, ask for it
-            ActivityCompat.requestPermissions(
-                this.requireActivity(), arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                MY_PERMISSIONS_REQUEST_READ_CONTACTS
-            )
-            getLocalImg()
-        } else {
-            getLocalImg()
-        }
-
-    }
-
-    private fun getLocalImg() {
-        ImagePicker.with(this)
-            //Crop image(Optional), Check Customization for more option
-            .crop()
-            //Final image size will be less than 1 MB(Optional)
-            .compress(1024)
-            //Final image resolution will be less than 1080 x 1080(Optional)
-            .maxResultSize(
-                1080,
-                1080
-            )
-            .start()
     }
 }

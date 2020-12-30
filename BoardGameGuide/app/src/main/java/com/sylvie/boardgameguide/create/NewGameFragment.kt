@@ -25,6 +25,7 @@ import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.FragmentNewGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.util.GetPhoto
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 
@@ -33,9 +34,10 @@ class NewGameFragment : Fragment() {
     val viewModel by viewModels<NewGameViewModel> { getVmFactory() }
     lateinit var binding : FragmentNewGameBinding
     var localImageList = mutableListOf<String>()
-    val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
+    private val myPermissionsRequestRead = 0
     var filePath: String = ""
-    val imagesList = mutableListOf<String>()
+    private val imagesList = mutableListOf<String>()
+    private val imageList = mutableListOf<String>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentNewGameBinding.inflate(inflater, container, false)
@@ -56,7 +58,13 @@ class NewGameFragment : Fragment() {
         val storageRef = storage.reference
 
         binding.buttonAddPhoto.setOnClickListener {
-            checkPermission()
+            context?.let { context ->
+                GetPhoto.checkPermissionAndGetLocalImg(
+                    context,
+                    requireActivity(),
+                    this
+                )
+            }
         }
 
         binding.buttonGameCreate.setOnClickListener {
@@ -116,7 +124,7 @@ class NewGameFragment : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            MY_PERMISSIONS_REQUEST_READ_CONTACTS -> {
+            myPermissionsRequestRead -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //get image
                 } else {
@@ -166,7 +174,7 @@ class NewGameFragment : Fragment() {
                     Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE
                 ),
-                MY_PERMISSIONS_REQUEST_READ_CONTACTS
+                myPermissionsRequestRead
             )
             getLocalImg()
         }else{
@@ -204,7 +212,7 @@ class NewGameFragment : Fragment() {
     }
 
 
-    val imageList = mutableListOf<String>()
+
     private fun downloadImg(ref: StorageReference?) {
         if (ref == null) {
             Toast.makeText(this.requireContext(), "No file", Toast.LENGTH_SHORT).show()

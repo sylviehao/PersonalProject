@@ -27,6 +27,7 @@ import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.databinding.DialogEditProfileBinding
 import com.sylvie.boardgameguide.profile.ProfileEditDialogArgs
 import com.sylvie.boardgameguide.ext.getVmFactory
+import com.sylvie.boardgameguide.util.GetPhoto.checkPermissionAndGetLocalImg
 import java.io.File
 
 
@@ -35,7 +36,7 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
     private lateinit var binding: DialogEditProfileBinding
     val viewModel by viewModels<ProfileEditViewModel> { getVmFactory() }
 
-    private val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
+    private val myPermissionsRequestRead = 0
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
@@ -70,7 +71,7 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
         }
 
         binding.imageProfile.setOnClickListener {
-            checkPermission()
+            context?.let { context -> checkPermissionAndGetLocalImg(context, requireActivity(), this) }
         }
 
         viewModel.imageUri.observe(viewLifecycleOwner, Observer {
@@ -100,7 +101,7 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            MY_PERMISSIONS_REQUEST_READ_CONTACTS -> {
+            myPermissionsRequestRead -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //get image
                 } else {
@@ -161,40 +162,5 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
             .addOnFailureListener { exception ->
                 Log.i("Upload", exception.toString())
             }
-    }
-
-    private fun checkPermission() {
-        val permission = ActivityCompat.checkSelfPermission(
-            this.requireContext(),
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            //if not having permission, ask for it
-            ActivityCompat.requestPermissions(
-                this.requireActivity(), arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                MY_PERMISSIONS_REQUEST_READ_CONTACTS
-            )
-            getLocalImg()
-        } else {
-            getLocalImg()
-        }
-
-    }
-
-    private fun getLocalImg() {
-        ImagePicker.with(this)
-            //Crop image(Optional), Check Customization for more option
-            .crop()
-            //Final image size will be less than 1 MB(Optional)
-            .compress(1024)
-            //Final image resolution will be less than 1080 x 1080(Optional)
-            .maxResultSize(
-                1080,
-                1080
-            )
-            .start()
     }
 }

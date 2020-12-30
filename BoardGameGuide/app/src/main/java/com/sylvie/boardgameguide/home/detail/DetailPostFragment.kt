@@ -25,6 +25,7 @@ import com.sylvie.boardgameguide.data.Message
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.login.UserManager
+import com.sylvie.boardgameguide.util.GetPhoto
 import com.sylvie.boardgameguide.util.Util.getTimeDate
 import java.io.File
 
@@ -32,7 +33,7 @@ class DetailPostFragment : Fragment() {
 
     val viewModel by viewModels<DetailPostViewModel> { getVmFactory() }
     private lateinit var binding: FragmentDetailPostBinding
-    private val MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0
+    private val myPermissionsRequestRead = 0
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
@@ -54,7 +55,13 @@ class DetailPostFragment : Fragment() {
 
         val adapter = DetailPostCommentAdapter(viewModel)
         val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener{
-                checkPermission()
+            context?.let { context ->
+                GetPhoto.checkPermissionAndGetLocalImg(
+                    context,
+                    requireActivity(),
+                    this
+                )
+            }
         }, viewModel)
 
         viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -173,7 +180,7 @@ class DetailPostFragment : Fragment() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            MY_PERMISSIONS_REQUEST_READ_CONTACTS -> {
+            myPermissionsRequestRead -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     //get image
                 } else {
@@ -235,39 +242,4 @@ class DetailPostFragment : Fragment() {
                 Log.i("Upload", exception.toString())
             }
     }
-
-    private fun checkPermission() {
-        val permission = ActivityCompat.checkSelfPermission(
-            this.requireContext(),
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-        if (permission != PackageManager.PERMISSION_GRANTED) {
-            //if not having permission, ask for it
-            ActivityCompat.requestPermissions(
-                this.requireActivity(), arrayOf(
-                    Manifest.permission.CAMERA,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
-                ),
-                MY_PERMISSIONS_REQUEST_READ_CONTACTS
-            )
-            getLocalImg()
-        } else {
-            getLocalImg()
-        }
-    }
-
-    private fun getLocalImg() {
-        ImagePicker.with(this)
-            //Crop image(Optional), Check Customization for more option
-            .crop()
-            //Final image size will be less than 1 MB(Optional)
-            .compress(1024)
-            //Final image resolution will be less than 1080 x 1080(Optional)
-            .maxResultSize(
-                1080,
-                1080
-            )
-            .start()
-    }
-
 }
