@@ -14,41 +14,41 @@
         android:background="@drawable/round_light_blue_corner">
 
         <ImageView
-            android:id="@+id/button_1"
+            android:id="@+id/button_time_1"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toTopOf="@+id/text_send"
-            app:layout_constraintEnd_toStartOf="@+id/button_2"
+            app:layout_constraintEnd_toStartOf="@+id/button_time_2"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_time_edit"
             app:srcCompat="@drawable/round_time_1" />
 
         <ImageView
-            android:id="@+id/button_2"
+            android:id="@+id/button_time_2"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_1"
-            app:layout_constraintEnd_toStartOf="@+id/button_3"
+            app:layout_constraintBottom_toBottomOf="@+id/button_time_1"
+            app:layout_constraintEnd_toStartOf="@+id/button_time_3"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_1"
-            app:layout_constraintTop_toTopOf="@+id/button_1"
+            app:layout_constraintStart_toEndOf="@+id/button_time_1"
+            app:layout_constraintTop_toTopOf="@+id/button_time_1"
             app:srcCompat="@drawable/round_time_2" />
 
         <ImageView
-            android:id="@+id/button_3"
+            android:id="@+id/button_time_3"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_2"
+            app:layout_constraintBottom_toBottomOf="@+id/button_time_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button_2"
-            app:layout_constraintTop_toTopOf="@+id/button_2"
+            app:layout_constraintStart_toEndOf="@+id/button_time_2"
+            app:layout_constraintTop_toTopOf="@+id/button_time_2"
             app:srcCompat="@drawable/round_time_3" />
 
         <EditText
@@ -60,10 +60,10 @@
             android:text="30"
             android:textColor="@color/lightYellow"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_1"
-            app:layout_constraintEnd_toEndOf="@+id/button_1"
-            app:layout_constraintStart_toStartOf="@+id/button_1"
-            app:layout_constraintTop_toTopOf="@+id/button_1" />
+            app:layout_constraintBottom_toBottomOf="@+id/button_time_1"
+            app:layout_constraintEnd_toEndOf="@+id/button_time_1"
+            app:layout_constraintStart_toStartOf="@+id/button_time_1"
+            app:layout_constraintTop_toTopOf="@+id/button_time_1" />
 
         <EditText
             android:id="@+id/edit_2"
@@ -74,10 +74,10 @@
             android:text="60"
             android:textColor="@color/orange"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_2"
-            app:layout_constraintEnd_toEndOf="@+id/button_2"
-            app:layout_constraintStart_toStartOf="@+id/button_2"
-            app:layout_constraintTop_toTopOf="@+id/button_2" />
+            app:layout_constraintBottom_toBottomOf="@+id/button_time_2"
+            app:layout_constraintEnd_toEndOf="@+id/button_time_2"
+            app:layout_constraintStart_toStartOf="@+id/button_time_2"
+            app:layout_constraintTop_toTopOf="@+id/button_time_2" />
 
         <EditText
             android:id="@+id/edit_3"
@@ -88,10 +88,10 @@
             android:text="90"
             android:textColor="@color/red"
             android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_3"
-            app:layout_constraintEnd_toEndOf="@+id/button_3"
-            app:layout_constraintStart_toStartOf="@+id/button_3"
-            app:layout_constraintTop_toTopOf="@+id/button_3" />
+            app:layout_constraintBottom_toBottomOf="@+id/button_time_3"
+            app:layout_constraintEnd_toEndOf="@+id/button_time_3"
+            app:layout_constraintStart_toStartOf="@+id/button_time_3"
+            app:layout_constraintTop_toTopOf="@+id/button_time_3" />
 
         <TextView
             android:id="@+id/text_time_edit"
@@ -102,10 +102,10 @@
             android:gravity="center"
             android:text="@string/click_to_edit"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/button_1"
+            app:layout_constraintBottom_toTopOf="@+id/button_time_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/button_1"
+            app:layout_constraintStart_toStartOf="@+id/button_time_1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed" />
 
@@ -124,7 +124,7 @@
             app:layout_constraintEnd_toEndOf="@+id/text_time_edit"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/text_time_edit"
-            app:layout_constraintTop_toBottomOf="@+id/button_1" />
+            app:layout_constraintTop_toBottomOf="@+id/button_time_1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -32,25 +32,18 @@ class TimerFragment : Fragment() {
         readData()
 
         binding.constraintTimer.setOnClickListener {
-            timerStatus = if (timerStatus) {
-                timer.cancel()
-                false
-            } else {
-                createTimer(binding.textTime.text.toString().toFloat())
-                timer.start()
-                true
-            }
+            changeTimerStatus()
         }
 
-        binding.button1.setOnClickListener {
+        binding.buttonTime1.setOnClickListener {
             resetCount(binding.text1.text.toString())
         }
 
-        binding.button2.setOnClickListener {
+        binding.buttonTime2.setOnClickListener {
             resetCount(binding.text2.text.toString())
         }
 
-        binding.button3.setOnClickListener {
+        binding.buttonTime3.setOnClickListener {
             resetCount(binding.text3.text.toString())
         }
 
@@ -59,6 +52,17 @@ class TimerFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun changeTimerStatus() {
+        timerStatus = if (timerStatus) {
+            timer.cancel()
+            false
+        } else {
+            createTimer(binding.textTime.text.toString().toFloat())
+            timer.start()
+            true
+        }
     }
 
 

@@ -33,7 +33,6 @@ class ProfilePostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val userId = ProfileEventFragmentArgs.fromBundle(requireArguments()).userId
         val adapter = ProfilePostAdapter(ProfilePostAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
@@ -43,9 +42,7 @@ class ProfilePostFragment : Fragment() {
         viewModel.detailNavigation.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionGlobalDetailEventFragment(
-                        it
-                    )
+                    HomeFragmentDirections.actionGlobalDetailEventFragment(it)
                 )
                 viewModel.onDetailNavigated()
             }
@@ -57,16 +54,10 @@ class ProfilePostFragment : Fragment() {
 
         viewModel.myPostData.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (viewModel.myPostData.value.isNullOrEmpty()) {
-                    binding.constraintAnimation.visibility = View.VISIBLE
-                    binding.recyclerPost.visibility = View.INVISIBLE
-                } else {
-                    binding.constraintAnimation.visibility = View.INVISIBLE
-                    binding.recyclerPost.visibility = View.VISIBLE
-                    adapter.submitList(it)
-                }
+                adapter.submitList(it)
             }
         })
+
         return binding.root
     }
 }

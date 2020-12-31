@@ -96,7 +96,6 @@ class ProfileEditDialog : BottomSheetDialogFragment() {
             }
         })
 
-
         return binding.root
     }
 

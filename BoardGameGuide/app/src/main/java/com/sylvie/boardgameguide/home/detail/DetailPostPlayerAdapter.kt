@@ -15,6 +15,19 @@ class DetailPostPlayerAdapter(val viewModel: DetailPostViewModel) :
 
         fun bind(data: String, viewModel: DetailPostViewModel) {
             binding.data = data
+
+            initChipStatus(viewModel, data)
+            binding.textPlayer.setOnClickListener {
+                viewModel.playerNavigation.value = data
+            }
+
+            binding.executePendingBindings()
+        }
+
+        private fun initChipStatus(
+            viewModel: DetailPostViewModel,
+            data: String
+        ) {
             binding.textPlayer.closable = false
             if (viewModel.allUsersData.value!!.any { it.id == data }) {
                 binding.textPlayer.text =
@@ -22,10 +35,6 @@ class DetailPostPlayerAdapter(val viewModel: DetailPostViewModel) :
             } else {
                 binding.textPlayer.text = ""
             }
-            binding.textPlayer.setOnClickListener {
-                viewModel.playerNavigation.value = data
-            }
-            binding.executePendingBindings()
         }
     }
 

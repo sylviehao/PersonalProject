@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.home.detail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -114,7 +113,6 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
 
     private fun getAllUsers() {
         _allUsersData = gameRepository.getAllUsers()
-        Log.i("event", "${_allUsersData}")
     }
 
     fun filterUserPhoto(hostId: String): String {
@@ -192,8 +190,7 @@ class DetailEventViewModel(private val gameRepository: GameRepository) : ViewMod
         }
     }
 
-    fun checkUserPermission(memberList: MutableList<String>) {
-
+    fun checkPhotoPermission(memberList: MutableList<String>) {
         memberList.let {
             photoPermission.value = it.any { id -> id == UserManager.userToken }
         }

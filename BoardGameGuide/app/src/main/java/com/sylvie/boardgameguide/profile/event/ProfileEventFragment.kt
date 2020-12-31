@@ -16,9 +16,7 @@ class ProfileEventFragment : Fragment() {
 
     val viewModel by viewModels<ProfileEventViewModel> {
         getVmFactory(
-            ProfileEventFragmentArgs.fromBundle(
-                requireArguments()
-            ).userId
+            ProfileEventFragmentArgs.fromBundle(requireArguments()).userId
         )
     }
 
@@ -31,7 +29,6 @@ class ProfileEventFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val userId = ProfileEventFragmentArgs.fromBundle(requireArguments()).userId
         val adapter = ProfileEventAdapter(ProfileEventAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
@@ -40,9 +37,7 @@ class ProfileEventFragment : Fragment() {
         viewModel.detailNavigation.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(
-                    HomeFragmentDirections.actionGlobalDetailEventFragment(
-                        it
-                    )
+                    HomeFragmentDirections.actionGlobalDetailEventFragment(it)
                 )
                 viewModel.onDetailNavigated()
             }
@@ -54,14 +49,7 @@ class ProfileEventFragment : Fragment() {
 
         viewModel.myEventData.observe(viewLifecycleOwner, Observer {
             it?.let {
-                if (viewModel.myEventData.value.isNullOrEmpty()) {
-                    binding.constraintAnimation.visibility = View.VISIBLE
-                    binding.recyclerEvent.visibility = View.INVISIBLE
-                } else {
-                    binding.constraintAnimation.visibility = View.INVISIBLE
-                    binding.recyclerEvent.visibility = View.VISIBLE
-                    adapter.submitList(it)
-                }
+                adapter.submitList(it)
             }
         })
 

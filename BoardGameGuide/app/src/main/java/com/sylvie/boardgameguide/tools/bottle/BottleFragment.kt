@@ -24,7 +24,7 @@ class BottleFragment : Fragment() {
         binding = ToolsBottleBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.buttonBottle.setOnClickListener {
-            onClick(binding.imageBottle)
+            turn(binding.imageBottle)
         }
 
         return binding.root
@@ -72,7 +72,7 @@ class BottleFragment : Fragment() {
         }
     }
 
-    fun onClick(view: View) {
+    private fun turn(view: View) {
         stop = (Math.random() * 100).toInt()
         Log.d("bottle", "Stop = $stop")
         result = possibility(stop)

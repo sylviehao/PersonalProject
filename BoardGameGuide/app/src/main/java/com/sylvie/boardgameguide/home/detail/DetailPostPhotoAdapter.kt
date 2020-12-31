@@ -38,15 +38,19 @@ class DetailPostPhotoAdapter(
             viewModel: DetailPostViewModel
         ) {
             binding.data = data
-            viewModel.photoPermission.let {
-                if (it.value!!) {
+            initAddPhotoFeature(viewModel)
+            binding.imageAddPhoto.setOnClickListener { onClickListener.onClick(data) }
+            binding.executePendingBindings()
+        }
+
+        private fun initAddPhotoFeature(viewModel: DetailPostViewModel) {
+            viewModel.photoPermission.value?.let {
+                if (it) {
                     binding.root.visibility = View.VISIBLE
                 } else {
                     binding.root.visibility = View.GONE
                 }
             }
-            binding.imageAddPhoto.setOnClickListener { onClickListener.onClick(data) }
-            binding.executePendingBindings()
         }
     }
 

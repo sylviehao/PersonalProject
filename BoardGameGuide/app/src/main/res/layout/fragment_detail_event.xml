@@ -99,6 +99,7 @@
                     android:alpha="0.8"
                     android:textColor="@color/darkBrown"
                     android:textSize="16sp"
+                    textTimeFormat="@{viewModel.eventData.time}"
                     app:layout_constraintBottom_toBottomOf="@+id/ic_clock"
                     app:layout_constraintStart_toEndOf="@+id/ic_clock"
                     app:layout_constraintTop_toTopOf="@+id/ic_clock"

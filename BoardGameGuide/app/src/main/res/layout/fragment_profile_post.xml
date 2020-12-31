@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.sylvie.boardgameguide.profile.post.ProfilePostViewModel" />
+
+        <import type="android.view.View"/>
+        <import type="kotlin.collections.EmptyList"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,6 +20,7 @@
             android:id="@+id/recycler_post"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="@{viewModel.myPostData.isEmpty || viewModel.myPostData == null ? View.INVISIBLE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -29,6 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/gray_f0f0f0"
+            android:visibility="@{viewModel.myPostData.isEmpty || viewModel.myPostData == null ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

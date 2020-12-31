@@ -15,7 +15,6 @@ import java.lang.Exception
 
 class ProfileEditViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -28,10 +27,6 @@ class ProfileEditViewModel(private val gameRepository: GameRepository) : ViewMod
 
     val userData: LiveData<User>
         get() = _userData
-
-    init {
-
-    }
 
     override fun onCleared() {
         super.onCleared()

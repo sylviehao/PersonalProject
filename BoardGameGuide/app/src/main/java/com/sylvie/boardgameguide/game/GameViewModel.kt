@@ -32,6 +32,8 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
     val gameData: LiveData<List<Game>>
         get() = _gameData
 
+    var boomStatus = MutableLiveData<ImageView>()
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -117,7 +119,6 @@ class GameViewModel(private val gameRepository: GameRepository) : ViewModel() {
         _detailNavigation.value = null
     }
 
-    var boomStatus = MutableLiveData<ImageView>()
     fun boomImage(view: ImageView){
         boomStatus.value = view
     }

@@ -56,7 +56,7 @@ class HomeViewModel(private val gameRepository: GameRepository) : ViewModel() {
             Log.i("event","${_allEventsData}")
     }
 
-    fun getHome() {
+    private fun getHome() {
         coroutineScope.launch {
             val result = gameRepository.getHome()
             _homeData.value = when (result) {

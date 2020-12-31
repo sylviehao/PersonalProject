@@ -1,12 +1,15 @@
 package com.sylvie.boardgameguide.favorite
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sylvie.boardgameguide.R
 import com.sylvie.boardgameguide.data.Game
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.ItemFavoriteBinding
 
 class FavoriteAdapter(
@@ -24,29 +27,43 @@ class FavoriteAdapter(
 
         fun bind(game: Game, onClickListener: OnClickListener, viewModel: FavoriteViewModel) {
             binding.game = game
+
+            initFavorite(viewModel.userData, game)
             binding.imageGame.setOnClickListener { onClickListener.onClick(game) }
-            viewModel.userData.let {
-                if (it.value?.favorite!!.any { favorite -> favorite.id == game.id }) {
-                    binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-                    binding.iconPin.tag = "select"
-                } else {
-                    binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
-                    binding.iconPin.tag = "empty"
-                }
+            binding.iconPin.setOnClickListener {
+                changeFavoriteStatus(it, viewModel, game)
             }
 
-            binding.iconPin.setOnClickListener {
-                if (it.tag == "select") {
-                    it.tag = "empty"
-                    it.setBackgroundResource(R.drawable.ic_nav_pin)
-                    viewModel.removeFavorite(game)
-                } else {
-                    it.tag = "select"
-                    it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-                    viewModel.add2Favorite(game)
-                }
-            }
             binding.executePendingBindings()
+        }
+
+        private fun changeFavoriteStatus(
+            it: View,
+            viewModel: FavoriteViewModel,
+            game: Game
+        ) {
+            if (it.tag == "select") {
+                it.tag = "empty"
+                it.setBackgroundResource(R.drawable.ic_nav_pin)
+                viewModel.removeFavorite(game)
+            } else {
+                it.tag = "select"
+                it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+                viewModel.add2Favorite(game)
+            }
+        }
+
+        private fun initFavorite(
+            it: LiveData<User>,
+            game: Game
+        ) {
+            if (it.value?.favorite!!.any { favorite -> favorite.id == game.id }) {
+                binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+                binding.iconPin.tag = "select"
+            } else {
+                binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
+                binding.iconPin.tag = "empty"
+            }
         }
     }
 

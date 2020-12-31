@@ -62,7 +62,6 @@ class ProfileViewModel(private val gameRepository: GameRepository, private val u
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-
     init {
         getEvents()
         getUser()

@@ -15,6 +15,20 @@ class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel) :
 
         fun bind(data: String, viewModel: DetailEventViewModel) {
             binding.data = data
+
+            initChipStatus(viewModel, data)
+
+            binding.textPlayer.setOnClickListener {
+                viewModel.navigateToProfile(data)
+            }
+
+            binding.executePendingBindings()
+        }
+
+        private fun initChipStatus(
+            viewModel: DetailEventViewModel,
+            data: String
+        ) {
             binding.textPlayer.closable = false
             if (viewModel.allUsersData.value!!.any { it.id == data }) {
                 binding.textPlayer.text =
@@ -22,10 +36,6 @@ class DetailEventPlayerAdapter(var viewModel: DetailEventViewModel) :
             } else {
                 binding.textPlayer.text = ""
             }
-            binding.textPlayer.setOnClickListener {
-                viewModel.navigateToProfile(data)
-            }
-            binding.executePendingBindings()
         }
     }
 

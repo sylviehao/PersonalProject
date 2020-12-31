@@ -15,11 +15,6 @@ import java.lang.Exception
 
 class DetailPostViewModel(private val gameRepository: GameRepository) : ViewModel() {
 
-    private var _gameData = MutableLiveData<Game>()
-
-    val gameData: LiveData<Game>
-        get() = _gameData
-
     private var _allEvents = MutableLiveData<List<Event>>()
 
     val allEvents: LiveData<List<Event>>

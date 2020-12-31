@@ -23,34 +23,31 @@ class ProfileFragment : Fragment() {
             ).userId
         )
     }
+    lateinit var binding : FragmentProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
         val userId = ProfileFragmentArgs.fromBundle(requireArguments()).userId
+
         val adapter = ProfileBrowseAdapter(ProfileBrowseAdapter.OnClickListener {
             viewModel.navigateToDetail(it)
         })
 
-        if (userId != UserManager.userToken) {
-            binding.buttonEditInfo.visibility = View.GONE
-        } else {
-            binding.buttonEditInfo.visibility = View.VISIBLE
-        }
+        setEditPermission(userId)
 
         binding.recyclerBrowse.adapter = adapter
 
         viewModel.detailNavigation.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(
-                    GameFragmentDirections.actionGlobalGameDetailFragment(
-                        it
-                    )
+                    GameFragmentDirections.actionGlobalGameDetailFragment(it)
                 )
                 viewModel.onDetailNavigated()
             }
@@ -74,41 +71,26 @@ class ProfileFragment : Fragment() {
         })
 
         viewModel.browseRecentlyInfo.observe(viewLifecycleOwner, Observer {
-            if (viewModel.browseRecentlyInfo.value.isNullOrEmpty()) {
-                binding.constraintAnimation.visibility = View.VISIBLE
-                binding.recyclerBrowse.visibility = View.GONE
-                binding.textBrowse.visibility = View.GONE
-            } else {
-                binding.constraintAnimation.visibility = View.INVISIBLE
-                binding.recyclerBrowse.visibility = View.VISIBLE
-                binding.textBrowse.visibility = View.VISIBLE
-            }
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
         })
 
         binding.constraintPost.setOnClickListener {
             findNavController().navigate(
-                ProfilePostFragmentDirections.actionGlobalProfilePostFragment(
-                    userId
-                )
+                ProfilePostFragmentDirections.actionGlobalProfilePostFragment(userId)
             )
         }
 
         binding.constraintEvent.setOnClickListener {
             findNavController().navigate(
-                ProfilePostFragmentDirections.actionGlobalProfileEventFragment(
-                    userId
-                )
+                ProfilePostFragmentDirections.actionGlobalProfileEventFragment(userId)
             )
         }
 
         binding.buttonEditInfo.setOnClickListener {
             viewModel.userData.value?.let {
                 findNavController().navigate(
-                    ProfileFragmentDirections.actionGlobalProfileEditDialog(
-                        it
-                    )
+                    ProfileFragmentDirections.actionGlobalProfileEditDialog(it)
                 )
             }
         }
@@ -116,6 +98,15 @@ class ProfileFragment : Fragment() {
         binding.constraintAnimation.setOnClickListener {
             findNavController().navigate(ProfileFragmentDirections.actionGlobalGameFragment())
         }
+        
         return binding.root
+    }
+
+    private fun setEditPermission(userId: String) {
+        if (userId != UserManager.userToken) {
+            binding.buttonEditInfo.visibility = View.GONE
+        } else {
+            binding.buttonEditInfo.visibility = View.VISIBLE
+        }
     }
 }

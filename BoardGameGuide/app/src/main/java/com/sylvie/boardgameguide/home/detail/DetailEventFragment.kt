@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.home.detail
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -19,7 +18,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
+import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentDetailEventBinding
 import com.sylvie.boardgameguide.dialog.JoinDialog
 import com.sylvie.boardgameguide.ext.getVmFactory
@@ -27,49 +28,36 @@ import com.sylvie.boardgameguide.game.detail.GameDetailFragmentDirections
 import com.sylvie.boardgameguide.login.UserManager
 import com.sylvie.boardgameguide.util.GetPhoto
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 
 class DetailEventFragment : Fragment() {
 
     val viewModel by viewModels<DetailEventViewModel> { getVmFactory() }
+    lateinit var binding: FragmentDetailEventBinding
     private val myPermissionsRequestRead = 0
     var localImageList = mutableListOf<String>()
     var filePath: String = ""
 
-    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentDetailEventBinding.inflate(inflater, container, false)
+        binding = FragmentDetailEventBinding.inflate(inflater, container, false)
+        val bundle = DetailEventFragmentArgs.fromBundle(requireArguments()).event
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        val storage = Firebase.storage
-        val storageRef = storage.reference
-        val bundle = DetailEventFragmentArgs.fromBundle(requireArguments()).event
-        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(bundle.time))
-        binding.textGameTime.text = dateString
         viewModel.eventData.value = bundle
         viewModel.getEvent(bundle.id)
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
+
         bundle.game?.name?.let { viewModel.getGame(it) }
 
         bundle.playerList?.let {
-            if (it.any { userId -> userId == UserManager.userToken }) {
-                binding.buttonJoin.setText(R.string.leave)
-            } else {
-                if (it.size >= bundle.playerLimit) {
-                    binding.buttonJoin.setText(R.string.no_more_place)
-                    binding.buttonJoin.isEnabled = false
-                } else {
-                    binding.buttonJoin.setText(R.string.join)
-                }
-            }
+            checkJoinStatus(it, bundle)
+            viewModel.checkPhotoPermission(it)
         }
-
-        // upload photo permission
-        bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
         val adapter = DetailEventPlayerAdapter(viewModel)
         val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener {
@@ -89,16 +77,10 @@ class DetailEventFragment : Fragment() {
         binding.recyclerComment.adapter = adapter3
         binding.recyclerTools.adapter = adapter4
 
-        viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
-        })
-
         viewModel.profileNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
                 findNavController().navigate(
-                    DetailEventFragmentDirections.actionGlobalProfileFragment(
-                        it
-                    )
+                    DetailEventFragmentDirections.actionGlobalProfileFragment(it)
                 )
                 viewModel.navigated()
             }
@@ -113,8 +95,8 @@ class DetailEventFragment : Fragment() {
         })
 
         viewModel.eventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            it.let {
-                adapter2.submitList(viewModel.toPhotoItems(viewModel.addImages(it.image!!)))
+            it.image?.let { image->
+                adapter2.submitList(viewModel.toPhotoItems(viewModel.addImages(image)))
             }
         })
 
@@ -192,19 +174,8 @@ class DetailEventFragment : Fragment() {
 
         binding.buttonJoin.setOnClickListener {
             //Have joined or not
-            UserManager.user.value?.let { userId ->
-                viewModel.setPlayer(userId.id, bundle, true)
-                if (bundle.playerList!!.any { it == userId.id }) {
-                    viewModel.leaveStatus.value = true
-                    bundle.playerList?.remove(userId.id)
-                    viewModel.setPlayer(userId.id, bundle, false)
-                    binding.buttonJoin.setText(R.string.join)
-                } else {
-                    viewModel.joinStatus.value = true
-                    bundle.playerList?.add(userId.id)
-                    binding.buttonJoin.setText(R.string.leave)
-                }
-                viewModel.eventData.value = bundle
+            UserManager.user.value?.let { user ->
+                changeJoinStatus(bundle, user)
                 adapter.notifyDataSetChanged()
             }
         }
@@ -212,40 +183,73 @@ class DetailEventFragment : Fragment() {
         binding.textStatus.setOnClickListener {
             findNavController().navigate(
                 DetailEventFragmentDirections.actionGlobalNewPostFragment(
-                    viewModel.gameData.value,
-                    bundle
+                    viewModel.gameData.value, bundle
                 )
             )
         }
 
         binding.buttonSortDown.setOnClickListener {
-            if (it.tag == "empty") {
-                it.tag = "select"
-                binding.constraintGameInfo.visibility = View.VISIBLE
-            } else {
-                it.tag = "empty"
-                binding.constraintGameInfo.visibility = View.GONE
-            }
+            showGameInfo(it)
         }
 
         binding.textHostName.setOnClickListener {
             findNavController().navigate(
-                DetailPostFragmentDirections.actionGlobalProfileFragment(
-                    bundle.user!!.id
-                )
+                DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id)
             )
         }
 
         binding.imageHost.setOnClickListener {
             findNavController().navigate(
-                DetailPostFragmentDirections.actionGlobalProfileFragment(
-                    bundle.user!!.id
-                )
+                DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id)
             )
 
         }
 
         return binding.root
+    }
+
+    private fun showGameInfo(it: View) {
+        if (it.tag == "empty") {
+            it.tag = "select"
+            binding.constraintGameInfo.visibility = View.VISIBLE
+        } else {
+            it.tag = "empty"
+            binding.constraintGameInfo.visibility = View.GONE
+        }
+    }
+
+    private fun changeJoinStatus(
+        event: Event,
+        userId: User
+    ) {
+        if (event.playerList!!.any { it == userId.id }) {
+            viewModel.leaveStatus.value = true
+            event.playerList?.remove(userId.id)
+            viewModel.setPlayer(userId.id, event, false)
+            binding.buttonJoin.setText(R.string.join)
+        } else {
+            viewModel.setPlayer(userId.id, event, true)
+            viewModel.joinStatus.value = true
+            event.playerList?.add(userId.id)
+            binding.buttonJoin.setText(R.string.leave)
+        }
+        viewModel.eventData.value = event
+    }
+
+    private fun checkJoinStatus(
+        players: MutableList<String>,
+        bundle: Event
+    ) {
+        if (players.any { userId -> userId == UserManager.userToken }) {
+            binding.buttonJoin.setText(R.string.leave)
+        } else {
+            if (players.size >= bundle.playerLimit) {
+                binding.buttonJoin.setText(R.string.no_more_place)
+                binding.buttonJoin.isEnabled = false
+            } else {
+                binding.buttonJoin.setText(R.string.join)
+            }
+        }
     }
 
     override fun onRequestPermissionsResult(

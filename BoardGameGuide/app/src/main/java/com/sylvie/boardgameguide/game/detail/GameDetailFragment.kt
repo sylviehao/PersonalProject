@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.sylvie.boardgameguide.R
+import com.sylvie.boardgameguide.data.Game
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentDetailGameBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.util.Util.boom
@@ -21,13 +23,14 @@ class GameDetailFragment : Fragment() {
             ).game.id
         )
     }
+    lateinit var binding : FragmentDetailGameBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentDetailGameBinding.inflate(inflater, container, false)
+        binding = FragmentDetailGameBinding.inflate(inflater, container, false)
         val bundle = GameDetailFragmentArgs.fromBundle(requireArguments()).game
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
@@ -38,32 +41,18 @@ class GameDetailFragment : Fragment() {
 
         binding.buttonCreateEvent.setOnClickListener {
             findNavController().navigate(
-                GameDetailFragmentDirections.actionGlobalNewEventFragment(
-                    bundle
-                )
+                GameDetailFragmentDirections.actionGlobalNewEventFragment(bundle)
             )
         }
 
         binding.buttonCreatePost.setOnClickListener {
             findNavController().navigate(
-                GameDetailFragmentDirections.actionGlobalNewPostFragment(
-                    bundle,
-                    null
-                )
+                GameDetailFragmentDirections.actionGlobalNewPostFragment(bundle, null)
             )
         }
 
         binding.iconPin.setOnClickListener {
-            if (it.tag == "empty") {
-                it.tag = "select"
-                it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-                viewModel.add2Favorite(bundle)
-                viewModel.boomImage(binding.imageGame)
-            } else {
-                it.tag = "empty"
-                viewModel.removeFavorite(bundle)
-                it.setBackgroundResource(R.drawable.ic_nav_pin)
-            }
+            changeFavoriteStatus(it, bundle)
         }
 
         viewModel.boomStatus.observe(viewLifecycleOwner, Observer {
@@ -71,18 +60,8 @@ class GameDetailFragment : Fragment() {
         })
 
         viewModel.userData.observe(viewLifecycleOwner, Observer {
-            if (it?.favorite!!.any { favorite -> favorite.id == bundle.id }) {
-                binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
-                binding.iconPin.tag = "select"
-            } else {
-                binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
-                binding.iconPin.tag = "empty"
-            }
-            if (it.browseRecently.isNullOrEmpty() || !it.browseRecently!!
-                    .any { browse -> browse.gameId == bundle.id }
-            ) {
-                viewModel.setBrowseRecently()
-            }
+            reloadFavorite(it, bundle)
+            checkBrowseRecently(it, bundle)
         })
 
         viewModel.gameData.observe(viewLifecycleOwner, Observer {
@@ -101,5 +80,45 @@ class GameDetailFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun checkBrowseRecently(
+        user: User,
+        bundle: Game
+    ) {
+        if (user.browseRecently.isNullOrEmpty() || !user.browseRecently!!
+                .any { browse -> browse.gameId == bundle.id }
+        ) {
+            viewModel.setBrowseRecently()
+        }
+    }
+
+    private fun reloadFavorite(
+        user: User?,
+        bundle: Game
+    ) {
+        if (user?.favorite!!.any { favorite -> favorite.id == bundle.id }) {
+            binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+            binding.iconPin.tag = "select"
+        } else {
+            binding.iconPin.setBackgroundResource(R.drawable.ic_nav_pin)
+            binding.iconPin.tag = "empty"
+        }
+    }
+
+    private fun changeFavoriteStatus(
+        it: View,
+        bundle: Game
+    ) {
+        if (it.tag == "empty") {
+            it.tag = "select"
+            it.setBackgroundResource(R.drawable.ic_nav_pin_selected)
+            viewModel.add2Favorite(bundle)
+            viewModel.boomImage(binding.imageGame)
+        } else {
+            it.tag = "empty"
+            viewModel.removeFavorite(bundle)
+            it.setBackgroundResource(R.drawable.ic_nav_pin)
+        }
     }
 }

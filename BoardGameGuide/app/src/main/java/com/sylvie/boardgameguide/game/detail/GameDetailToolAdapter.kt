@@ -15,10 +15,12 @@ class GameDetailToolAdapter(var viewModel: GameDetailViewModel):
 
         fun bind(data: String, viewModel: GameDetailViewModel) {
             binding.data = data
+
             binding.iconTool.setImageResource(viewModel.changeToolIcon(data))
             binding.buttonTool.setOnClickListener {
                 viewModel.toolsNavigation.value = data
             }
+
             binding.executePendingBindings()
         }
     }

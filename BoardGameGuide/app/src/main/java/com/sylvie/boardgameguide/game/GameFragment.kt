@@ -47,9 +47,7 @@ class GameFragment : Fragment() {
         viewModel.detailNavigation.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(
-                    GameFragmentDirections.actionGlobalGameDetailFragment(
-                        it
-                    )
+                    GameFragmentDirections.actionGlobalGameDetailFragment(it)
                 )
                 viewModel.onDetailNavigated()
             }

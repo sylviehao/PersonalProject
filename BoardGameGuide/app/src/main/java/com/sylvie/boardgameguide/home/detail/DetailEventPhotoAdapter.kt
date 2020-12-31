@@ -35,15 +35,19 @@ class DetailEventPhotoAdapter(
 
         fun bind(data: String, onClickListener: OnClickListener, viewModel: DetailEventViewModel) {
             binding.data = data
-            viewModel.photoPermission.let {
-                if (it.value!!) {
-                    binding.root.visibility = View.VISIBLE
-                } else {
-                    binding.root.visibility = View.GONE
-                }
+            viewModel.photoPermission.value?.let { permission->
+                setAddPhotoFeature(permission)
             }
             binding.imageAddPhoto.setOnClickListener { onClickListener.onClick(data) }
             binding.executePendingBindings()
+        }
+
+        private fun setAddPhotoFeature(permission: Boolean) {
+            if (permission) {
+                binding.root.visibility = View.VISIBLE
+            } else {
+                binding.root.visibility = View.GONE
+            }
         }
     }
 

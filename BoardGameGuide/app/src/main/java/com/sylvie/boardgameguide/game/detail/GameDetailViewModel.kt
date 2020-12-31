@@ -37,6 +37,8 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
 
     var toolsNavigation = MutableLiveData<String>()
 
+    var boomStatus = MutableLiveData<ImageView>()
+
     private var viewModelJob = Job()
 
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
@@ -127,7 +129,6 @@ class GameDetailViewModel(private val gameRepository: GameRepository, private va
         toolsNavigation.value = null
     }
 
-    var boomStatus = MutableLiveData<ImageView>()
     fun boomImage(view: ImageView) {
         boomStatus.value = view
     }

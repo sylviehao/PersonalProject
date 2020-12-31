@@ -18,7 +18,9 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.sylvie.boardgameguide.R
+import com.sylvie.boardgameguide.data.Event
 import com.sylvie.boardgameguide.data.Message
+import com.sylvie.boardgameguide.data.User
 import com.sylvie.boardgameguide.databinding.FragmentDetailPostBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
 import com.sylvie.boardgameguide.login.UserManager
@@ -43,11 +45,12 @@ class DetailPostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
-        val storage = Firebase.storage
-        val storageRef = storage.reference
         val bundle = DetailPostFragmentArgs.fromBundle(requireArguments()).event
         viewModel.eventData.value = bundle
         viewModel.getEvent(bundle.id)
+
+        val storage = Firebase.storage
+        val storageRef = storage.reference
 
         val adapter = DetailPostCommentAdapter(viewModel)
         val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener {
@@ -87,10 +90,6 @@ class DetailPostFragment : Fragment() {
         // upload photo permission
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
-        viewModel.photoPermission.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-
-        })
-
         viewModel.allUsersData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             adapter3.submitList(bundle.playerList)
         })
@@ -101,11 +100,8 @@ class DetailPostFragment : Fragment() {
 
         viewModel.playerNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-                val userId = bundle.playerList
                 findNavController().navigate(
-                    DetailPostFragmentDirections.actionGlobalProfileFragment(
-                        it
-                    )
+                    DetailPostFragmentDirections.actionGlobalProfileFragment(it)
                 )
                 viewModel.navigated()
             }
@@ -138,47 +134,54 @@ class DetailPostFragment : Fragment() {
 
         binding.imageHost.setOnClickListener {
             findNavController().navigate(
-                DetailPostFragmentDirections.actionGlobalProfileFragment(
-                    bundle.user!!.id
-                )
+                DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id)
             )
         }
 
         binding.textHostName.setOnClickListener {
             findNavController().navigate(
-                DetailPostFragmentDirections.actionGlobalProfileFragment(
-                    bundle.user!!.id
-                )
+                DetailPostFragmentDirections.actionGlobalProfileFragment(bundle.user!!.id)
             )
         }
 
 
         binding.buttonSortDown.setOnClickListener {
-            if (it.tag == "empty") {
-                it.tag = "select"
-                binding.constraintGameInfo.visibility = View.VISIBLE
-            } else {
-                it.tag = "empty"
-                binding.constraintGameInfo.visibility = View.GONE
-            }
+            showGameInfo(it)
         }
 
         binding.icLike.setOnClickListener {
-            UserManager.user.value?.let { userId ->
-                viewModel.setLike(userId.id, bundle, true)
-                if (bundle.like!!.any { it == userId.id }) {
-                    bundle.like?.remove(userId.id)
-                    viewModel.setLike(userId.id, bundle, false)
-                    binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
-                } else {
-                    bundle.like?.add(userId.id)
-                    binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
-                }
-                viewModel.eventData.value = bundle
+            UserManager.user.value?.let { user ->
+                changeLikeStatus(bundle, user)
             }
         }
 
         return binding.root
+    }
+
+    private fun changeLikeStatus(
+        event: Event,
+        userId: User
+    ) {
+        if (event.like!!.any { it == userId.id }) {
+            viewModel.setLike(userId.id, event, false)
+            event.like?.remove(userId.id)
+            binding.icLike.setBackgroundResource(R.drawable.ic_good_circle)
+        } else {
+            viewModel.setLike(userId.id, event, true)
+            event.like?.add(userId.id)
+            binding.icLike.setBackgroundResource(R.drawable.ic_like_selected)
+        }
+        viewModel.eventData.value = event
+    }
+
+    private fun showGameInfo(it: View) {
+        if (it.tag == "empty") {
+            it.tag = "select"
+            binding.constraintGameInfo.visibility = View.VISIBLE
+        } else {
+            it.tag = "empty"
+            binding.constraintGameInfo.visibility = View.GONE
+        }
     }
 
     override fun onRequestPermissionsResult(

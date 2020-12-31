@@ -39,6 +39,7 @@
                     android:layout_width="0dp"
                     android:layout_height="130dp"
                     android:scaleType="centerCrop"
+                    android:background="@drawable/pic_green_leaf"
                     app:imageUrl="@{event.image[0]}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
