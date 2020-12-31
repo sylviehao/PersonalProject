@@ -16,12 +16,8 @@ class NewGameTypeAdapter(var viewModel: NewGameViewModel) :
 
         fun bind(data: String, viewModel: NewGameViewModel) {
             binding.data = data
-            binding.textGameType.onSelectClickListener = OnSelectClickListener { v, selected ->
-                if (selected) {
-                    viewModel.addType(data, selected)
-                } else {
-                    viewModel.addType(data, selected)
-                }
+            binding.textGameType.onSelectClickListener = OnSelectClickListener { _, selected ->
+                viewModel.addType(data, selected)
             }
             binding.executePendingBindings()
         }

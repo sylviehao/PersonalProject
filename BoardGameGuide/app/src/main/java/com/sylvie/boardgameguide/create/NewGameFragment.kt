@@ -71,7 +71,6 @@ class NewGameFragment : Fragment() {
             }
 
             if (filePath == "") {
-
                 val rolesList= mutableListOf<String>()
                 rolesList.add(binding.editGameRoles.text.toString())
 

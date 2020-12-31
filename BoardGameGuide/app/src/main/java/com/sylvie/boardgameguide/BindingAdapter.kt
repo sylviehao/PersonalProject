@@ -7,6 +7,8 @@ import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -48,19 +50,6 @@ fun bindTakeOffBracket(textView: TextView, typeList: MutableList<String>) {
         }
 
         textView.text = typeString.substring(0, typeString.length - 2)
-//        @string/game_name_chinese +
-    }
-}
-
-@SuppressLint("SetTextI18n")
-@BindingAdapter("takeOffBracket2")
-fun bindTakeOffBracket2(textView: TextView, typeList: MutableList<String>) {
-    typeList.let {
-        var typeString = ""
-        for (type in it) {
-            typeString += "$type | "
-        }
-        textView.text = "遊戲種類: " + typeString.substring(0, typeString.length - 2)
     }
 }
 
@@ -81,5 +70,14 @@ fun bindTextTime(textView: TextView, date: Long) {
         else -> {
             textView.text = "${(timeDiff / minute)}分鐘前"
         }
+    }
+}
+
+@SuppressLint("SetTextI18n", "SimpleDateFormat")
+@BindingAdapter("textTimeFormat")
+fun bindTimeFormat(textView: TextView, time: Long?) {
+    time?.let {
+        val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(it))
+        textView.text = "Time: $dateString"
     }
 }

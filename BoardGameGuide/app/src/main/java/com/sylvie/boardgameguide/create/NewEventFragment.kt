@@ -34,8 +34,8 @@ class NewEventFragment : Fragment() {
 
     private val myPermissionsRequestRead = 0
     private val imageList = mutableListOf<String>()
+    private var filePath: String = ""
     var localImageList = mutableListOf<String>()
-    var filePath: String = ""
 
     // Separate the situation from HomeFragment and from GameFragment
     var arg: Game? = null
@@ -59,7 +59,6 @@ class NewEventFragment : Fragment() {
 
         binding.recyclerNewPostPhoto.adapter = adapter
         binding.recyclerGameType.adapter = adapter2
-
         adapter2.submitList(gameType)
 
         arg = NewEventFragmentArgs.fromBundle(requireArguments()).game
@@ -76,19 +75,7 @@ class NewEventFragment : Fragment() {
         }
 
         binding.editNewEventGameTime.setOnClickListener {
-            SingleDateAndTimePickerDialog.Builder(context)
-                .bottomSheet()
-                .curved()
-                .backgroundColor(resources.getColor(R.color.oliveGreen))
-                .mainColor(Color.WHITE)
-                .titleTextColor(Color.WHITE)
-                .displayListener {}
-                .title("Simple")
-                .listener { date ->
-                    binding.editNewEventGameTime.text = date.toString()
-                    viewModel.date.value = date.time
-                }
-                .display()
+            showTimePicker()
         }
 
         binding.buttonNewEventCreate.setOnClickListener {
@@ -166,6 +153,22 @@ class NewEventFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    private fun showTimePicker() {
+        SingleDateAndTimePickerDialog.Builder(context)
+            .bottomSheet()
+            .curved()
+            .backgroundColor(resources.getColor(R.color.oliveGreen))
+            .mainColor(Color.WHITE)
+            .titleTextColor(Color.WHITE)
+            .displayListener {}
+            .title("Simple")
+            .listener { date ->
+                binding.editNewEventGameTime.text = date.toString()
+                viewModel.date.value = date.time
+            }
+            .display()
     }
 
     override fun onRequestPermissionsResult(

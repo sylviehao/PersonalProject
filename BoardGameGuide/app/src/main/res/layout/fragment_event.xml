@@ -10,6 +10,9 @@
         <variable
             name="event"
             type="com.sylvie.boardgameguide.data.Event" />
+
+        <import type="android.view.View"/>
+        <import type="kotlin.collections.EmptyList"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,6 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:visibility="@{viewModel.myEventsData.isEmpty || viewModel.myEventsData == null ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/gray_f0f0f0"
+            android:visibility="@{viewModel.myEventsData.isEmpty || viewModel.myEventsData == null ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

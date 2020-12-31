@@ -39,10 +39,7 @@ class HomeAdapter(
 
     class EventViewHolder(private val binding: ItemHomeEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SimpleDateFormat", "SetTextI18n")
         fun bind(event: Event, onClickListener: OnClickListener, viewModel: HomeViewModel) {
-            val dateString = SimpleDateFormat("MM/dd/yyyy HH:mm").format(Date(event.time))
-            binding.textGameTime.text = "Time $dateString"
             binding.event = event
             binding.imageGamePicture.setBackgroundResource(R.drawable.pic_green_leaf)
             binding.textCreatedTime.text = getTimeDate(event.createdTime.toDate())

@@ -38,14 +38,7 @@ class FavoriteFragment : Fragment() {
 
         viewModel.userData.observe(viewLifecycleOwner, Observer {
             it?.let {user->
-                if (user.favorite.isNullOrEmpty()) {
-                    binding.constraintAnimation.visibility = View.VISIBLE
-                    binding.recyclerFavorite.visibility = View.INVISIBLE
-                } else {
-                    binding.constraintAnimation.visibility = View.INVISIBLE
-                    binding.recyclerFavorite.visibility = View.VISIBLE
-                    adapter.submitList(user.favorite)
-                }
+                adapter.submitList(user.favorite)
             }
         })
 

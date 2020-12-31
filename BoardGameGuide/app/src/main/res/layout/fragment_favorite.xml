@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.sylvie.boardgameguide.favorite.FavoriteViewModel" />
+
+        <import type="android.view.View"/>
+        <import type="kotlin.collections.EmptyList"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +22,7 @@
             android:layout_height="match_parent"
             android:paddingEnd="16dp"
             android:paddingBottom="16dp"
+            android:visibility="@{viewModel.userData.favorite.isEmpty || viewModel.userData.favorite == null ? View.INVISIBLE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,6 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/gray_f0f0f0"
+            android:visibility="@{viewModel.userData.favorite.isEmpty || viewModel.userData.favorite == null ? View.VISIBLE : View.INVISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

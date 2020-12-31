@@ -17,10 +17,11 @@ import com.sylvie.boardgameguide.ext.getVmFactory
 class HomeFragment : Fragment() {
 
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
+    lateinit var binding : FragmentHomeBinding
     private var flag = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container,false)
+        binding = FragmentHomeBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
@@ -29,33 +30,15 @@ class HomeFragment : Fragment() {
         }, viewModel)
 
         binding.recyclerHome.adapter = adapter
-        binding.refreshLayout.setOnRefreshListener(object : LiquidRefreshLayout.OnRefreshListener {
-            override fun completeRefresh() {
-            }
-            override fun refreshing() {
-                object : CountDownTimer(1800, 1000) {
 
-                    override fun onFinish() {
-                        binding.refreshLayout.finishRefreshing()
-                        adapter.notifyDataSetChanged()
-                    }
-                    override fun onTick(millisUntilFinished: Long) {
-                    }
-                }.start()
-            }
-        })
-
-        binding.fabPost.hide()
-        binding.fabEvent.hide()
+        showFab(false)
 
         binding.fab.setOnClickListener {
             flag = if (flag == 0) {
-                binding.fabPost.show()
-                binding.fabEvent.show()
+               showFab(false)
                 1
             } else {
-                binding.fabPost.hide()
-                binding.fabEvent.hide()
+                showFab(true)
                 0
             }
         }
@@ -90,6 +73,35 @@ class HomeFragment : Fragment() {
                 viewModel.onDetailNavigated()
             }
         })
+
+        binding.refreshLayout.setOnRefreshListener(object : LiquidRefreshLayout.OnRefreshListener {
+            override fun completeRefresh() {
+            }
+            override fun refreshing() {
+                object : CountDownTimer(1800, 1000) {
+
+                    override fun onFinish() {
+                        binding.refreshLayout.finishRefreshing()
+                        adapter.notifyDataSetChanged()
+                    }
+                    override fun onTick(millisUntilFinished: Long) {
+                    }
+                }.start()
+            }
+        })
+
+
         return binding.root
+    }
+
+    private fun showFab(status: Boolean) {
+        if(status) {
+            binding.fabPost.show()
+            binding.fabEvent.show()
+        } else {
+            binding.fabPost.hide()
+            binding.fabEvent.hide()
+        }
+
     }
 }

@@ -44,14 +44,7 @@ class EventFragment : Fragment() {
 
         viewModel.myEventsData.observe(viewLifecycleOwner, Observer {
             it?.let{
-                if (viewModel.myEventsData.value.isNullOrEmpty()) {
-                    binding.constraintAnimation.visibility = View.VISIBLE
-                    binding.recyclerEvent.visibility = View.INVISIBLE
-                } else {
-                    binding.constraintAnimation.visibility = View.INVISIBLE
-                    binding.recyclerEvent.visibility = View.VISIBLE
                     adapter.submitList(it)
-                }
             }
         })
 

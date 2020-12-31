@@ -52,6 +52,11 @@ class NewPostFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        arg = NewPostFragmentArgs.fromBundle(requireArguments()).game
+        event = NewPostFragmentArgs.fromBundle(requireArguments()).event
+        viewModel.game.value = arg
+        viewModel.event.value = event
+
         val gameType = mutableListOf<String>("策略", "陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
 
         val adapter = NewPostPlayerAdapter(viewModel)
@@ -68,12 +73,6 @@ class NewPostFragment : Fragment() {
         } else {
             binding.recyclerPlayer.visibility = View.VISIBLE
         }
-
-        arg = NewPostFragmentArgs.fromBundle(requireArguments()).game
-        event = NewPostFragmentArgs.fromBundle(requireArguments()).event
-
-        viewModel.game.value = arg
-        viewModel.event.value = event
 
         //initialize
         adapter.submitList(event?.playerList)
@@ -156,7 +155,6 @@ class NewPostFragment : Fragment() {
         })
 
         viewModel.userList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.i("userList", it.toString())
             if (it.isNullOrEmpty()) {
                 binding.recyclerPlayer.visibility = View.GONE
             } else {

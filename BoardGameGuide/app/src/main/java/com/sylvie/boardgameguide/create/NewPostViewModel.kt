@@ -56,7 +56,7 @@ class NewPostViewModel(private val gameRepository: GameRepository) : ViewModel()
         getAllUsers()
     }
 
-    fun getAllUsers() {
+    private fun getAllUsers() {
         _allUsersData = gameRepository.getAllUsers()
     }
 

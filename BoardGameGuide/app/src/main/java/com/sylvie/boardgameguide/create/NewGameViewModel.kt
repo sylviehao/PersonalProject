@@ -89,7 +89,6 @@ class NewGameViewModel(private val gameRepository: GameRepository) : ViewModel()
                         }
                     }
                 }
-
             } catch (e: Exception) {
             }
 

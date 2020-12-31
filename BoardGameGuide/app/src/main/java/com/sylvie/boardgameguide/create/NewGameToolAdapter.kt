@@ -16,12 +16,8 @@ class NewGameToolAdapter(var viewModel: NewGameViewModel) :
 
         fun bind(data: String, viewModel: NewGameViewModel) {
             binding.data = data
-            binding.textGameType.onSelectClickListener = OnSelectClickListener { v, selected ->
-                if (selected) {
-                    viewModel.addTool(data, selected)
-                } else {
-                    viewModel.addTool(data, selected)
-                }
+            binding.textGameType.onSelectClickListener = OnSelectClickListener { _, selected ->
+                viewModel.addTool(data, selected)
             }
             binding.executePendingBindings()
         }

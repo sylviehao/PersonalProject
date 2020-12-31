@@ -17,7 +17,7 @@ class NewPostPlayerAdapter(var viewModel: NewPostViewModel) :
         fun bind(data: String, viewModel: NewPostViewModel) {
             binding.data = data
             binding.textPlayer.text = viewModel.idToName(data)
-            binding.textPlayer.onCloseClickListener = OnCloseClickListener { v ->
+            binding.textPlayer.onCloseClickListener = OnCloseClickListener { _ ->
                 viewModel.editPlayer(data, false)
                 viewModel.visibilityStatus.value = true
             }
