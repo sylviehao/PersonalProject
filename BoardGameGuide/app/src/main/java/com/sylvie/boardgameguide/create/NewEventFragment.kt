@@ -38,7 +38,7 @@ class NewEventFragment : Fragment() {
     var localImageList = mutableListOf<String>()
 
     // Separate the situation from HomeFragment and from GameFragment
-    var arg: Game? = null
+    private var arg: Game? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,12 +54,12 @@ class NewEventFragment : Fragment() {
 
         val gameType = mutableListOf<String>("策略" ,"陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
 
-        val adapter = NewPostPhotoAdapter()
-        val adapter2 = NewEventGameTypeAdapter(viewModel)
+        val adapterPhoto = NewPostPhotoAdapter()
+        val adapterGameType = NewEventGameTypeAdapter(viewModel)
 
-        binding.recyclerNewPostPhoto.adapter = adapter
-        binding.recyclerGameType.adapter = adapter2
-        adapter2.submitList(gameType)
+        binding.recyclerNewPostPhoto.adapter = adapterPhoto
+        binding.recyclerGameType.adapter = adapterGameType
+        adapterGameType.submitList(gameType)
 
         arg = NewEventFragmentArgs.fromBundle(requireArguments()).game
         viewModel.game.value = arg
@@ -144,8 +144,8 @@ class NewEventFragment : Fragment() {
         })
 
         viewModel.localImageList.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-            adapter.notifyDataSetChanged()
+            adapterPhoto.submitList(it)
+            adapterPhoto.notifyDataSetChanged()
         })
 
         viewModel.eventStatus.observe(viewLifecycleOwner, Observer {

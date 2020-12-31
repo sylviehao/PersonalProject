@@ -36,11 +36,11 @@ class NewPostFragment : Fragment() {
     private val myPermissionsRequestRead = 0
     private val imagesList = mutableListOf<String>()
     private val imageList = mutableListOf<String>()
+    private var filePath: String = ""
     var localImageList = mutableListOf<String>()
-    var filePath: String = ""
 
     // Separate the situation from HomeFragment and from GameFragment
-    var arg: Game? = null
+    private var arg: Game? = null
     var event: Event? = null
 
     override fun onCreateView(
@@ -59,14 +59,14 @@ class NewPostFragment : Fragment() {
 
         val gameType = mutableListOf<String>("策略", "陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
 
-        val adapter = NewPostPlayerAdapter(viewModel)
-        val adapter2 = NewPostPhotoAdapter()
-        val adapter3 = NewPostPlayerFilterAdapter(viewModel)
-        val adapter4 = NewPostGameTypeAdapter(viewModel)
-        binding.recyclerPlayer.adapter = adapter
-        binding.recyclerNewPostPhoto.adapter = adapter2
-        binding.recyclerPlayerFilter.adapter = adapter3
-        binding.recyclerGameType.adapter = adapter4
+        val adapterPlayer = NewPostPlayerAdapter(viewModel)
+        val adapterPhoto = NewPostPhotoAdapter()
+        val adapterPlayerFilter = NewPostPlayerFilterAdapter(viewModel)
+        val adapterGameType = NewPostGameTypeAdapter(viewModel)
+        binding.recyclerPlayer.adapter = adapterPlayer
+        binding.recyclerNewPostPhoto.adapter = adapterPhoto
+        binding.recyclerPlayerFilter.adapter = adapterPlayerFilter
+        binding.recyclerGameType.adapter = adapterGameType
 
         if (viewModel.event.value?.playerList.isNullOrEmpty()) {
             binding.recyclerPlayer.visibility = View.GONE
@@ -75,9 +75,9 @@ class NewPostFragment : Fragment() {
         }
 
         //initialize
-        adapter.submitList(event?.playerList)
-        adapter2.submitList(event?.image)
-        adapter4.submitList(gameType)
+        adapterPlayer.submitList(event?.playerList)
+        adapterPhoto.submitList(event?.image)
+        adapterGameType.submitList(gameType)
 
         val storage = Firebase.storage
         val storageRef = storage.reference
@@ -97,7 +97,7 @@ class NewPostFragment : Fragment() {
             viewModel.allUsersData.value?.let { userList ->
                 val filterList =
                     viewModel.filter(userList, binding.editNewPostGameMember.text.toString())
-                adapter3.submitList(filterList)
+                adapterPlayerFilter.submitList(filterList)
             }
         }
 
@@ -105,7 +105,7 @@ class NewPostFragment : Fragment() {
             if (hasFocus) {
                 binding.recyclerPlayerFilter.visibility = View.VISIBLE
                 viewModel.allUsersData.value?.let { userList ->
-                    adapter3.submitList(userList)
+                    adapterPlayerFilter.submitList(userList)
                 }
             }
         }
@@ -160,8 +160,8 @@ class NewPostFragment : Fragment() {
             } else {
                 binding.recyclerPlayer.visibility = View.VISIBLE
             }
-            adapter.submitList(it)
-            adapter.notifyDataSetChanged()
+            adapterPlayer.submitList(it)
+            adapterPlayer.notifyDataSetChanged()
             binding.editNewPostGameMember.text = null
         })
 
@@ -196,8 +196,8 @@ class NewPostFragment : Fragment() {
         })
 
         viewModel.localImageList.observe(viewLifecycleOwner, Observer {
-            adapter2.submitList(it)
-            adapter2.notifyDataSetChanged()
+            adapterPhoto.submitList(it)
+            adapterPhoto.notifyDataSetChanged()
         })
 
 

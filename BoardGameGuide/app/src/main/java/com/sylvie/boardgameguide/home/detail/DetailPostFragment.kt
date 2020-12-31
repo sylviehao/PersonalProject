@@ -52,8 +52,9 @@ class DetailPostFragment : Fragment() {
         val storage = Firebase.storage
         val storageRef = storage.reference
 
-        val adapter = DetailPostCommentAdapter(viewModel)
-        val adapter2 = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener {
+        val adapterComment = DetailPostCommentAdapter(viewModel)
+        val adapterPlayer = DetailPostPlayerAdapter(viewModel)
+        val adapterPhoto = DetailPostPhotoAdapter(DetailPostPhotoAdapter.OnClickListener {
             context?.let { context ->
                 GetPhoto.checkPermissionAndGetLocalImg(
                     context,
@@ -62,6 +63,10 @@ class DetailPostFragment : Fragment() {
                 )
             }
         }, viewModel)
+        binding.recyclerComment.adapter = adapterComment
+        binding.recyclerPhoto.adapter = adapterPhoto
+        binding.recyclerPlayer.adapter = adapterPlayer
+        binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
 
         viewModel.imagesUri.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             viewModel.addPhoto(
@@ -73,7 +78,7 @@ class DetailPostFragment : Fragment() {
 
         viewModel.eventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.let {
-                adapter2.submitList(viewModel.toPhotoItems(viewModel.addImages(it.image!!)))
+                adapterPhoto.submitList(viewModel.toPhotoItems(viewModel.addImages(it.image!!)))
             }
         })
 
@@ -81,17 +86,11 @@ class DetailPostFragment : Fragment() {
             viewModel.getEvent(bundle.id)
         })
 
-        val adapter3 = DetailPostPlayerAdapter(viewModel)
-        binding.recyclerComment.adapter = adapter
-        binding.recyclerPhoto.adapter = adapter2
-        binding.recyclerPlayer.adapter = adapter3
-        binding.textCreatedTime.text = getTimeDate(bundle.createdTime.toDate())
-
         // upload photo permission
         bundle.playerList?.let { viewModel.checkUserPermission(it) }
 
         viewModel.allUsersData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            adapter3.submitList(bundle.playerList)
+            adapterPlayer.submitList(bundle.playerList)
         })
 
         viewModel.localImageList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -117,8 +116,8 @@ class DetailPostFragment : Fragment() {
         //Filter message snapshot
         viewModel.messages.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-                adapter.submitList(it[0].message)
-                adapter.notifyDataSetChanged()
+                adapterComment.submitList(it[0].message)
+                adapterComment.notifyDataSetChanged()
             }
         })
 

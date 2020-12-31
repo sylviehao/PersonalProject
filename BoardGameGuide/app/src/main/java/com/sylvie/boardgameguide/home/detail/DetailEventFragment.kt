@@ -53,14 +53,15 @@ class DetailEventFragment : Fragment() {
         val storageRef = storage.reference
 
         bundle.game?.name?.let { viewModel.getGame(it) }
-
         bundle.playerList?.let {
             checkJoinStatus(it, bundle)
             viewModel.checkPhotoPermission(it)
         }
 
-        val adapter = DetailEventPlayerAdapter(viewModel)
-        val adapter2 = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener {
+        val adapterComment = DetailEventCommentAdapter(viewModel)
+        val adapterTool = DetailEventToolAdapter(viewModel)
+        val adapterPlayer = DetailEventPlayerAdapter(viewModel)
+        val adapterPhoto = DetailEventPhotoAdapter(DetailEventPhotoAdapter.OnClickListener {
             context?.let { context ->
                 GetPhoto.checkPermissionAndGetLocalImg(
                     context,
@@ -69,13 +70,10 @@ class DetailEventFragment : Fragment() {
                 )
             }
         }, viewModel)
-        val adapter3 = DetailEventCommentAdapter(viewModel)
-        val adapter4 = DetailEventToolAdapter(viewModel)
-
-        binding.recyclerPlayer.adapter = adapter
-        binding.recyclerPhoto.adapter = adapter2
-        binding.recyclerComment.adapter = adapter3
-        binding.recyclerTools.adapter = adapter4
+        binding.recyclerPlayer.adapter = adapterPlayer
+        binding.recyclerPhoto.adapter = adapterPhoto
+        binding.recyclerComment.adapter = adapterComment
+        binding.recyclerTools.adapter = adapterTool
 
         viewModel.profileNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
@@ -96,7 +94,7 @@ class DetailEventFragment : Fragment() {
 
         viewModel.eventData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it.image?.let { image->
-                adapter2.submitList(viewModel.toPhotoItems(viewModel.addImages(image)))
+                adapterPhoto.submitList(viewModel.toPhotoItems(viewModel.addImages(image)))
             }
         })
 
@@ -109,11 +107,11 @@ class DetailEventFragment : Fragment() {
         })
 
         viewModel.allUsersData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            adapter.submitList(bundle.playerList)
+            adapterPlayer.submitList(bundle.playerList)
         })
 
         viewModel.gameData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            adapter4.submitList(bundle.game?.tools)
+            adapterTool.submitList(bundle.game?.tools)
         })
 
         viewModel.toolNavigation.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
@@ -157,8 +155,8 @@ class DetailEventFragment : Fragment() {
         //Filter message snapshot
         viewModel.messages.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             it?.let {
-                adapter3.submitList(it[0].message)
-                adapter3.notifyDataSetChanged()
+                adapterComment.submitList(it[0].message)
+                adapterComment.notifyDataSetChanged()
             }
         })
 
@@ -176,7 +174,7 @@ class DetailEventFragment : Fragment() {
             //Have joined or not
             UserManager.user.value?.let { user ->
                 changeJoinStatus(bundle, user)
-                adapter.notifyDataSetChanged()
+                adapterPlayer.notifyDataSetChanged()
             }
         }
 

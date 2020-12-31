@@ -42,13 +42,13 @@ class NewGameFragment : Fragment() {
 
         val toolsType = mutableListOf<String>("Dice" ,"Timer", "Picker")
         val gameType = mutableListOf<String>("策略" ,"陣營", "派對", "主題", "家庭", "戰爭", "益智", "兒童")
-        val adapter = NewGameToolAdapter(viewModel)
-        val adapter2 = NewGameTypeAdapter(viewModel)
-        binding.recyclerTools.adapter = adapter
-        binding.recyclerGameType.adapter = adapter2
+        val adapterTool = NewGameToolAdapter(viewModel)
+        val adapterGameType = NewGameTypeAdapter(viewModel)
+        binding.recyclerTools.adapter = adapterTool
+        binding.recyclerGameType.adapter = adapterGameType
 
-        adapter.submitList(toolsType)
-        adapter2.submitList(gameType)
+        adapterTool.submitList(toolsType)
+        adapterGameType.submitList(gameType)
 
         val storage = Firebase.storage
         val storageRef = storage.reference
