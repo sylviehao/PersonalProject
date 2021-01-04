@@ -28,7 +28,7 @@ object Util {
                     .setRotationSpeedRange(0.01f, 0.05f)
                     .setSpeedRange(0.1f, 0.5f)
                     .setAcceleration(0.00025f, 90)
-                    .setAnchor((view.getWidth() / 2).toFloat(), view.getHeight().toFloat())
+                    .setAnchor((view.width / 2).toFloat(), view.height.toFloat())
                     .setFadeOut(500, AccelerateInterpolator())
                     .build())
         mBloom?.boom(view)

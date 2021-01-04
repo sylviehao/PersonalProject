@@ -87,7 +87,7 @@ class BottleFragment : Fragment() {
         binding.imageBottle.startAnimation(am)
     }
 
-    private fun possibility(stop: Int): Int {
+    fun possibility(stop: Int): Int {
         when {
             stop < 3 -> {
                 return 360
@@ -126,7 +126,7 @@ class BottleFragment : Fragment() {
                 return 30
             }
             else -> {
-                Log.d("bottle", "Should be not here")
+                Log.d("bottle", "Should not be here")
                 return 0
             }
         }
