@@ -78,6 +78,6 @@
     <string name="click_to_edit">Click circle below to edit</string>
     <string name="sure">SURE</string>
     <string name="enter_game_type">請填寫遊戲種類</string>
-
+    <string name="enter_game_time">請填寫遊戲時間</string>
 
 </resources>

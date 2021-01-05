@@ -83,6 +83,10 @@ class NewEventFragment : Fragment() {
                 Toast.makeText(context, R.string.enter_game_type, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+            if(binding.editNewEventGameTime.text.isNullOrBlank()) {
+                Toast.makeText(context, R.string.enter_game_time, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             if (filePath == "") {
 
                 var id = ""
