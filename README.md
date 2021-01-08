@@ -11,12 +11,24 @@
 
 <a href="https://play.google.com/store/apps/details?id=com.sylvie.boardgameguide"><img width="150" height="60" alt="google" src=Get-It-On-Google-Play-PNG-Photos.png/></a>
 
+### Screenshots
+<img width="200" height="350" src=game1.png/><img width="200" height="350" src=game2.png/><img width="200" height="350" src=game3.png/><img width="200" height="350" src=game4.png/>
+
+### Core
+- Data Binding
+- LiveData
+- Navigation
+- RecyclerView
+- Lifecycles
+- ViewModel
+- ConstraintLayout
 
 ### Requirements
-Android Studio 4.0
+Android minSDK 28 <br>
+Android Studio 4.0 </br>
 
 ### Version
-1.2
+1.0.2
 
 ### Contact
 Sylvie Hao<br>
