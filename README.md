@@ -28,7 +28,7 @@ Android minSDK 28 <br>
 Android Studio 4.0 </br>
 
 ### Version
-1.0.2
+1.0.4
 
 ### Contact
 Sylvie Hao<br>
