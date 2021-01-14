@@ -95,27 +95,4 @@ class MainViewModel(private val gameRepository: GameRepository) : ViewModel() {
             }
         }
     }
-//    fun loginAndSetUser(userToken: String, userName: String) {
-//        coroutineScope.launch {
-//            _status.value = LoadApiStatus.LOADING
-//            when (val result = gameRepository.login(userToken, userName)) {
-//                is Result.Success<*> -> {
-//                    _error.value = null
-//                    _status.value = LoadApiStatus.DONE
-//                }
-//                is Result.Fail -> {
-//                    _error.value = result.error
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//                is Result.Error -> {
-//                    _error.value = result.exception.toString()
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//                else -> {
-//                    _error.value = GameApplication.appContext?.getString(R.string.something_wrong)
-//                    _status.value = LoadApiStatus.ERROR
-//                }
-//            }
-//        }
-//    }
 }

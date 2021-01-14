@@ -75,15 +75,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        if (UserManager.userToken == null
-        ) {
+        if (UserManager.userToken == null) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
-//        else{
-//        val userName = UserManager.userToken  ?:  "No Name"
-//        viewModel.loginAndSetUser(UserManager.userToken!!, userName)
-//        }
 
         firebaseAnalytics = Firebase.analytics
 
@@ -152,6 +148,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Sign Out", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
+                    finish()
                     true
                 }
                 else -> false
@@ -197,7 +194,6 @@ class MainActivity : AppCompatActivity() {
 
             actionBarDrawerToggle?.setToolbarNavigationClickListener {
                 when (type) {
-//                    DrawerToggleType.BACK -> onBackPressed()
                     DrawerToggleType.BACK -> findNavController(R.id.myNavHostFragment).navigateUp()
                     else -> {
                     }
