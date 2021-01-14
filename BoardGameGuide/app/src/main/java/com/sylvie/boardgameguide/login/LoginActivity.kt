@@ -1,6 +1,5 @@
 package com.sylvie.boardgameguide.login
 
-import android.widget.TextView
 import com.sylvie.boardgameguide.data.Spark
 import com.sylvie.boardgameguide.databinding.ActivityLoginBinding
 import com.sylvie.boardgameguide.ext.getVmFactory
@@ -41,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
 //        spark = Spark(binding.root, Spark.ANIM_YELLOW_BLUE, 4000)
 //        spark.startAnimation()
 
-
         // Initialize Firebase Auth
         auth = Firebase.auth
         // Configure Google Sign In
@@ -51,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
         // Build a GoogleSignInClient with the options specified by gso.
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         binding.buttonLogin.setOnClickListener {
             signIn(mGoogleSignInClient)
         }
@@ -61,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.status.observe(this, Observer {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         })
 
 
@@ -99,18 +99,11 @@ class LoginActivity : AppCompatActivity() {
                     viewModel.firebaseUser.value = user
                     viewModel.getUser(user.uid)
                 }
-                startActivity(Intent(this, MainActivity::class.java))
             } else {
                 // If sign in fails, display a message to the user.
                 Log.w(TAG,"signInWithCredential:failure", task.exception)
             }
         }
-    }
-
-    private fun paddingPicture(tv: TextView, pic: Int) {
-        val drawable = resources.getDrawable(pic)
-        drawable.setBounds(0, 0, 50, 50)
-        tv.setCompoundDrawables(drawable, null, null, null)
     }
 }
 

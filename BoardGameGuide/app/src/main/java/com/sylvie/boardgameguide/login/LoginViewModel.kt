@@ -45,7 +45,7 @@ class LoginViewModel(private val gameRepository: GameRepository) : ViewModel() {
             firebaseUser.value?.let {
                 val user = when (userData.value?.id == it.uid) {
                     true -> userData.value
-                    else -> user(it)
+                    else -> setUpNewUser(it)
                 }
                 user?.let { data ->
                     val result = gameRepository.createUser(data)
@@ -62,7 +62,7 @@ class LoginViewModel(private val gameRepository: GameRepository) : ViewModel() {
         }
     }
 
-    private fun user(it: FirebaseUser): User {
+    private fun setUpNewUser(it: FirebaseUser): User {
         return User(
             id = it.uid,
             name = it.displayName.toString(),
